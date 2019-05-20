@@ -10,6 +10,19 @@ export const asyncRouterMap = [
     meta: { title: '首页' },
     redirect: '/dashboard/workplace',
     children: [
+      // patients-management
+      {
+        path: '/patients-report',
+        name: 'patients-report',
+        component: () => import('@/views/patientsReport/chronicDiseaseStatistics'),
+        meta: { title: '患者报表', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] }
+      },
+      {
+        path: '/all-patients',
+        name: 'all-patients',
+        component: () => import('@/views/allPatients/healthRecord'),
+        meta: { title: '全部患者', keepAlive: true, icon: bxAnaalyse, permission: ['form'] }
+      },
       // dashboard
       {
         path: '/dashboard',
