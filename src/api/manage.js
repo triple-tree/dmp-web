@@ -6,7 +6,8 @@ const api = {
   service: '/service',
   permission: '/permission',
   permissionNoPager: '/permission/no-pager',
-  orgTree: '/org/tree'
+  orgTree: '/org/tree',
+  patient: '/patient/all'
 }
 
 export default api
@@ -58,5 +59,14 @@ export function saveService (parameter) {
     url: api.service,
     method: parameter.id === 0 ? 'post' : 'put',
     data: parameter
+  })
+}
+
+// 全部患者
+export function getPatientList (parameter) {
+  return axios({
+    url: api.patient,
+    method: 'get',
+    params: parameter
   })
 }

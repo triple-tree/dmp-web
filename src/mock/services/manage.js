@@ -245,6 +245,63 @@ const radar = () => {
   ])
 }
 
+// 全部患者
+const patientList = (options) => {
+  const parameters = getQueryParameters(options)
+
+  const result = []
+  const pageNo = parseInt(parameters.pageNo)
+  const pageSize = parseInt(parameters.pageSize)
+  const totalPage = Math.ceil(totalCount / pageSize)
+  const key = (pageNo - 1) * pageSize
+  const next = (pageNo >= totalPage ? (totalCount % pageSize) : pageSize) + 1
+
+  for (let i = 1; i < next; i++) {
+    const tmpKey = key + i
+    // result.push({
+    //   key: tmpKey,
+    //   id: tmpKey,
+    //   no: 'No ' + tmpKey,
+    //   description: '这是一段描述ddd',
+    //   callNo: Mock.mock('@integer(1, 999)'),
+    //   status: Mock.mock('@integer(0, 3)'),
+    //   updatedAt: Mock.mock('@datetime'),
+    //   editable: false
+    // })
+    result.push({
+      id: tmpKey,
+      identityNumber: '411526196709093245',
+      name: '张三',
+      gender: 1,
+      dateOfBirth: '1967-09-09',
+      phoneNumber: '18771076421',
+      doctorId: 'b80c338df2974b58aaf9b51c351169e5',
+      doctorName: '李医生',
+      hospitalId: '4152f57a5fce4b4a8323e2d8ac9a96b5',
+      hasDiabetes: 0,
+      hasHypertension: 0,
+      hasStroke: 0,
+      hasAscvd: 1,
+      hasCopd: 0,
+      hasDyslipidemia: 0,
+      province: '北京市',
+      city: '市辖区',
+      county: '西城区',
+      detailAddress: '天桥大街1号',
+      createDate: '2019-05-05'
+    })
+  }
+
+  return builder({
+    pageSize: pageSize,
+    pageNo: pageNo,
+    totalCount: totalCount,
+    totalPage: totalPage,
+    data: result
+  })
+}
+
+Mock.mock(/\/patient\/all/, 'get', patientList)
 Mock.mock(/\/service/, 'get', serverList)
 Mock.mock(/\/list\/search\/projects/, 'get', projects)
 Mock.mock(/\/workplace\/activity/, 'get', activity)

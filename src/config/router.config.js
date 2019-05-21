@@ -257,7 +257,23 @@ export const asyncRouterMap = [
           }
         ]
       },
-
+      // patient
+      {
+        path: '/patient',
+        name: 'patient',
+        hideChildrenInMenu: true,
+        component: PageView,
+        redirect: '/patient/table-list',
+        meta: { title: '全部患者', icon: 'table', permission: [ 'table' ] },
+        children: [
+          {
+            path: '/patient/table-list/:pageNo([1-9]\\d*)?',
+            name: 'PatientListWrapper',
+            component: () => import('@/views/patient/TableList'),
+            meta: { title: '全部患者', keepAlive: true, permission: [ 'table' ] }
+          }
+        ]
+      },
       // other
       {
         path: '/other',
