@@ -52,12 +52,3 @@ export function saveService (parameter) {
     data: parameter
   })
 }
-
-// 全部患者
-export function getPatientList (parameter) {
-  return axios({
-    url: api.Patient,
-    method: 'get',
-    params: parameter
-  })
-}
