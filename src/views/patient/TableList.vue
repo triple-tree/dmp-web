@@ -149,7 +149,7 @@ export default {
         console.log('loadData.parameter', parameter)
         return getPatientList(Object.assign(parameter, this.queryParam))
           .then(res => {
-            return res.result
+            return res.data
           })
       },
       selectedRowKeys: [],

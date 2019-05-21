@@ -1,20 +1,11 @@
+import api from './index'
 import { axios } from '@/utils/request'
-
-const api = {
-  user: '/user',
-  role: '/role',
-  service: '/service',
-  permission: '/permission',
-  permissionNoPager: '/permission/no-pager',
-  orgTree: '/org/tree',
-  patient: '/patient/all'
-}
 
 export default api
 
 export function getUserList (parameter) {
   return axios({
-    url: api.user,
+    url: api.User,
     method: 'get',
     params: parameter
   })
@@ -22,7 +13,7 @@ export function getUserList (parameter) {
 
 export function getRoleList (parameter) {
   return axios({
-    url: api.role,
+    url: api.Role,
     method: 'get',
     params: parameter
   })
@@ -30,7 +21,7 @@ export function getRoleList (parameter) {
 
 export function getServiceList (parameter) {
   return axios({
-    url: api.service,
+    url: api.Service,
     method: 'get',
     params: parameter
   })
@@ -38,7 +29,7 @@ export function getServiceList (parameter) {
 
 export function getPermissions (parameter) {
   return axios({
-    url: api.permissionNoPager,
+    url: api.PermissionNoPager,
     method: 'get',
     params: parameter
   })
@@ -46,7 +37,7 @@ export function getPermissions (parameter) {
 
 export function getOrgTree (parameter) {
   return axios({
-    url: api.orgTree,
+    url: api.OrgTree,
     method: 'get',
     params: parameter
   })
@@ -56,7 +47,7 @@ export function getOrgTree (parameter) {
 // id != 0 update  put
 export function saveService (parameter) {
   return axios({
-    url: api.service,
+    url: api.Service,
     method: parameter.id === 0 ? 'post' : 'put',
     data: parameter
   })
@@ -65,7 +56,7 @@ export function saveService (parameter) {
 // 全部患者
 export function getPatientList (parameter) {
   return axios({
-    url: api.patient,
+    url: api.Patient,
     method: 'get',
     params: parameter
   })

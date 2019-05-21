@@ -258,16 +258,6 @@ const patientList = (options) => {
 
   for (let i = 1; i < next; i++) {
     const tmpKey = key + i
-    // result.push({
-    //   key: tmpKey,
-    //   id: tmpKey,
-    //   no: 'No ' + tmpKey,
-    //   description: '这是一段描述ddd',
-    //   callNo: Mock.mock('@integer(1, 999)'),
-    //   status: Mock.mock('@integer(0, 3)'),
-    //   updatedAt: Mock.mock('@datetime'),
-    //   editable: false
-    // })
     result.push({
       id: tmpKey,
       identityNumber: '411526196709093245',
