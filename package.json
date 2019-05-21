@@ -26,6 +26,7 @@
     "nprogress": "^0.2.0",
     "viser-vue": "^2.3.3",
     "vue": "^2.5.22",
+    "vue-class-component": "^7.1.0",
     "vue-clipboard2": "^0.2.1",
     "vue-cropper": "0.4.4",
     "vue-ls": "^3.2.0",
@@ -34,6 +35,7 @@
     "vuex": "^3.1.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.4.4",
     "@babel/polyfill": "^7.2.5",
     "@vue/cli-plugin-babel": "^3.3.0",
     "@vue/cli-plugin-eslint": "^3.3.0",

@@ -49,20 +49,24 @@
 <script>
 import DataSet from '@antv/data-set'
 import { statsAll, statsPatients, statsPlans } from '@/api/stats'
+import Vue from 'vue'
+import Component from 'vue-class-component'
 
 // see more v-chart docs on https://viserjs.github.io/demo.html#/viser/bar/grouped-column
 // or can use https://v-charts.js.org/#/histogram
-export default {
+
+@Component
+export default class extends Vue {
   async created() {
     await this.loadStatsPatientsData()
     await this.loadStatsPlansData()
     await this.loadStatsAllData()
-  },
-  methods: {
-    async loadStatsPatientsData() {
-      const res = await statsPatients()
-      const data = res.data
-      /* construct sourceData like this
+  }
+
+  async loadStatsPatientsData() {
+    const res = await statsPatients()
+    const data = res.data
+    /* construct sourceData like this
         [
           {
             name: '患者人数',
@@ -84,47 +88,46 @@ export default {
           }
         ]
       */
-      const sourceData = [{ name: '患者人数' }, { name: '高危人数' }]
-      for (const item in data) {
-        sourceData[0][item] = data[item].patients
-        sourceData[1][item] = data[item].danger
-      }
-      const dv = new DataSet.View().source(sourceData)
-      // console.info(`dv: ${JSON.stringify(dv, null, 2)}`)
-      dv.transform({
-        type: 'fold',
-        fields: ['diabetesAndHypertension', 'ascvd', 'diabetes', 'hypertension', 'stroke', 'copd'],
-        key: '类别',
-        value: '人数'
-      })
-      // console.info(`dv transform: ${JSON.stringify(dv, null, 2)}`)
-      this.statusPatients = dv.rows
-    },
-
-    async loadStatsPlansData() {
-      const res = await statsPlans()
-      const data = res.data
-      const sourceData = [{ name: '患者健康处方' }, { name: '高危人群健康处方' }]
-      for (const item in data) {
-        sourceData[0][item] = data[item].patients
-        sourceData[1][item] = data[item].danger
-      }
-      const dv = new DataSet.View().source(sourceData)
-      dv.transform({
-        type: 'fold',
-        fields: ['diabetesAndHypertension', 'ascvd', 'diabetes', 'hypertension', 'stroke', 'copd'],
-        key: '类别',
-        value: '处方数'
-      })
-      this.statusPlans = dv.rows
-    },
-
-    async loadStatsAllData() {
-      const res = await statsAll()
-      const data = res.data
-      this.statusAll = data
+    const sourceData = [{ name: '患者人数' }, { name: '高危人数' }]
+    for (const item in data) {
+      sourceData[0][item] = data[item].patients
+      sourceData[1][item] = data[item].danger
     }
-  },
+    const dv = new DataSet.View().source(sourceData)
+    // console.info(`dv: ${JSON.stringify(dv, null, 2)}`)
+    dv.transform({
+      type: 'fold',
+      fields: ['diabetesAndHypertension', 'ascvd', 'diabetes', 'hypertension', 'stroke', 'copd'],
+      key: '类别',
+      value: '人数'
+    })
+    // console.info(`dv transform: ${JSON.stringify(dv, null, 2)}`)
+    this.statusPatients = dv.rows
+  }
+
+  async loadStatsPlansData() {
+    const res = await statsPlans()
+    const data = res.data
+    const sourceData = [{ name: '患者健康处方' }, { name: '高危人群健康处方' }]
+    for (const item in data) {
+      sourceData[0][item] = data[item].patients
+      sourceData[1][item] = data[item].danger
+    }
+    const dv = new DataSet.View().source(sourceData)
+    dv.transform({
+      type: 'fold',
+      fields: ['diabetesAndHypertension', 'ascvd', 'diabetes', 'hypertension', 'stroke', 'copd'],
+      key: '类别',
+      value: '处方数'
+    })
+    this.statusPlans = dv.rows
+  }
+
+  async loadStatsAllData() {
+    const res = await statsAll()
+    const data = res.data
+    this.statusAll = data
+  }
   data() {
     return {
       statusAll: {
