@@ -1,6 +1,9 @@
 const api = {
   Login: '/login',
   Logout: '/logout',
+  StatsAll: '/stats/all',
+  StatsPatients: '/stats/patients',
+  StatsPlans: '/stats/plans',
   ForgePassword: '/auth/forge-password',
   Register: '/register',
   twoStepCode: '/auth/2step-code',
