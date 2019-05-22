@@ -10468,8 +10468,8 @@ vm-browserify@0.0.4:
 
 vue-class-component@^7.1.0:
   version "7.1.0"
-  resolved "http://r.cnpmjs.org/vue-class-component/download/vue-class-component-7.1.0.tgz#b33efcb10e17236d684f70b1e96f1946ec793e87"
-  integrity sha1-sz78sQ4XI21oT3Cx6W8ZRux5Poc=
+  resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.1.0.tgz#b33efcb10e17236d684f70b1e96f1946ec793e87"
+  integrity sha512-G9152NzUkz0i0xTfhk0Afc8vzdXxDR1pfN4dTwE72cskkgJtdXfrKBkMfGvDuxUh35U500g5Ve4xL8PEGdWeHg==
 
 vue-clipboard2@^0.2.1:
   version "0.2.1"
