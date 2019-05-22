@@ -4,7 +4,7 @@
     :width="860"
     :visible="visible"
     :confirmLoading="confirmLoading"
-    @ok="handleSubmit"
+    :footer="null"
     @cancel="handleCancel"
   >
     <a-spin :spinning="confirmLoading">
@@ -25,7 +25,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-select v-model="params.patient.gender" v-decorator="['gender', {rules: [{required: true}]}]" >
+              <a-select v-model="params.patient.gender" v-decorator="['gender', {rules: [{required: true, message: '请选择性别！'}]}]" >
                 <a-select-option value="0">男</a-select-option>
                 <a-select-option value="1">女</a-select-option>
               </a-select>
@@ -164,6 +164,9 @@
               <a-input v-model="params.factors.serumTc" v-decorator="['serumTc']" />
             </a-form-item>
           </a-col>
+          <a-col :md="24" :sm="24" style="text-align:center">
+            <a-button type="primary" size="large" @click="handleSubmit">确定</a-button>
+          </a-col>
         </a-row>
       </a-form>
     </a-spin>
@@ -214,7 +217,6 @@ export default {
       this.visible = true
     },
     selectDisease (item) {
-      console.log(item.value)
       item.value = item.value === 1 ? 0 : 1
     },
     handleSubmit () {
@@ -237,7 +239,9 @@ export default {
             symptomsDiuresis: 0,
             symptomsDizziness: 0
           })
-          this.params.factors.symptom.forEach(function (el) {
+          this.params.factors.symptom 
+          && this.params.factors.symptom.length 
+          && this.params.factors.symptom.forEach(function (el) {
             self.params.factors[self.symptomOptions[el].name] = 1
           })
           values = this.params;

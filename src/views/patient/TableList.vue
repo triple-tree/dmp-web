@@ -157,7 +157,8 @@ export default {
       console.log(record)
       this.$refs.modal.edit(record)
     },
-    handleOk () {
+    handleOk (values) {      
+      console.log("handleOk",values)
       this.$refs.table.refresh()
     },
     onSelectChange (selectedRowKeys, selectedRows) {
