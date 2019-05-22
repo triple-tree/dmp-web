@@ -152,18 +152,17 @@ export default {
         }
       ],
       // 加载数据方法 必须为 Promise 对象
-      loadData: parameter => {
+      loadData: async parameter => {
         console.log('loadData.parameter', parameter)
-        return getPatientList({ ...parameter, ...this.queryParam }).then(res => {
-          console.info(`res: ${JSON.stringify(res)}`)
-          return {
-            pageSize: parameter.pageSize,
-            pageNo: res.data.page,
-            totalCount: res.data.total,
-            totalPage: res.data.total / parameter.pageSize,
-            data: res.data.patients
-          }
-        })
+        const res = await getPatientList({ ...parameter, ...this.queryParam })
+        console.info(`res: ${JSON.stringify(res)}`)
+        return {
+          pageSize: parameter.pageSize,
+          pageNo: res.data.page,
+          totalCount: res.data.total,
+          totalPage: res.data.total / parameter.pageSize,
+          data: res.data.patients
+        }
       },
       selectedRowKeys: [],
       selectedRows: [],
