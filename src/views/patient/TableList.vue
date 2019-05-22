@@ -5,17 +5,17 @@
         <a-row :gutter="48">
           <a-col :md="12" :sm="24">
             <a-form-item label="">
-              <a-checkbox-group :options="plainOptions"/>
+              <a-checkbox-group :options="plainOptions" v-model="queryParam.type"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
             <a-form-item label="">
-              <a-input placeholder="高血压"/>
+              <a-input placeholder="高血压" v-model="queryParam.id"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-button type="primary" icon="search">查询</a-button>
-            <a-button icon="plus" style="margin-left: 8px">新增</a-button>
+            <a-button type="primary" icon="search" @click="$refs.table.refresh(true)">查询</a-button>
+            <a-button icon="plus" style="margin-left: 8px" @click="$refs.createModal.add()">新增</a-button>
           </a-col>
         </a-row>
       </a-form>
@@ -53,27 +53,15 @@ import moment from 'moment'
 import { STable } from '@/components'
 import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
-import { getRoleList, getPatientList } from '@/api/manage'
+import { getPatientList } from '@/api/manage'
 
-const plainOptions = ['高血压', '糖尿病', '脑卒中', '冠心病', '慢阻肺']
-const statusMap = {
-  0: {
-    status: 'default',
-    text: '关闭'
-  },
-  1: {
-    status: 'processing',
-    text: '运行中'
-  },
-  2: {
-    status: 'success',
-    text: '已上线'
-  },
-  3: {
-    status: 'error',
-    text: '异常'
-  }
-}
+const plainOptions = [
+  { label: '高血压', value: 0 },
+  { label: '糖尿病', value: 1 },
+  { label: '脑卒中', value: 2 },
+  { label: '冠心病', value: 3 },
+  { label: '慢阻肺', value: 4 }
+]
 
 export default {
   name: 'TableList',
@@ -162,18 +150,8 @@ export default {
       optionAlertShow: false
     }
   },
-  filters: {
-    statusFilter (type) {
-      return statusMap[type].text
-    },
-    statusTypeFilter (type) {
-      return statusMap[type].status
-    }
-  },
-  created () {
-    // this.tableOption()
-    getRoleList({ t: new Date() })
-  },
+  filters: { },
+  created () { },
   methods: {
     handleEdit (record) {
       console.log(record)
@@ -185,9 +163,6 @@ export default {
     onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
-    },
-    toggleAdvanced () {
-      this.advanced = !this.advanced
     },
     resetSearchForm () {
       this.queryParam = {

@@ -171,20 +171,29 @@
 </template>
 
 <script>
-let symptomOptions = [
-  { label: '头晕、头疼症状', value: 0, name: 'symptomsHeadache' },
-  { label: '体力劳动、精神紧张或激动时出现胸痛症状，休息后逐渐缓解', value: 1, name: 'symptomsStethalgia' },
-  { label: '呼吸困难或慢性咳嗽', value: 2, name: 'symptomsDyspnea' },
-  { label: '多饮、多尿、多食、不明原因体重下降', value: 3, name: 'symptomsDiuresis' },
-  { label: '一过性黑蒙、眩晕', value: 4, name: 'symptomsDizziness' }
+import func from '../../../../vue-temp/vue-editor-bridge';
+// const symptomOptions = [
+//   { label: '头晕、头疼症状', value: 0, name: 'symptomsHeadache' },
+//   { label: '体力劳动、精神紧张或激动时出现胸痛症状，休息后逐渐缓解', value: 1, name: 'symptomsStethalgia' },
+//   { label: '呼吸困难或慢性咳嗽', value: 2, name: 'symptomsDyspnea' },
+//   { label: '多饮、多尿、多食、不明原因体重下降', value: 3, name: 'symptomsDiuresis' },
+//   { label: '一过性黑蒙、眩晕', value: 4, name: 'symptomsDizziness' }
+// ]
+const symptomOptions = [
+  { label: '头晕、头疼症状', value: 0 },
+  { label: '体力劳动、精神紧张或激动时出现胸痛症状，休息后逐渐缓解', value: 1 },
+  { label: '呼吸困难或慢性咳嗽', value: 2 },
+  { label: '多饮、多尿、多食、不明原因体重下降', value: 3 },
+  { label: '一过性黑蒙、眩晕', value: 4 }
 ]
-let diseaseOptions = {
+const diseaseOptions = {
   hasHypertension: { label: '高血压', iconType: 'plus-circle', value: 0 },
   hasDiabetes: { label: '糖尿病', iconType: 'plus-circle', value: 1 },
   hasStroke: { label: '脑卒中', iconType: 'plus-circle', value: 0 },
   hasAscvd: { label: '冠心病', iconType: 'plus-circle', value: 1 },
   hasCopd: { label: '慢阻肺', iconType: 'plus-circle', value: 0 }
 }
+
 
 export default {
   data () {
@@ -216,26 +225,22 @@ export default {
     handleSubmit () {
       const { form: { validateFields } } = this
       this.confirmLoading = true
-      const self = this
-      let params = {};
       validateFields((errors, values) => {
         if (!errors) {
-          Object.assign(values, {
-            hasHypertension: this.diseaseOptions.hasHypertension.value,
-            hasDiabetes: this.diseaseOptions.hasDiabetes.value,
-            hasStroke: this.diseaseOptions.hasStroke.value,
-            hasAscvd: this.diseaseOptions.hasAscvd.value,
-            hasCopd: this.diseaseOptions.hasCopd.value,
-            symptomsHeadache: 0,
-            symptomsStethalgia: 0,
-            symptomsDyspnea: 0,
-            symptomsDiuresis: 0,
-            symptomsDizziness: 0
-          })          
-          console.log(this.symptomCheck)
-          this.symptomCheck.forEach(function (el) {
-            values[self.symptomOptions[el].name] = 1
-          })
+          values.hasHypertension = this.diseaseOptions.hasHypertension.value
+          values.hasDiabetes = this.diseaseOptions.hasDiabetes.value
+          values.hasStroke = this.diseaseOptions.hasStroke.value
+          values.hasAscvd = this.diseaseOptions.hasAscvd.value
+          values.hasCopd = this.diseaseOptions.hasCopd.value
+          // values.symptomsHeadache = 0;
+          // values.symptomsStethalgia = 0;
+          // values.symptomsDyspnea = 0;
+          // values.symptomsDiuresis = 0;
+          // values.symptomsDizziness = 0;
+          // this.symptomCheck.forEach(function(el){
+          //   values[this.symptomOptions[el][name]] = 1;
+          // })
+
           console.log('values', values)
           setTimeout(() => {
             this.visible = false
