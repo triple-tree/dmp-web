@@ -16,7 +16,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['name', {rules: [{required: true, min: 2, message: '请输入姓名！'}]}]" />
+              <a-input v-model="params.patient.name" v-decorator="['name', {rules: [{required: true, min: 2, message: '请输入姓名！'}]}]" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -25,7 +25,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-select v-decorator="['gender', {rules: [{required: true}]}]" >
+              <a-select v-model="params.patient.gender" v-decorator="['gender', {rules: [{required: true}]}]" >
                 <a-select-option value="0">男</a-select-option>
                 <a-select-option value="1">女</a-select-option>
               </a-select>
@@ -37,7 +37,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]" />
+              <a-input v-model="params.patient.identityNumber" v-decorator="['identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -46,7 +46,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['phoneNumber', {rules: [{required: true, len: 11, message: '请输入手机号码！'}]}]" />
+              <a-input v-model="params.patient.phoneNumber" v-decorator="['phoneNumber', {rules: [{required: true, len: 11, message: '请输入手机号码！'}]}]" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -55,7 +55,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['add']" />
+              <a-input v-model="params.patient.add" phoneNumberv-decorator="['add']" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -64,7 +64,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-radio-group name="smoke">
+              <a-radio-group v-model="params.factors.smoke" name="smoke">
                 <a-radio :value="0">是</a-radio>
                 <a-radio :value="1">否</a-radio>
               </a-radio-group>
@@ -76,7 +76,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['height']" />
+              <a-input v-model="params.factors.height" v-decorator="['height']" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -85,7 +85,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['weight']" />
+              <a-input v-model="params.factors.weight" v-decorator="['weight']" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -116,7 +116,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-checkbox-group :options="symptomOptions" v-model="symptomCheck"/>
+              <a-checkbox-group v-model="params.factors.symptom" :options="symptomOptions"/>
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -125,7 +125,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['waistline']" />
+              <a-input v-model="params.factors.waistline" v-decorator="['waistline']" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -134,7 +134,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['sbp']" />
+              <a-input v-model="params.factors.sbp" v-decorator="['sbp']" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -143,7 +143,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['dbp']" />
+              <a-input v-model="params.factors.dbp" v-decorator="['dbp']" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -152,7 +152,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['fbg']" />
+              <a-input v-model="params.factors.fbg" v-decorator="['fbg']" />
             </a-form-item>
           </a-col>
           <a-col :md="12" :sm="24">
@@ -161,7 +161,7 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input v-decorator="['serumTc']" />
+              <a-input v-model="params.factors.serumTc" v-decorator="['serumTc']" />
             </a-form-item>
           </a-col>
         </a-row>
@@ -202,6 +202,10 @@ export default {
       symptomOptions,
       diseaseOptions,
       symptomCheck: [],
+      params:{
+        patient: {},
+        factors: {}
+      },
       form: this.$form.createForm(this)
     }
   },
@@ -217,25 +221,26 @@ export default {
       const { form: { validateFields } } = this
       this.confirmLoading = true
       const self = this
-      let params = {};
       validateFields((errors, values) => {
-        if (!errors) {
-          Object.assign(values, {
+        if (!errors) {          
+          Object.assign(this.params.patient, {
             hasHypertension: this.diseaseOptions.hasHypertension.value,
             hasDiabetes: this.diseaseOptions.hasDiabetes.value,
             hasStroke: this.diseaseOptions.hasStroke.value,
             hasAscvd: this.diseaseOptions.hasAscvd.value,
-            hasCopd: this.diseaseOptions.hasCopd.value,
+            hasCopd: this.diseaseOptions.hasCopd.value
+          })
+          Object.assign(this.params.factors, {
             symptomsHeadache: 0,
             symptomsStethalgia: 0,
             symptomsDyspnea: 0,
             symptomsDiuresis: 0,
             symptomsDizziness: 0
-          })          
-          console.log(this.symptomCheck)
-          this.symptomCheck.forEach(function (el) {
-            values[self.symptomOptions[el].name] = 1
           })
+          this.params.factors.symptom.forEach(function (el) {
+            self.params.factors[self.symptomOptions[el].name] = 1
+          })
+          values = this.params;
           console.log('values', values)
           setTimeout(() => {
             this.visible = false
