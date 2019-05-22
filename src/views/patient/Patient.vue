@@ -1,10 +1,10 @@
 <template>
-  <div>Health record page</div>
+  <div>Patient</div>
 </template>
 
 <script>
 export default {
-  name: 'Health record page'
+  name: 'Patient'
 }
 </script>
 

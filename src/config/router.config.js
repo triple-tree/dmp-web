@@ -10,18 +10,36 @@ export const asyncRouterMap = [
     meta: { title: '首页' },
     redirect: '/dashboard/workplace',
     children: [
-      // patients-management
+      // stats
       {
-        path: '/patients-report',
-        name: 'patients-report',
-        component: () => import('@/views/patientsReport/chronicDiseaseStatistics'),
+        path: '/stats',
+        name: 'stats',
+        component: () => import('@/views/stats/chronicDiseaseStatistics'),
         meta: { title: '患者报表', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] }
       },
+      // all-patients
       {
         path: '/all-patients',
         name: 'all-patients',
-        component: () => import('@/views/allPatients/healthRecord'),
-        meta: { title: '全部患者', keepAlive: true, icon: bxAnaalyse, permission: ['form'] }
+        hideChildrenInMenu: true,
+        component: PageView,
+        redirect: '/all-patients/table-list',
+        meta: { title: '全部患者', icon: 'table', permission: ['table'] },
+        children: [
+          {
+            path: '/all-patients/table-list/:pageNo([1-9]\\d*)?',
+            name: 'all-patients-list',
+            component: () => import('@/views/all-patients/TableList'),
+            meta: { title: '全部患者', keepAlive: true, permission: ['table'] }
+          }
+        ]
+      },
+      {
+        path: '/patient/:id([1-9]\\d*)?',
+        name: 'patient',
+        component: () => import('@/views/patient/Patient'),
+        props: true,
+        meta: { title: '患者详情', keepAlive: true, icon: bxAnaalyse, permission: ['form'] }
       },
       // dashboard
       {
@@ -93,6 +111,7 @@ export const asyncRouterMap = [
             name: 'TableListWrapper',
             hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
             component: () => import('@/views/list/TableList'),
+            props: true,
             meta: { title: '查询表格', keepAlive: true, permission: ['table'] }
           },
           {
@@ -265,23 +284,6 @@ export const asyncRouterMap = [
                 meta: { title: '新消息通知', hidden: true, keepAlive: true, permission: ['user'] }
               }
             ]
-          }
-        ]
-      },
-      // patient
-      {
-        path: '/patient',
-        name: 'patient',
-        hideChildrenInMenu: true,
-        component: PageView,
-        redirect: '/patient/table-list',
-        meta: { title: '全部患者', icon: 'table', permission: [ 'table' ] },
-        children: [
-          {
-            path: '/patient/table-list/:pageNo([1-9]\\d*)?',
-            name: 'PatientListWrapper',
-            component: () => import('@/views/patient/TableList'),
-            meta: { title: '全部患者', keepAlive: true, permission: [ 'table' ] }
           }
         ]
       },

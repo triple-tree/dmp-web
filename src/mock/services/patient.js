@@ -29,8 +29,6 @@ const patients = [
     ]
   }).patients
 ]
-console.info(`mock patients: ${JSON.stringify(patients, null, 2)}`)
-console.info(`mock patients: ${JSON.stringify(patients, null, 2)}`)
 
 // 3.1.1.	全部患者
 const patientAll = options => {
