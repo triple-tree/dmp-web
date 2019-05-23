@@ -114,7 +114,6 @@
         :xs="24"
         :style="{ paddingLeft:'12px',paddingRight:'12px'}"
       >
-        <div class="patient-detail-info"></div>
         <a-layout id="root-container">
           <a-layout-sider
             width="300"
@@ -130,30 +129,6 @@
                 @click="()=> collapsed = !collapsed"
               />
             </a-layout-header>
-            <div class="patient-basic-info">
-              <h1>陈先生</h1>
-              <div>
-                <span class="gender">男</span>
-                <span class="age">65岁</span>
-              </div>
-              <div>
-                <span class="info-key">手机号:</span>
-                <span class="info-value">18119183829</span>
-              </div>
-              <div>
-                <span class="info-key">身份证号:</span>
-                <span class="info-value">372012192302392329</span>
-              </div>
-              <div>
-                <span class="info-key">住址</span>
-                <span class="info-value">北京市朝阳区三元桥</span>
-              </div>
-              <div class="hint">（以下为最新提示信息）</div>
-              <div>
-                <span class="ill-status">慢病综合风险:</span>
-                <span class="ill-value">高危</span>
-              </div>
-            </div>
           </a-layout-sider>
           <a-layout>
             <a-layout-content class="content">
