@@ -1,5 +1,10 @@
 <template>
   <a-card :bordered="false">
+    <!-- <div class="test-icon">
+      <icon-font type="iconicon5" :style="{ color: 'hotpink', fontSize: '50px' }"/>
+      <icon-font type="iconicon"/>
+      <icon-font type="iconicon1"/>
+    </div>     -->
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48">
@@ -46,12 +51,20 @@
   </a-card>
 </template>
 
+<style scoped>
+.ant-table-body  .anticon {
+  margin-right: 6px;
+  font-size: 24px;
+}
+</style>
+
 <script>
 import moment from 'moment'
 import { STable } from '@/components'
 import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
 import { getPatientList } from '@/api/patient'
+import IconFont from '@/views/all-patients/zujian.js'
 
 const plainOptions = [
   { label: '高血压', value: 0 },
@@ -66,9 +79,10 @@ export default {
   components: {
     STable,
     CreateForm,
-    StepByStepModal
+    StepByStepModal,
+    IconFont
   },
-  data() {
+  data () {
     return {
       mdl: {},
       // 查询参数
@@ -101,34 +115,30 @@ export default {
           title: '高血压',
           dataIndex: 'hasHypertension',
           customRender: has =>
-            has ? <a-icon type="warning" theme="twoTone" twoToneColor="#eb2f96" /> : <a-icon type="warning" />
+            has ? <icon-font type="iconicon2" /> : <icon-font type="iconicon2" />
         },
         {
           title: '糖尿病',
           customRender: has =>
-            has ? <a-icon type="clock-circle" theme="twoTone" twoToneColor="#eb2f96" /> : <a-icon type="clock-circle" />
+            has ? <icon-font type="iconicon" /> : <icon-font type="iconicon" />
         },
         {
           title: '脑卒中',
           dataIndex: 'hasStroke',
           customRender: has =>
-            has ? (
-              <a-icon type="exclamation-circle" theme="twoTone" twoToneColor="#eb2f96" />
-            ) : (
-              <a-icon type="exclamation-circle" />
-            )
+            has ? <icon-font type="iconicon1" /> : <icon-font type="iconicon1" />
         },
         {
           title: '冠心病',
           dataIndex: 'hasAscvd',
           customRender: has =>
-            has ? <a-icon type="plus-square" theme="twoTone" twoToneColor="#eb2f96" /> : <a-icon type="plus-square" />
+            has ? <icon-font type="iconicon3" /> : <icon-font type="iconicon3" />
         },
         {
           title: '慢阻肺',
           dataIndex: 'hasCopd',
           customRender: has =>
-            has ? <a-icon type="meh" theme="twoTone" twoToneColor="#eb2f96" /> : <a-icon type="meh" />
+            has ? <icon-font type="iconicon4" /> : <icon-font type="iconicon4" />
         },
         {
           title: '操作',
@@ -161,20 +171,20 @@ export default {
     }
   },
   filters: {},
-  created() {},
+  created () {},
   methods: {
-    handleEdit(record) {
+    handleEdit (record) {
       console.log(record)
       this.$refs.modal.edit(record)
     },
-    handleOk() {
+    handleOk () {
       this.$refs.table.refresh()
     },
-    onSelectChange(selectedRowKeys, selectedRows) {
+    onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    resetSearchForm() {
+    resetSearchForm () {
       this.queryParam = {
         date: moment(new Date())
       }
