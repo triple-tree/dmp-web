@@ -53,7 +53,6 @@
 
 <style scoped>
 .ant-table-body  .anticon {
-  margin-right: 6px;
   font-size: 24px;
 }
 </style>
@@ -109,36 +108,37 @@ export default {
         },
         {
           title: '医生',
-          dataIndex: 'doctorName'
+          dataIndex: 'name'
         },
         {
           title: '高血压',
           dataIndex: 'hasHypertension',
           customRender: has =>
-            has ? <icon-font type="iconicon2" /> : <icon-font type="iconicon2" />
+            has ? <icon-font type="icon_hypertension_red" /> : <icon-font type="icon_hypertension" />
         },
         {
           title: '糖尿病',
+          dataIndex: 'hasDiabetes',
           customRender: has =>
-            has ? <icon-font type="iconicon" /> : <icon-font type="iconicon" />
+            has ? <icon-font type="icon_diabetes_red" /> : <icon-font type="icon_diabetes" />
         },
         {
           title: '脑卒中',
           dataIndex: 'hasStroke',
           customRender: has =>
-            has ? <icon-font type="iconicon1" /> : <icon-font type="iconicon1" />
+            has ? <icon-font type="icon_stroke_red" /> : <icon-font type="icon_stroke" />
         },
         {
           title: '冠心病',
           dataIndex: 'hasAscvd',
           customRender: has =>
-            has ? <icon-font type="iconicon3" /> : <icon-font type="iconicon3" />
+            has ? <icon-font type="icon_ascvd_red" /> : <icon-font type="icon_ascvd" />
         },
         {
           title: '慢阻肺',
           dataIndex: 'hasCopd',
           customRender: has =>
-            has ? <icon-font type="iconicon4" /> : <icon-font type="iconicon4" />
+            has ? <icon-font type="icon_copd_red" /> : <icon-font type="icon_copd" />
         },
         {
           title: '操作',

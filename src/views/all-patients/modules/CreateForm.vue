@@ -1,99 +1,51 @@
 <template>
   <a-modal
     title="建档"
-    :width="860"
+    :width="820"
     :visible="visible"
     :confirmLoading="confirmLoading"
     :footer="null"
     @cancel="handleCancel"
   >
     <a-spin :spinning="confirmLoading">
-      <a-form :form="form">
-        <a-row :gutter="6" type="flex" align="top">
-          <a-col :md="12" :sm="24">
+      <a-form :form="form" :layout="vertical">
+        <a-row :gutter="12" type="flex" align="top">
+          <a-col :md="8" :sm="24">
             <a-form-item
-              label="姓名"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
+              label="姓名">
               <a-input v-model="params.patient.name" v-decorator="['name', {rules: [{required: true, min: 2, message: '请输入姓名！'}]}]" />
             </a-form-item>
           </a-col>
-          <a-col :md="12" :sm="24">
+          <a-col :md="8" :sm="24">
             <a-form-item
-              label="性别"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
+              label="性别">
               <a-select v-model="params.patient.gender" v-decorator="['gender', {rules: [{required: true, message: '请选择性别！'}]}]" >
                 <a-select-option value="0">男</a-select-option>
                 <a-select-option value="1">女</a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
-          <a-col :md="12" :sm="24">
+          <a-col :md="8" :sm="24">
             <a-form-item
-              label="身份证"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-input v-model="params.patient.identityNumber" v-decorator="['identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]" />
-            </a-form-item>
-          </a-col>
-          <a-col :md="12" :sm="24">
-            <a-form-item
-              label="手机号"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
+              label="手机号">
               <a-input v-model="params.patient.phoneNumber" v-decorator="['phoneNumber', {rules: [{required: true, len: 11, message: '请输入手机号码！'}]}]" />
             </a-form-item>
           </a-col>
-          <a-col :md="12" :sm="24">
+          <a-col :md="8" :sm="24">
             <a-form-item
-              label="患者地址信息"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
+              label="身份证">
+              <a-input v-model="params.patient.identityNumber" v-decorator="['identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]" />
+            </a-form-item>
+          </a-col>
+          <a-col :md="16" :sm="24">
+            <a-form-item
+              label="患者地址信息">
               <a-input v-model="params.patient.add" phoneNumberv-decorator="['add']" />
             </a-form-item>
           </a-col>
-          <a-col :md="12" :sm="24">
+          <a-col :md="24" :sm="24">
             <a-form-item
-              label="是否吸烟"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-radio-group v-model="params.factors.smoke" name="smoke">
-                <a-radio :value="0">是</a-radio>
-                <a-radio :value="1">否</a-radio>
-              </a-radio-group>
-            </a-form-item>
-          </a-col>
-          <a-col :md="12" :sm="24">
-            <a-form-item
-              label="身高(cm)"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-input v-model="params.factors.height" v-decorator="['height']" />
-            </a-form-item>
-          </a-col>
-          <a-col :md="12" :sm="24">
-            <a-form-item
-              label="体重(kg)"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-input v-model="params.factors.weight" v-decorator="['weight']" />
-            </a-form-item>
-          </a-col>
-          <a-col :md="12" :sm="24">
-            <a-form-item
-              label="疾病史"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
+              label="疾病史">
               <a-row type="flex">
                 <a-col
                   :span="8"
@@ -103,65 +55,74 @@
                   :value="item.value"
                   @click="selectDisease(item)"
                 >
-                  <a-icon :type="item.iconType" theme="twoTone" twoToneColor="#eb2f96" v-if="item.value === 1" />
-                  <a-icon :type="item.iconType" v-if="item.value === 0" />
+                  <icon-font :type="item.iconType1" v-if="item.value === 1"/>
+                  <icon-font :type="item.iconType0" v-if="item.value === 0"/>
                   <div>{{ item.label }}</div>
                 </a-col>
               </a-row>
             </a-form-item>
           </a-col>
-          <a-col :md="12" :sm="24">
+          <a-col :md="6" :sm="24">
             <a-form-item
-              label="症状"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-checkbox-group v-model="params.factors.symptom" :options="symptomOptions"/>
+              label="身高(cm)">
+              <a-input v-model="params.factors.height" v-decorator="['height']" />
             </a-form-item>
           </a-col>
-          <a-col :md="12" :sm="24">
+          <a-col :md="6" :sm="24">
             <a-form-item
-              label="腰围(cm)"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
+              label="体重(kg)">
+              <a-input v-model="params.factors.weight" v-decorator="['weight']" />
+            </a-form-item>
+          </a-col>
+          <a-col :md="6" :sm="24">
+            <a-form-item
+              label="腰围(cm)">
               <a-input v-model="params.factors.waistline" v-decorator="['waistline']" />
             </a-form-item>
           </a-col>
-          <a-col :md="12" :sm="24">
+          <a-col :md="6" :sm="24">
             <a-form-item
-              label="舒张压(mmHg)"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
+              label="舒张压(mmHg)">
               <a-input v-model="params.factors.sbp" v-decorator="['sbp']" />
             </a-form-item>
           </a-col>
-          <a-col :md="12" :sm="24">
+          <a-col :md="6" :sm="24">
             <a-form-item
-              label="收缩压(mmHg)"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
+              label="收缩压(mmHg)">
               <a-input v-model="params.factors.dbp" v-decorator="['dbp']" />
             </a-form-item>
           </a-col>
-          <a-col :md="12" :sm="24">
+          <a-col :md="6" :sm="24">
             <a-form-item
-              label="空腹血糖(mmol/L)"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
+              label="空腹血糖(mmol/L)">
               <a-input v-model="params.factors.fbg" v-decorator="['fbg']" />
             </a-form-item>
           </a-col>
-          <a-col :md="12" :sm="24">
+          <a-col :md="6" :sm="24">
             <a-form-item
-              label="血清总胆固醇(mmol/L)"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
+              label="血清总胆固醇(mmol/L)">
               <a-input v-model="params.factors.serumTc" v-decorator="['serumTc']" />
+            </a-form-item>
+          </a-col>
+          <a-col :md="24" :sm="24">
+            <a-form-item
+              label="家族史（父母任意一方是否患有）">
+              <a-checkbox-group v-model="params.factors.family" :options="familyOptions"/>
+            </a-form-item>
+          </a-col>
+          <a-col :md="24" :sm="24">
+            <a-form-item
+              label="症状">
+              <a-checkbox-group v-model="params.factors.symptom" :options="symptomOptions"/>
+            </a-form-item>
+          </a-col>
+          <a-col :md="24" :sm="24">
+            <a-form-item
+              label="是否吸烟">
+              <a-radio-group v-model="params.factors.smoke" name="smoke">
+                <a-radio :value="0">是</a-radio>
+                <a-radio :value="1">否</a-radio>
+              </a-radio-group>
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24" style="text-align:center">
@@ -173,7 +134,15 @@
   </a-modal>
 </template>
 
+<style scoped>
+.ant-spin-container .anticon {
+  font-size: 24px;
+}
+</style>
+
 <script>
+import IconFont from '@/views/all-patients/zujian.js'
+
 let symptomOptions = [
   { label: '头晕、头疼症状', value: 0, name: 'symptomsHeadache' },
   { label: '体力劳动、精神紧张或激动时出现胸痛症状，休息后逐渐缓解', value: 1, name: 'symptomsStethalgia' },
@@ -181,15 +150,25 @@ let symptomOptions = [
   { label: '多饮、多尿、多食、不明原因体重下降', value: 3, name: 'symptomsDiuresis' },
   { label: '一过性黑蒙、眩晕', value: 4, name: 'symptomsDizziness' }
 ]
+let familyOptions = [
+  { label: '糖尿病', value: 0, name: 'hasDiabetes' },
+  { label: '高血压', value: 1, name: 'hasHypertension' },
+  { label: '冠心病', value: 2, name: 'hasAscvd' },
+  { label: '缺血性卒中（脑更死）', value: 3, name: 'hasStroke' },
+  { label: '慢阻肺（COPD）', value: 4, name: 'hasCopd' }
+]
 let diseaseOptions = {
-  hasHypertension: { label: '高血压', iconType: 'plus-circle', value: 0 },
-  hasDiabetes: { label: '糖尿病', iconType: 'plus-circle', value: 1 },
-  hasStroke: { label: '脑卒中', iconType: 'plus-circle', value: 0 },
-  hasAscvd: { label: '冠心病', iconType: 'plus-circle', value: 1 },
-  hasCopd: { label: '慢阻肺', iconType: 'plus-circle', value: 0 }
+  hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
+  hasDiabetes: { label: '糖尿病', iconType0: 'icon_diabetes', iconType1: 'icon_diabetes_red', value: 1 },
+  hasStroke: { label: '脑卒中', iconType0: 'icon_stroke', iconType1: 'icon_stroke_red', value: 0 },
+  hasAscvd: { label: '冠心病', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 1 },
+  hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 }
 }
 
 export default {
+  components: {
+    IconFont
+  },
   data () {
     return {
       labelCol: {
@@ -203,6 +182,7 @@ export default {
       visible: false,
       confirmLoading: false,
       symptomOptions,
+      familyOptions,
       diseaseOptions,
       symptomCheck: [],
       params:{
