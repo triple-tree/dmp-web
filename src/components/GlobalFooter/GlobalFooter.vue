@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="links">
+    <!-- <div class="links">
       <a
         href="https://pro.loacg.com/"
         target="_blank"
@@ -13,10 +13,9 @@
       </a>
       <a href="https://ant.design/">Ant Design</a>
       <a href="https://vue.ant.design/">Vue Antd</a>
-    </div>
+    </div> -->
     <div class="copyright">
-      Copyright
-      <a-icon type="copyright" /> 2018 <span>白鹭学园技术组出品</span>
+      <span>卫生院慢病管理中心</span>
     </div>
   </div>
 </template>
