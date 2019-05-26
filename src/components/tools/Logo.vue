@@ -18,7 +18,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Ant Design Pro',
+      default: '卫生院慢病管理中心',
       required: false
     },
     showTitle: {

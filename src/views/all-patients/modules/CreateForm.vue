@@ -135,13 +135,13 @@
 </template>
 
 <style scoped>
-.ant-spin-container .anticon {
-  font-size: 24px;
+.ant-modal .anticon {
+  font-size: 36px;
 }
 </style>
 
 <script>
-import IconFont from '@/views/all-patients/zujian.js'
+import IconFont from '@/components/Icon/index.js'
 
 let symptomOptions = [
   { label: '头晕、头疼症状', value: 0, name: 'symptomsHeadache' },
@@ -152,11 +152,11 @@ let symptomOptions = [
 ]
 
 let familyOptions = [
-  { label: '糖尿病', value: 0, name: 'hasDiabetes' },
-  { label: '高血压', value: 1, name: 'hasHypertension' },
-  { label: '冠心病', value: 2, name: 'hasAscvd' },
-  { label: '缺血性卒中（脑更死）', value: 3, name: 'hasStroke' },
-  { label: '慢阻肺（COPD）', value: 4, name: 'hasCopd' }
+  { label: '糖尿病', value: 0, name: 'familyHistoryDiabetes' },
+  { label: '高血压', value: 1, name: 'familyHistoryHypertension' },
+  { label: '冠心病', value: 2, name: 'familyHistoryAscvd' },
+  { label: '缺血性卒中（脑更死）', value: 3, name: 'familyHistoryStroke' },
+  { label: '慢阻肺（COPD）', value: 4, name: 'familyHistoryCopd' }
 ]
 let diseaseOptions = {
   hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
@@ -214,6 +214,11 @@ export default {
             hasCopd: this.diseaseOptions.hasCopd.value
           })
           Object.assign(this.params.factors, {
+            "familyHistoryDiabetes": 0,
+            "familyHistoryHypertension": 0,
+            "familyHistoryStroke": 0,
+            "familyHistoryAscvd": 0,
+            "familyHistoryCopd": 0,
             symptomsHeadache: 0,
             symptomsStethalgia: 0,
             symptomsDyspnea: 0,
@@ -224,6 +229,11 @@ export default {
           && this.params.factors.symptom.length 
           && this.params.factors.symptom.forEach(function (el) {
             self.params.factors[self.symptomOptions[el].name] = 1
+          })
+          this.params.factors.family 
+          && this.params.factors.family.length 
+          && this.params.factors.family.forEach(function (el) {
+            self.params.factors[self.familyOptions[el].name] = 1
           })
           values = this.params;
           console.log('values', values)

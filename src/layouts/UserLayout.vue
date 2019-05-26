@@ -22,7 +22,7 @@
           <a href="_self">条款</a>
         </div>
         <div class="copyright">
-          Copyright &copy; 2019 Tripple Tree出品
+          卫生院慢病管理中心
         </div>
       </div>
     </div>
