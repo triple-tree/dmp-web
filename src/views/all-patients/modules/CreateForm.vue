@@ -150,6 +150,7 @@ let symptomOptions = [
   { label: '多饮、多尿、多食、不明原因体重下降', value: 3, name: 'symptomsDiuresis' },
   { label: '一过性黑蒙、眩晕', value: 4, name: 'symptomsDizziness' }
 ]
+
 let familyOptions = [
   { label: '糖尿病', value: 0, name: 'hasDiabetes' },
   { label: '高血压', value: 1, name: 'hasHypertension' },
