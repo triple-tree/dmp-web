@@ -2,7 +2,7 @@
   <a-layout id="root-container">
     <a-layout-sider
       width="300"
-      collapsedWidth="200"
+      collapsedWidth="150"
       :trigger="null"
       collapsible
       v-model="collapsed"
@@ -47,9 +47,9 @@
             </div>
             <div class="status">
               <span class="active">患者</span>
-              <span>高危</span>
-              <span>一般群众</span>
-              <span>不详</span>
+              <span v-if="!collapsed">高危</span>
+              <span v-if="!collapsed">一般群众</span>
+              <span v-if="!collapsed">不详</span>
             </div>
           </div>
           <div class="item">
@@ -60,10 +60,10 @@
               <div class="name">糖尿病</div>
             </div>
             <div class="status">
-              <span>患者</span>
+              <span v-if="!collapsed">患者</span>
               <span class="active">高危</span>
-              <span>一般群众</span>
-              <span>不详</span>
+              <span v-if="!collapsed">一般群众</span>
+              <span v-if="!collapsed">不详</span>
             </div>
           </div>
           <div class="item">
@@ -74,10 +74,10 @@
               <div class="name">脑卒中</div>
             </div>
             <div class="status">
-              <span>患者</span>
-              <span>高危</span>
+              <span v-if="!collapsed">患者</span>
+              <span v-if="!collapsed">高危</span>
               <span class="active">一般群众</span>
-              <span>不详</span>
+              <span v-if="!collapsed">不详</span>
             </div>
           </div>
           <div class="item">
@@ -88,9 +88,9 @@
               <div class="name">冠心病</div>
             </div>
             <div class="status">
-              <span>患者</span>
-              <span>高危</span>
-              <span>一般群众</span>
+              <span v-if="!collapsed">患者</span>
+              <span v-if="!collapsed">高危</span>
+              <span v-if="!collapsed">一般群众</span>
               <span class="active">不详</span>
             </div>
           </div>
@@ -103,9 +103,9 @@
             </div>
             <div class="status">
               <span class="active">患者</span>
-              <span>高危</span>
-              <span>一般群众</span>
-              <span>不详</span>
+              <span v-if="!collapsed">高危</span>
+              <span v-if="!collapsed">一般群众</span>
+              <span v-if="!collapsed">不详</span>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@
     </a-layout-sider>
     <a-layout>
       <a-layout-content class="content">
-        <a-tabs defaultActiveKey="2">
+        <a-tabs defaultActiveKey="1">
           <a-tab-pane key="1">
             <span slot="tab">
               <a-icon type="android"/>健康档案
@@ -232,10 +232,11 @@ export default {
   background: #fff;
   min-height: 100vh;
   margin: 0 10px;
+  padding: 10px;
 }
 
-.content .ant-tabs-content {
-  margin: 10px;
+#root-container /deep/ .ant-tabs-content {
+  // margin: 0 0 0 10px;
 }
 
 #root-container .ant-layout-header {
