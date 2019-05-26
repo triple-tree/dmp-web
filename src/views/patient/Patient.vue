@@ -152,7 +152,7 @@ export default {
     Assessment,
     Plan
   },
-  data() {
+  data () {
     return {
       collapsed: false
     }
