@@ -141,7 +141,7 @@
 </style>
 
 <script>
-import IconFont from '@/views/all-patients/zujian.js'
+import IconFont from '@/components/Icon/index.js'
 
 let symptomOptions = [
   { label: '头晕、头疼症状', value: 0, name: 'symptomsHeadache' },
