@@ -3,7 +3,7 @@
     <a-layout id="root-container">
       <a-layout-sider
         width="300"
-        collapsedWidth="150"
+        collapsedWidth="180"
         :trigger="null"
         collapsible
         v-model="collapsed"
@@ -154,7 +154,7 @@ export default {
     Assessment,
     Plan
   },
-  data () {
+  data() {
     return {
       collapsed: false
     }
