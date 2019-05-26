@@ -20,7 +20,7 @@
           </a-col>
           <a-col :md="6" :sm="24">
             <a-button type="primary" icon="search" @click="$refs.table.refresh(true)">查询</a-button>
-            <a-button icon="plus" style="margin-left: 8px" @click="$refs.createModal.add()">新增</a-button>
+            <a-button icon="plus" style="margin-left: 8px" @click="$refs.createModal.add()">添加患者</a-button>
           </a-col>
         </a-row>
       </a-form>
@@ -63,7 +63,7 @@ import { STable } from '@/components'
 import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
 import { getPatientList } from '@/api/patient'
-import IconFont from '@/views/all-patients/zujian.js'
+import IconFont from '@/components/Icon/index.js'
 
 const plainOptions = [
   { label: '高血压', value: 0 },
@@ -174,8 +174,7 @@ export default {
   created () {},
   methods: {
     handleEdit (record) {
-      console.log(record)
-      this.$refs.modal.edit(record)
+      this.$router.push({name: 'patient'});
     },
     handleOk () {
       this.$refs.table.refresh()
