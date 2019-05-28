@@ -1,23 +1,29 @@
 const api = {
   Login: '/login',
   Logout: '/logout',
+  // 全部病人
+  patientAll: '/patient/all',
+  patientQueryById: '/patient/queryById',
+  patientQuery: '/patient/query',
+  patientAdd: '/patient/add',
+  patientGetPatientReport: '/patient/getPatientReport',
   // 统计报表
-  StatsAll: '/stats/all',
-  StatsPatients: '/stats/patients',
-  StatsPlans: '/stats/plans',
+  statsAll: '/stats/all',
+  statsPatients: '/stats/patients',
+  statsPlans: '/stats/plans',
   // 健康档案
-  RecordLatest: '/record/latest',
-  RecordAll: '/record/all',
-  RecordDetail: '/record/detail',
-  RecordUpdate: '/record/update',
+  recordLatest: '/record/latest',
+  recordAll: '/record/all',
+  recordDetail: '/record/detail',
+  recordAdd: '/record/add',
   // 评估筛选
-  AssessmentLatest: '/assessment/latest',
-  AssessmentAll: '/assessment/all',
-  AssessmentAssess: '/assessment/assess',
+  assessmentLatest: '/assessment/latest',
+  assessmentAll: '/assessment/all',
+  assessmentAssess: '/assessment/assess',
   // 健康管理方案
-  PlanAll: '/plan/all',
-  PlanDetail: '/plan/detail',
-  PlanAdd: '/plan/add',
+  planAll: '/plan/all',
+  planDetail: '/plan/detail',
+  planAdd: '/plan/add',
   // 其他
   ForgePassword: '/auth/forge-password',
   Register: '/register',
@@ -30,7 +36,6 @@ const api = {
   Service: '/service',
   Permission: '/permission',
   PermissionNoPager: '/permission/no-pager',
-  OrgTree: '/org/tree',
-  Patient: '/patient/all'
+  OrgTree: '/org/tree'
 }
 export default api

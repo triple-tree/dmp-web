@@ -1,5 +1,5 @@
 import Mock, { Random } from 'mockjs2'
-import { builder, getQueryParameters } from '../util'
+import { builder, getQueryParameters, getBody } from '../util'
 
 const total = Random.integer(100, 200)
 const records = [
@@ -9,7 +9,33 @@ const records = [
         patientId: () => Random.id(),
         doctorId: () => Random.id(),
         patientRecordId: () => Random.id(),
-        createDate: () => Random.date('yyyy-MM-dd')
+        createDate: () => Random.date('yyyy-MM-dd'),
+        factors: {
+          previousHistoryDiabetes: () => Random.natural(0, 1),
+          previousHistoryHypertension: () => Random.natural(0, 1),
+          previousHistoryStroke: () => Random.natural(0, 1),
+          previousHistoryAscvd: () => Random.natural(0, 1),
+          previousHistoryCopd: () => Random.natural(0, 1),
+          previousHistoryDyslipidemia: () => Random.natural(0, 1),
+          familyHistoryDiabetes: () => Random.natural(0, 1),
+          familyHistoryHypertension: () => Random.natural(0, 1),
+          familyHistoryStroke: () => Random.natural(0, 1),
+          familyHistoryAscvd: () => Random.natural(0, 1),
+          familyHistoryCopd: () => Random.natural(0, 1),
+          symptomsHeadache: () => Random.natural(0, 1),
+          symptomsStethalgia: () => Random.natural(0, 1),
+          symptomsDyspnea: () => Random.natural(0, 1),
+          symptomsDiuresis: () => Random.natural(0, 1),
+          symptomsDizziness: () => Random.natural(0, 1),
+          smoke: () => Random.natural(0, 1),
+          sbp: Random.float(100, 200),
+          dbp: Random.float(100, 200),
+          fbg: () => Random.float(0, 10),
+          serumTc: () => Random.float(0, 10),
+          weight: () => Random.float(100, 200),
+          height: () => Random.float(50, 100),
+          waistline: () => Random.natural(0, 1)
+        }
       }
     ]
   }).records
@@ -17,41 +43,10 @@ const records = [
 
 // 最新健康档案
 const recordLatest = options => {
-  const queryParameters = getQueryParameters(options) || {}
-  const patientId = queryParameters.patientId
-  const data = {
-    patientId: 'dfwerwerwer2343',
-    doctorId: 'S314rdE4234ERWFD ',
-    patientRecordId: 'DEafsdfqwer23f343',
-    createDate: '2019-05-09 ',
-    factors: {
-      previousHistoryDiabetes: 0,
-      previousHistoryHypertension: 0,
-      previousHistoryStroke: 0,
-      previousHistoryAscvd: 0,
-      previousHistoryCopd: 0,
-      previousHistoryDyslipidemia: 0,
-      familyHistoryDiabetes: 0,
-      familyHistoryHypertension: 0,
-      familyHistoryStroke: 0,
-      familyHistoryAscvd: 0,
-      familyHistoryCopd: 0,
-      symptomsHeadache: 0,
-      symptomsStethalgia: 0,
-      symptomsDyspnea: 0,
-      symptomsDiuresis: 0,
-      symptomsDizziness: 0,
-      smoke: 0,
-      sbp: 67,
-      dbp: 128,
-      fbg: 4.8,
-      serumTc: 4.3,
-      weight: 60.5,
-      height: 172.1,
-      waistline: 0
-    }
-  }
-  return builder(data, '请求成功', 200)
+  const record = records.sort((record1, record2) => {
+    return new Date(record2.createDate).getTime() - new Date(record1.createDate).getTime()
+  })[0]
+  return builder(record, '请求成功', 200)
 }
 
 // 历史健康档案
@@ -63,10 +58,13 @@ const recordAll = options => {
   if (queryParameters && !queryParameters.pageSize) {
     queryParameters.pageSize = 5
   }
-  // see more on http://mockjs.com/examples.html
+
   const data = {
-    total,
-    records,
+    total: records.length,
+    records: records.slice(
+      (queryParameters.pageNo - 1) * queryParameters.pageSize,
+      queryParameters.pageNo * queryParameters.pageSize
+    ),
     page: queryParameters.pageNo
   }
   return builder(data, '请求成功', 200)
@@ -76,52 +74,19 @@ const recordAll = options => {
 const recordDetail = options => {
   const queryParameters = getQueryParameters(options) || {}
   const patientId = queryParameters.patientId
-  const data = {
-    patientId: 'dfwerwerwer2343',
-    doctorId: 'S314rdE4234ERWFD',
-    patientRecordId: 'DEafsdfqwer23f343',
-    createDate: '2019-05-09 ',
-    factors: {
-      previousHistoryDiabetes: 0,
-      previousHistoryHypertension: 0,
-      previousHistoryStroke: 0,
-      previousHistoryAscvd: 0,
-      previousHistoryCopd: 0,
-      previousHistoryDyslipidemia: 0,
-      familyHistoryDiabetes: 0,
-      familyHistoryHypertension: 0,
-      familyHistoryStroke: 0,
-      familyHistoryAscvd: 0,
-      familyHistoryCopd: 0,
-      symptomsHeadache: 0,
-      symptomsStethalgia: 0,
-      symptomsDyspnea: 0,
-      symptomsDiuresis: 0,
-      symptomsDizziness: 0,
-      smoke: 0,
-      sbp: 67,
-      dbp: 128,
-      fbg: 4.8,
-      serumTc: 4.3,
-      weight: 60.5,
-      height: 172.1,
-      waistline: 0
-    }
-  }
-
-  return builder(data, '请求成功', 200)
+  const record = records.filter(record => record.patientId === patientId)
+  return builder(record, '请求成功', 200)
 }
 
 // 更新健康档案
-const recordUpdate = options => {
-  const data = {
-    healthRecordId: 'a4ddsdf34wrwer3'
-  }
-
-  return builder(data, '请求成功', 200)
+const recordAdd = options => {
+  const body = getBody(options) || {}
+  const record = { ...body, id: () => Random.id() }
+  records.push(record)
+  return builder({ id: record.id }, '新建患者成功！', 200)
 }
 
-Mock.mock(/\/assessment\/latest/, 'get', recordLatest)
-Mock.mock(/\/assessment\/all/, 'get', recordAll)
-Mock.mock(/\/assessment\/detail/, 'get', recordDetail)
-Mock.mock(/\/assessment\/update/, 'get', recordUpdate)
+Mock.mock(/\/record\/latest/, 'get', recordLatest)
+Mock.mock(/\/record\/all/, 'get', recordAll)
+Mock.mock(/\/record\/detail/, 'get', recordDetail)
+Mock.mock(/\/record\/add/, 'get', recordAdd)

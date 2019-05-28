@@ -3,7 +3,7 @@ import { axios } from '@/utils/request'
 
 export function recordLatest (parameter) {
   return axios({
-    url: api.RecordLatest,
+    url: api.recordLatest,
     method: 'get',
     data: parameter
   })
@@ -11,7 +11,7 @@ export function recordLatest (parameter) {
 
 export function recordAll (parameter) {
   return axios({
-    url: api.RecordAll,
+    url: api.recordAll,
     method: 'get',
     data: parameter
   })
@@ -19,15 +19,15 @@ export function recordAll (parameter) {
 
 export function recordDetail (parameter) {
   return axios({
-    url: api.RecordDetail,
+    url: api.recordDetail,
     method: 'get',
     data: parameter
   })
 }
 
-export function recordUpdate (parameter) {
+export function recordAdd (parameter) {
   return axios({
-    url: api.RecordUpdate,
+    url: api.recordAdd,
     method: 'post',
     data: parameter
   })

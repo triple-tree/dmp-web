@@ -4,7 +4,7 @@
       <icon-font type="iconicon5" :style="{ color: 'hotpink', fontSize: '50px' }"/>
       <icon-font type="iconicon"/>
       <icon-font type="iconicon1"/>
-    </div>     -->
+    </div>-->
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48">
@@ -52,7 +52,7 @@
 </template>
 
 <style scoped>
-.ant-table-body  .anticon {
+.ant-table-body .anticon {
   font-size: 24px;
 }
 </style>
@@ -62,7 +62,7 @@ import moment from 'moment'
 import { STable } from '@/components'
 import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
-import { getPatientList } from '@/api/patient'
+import { patientAll } from '@/api/patient'
 import IconFont from '@/components/Icon/index.js'
 
 const plainOptions = [
@@ -81,7 +81,7 @@ export default {
     StepByStepModal,
     IconFont
   },
-  data () {
+  data() {
     return {
       mdl: {},
       // 查询参数
@@ -119,26 +119,22 @@ export default {
         {
           title: '糖尿病',
           dataIndex: 'hasDiabetes',
-          customRender: has =>
-            has ? <icon-font type="icon_diabetes_red" /> : <icon-font type="icon_diabetes" />
+          customRender: has => (has ? <icon-font type="icon_diabetes_red" /> : <icon-font type="icon_diabetes" />)
         },
         {
           title: '脑卒中',
           dataIndex: 'hasStroke',
-          customRender: has =>
-            has ? <icon-font type="icon_stroke_red" /> : <icon-font type="icon_stroke" />
+          customRender: has => (has ? <icon-font type="icon_stroke_red" /> : <icon-font type="icon_stroke" />)
         },
         {
           title: '冠心病',
           dataIndex: 'hasAscvd',
-          customRender: has =>
-            has ? <icon-font type="icon_ascvd_red" /> : <icon-font type="icon_ascvd" />
+          customRender: has => (has ? <icon-font type="icon_ascvd_red" /> : <icon-font type="icon_ascvd" />)
         },
         {
           title: '慢阻肺',
           dataIndex: 'hasCopd',
-          customRender: has =>
-            has ? <icon-font type="icon_copd_red" /> : <icon-font type="icon_copd" />
+          customRender: has => (has ? <icon-font type="icon_copd_red" /> : <icon-font type="icon_copd" />)
         },
         {
           title: '操作',
@@ -150,7 +146,7 @@ export default {
       // 加载数据方法 必须为 Promise 对象
       loadData: async parameter => {
         console.log('loadData.parameter', parameter)
-        const res = await getPatientList({ ...parameter, ...this.queryParam })
+        const res = await patientAll({ ...parameter, ...this.queryParam })
         console.info(`res: ${JSON.stringify(res)}`)
         return {
           pageSize: parameter.pageSize,
@@ -171,19 +167,19 @@ export default {
     }
   },
   filters: {},
-  created () {},
+  created() {},
   methods: {
-    handleEdit (record) {
-      this.$router.push({name: 'patient'});
+    handleEdit(record) {
+      this.$router.push({ name: 'patient' })
     },
-    handleOk () {
+    handleOk() {
       this.$refs.table.refresh()
     },
-    onSelectChange (selectedRowKeys, selectedRows) {
+    onSelectChange(selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    resetSearchForm () {
+    resetSearchForm() {
       this.queryParam = {
         date: moment(new Date())
       }

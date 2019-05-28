@@ -1,50 +1,35 @@
 import Mock, { Random } from 'mockjs2'
-import { builder, getQueryParameters } from '../util'
+import { builder, getQueryParameters, getBody } from '../util'
 
 const total = Random.integer(100, 200)
-const healthPlans = [
-  ...Mock.mock({
-    [`healthPlans|${total}`]: [
-      {
-        healthPlanId: () => Random.id(),
-        patientId: () => Random.id(),
-        doctorId: () => Random.id(),
-        createDate: () => Random.date('yyyy-MM-dd'),
-        status: 0
-      }
-    ]
-  }).healthPlans
-]
-
-// 健康方案详情
-const planDetail = options => {
-  const queryParameters = getQueryParameters(options) || {}
-  const healthPlanId = queryParameters.healthPlanId
-  const data = {
-    doctorId: 'f2dadf3vdsafdsdf',
-    patientId: 'ffdfdfw3232f4dd',
-    createDate: '2019-05-03',
-    healthPlanId: `${healthPlanId}`,
+const healthPlans = []
+for (let i = 0; i < total; i++) {
+  const id = Random.id()
+  healthPlans.push({
+    id,
+    patientId: () => Random.id(),
+    doctorId: () => Random.id(),
+    createDate: () => Random.date('yyyy-MM-dd'),
     status: 0,
     healthAdvices: [
       {
-        healthAdviceId: 'asdfwersadfs3',
-        healthPlanId: `${healthPlanId}`,
+        healthAdviceId: () => Random.id(),
+        healthPlanId: id,
         adviceType: 'food',
         adviceValue: '少盐，戒烟酒',
         reason: null
       },
       {
-        healthAdviceId: '23eafdsf32sadf',
-        healthPlanId: `${healthPlanId}`,
+        healthAdviceId: () => Random.id(),
+        healthPlanId: id,
         adviceType: 'exercise',
         adviceValue: '多户外运动',
         reason: null
       }
     ],
     clinicRemind: {
-      clinicRemindId: 'dsaf43wfdsvvsfd',
-      healthPlanId: `${healthPlanId}`,
+      clinicRemindId: () => Random.id(),
+      healthPlanId: id,
       type: '转诊',
       suggestDate: '2个月内',
       relatedDisease: '脑卒中',
@@ -53,9 +38,15 @@ const planDetail = options => {
       status: 0,
       currentHospital: null
     }
-  }
+  })
+}
 
-  return builder(data, '请求成功', 200)
+// 健康方案详情
+const planDetail = options => {
+  const queryParameters = getQueryParameters(options) || {}
+  const healthPlanId = queryParameters.healthPlanId
+  const healthPlan = healthPlans.filter(healthPlan => healthPlan.id === healthPlanId)
+  return builder(healthPlan, '请求成功', 200)
 }
 
 // 历史健康方案列表
@@ -67,10 +58,18 @@ const planAll = options => {
   if (queryParameters && !queryParameters.pageSize) {
     queryParameters.pageSize = 5
   }
-  // see more on http://mockjs.com/examples.html
+
   const data = {
-    total,
-    healthPlans,
+    total: healthPlans.length,
+    healthPlans: healthPlans
+      .slice((queryParameters.pageNo - 1) * queryParameters.pageSize, queryParameters.pageNo * queryParameters.pageSize)
+      .map(item => ({
+        id: item.id,
+        patientId: item.patientId,
+        doctorId: item.doctorId,
+        createDate: item.createDate,
+        status: item.createDate
+      })),
     page: queryParameters.pageNo
   }
   return builder(data, '请求成功', 200)
@@ -78,12 +77,12 @@ const planAll = options => {
 
 // 健康方案制定
 const planAdd = options => {
-  const data = {
-    healthPlanId: 'dasfaf23sdaf23'
-  }
-  return builder(data, '请求成功', 200)
+  const body = getBody(options) || {}
+  const healthPlan = { ...body, id: () => Random.id() }
+  healthPlans.push(healthPlans)
+  return builder({ id: healthPlan.id }, '新建患者成功！', 200)
 }
 
-Mock.mock(/\/plan\/latest/, 'get', planDetail)
+Mock.mock(/\/plan\/detail/, 'get', planDetail)
 Mock.mock(/\/plan\/all/, 'get', planAll)
-Mock.mock(/\/plan\/assess/, 'post', planAdd)
+Mock.mock(/\/plan\/add/, 'post', planAdd)

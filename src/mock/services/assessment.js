@@ -10,12 +10,30 @@ const assessments = [
         patientId: () => Random.id(),
         doctorId: () => Random.id(),
         assessmentDate: () => Random.date('yyyy-MM-dd'),
-        chronicDiseaseRisk: '高危',
-        diabetesRisk: '患者',
-        hypertensionRisk: '一般群众',
-        strokeRisk: '一般群众',
-        ascvdRisk: '一般群众',
-        copdRisk: '一般群众'
+        chronicDiseaseRisk: () =>
+          Mock.mock({
+            'status|1': ['患者', '一般群众', '高危', '不详']
+          }).status,
+        diabetesRisk: () =>
+          Mock.mock({
+            'status|1': ['患者', '一般群众', '高危', '不详']
+          }).status,
+        hypertensionRisk: () =>
+          Mock.mock({
+            'status|1': ['患者', '一般群众', '高危', '不详']
+          }).status,
+        strokeRisk: () =>
+          Mock.mock({
+            'status|1': ['患者', '一般群众', '高危', '不详']
+          }).status,
+        ascvdRisk: () =>
+          Mock.mock({
+            'status|1': ['患者', '一般群众', '高危', '不详']
+          }).status,
+        copdRisk: () =>
+          Mock.mock({
+            'status|1': ['患者', '一般群众', '高危', '不详']
+          }).status
       }
     ]
   }).assessments
@@ -25,19 +43,8 @@ const assessments = [
 const assessmentLatest = options => {
   const queryParameters = getQueryParameters(options) || {}
   const patientId = queryParameters.patientId
-  const data = {
-    assessmentId: 'SEWD23E4234ERWFD',
-    patientId: `${patientId}`,
-    doctorId: 'S314rdE4234ERWFD',
-    assessmentDate: '1964-01-04',
-    chronicDiseaseRisk: '高危',
-    diabetesRisk: '患者',
-    hypertensionRisk: '一般群众',
-    strokeRisk: '一般群众',
-    ascvdRisk: '一般群众',
-    copdRisk: '一般群众'
-  }
-  return builder(data, '请求成功', 200)
+  const assessment = assessments[0]
+  return builder(assessment, '请求成功', 200)
 }
 
 // 历史评估记录
@@ -49,10 +56,13 @@ const assessmentAll = options => {
   if (queryParameters && !queryParameters.pageSize) {
     queryParameters.pageSize = 5
   }
-  // see more on http://mockjs.com/examples.html
+
   const data = {
-    total,
-    assessments,
+    total: assessments.length,
+    assessments: assessments.slice(
+      (queryParameters.pageNo - 1) * queryParameters.pageSize,
+      queryParameters.pageNo * queryParameters.pageSize
+    ),
     page: queryParameters.pageNo
   }
   return builder(data, '请求成功', 200)
@@ -65,12 +75,30 @@ const assessmentAssess = options => {
     patientId: () => Random.id(),
     doctorId: () => Random.id(),
     assessmentDate: () => Random.date('yyyy-MM-dd'),
-    chronicDiseaseRisk: '高危',
-    diabetesRisk: '患者',
-    hypertensionRisk: '一般群众',
-    strokeRisk: '一般群众',
-    ascvdRisk: '一般群众',
-    copdRisk: '一般群众'
+    chronicDiseaseRisk: () =>
+      Mock.mock({
+        'status|1': ['患者', '一般群众', '高危', '不详']
+      }).status,
+    diabetesRisk: () =>
+      Mock.mock({
+        'status|1': ['患者', '一般群众', '高危', '不详']
+      }).status,
+    hypertensionRisk: () =>
+      Mock.mock({
+        'status|1': ['患者', '一般群众', '高危', '不详']
+      }).status,
+    strokeRisk: () =>
+      Mock.mock({
+        'status|1': ['患者', '一般群众', '高危', '不详']
+      }).status,
+    ascvdRisk: () =>
+      Mock.mock({
+        'status|1': ['患者', '一般群众', '高危', '不详']
+      }).status,
+    copdRisk: () =>
+      Mock.mock({
+        'status|1': ['患者', '一般群众', '高危', '不详']
+      }).status
   }
 
   return builder(data, '请求成功', 200)

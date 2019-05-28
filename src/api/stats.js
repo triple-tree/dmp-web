@@ -3,7 +3,7 @@ import { axios } from '@/utils/request'
 
 export function statsAll (parameter) {
   return axios({
-    url: api.StatsAll,
+    url: api.statsAll,
     method: 'get',
     data: parameter
   })
@@ -11,7 +11,7 @@ export function statsAll (parameter) {
 
 export function statsPatients (parameter) {
   return axios({
-    url: api.StatsPatients,
+    url: api.statsPatients,
     method: 'get',
     data: parameter
   })
@@ -19,7 +19,7 @@ export function statsPatients (parameter) {
 
 export function statsPlans (parameter) {
   return axios({
-    url: api.StatsPlans,
+    url: api.statsPlans,
     method: 'get',
     data: parameter
   })

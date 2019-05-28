@@ -3,7 +3,7 @@ import { axios } from '@/utils/request'
 
 export function assessmentLatest (parameter) {
   return axios({
-    url: api.AssessmentLatest,
+    url: api.assessmentLatest,
     method: 'get',
     data: parameter
   })
@@ -11,7 +11,7 @@ export function assessmentLatest (parameter) {
 
 export function assessmentAll (parameter) {
   return axios({
-    url: api.AssessmentAll,
+    url: api.assessmentAll,
     method: 'get',
     data: parameter
   })
@@ -19,7 +19,7 @@ export function assessmentAll (parameter) {
 
 export function assessmentAssess (parameter) {
   return axios({
-    url: api.AssessmentAssess,
+    url: api.assessmentAssess,
     method: 'post',
     data: parameter
   })

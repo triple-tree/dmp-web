@@ -3,7 +3,7 @@ import { axios } from '@/utils/request'
 
 export function planAll (parameter) {
   return axios({
-    url: api.PlanAll,
+    url: api.planAll,
     method: 'get',
     data: parameter
   })
@@ -11,7 +11,7 @@ export function planAll (parameter) {
 
 export function planDetail (parameter) {
   return axios({
-    url: api.PlanDetail,
+    url: api.planDetail,
     method: 'get',
     data: parameter
   })
@@ -19,7 +19,7 @@ export function planDetail (parameter) {
 
 export function planAdd (parameter) {
   return axios({
-    url: api.PlanAdd,
+    url: api.planAdd,
     method: 'post',
     data: parameter
   })
