@@ -37,10 +37,16 @@
               <a-input v-model="params.patient.identityNumber" v-decorator="['identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]" />
             </a-form-item>
           </a-col>
-          <a-col :md="16" :sm="24">
+          <a-col :md="8" :sm="24">
             <a-form-item
-              label="患者地址信息">
-              <a-input v-model="params.patient.add" phoneNumberv-decorator="['add']" />
+              label="患者地址">
+              <a-cascader :options="options" v-model="params.add " placeholder="请选择省-市-区" />
+            </a-form-item>
+          </a-col>
+          <a-col :md="8" :sm="24">
+            <a-form-item
+              label="详细地址">
+              <a-input v-model="params.patient.detailAddress" placeholder="请输入街道、门牌号等信息"/>
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24">
@@ -187,10 +193,34 @@ export default {
       diseaseOptions,
       symptomCheck: [],
       params:{
+        add: [],
         patient: {},
         factors: {}
       },
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
+      options: [{
+        value: 'zhejiang',
+        label: 'Zhejiang',
+        children: [{
+          value: 'hangzhou',
+          label: 'Hangzhou',
+          children: [{
+            value: 'xihu',
+            label: 'West Lake',
+          }],
+        }],
+      }, {
+        value: 'jiangsu',
+        label: 'Jiangsu',
+        children: [{
+          value: 'nanjing',
+          label: 'Nanjing',
+          children: [{
+            value: 'zhonghuamen',
+            label: 'Zhong Hua Men',
+          }],
+        }],
+      }]
     }
   },
   methods: {
@@ -211,7 +241,10 @@ export default {
             hasDiabetes: this.diseaseOptions.hasDiabetes.value,
             hasStroke: this.diseaseOptions.hasStroke.value,
             hasAscvd: this.diseaseOptions.hasAscvd.value,
-            hasCopd: this.diseaseOptions.hasCopd.value
+            hasCopd: this.diseaseOptions.hasCopd.value,
+            province: this.params.add[0] || '',
+            city: this.params.add[1] || '',
+            county: this.params.add[2] || ''
           })
           Object.assign(this.params.factors, {
             "familyHistoryDiabetes": 0,
@@ -235,7 +268,9 @@ export default {
           && this.params.factors.family.forEach(function (el) {
             self.params.factors[self.familyOptions[el].name] = 1
           })
-          values = this.params;
+          values={};
+          values.patient = this.params.patient;
+          values.factors = this.params.factors;
           console.log('values', values)
           setTimeout(() => {
             this.visible = false

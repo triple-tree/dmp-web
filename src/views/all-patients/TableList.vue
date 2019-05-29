@@ -62,7 +62,7 @@ import moment from 'moment'
 import { STable } from '@/components'
 import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
-import { patientAll } from '@/api/patient'
+import { patientAll, patientAdd } from '@/api/patient'
 import IconFont from '@/components/Icon/index.js'
 
 const plainOptions = [
@@ -172,8 +172,18 @@ export default {
     handleEdit(record) {
       this.$router.push({ name: 'patient' })
     },
-    handleOk() {
-      this.$refs.table.refresh()
+    handleOk(parameter){
+      const self = this
+      async function addPatient(parameter) {
+        console.log('handleOk.parameter', parameter)
+        const res = await patientAdd(parameter)
+        if(res.code === 200){
+          self.$message.success('患者创建成功')
+        }
+        self.$refs.table.refresh()
+        console.info(`handleOk res: ${JSON.stringify(res)}`)
+      }
+      addPatient()
     },
     onSelectChange(selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
