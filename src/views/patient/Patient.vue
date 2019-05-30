@@ -141,6 +141,8 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import Component from 'vue-class-component'
 // 健康档案
 import Record from './Record'
 // 评估筛选
@@ -148,12 +150,14 @@ import Assessment from './Assessment'
 // 健康方案
 import Plan from './Plan'
 
-export default {
+@Component({
   components: {
     Record,
     Assessment,
     Plan
-  },
+  }
+})
+export default class extends Vue {
   data() {
     return {
       collapsed: false
