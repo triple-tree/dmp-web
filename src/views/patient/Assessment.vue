@@ -134,8 +134,8 @@
                 :value="item.value"
                 @click="selectPreviousHistoryDiseases(item)"
               >
-                <icon-font :type="item.iconType1" v-if="item.value === 1"/>
-                <icon-font :type="item.iconType0" v-if="item.value === 0"/>
+                <icon-font class="icon-size" :type="item.iconType1" v-if="item.value === 1"/>
+                <icon-font class="icon-size" :type="item.iconType0" v-if="item.value === 0"/>
                 <div>{{ item.label }}</div>
               </a-col>
             </a-row>
@@ -281,14 +281,15 @@ let previousHistoryDiseasesOptions = {
   },
   hasAscvd: { label: '急性冠脉综合征ACS', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 1 },
   hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 },
-  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_dyslipidemia', iconType1: 'icon_dyslipidemia_red', value: 0 }
+  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_dyslipidemiad', iconType1: 'icon_dyslipidemiad_red', value: 0 }
 }
 
-export default {
+@Component({
   components: {
     IconFont
-  },
-
+  }
+})
+export default class extends Vue {
   data() {
     return {
       previousHistoryDiseasesOptions,
@@ -311,12 +312,10 @@ export default {
         }
       }
     }
-  },
-  methods: {
-    async created() {},
-    selectPreviousHistoryDiseases(item) {
-      item.value = item.value === 1 ? 0 : 1
-    }
+  }
+  async created() {}
+  selectPreviousHistoryDiseases(item) {
+    item.value = item.value === 1 ? 0 : 1
   }
 }
 </script>
@@ -347,5 +346,9 @@ h3 {
 
 .root-container /deep/ .ant-form-item {
   margin: 0 0 5px 0;
+}
+
+.icon-size {
+  font-size: 36px;
 }
 </style>
