@@ -123,64 +123,22 @@
 
       <h3>既往史</h3>
       <a-row :gutter="8">
-        <a-col :span="8">
-          <a-form-item
-            :label-col="formItemLayout.checkboxLabelCol"
-            :wrapper-col="formItemLayout.checkboxWrapperCol"
-          >
-            <a-checkbox v-decorator="['height']">
-              <img class="symptom-image" :src="MockImage('高血压')" alt>
-            </a-checkbox>
-          </a-form-item>
-        </a-col>
-        <a-col :span="8">
-          <a-form-item
-            :label-col="formItemLayout.checkboxLabelCol"
-            :wrapper-col="formItemLayout.checkboxWrapperCol"
-          >
-            <a-checkbox v-decorator="['height']">
-              <img class="symptom-image" :src="MockImage('糖尿病')" alt>
-            </a-checkbox>
-          </a-form-item>
-        </a-col>
-        <a-col :span="8">
-          <a-form-item
-            :label-col="formItemLayout.checkboxLabelCol"
-            :wrapper-col="formItemLayout.checkboxWrapperCol"
-          >
-            <a-checkbox v-decorator="['height']">
-              <img class="symptom-image" :src="MockImage('脑卒中')" alt>
-            </a-checkbox>
-          </a-form-item>
-        </a-col>
-        <a-col :span="8">
-          <a-form-item
-            :label-col="formItemLayout.checkboxLabelCol"
-            :wrapper-col="formItemLayout.checkboxWrapperCol"
-          >
-            <a-checkbox v-decorator="['height']">
-              <img class="symptom-image" :src="MockImage('冠心病')" alt>
-            </a-checkbox>
-          </a-form-item>
-        </a-col>
-        <a-col :span="8">
-          <a-form-item
-            :label-col="formItemLayout.checkboxLabelCol"
-            :wrapper-col="formItemLayout.checkboxWrapperCol"
-          >
-            <a-checkbox v-decorator="['height']">
-              <img class="symptom-image" :src="MockImage('慢阻肺')" alt>
-            </a-checkbox>
-          </a-form-item>
-        </a-col>
-        <a-col :span="8">
-          <a-form-item
-            :label-col="formItemLayout.checkboxLabelCol"
-            :wrapper-col="formItemLayout.checkboxWrapperCol"
-          >
-            <a-checkbox v-decorator="['height']">
-              <img class="symptom-image" :src="MockImage('血脂异常')" alt>
-            </a-checkbox>
+        <a-col :md="24" :sm="24">
+          <a-form-item>
+            <a-row type="flex">
+              <a-col
+                :span="4"
+                align="center"
+                v-for="item in previousHistoryDiseasesOptions"
+                :key="item.index"
+                :value="item.value"
+                @click="selectPreviousHistoryDiseases(item)"
+              >
+                <icon-font class="icon-size" :type="item.iconType1" v-if="item.value === 1"/>
+                <icon-font class="icon-size" :type="item.iconType0" v-if="item.value === 0"/>
+                <div>{{ item.label }}</div>
+              </a-col>
+            </a-row>
           </a-form-item>
         </a-col>
       </a-row>
@@ -310,17 +268,31 @@ import { statsAll, statsPatients, statsPlans } from '@/api/stats'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
+import IconFont from '@/components/Icon/index.js'
 
-@Component
-export default class extends Vue {
-  async created() {}
+let previousHistoryDiseasesOptions = {
+  hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
+  hasDiabetes: { label: '糖尿病', iconType0: 'icon_diabetes', iconType1: 'icon_diabetes_red', value: 1 },
+  hasStroke: {
+    label: '短暂性脑缺血发作(TIA)或缺血性卒中(脑梗死)',
+    iconType0: 'icon_stroke',
+    iconType1: 'icon_stroke_red',
+    value: 0
+  },
+  hasAscvd: { label: '急性冠脉综合征ACS', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 1 },
+  hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 },
+  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_dyslipidemiad', iconType1: 'icon_dyslipidemiad_red', value: 0 }
+}
 
-  MockImage(text) {
-    return Random.image('100x100', Random.color(), '#000', 'png', text)
+@Component({
+  components: {
+    IconFont
   }
-
+})
+export default class extends Vue {
   data() {
     return {
+      previousHistoryDiseasesOptions,
       formItemLayout: {
         labelCol: {
           xs: { span: 24 },
@@ -340,6 +312,10 @@ export default class extends Vue {
         }
       }
     }
+  }
+  async created() {}
+  selectPreviousHistoryDiseases(item) {
+    item.value = item.value === 1 ? 0 : 1
   }
 }
 </script>
@@ -370,5 +346,9 @@ h3 {
 
 .root-container /deep/ .ant-form-item {
   margin: 0 0 5px 0;
+}
+
+.icon-size {
+  font-size: 36px;
 }
 </style>
