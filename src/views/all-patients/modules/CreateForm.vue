@@ -40,7 +40,7 @@
           <a-col :md="8" :sm="24">
             <a-form-item
               label="患者地址">
-              <a-cascader :options="options" v-model="params.add " placeholder="请选择省-市-区" />
+              <a-cascader :options="city" v-model="params.add " placeholder="请选择省-市-区" />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
@@ -148,6 +148,9 @@
 
 <script>
 import IconFont from '@/components/Icon/index.js'
+import City from '@/api/city.js'
+
+console.log(City);
 
 let symptomOptions = [
   { label: '头晕、头疼症状', value: 0, name: 'symptomsHeadache' },
@@ -198,29 +201,7 @@ export default {
         factors: {}
       },
       form: this.$form.createForm(this),
-      options: [{
-        value: 'zhejiang',
-        label: 'Zhejiang',
-        children: [{
-          value: 'hangzhou',
-          label: 'Hangzhou',
-          children: [{
-            value: 'xihu',
-            label: 'West Lake',
-          }],
-        }],
-      }, {
-        value: 'jiangsu',
-        label: 'Jiangsu',
-        children: [{
-          value: 'nanjing',
-          label: 'Nanjing',
-          children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          }],
-        }],
-      }]
+      city: City
     }
   },
   methods: {

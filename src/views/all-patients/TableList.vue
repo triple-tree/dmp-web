@@ -81,7 +81,7 @@ export default {
     StepByStepModal,
     IconFont
   },
-  data() {
+  data () {
     return {
       mdl: {},
       // 查询参数
@@ -167,17 +167,17 @@ export default {
     }
   },
   filters: {},
-  created() {},
+  created () {},
   methods: {
-    handleEdit(record) {
+    handleEdit (record) {
       this.$router.push({ name: 'patient' })
     },
-    handleOk(parameter){
+    handleOk (parameter) {
       const self = this
-      async function addPatient(parameter) {
+      async function addPatient (parameter) {
         console.log('handleOk.parameter', parameter)
         const res = await patientAdd(parameter)
-        if(res.code === 200){
+        if (res.code === 200) {
           self.$message.success('患者创建成功')
         }
         self.$refs.table.refresh()
@@ -185,11 +185,11 @@ export default {
       }
       addPatient()
     },
-    onSelectChange(selectedRowKeys, selectedRows) {
+    onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    resetSearchForm() {
+    resetSearchForm () {
       this.queryParam = {
         date: moment(new Date())
       }
