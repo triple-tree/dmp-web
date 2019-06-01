@@ -266,17 +266,19 @@
         </a-col>
       </a-row>
     </a-form>
+    <record-history-modal ref="modalForm"></record-history-modal>
   </div>
 </template>
 
 <script>
-import { statsAll, statsPatients, statsPlans } from '@/api/stats'
+import { recordLatest, recordDetail, recordAll, recordAdd } from '@/api/record'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
 import IconFont from '@/components/Icon/index.js'
 import pick from 'lodash.pick'
 import ImageCheckbox from '@/components/ImageCheckbox'
+import RecordHistoryModal from './RecordHistoryModal'
 
 let previousHistoryDiseasesOptions = {
   previousHistoryHypertension: {
@@ -361,12 +363,11 @@ let familyHistoryDiseasesOptions = {
   }
 }
 
-import { recordLatest, recordDetail, recordAll, recordAdd } from '@/api/record'
-
 @Component({
   components: {
     IconFont,
-    ImageCheckbox
+    ImageCheckbox,
+    RecordHistoryModal
   },
   props: {
     id: String
@@ -477,7 +478,9 @@ export default class extends Vue {
     })
   }
 
-  showHistoryRecords() {}
+  showHistoryRecords() {
+    this.$refs.modalForm.show()
+  }
 
   async beforeRouteEnter(to, from, next) {
     console.info(`beforeRouteEnter`)

@@ -1,34 +1,35 @@
 import api from './index'
 import { axios } from '@/utils/request'
+import { searchParasToString } from '@/utils/helper/url'
 
-export function recordLatest (parameter) {
+export function recordLatest (data, search) {
   return axios({
     url: api.recordLatest,
     method: 'get',
-    data: parameter
+    data
   })
 }
 
-export function recordAll (parameter) {
+export function recordAll (data, search) {
   return axios({
-    url: api.recordAll,
+    url: `${api.recordAll}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    data: parameter
+    data
   })
 }
 
-export function recordDetail (parameter) {
+export function recordDetail (data, search) {
   return axios({
-    url: api.recordDetail,
+    url: `${api.recordDetail}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    data: parameter
+    data
   })
 }
 
-export function recordAdd (parameter) {
+export function recordAdd (data, search) {
   return axios({
-    url: api.recordAdd,
+    url: `${api.recordAdd}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'post',
-    data: parameter
+    data
   })
 }

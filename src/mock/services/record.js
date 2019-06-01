@@ -167,8 +167,8 @@ const recordAll = options => {
 // 健康档案详情
 const recordDetail = options => {
   const queryParameters = getQueryParameters(options) || {}
-  const patientId = queryParameters.patientId
-  const record = records.filter(record => record.patientId === patientId)[0]
+  const id = queryParameters.id
+  const record = records.filter(record => record.id === id)[0]
   return builder(record, '请求成功', 200)
 }
 
