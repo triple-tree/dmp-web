@@ -21,7 +21,7 @@ export function patientQueryById (parameter) {
 export function patientQuery (parameter) {
   return axios({
     url: api.patientQuery,
-    method: 'get',
+    method: 'post',
     params: parameter
   })
 }

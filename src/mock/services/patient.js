@@ -306,6 +306,6 @@ const patientGetPatientReport = options => {
 
 Mock.mock(/\/patient\/all/, 'get', patientAll)
 Mock.mock(/\/patient\/queryById/, 'get', patientQueryById)
-Mock.mock(/\/patient\/query/, 'get', patientQuery)
+Mock.mock(/\/patient\/query/, 'post', patientQuery)
 Mock.mock(/\/patient\/add/, 'post', patientAdd)
 Mock.mock(/\/patient\/getPatientReport/, 'get', patientGetPatientReport)

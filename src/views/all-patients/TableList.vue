@@ -1,16 +1,11 @@
 <template>
   <a-card :bordered="false">
-    <!-- <div class="test-icon">
-      <icon-font type="iconicon5" :style="{ color: 'hotpink', fontSize: '50px' }"/>
-      <icon-font type="iconicon"/>
-      <icon-font type="iconicon1"/>
-    </div>-->
     <div class="table-page-search-wrapper">
       <a-form layout="inline">
         <a-row :gutter="48">
           <a-col :md="12" :sm="24">
             <a-form-item label>
-              <a-checkbox-group :options="plainOptions" v-model="queryParam.type"/>
+              <a-checkbox-group :options="typeOptions" v-model="queryParam.type"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
@@ -19,7 +14,7 @@
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-button type="primary" icon="search" @click="searchData()">查询</a-button>
+            <a-button type="primary" icon="search" @click="$refs.table.refresh()">查询</a-button>
             <a-button icon="plus" style="margin-left: 8px" @click="$refs.createModal.add()">添加患者</a-button>
           </a-col>
         </a-row>
@@ -62,16 +57,16 @@ import moment from 'moment'
 import { STable } from '@/components'
 import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
-import { patientAll, patientAdd, patientQueryById } from '@/api/patient'
+import { patientAll, patientAdd, patientQuery } from '@/api/patient'
 import IconFont from '@/components/Icon/index.js'
 import { setTimeout } from 'timers';
 
-const plainOptions = [
-  { label: '高血压', value: 0 },
-  { label: '糖尿病', value: 1 },
-  { label: '脑卒中', value: 2 },
-  { label: '冠心病', value: 3 },
-  { label: '慢阻肺', value: 4 }
+const typeOptions = [
+  { label: '高血压', value: 'hasHypertension' },
+  { label: '糖尿病', value: 'hasDiabetes' },
+  { label: '脑卒中', value: 'hasStroke' },
+  { label: '冠心病', value: 'hasAscvd' },
+  { label: '慢阻肺', value: 'hasCopd' }
 ]
 
 export default {
@@ -87,7 +82,7 @@ export default {
       mdl: {},
       // 查询参数
       queryParam: {},
-      plainOptions,
+      typeOptions,
       // 表头
       columns: [
         {
@@ -148,7 +143,28 @@ export default {
       loadData: async parameter => {
         console.log('loadData.parameter', parameter)
         console.log('this.queryParam',this.queryParam)
-        const res = await patientAll({ ...parameter, ...this.queryParam })
+        let params = {};
+        params.and = []
+        !!this.queryParam.id && params.and.push({
+          "columnName": "id", 
+          "method": "eq", 
+          "value": +this.queryParam.id
+        })
+        this.queryParam.type &&
+        this.queryParam.type.length &&
+        this.queryParam.type.forEach( function (e) {
+          params.and.push({
+            "columnName": e, 
+            "method": "eq", 
+            "value": 1
+          })
+        })
+        let pageParam = {
+          page: parameter.pageNo,
+          size: parameter.pageSize
+        } 
+        console.log({ ...pageParam, ...params })
+        const res = await patientQuery({ ...pageParam, ...params })
         console.info(`res: ${JSON.stringify(res)}`)
         return {
           pageSize: parameter.pageSize,
@@ -158,9 +174,6 @@ export default {
           data: res.data.patients
         }
       },
-      selectedRowKeys: [],
-      selectedRows: [],
-
       options: {
         alert: false,
         rowSelection: null
@@ -186,34 +199,6 @@ export default {
         console.info(`handleOk res: ${JSON.stringify(res)}`)
       }
       addPatient()
-    },
-    searchData () {
-      const self = this;
-      this.loadData = async parameter => {
-        console.log('loadData.parameter2', parameter)
-        console.log('this.queryParam2',this.queryParam)
-        const res = await patientQueryById({ ...parameter, ...this.queryParam })
-        console.info(`res2: ${JSON.stringify(res)}`)
-        return {
-          pageSize: parameter.pageSize,
-          pageNo: +res.data.page,
-          totalCount: res.data.total,
-          totalPage: res.data.total / parameter.pageSize,
-          data: res.data.patients
-        }
-      }
-      setTimeout(function(){
-        self.$refs.table.refresh()
-      },1000)
-    },
-    onSelectChange (selectedRowKeys, selectedRows) {
-      this.selectedRowKeys = selectedRowKeys
-      this.selectedRows = selectedRows
-    },
-    resetSearchForm () {
-      this.queryParam = {
-        date: moment(new Date())
-      }
     }
   }
 }

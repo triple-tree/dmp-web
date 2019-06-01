@@ -250,8 +250,8 @@ export default {
             self.params.factors[self.familyOptions[el].name] = 1
           })
           values={};
-          values.patient = this.params.patient;
-          values.factors = this.params.factors;
+          values.patient = this.params.patient
+          values.factors = this.params.factors
           console.log('values', values)
           setTimeout(() => {
             this.visible = false
