@@ -183,4 +183,4 @@ const recordAdd = options => {
 Mock.mock(/\/record\/latest/, 'get', recordLatest)
 Mock.mock(/\/record\/all/, 'get', recordAll)
 Mock.mock(/\/record\/detail/, 'get', recordDetail)
-Mock.mock(/\/record\/add/, 'get', recordAdd)
+Mock.mock(/\/record\/add/, 'post', recordAdd)
