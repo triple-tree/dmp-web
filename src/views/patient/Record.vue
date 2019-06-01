@@ -1,6 +1,6 @@
 <template>
   <div class="root-container">
-    <a-form layout="horizontal">
+    <a-form :form="form" layout="horizontal">
       <h3>基本信息</h3>
       <a-row :gutter="8">
         <a-col :span="8">
@@ -63,7 +63,7 @@
           >
             <a-input
               v-decorator="[
-          'height',
+          'dbp',
           {rules: [{  message: '请输入舒张压' }]}
         ]"
               placeholder="输入舒张压"
@@ -79,7 +79,7 @@
           >
             <a-input
               v-decorator="[
-          'weight',
+          'sbp',
           {rules: [{  message: '请输入收缩压' }]}
         ]"
               placeholder="输入收缩压"
@@ -95,7 +95,7 @@
           >
             <a-input
               v-decorator="[
-          'waistline',
+          'fbg',
           {rules: [{  message: '请输入空腹血糖' }]}
         ]"
               placeholder="输入空腹血糖"
@@ -113,7 +113,7 @@
           >
             <a-input
               v-decorator="[
-          'height',
+          'serumTc',
           {rules: [{  message: '请输入总胆固醇' }]}
         ]"
               placeholder="输入总胆固醇"
@@ -129,7 +129,7 @@
           >
             <a-input
               v-decorator="[
-          'weight',
+          'serumTc',
           {rules: [{  message: '请输入高密度蛋白质胆固醇' }]}
         ]"
               placeholder="输入高密度蛋白质胆固醇"
@@ -145,7 +145,7 @@
           >
             <a-input
               v-decorator="[
-          'waistline',
+          'serumTc',
           {rules: [{  message: '请输入低密度蛋白质胆固醇' }]}
         ]"
               placeholder="输入低密度蛋白质胆固醇"
@@ -324,6 +324,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
 import IconFont from '@/components/Icon/index.js'
+import pick from 'lodash.pick'
 
 let previousHistoryDiseasesOptions = {
   hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
@@ -347,16 +348,50 @@ let diseasesOptions = {
   hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 }
 }
 
+import { recordLatest, recordDetail, recordAll, recordAdd } from '@/api/record'
+
 @Component({
   components: {
     IconFont
+  },
+  props: {
+    id: String
+  },
+  watch: {
+    id: async (newVal, oldVal) => {
+      console.info(`watch.id changed`)
+      await vm.setData()
+    }
   }
 })
 export default class extends Vue {
-  async created() {}
+  async created() {
+    console.info(`created`)
+  }
+  async mounted() {
+    console.info(`mounted`)
+    await this.setData()
+  }
+  async setData() {
+    console.info(`setData`)
+    console.info(`id: ${this.id}`)
+    const patientId = this.id
+    const latestRecord = await recordLatest({ patientId })
+    this.model = { ...this.model, ...latestRecord.data }
+    console.info(this.model)
+    this.$nextTick(() => {
+      this.form.setFieldsValue(pick(this.model, 'weight', 'height', 'waistline', 'sbp', 'dbp', 'fbg'))
+    })
+  }
+  async beforeRouteEnter(to, from, next) {
+    console.info(`beforeRouteEnter`)
+    next(vm => vm.setData())
+  }
 
   data() {
     return {
+      model: {},
+      form: this.$form.createForm(this),
       diseasesOptions,
       previousHistoryDiseasesOptions,
       formItemLayout: {

@@ -394,7 +394,11 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
 
-@Component
+@Component({
+  props: {
+    id: String
+  }
+})
 export default class extends Vue {
   async created() {}
 

@@ -2,44 +2,138 @@ import Mock, { Random } from 'mockjs2'
 import { builder, getQueryParameters, getBody } from '../util'
 
 const total = Random.integer(100, 200)
-const records = [
-  ...Mock.mock({
-    [`records|${total}`]: [
+const records = []
+for (let i = 0; i < total; i++) {
+  const id = Random.id()
+  records.push({
+    id: `${id}`,
+    patientId: `${Random.id()}`,
+    doctorId: `${Random.id()}`,
+    createDate: `${Random.date('yyyy-MM-dd')}`,
+    patientRecordFactors: [
       {
-        patientId: () => Random.id(),
-        doctorId: () => Random.id(),
-        patientRecordId: () => Random.id(),
-        createDate: () => Random.date('yyyy-MM-dd'),
-        factors: {
-          previousHistoryDiabetes: () => Random.natural(0, 1),
-          previousHistoryHypertension: () => Random.natural(0, 1),
-          previousHistoryStroke: () => Random.natural(0, 1),
-          previousHistoryAscvd: () => Random.natural(0, 1),
-          previousHistoryCopd: () => Random.natural(0, 1),
-          previousHistoryDyslipidemia: () => Random.natural(0, 1),
-          familyHistoryDiabetes: () => Random.natural(0, 1),
-          familyHistoryHypertension: () => Random.natural(0, 1),
-          familyHistoryStroke: () => Random.natural(0, 1),
-          familyHistoryAscvd: () => Random.natural(0, 1),
-          familyHistoryCopd: () => Random.natural(0, 1),
-          symptomsHeadache: () => Random.natural(0, 1),
-          symptomsStethalgia: () => Random.natural(0, 1),
-          symptomsDyspnea: () => Random.natural(0, 1),
-          symptomsDiuresis: () => Random.natural(0, 1),
-          symptomsDizziness: () => Random.natural(0, 1),
-          smoke: () => Random.natural(0, 1),
-          sbp: Random.float(100, 200),
-          dbp: Random.float(100, 200),
-          fbg: () => Random.float(0, 10),
-          serumTc: () => Random.float(0, 10),
-          weight: () => Random.float(100, 200),
-          height: () => Random.float(50, 100),
-          waistline: () => Random.natural(0, 1)
-        }
+        patientRecordId: `${id}`,
+        factorName: 'previousHistoryDiabetes',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'previousHistoryHypertension',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'previousHistoryStroke',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'previousHistoryAscvd',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'previousHistoryCopd',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'previousHistoryDyslipidemia',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'familyHistoryDiabetes',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'familyHistoryHypertension',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'familyHistoryStroke',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'familyHistoryAscvd',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'familyHistoryCopd',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'symptomsHeadache',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'symptomsStethalgia',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'symptomsDyspnea',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'symptomsDiuresis',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'symptomsDizziness',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'smoke',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'sbp',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'dbp',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'fbg',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'serumTc',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'weight',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'height',
+        factorValue: Random.natural(0, 1)
+      },
+      {
+        patientRecordId: `${id}`,
+        factorName: 'waistline',
+        factorValue: Random.natural(0, 1)
       }
     ]
-  }).records
-]
+  })
+}
 
 // 最新健康档案
 const recordLatest = options => {
@@ -74,7 +168,7 @@ const recordAll = options => {
 const recordDetail = options => {
   const queryParameters = getQueryParameters(options) || {}
   const patientId = queryParameters.patientId
-  const record = records.filter(record => record.patientId === patientId)
+  const record = records.filter(record => record.patientId === patientId)[0]
   return builder(record, '请求成功', 200)
 }
 

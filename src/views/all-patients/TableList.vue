@@ -147,7 +147,7 @@ export default {
       loadData: async parameter => {
         console.log('loadData.parameter', parameter)
         const res = await patientAll({ ...parameter, ...this.queryParam })
-        console.info(`res: ${JSON.stringify(res)}`)
+        // console.info(`res: ${JSON.stringify(res)}`)
         return {
           pageSize: parameter.pageSize,
           pageNo: res.data.page,
@@ -170,7 +170,7 @@ export default {
   created() {},
   methods: {
     handleEdit(record) {
-      this.$router.push({ name: 'patient' })
+      this.$router.push({ path: `/patient/${record.id}` })
     },
     handleOk() {
       this.$refs.table.refresh()

@@ -45,7 +45,7 @@ for (let i = 0; i < total; i++) {
 const planDetail = options => {
   const queryParameters = getQueryParameters(options) || {}
   const healthPlanId = queryParameters.healthPlanId
-  const healthPlan = healthPlans.filter(healthPlan => healthPlan.id === healthPlanId)
+  const healthPlan = healthPlans.filter(healthPlan => healthPlan.id === healthPlanId)[0]
   return builder(healthPlan, '请求成功', 200)
 }
 
