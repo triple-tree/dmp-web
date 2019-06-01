@@ -19,7 +19,7 @@
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-button type="primary" icon="search" @click="$refs.table.refresh(true)">查询</a-button>
+            <a-button type="primary" icon="search" @click="searchData()">查询</a-button>
             <a-button icon="plus" style="margin-left: 8px" @click="$refs.createModal.add()">添加患者</a-button>
           </a-col>
         </a-row>
@@ -62,8 +62,9 @@ import moment from 'moment'
 import { STable } from '@/components'
 import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
-import { patientAll, patientAdd } from '@/api/patient'
+import { patientAll, patientAdd, patientQueryById } from '@/api/patient'
 import IconFont from '@/components/Icon/index.js'
+import { setTimeout } from 'timers';
 
 const plainOptions = [
   { label: '高血压', value: 0 },
@@ -146,11 +147,12 @@ export default {
       // 加载数据方法 必须为 Promise 对象
       loadData: async parameter => {
         console.log('loadData.parameter', parameter)
+        console.log('this.queryParam',this.queryParam)
         const res = await patientAll({ ...parameter, ...this.queryParam })
         console.info(`res: ${JSON.stringify(res)}`)
         return {
           pageSize: parameter.pageSize,
-          pageNo: res.data.page,
+          pageNo: +res.data.page,
           totalCount: res.data.total,
           totalPage: res.data.total / parameter.pageSize,
           data: res.data.patients
@@ -184,6 +186,25 @@ export default {
         console.info(`handleOk res: ${JSON.stringify(res)}`)
       }
       addPatient()
+    },
+    searchData () {
+      const self = this;
+      this.loadData = async parameter => {
+        console.log('loadData.parameter2', parameter)
+        console.log('this.queryParam2',this.queryParam)
+        const res = await patientQueryById({ ...parameter, ...this.queryParam })
+        console.info(`res2: ${JSON.stringify(res)}`)
+        return {
+          pageSize: parameter.pageSize,
+          pageNo: +res.data.page,
+          totalCount: res.data.total,
+          totalPage: res.data.total / parameter.pageSize,
+          data: res.data.patients
+        }
+      }
+      setTimeout(function(){
+        self.$refs.table.refresh()
+      },1000)
     },
     onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
