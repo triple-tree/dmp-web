@@ -13,13 +13,13 @@
           <a-col :md="8" :sm="24">
             <a-form-item
               label="姓名">
-              <a-input v-model="params.patient.name" v-decorator="['name', {rules: [{required: true, min: 2, message: '请输入姓名！'}]}]" />
+              <a-input v-decorator="['patient.name', {rules: [{required: true, min: 2, message: '请输入姓名！'}]}]" />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item
               label="性别">
-              <a-select v-model="params.patient.gender" v-decorator="['gender', {rules: [{required: true, message: '请选择性别！'}]}]" >
+              <a-select v-decorator="['patient.gender', {rules: [{required: true, message: '请选择性别！'}]}]" >
                 <a-select-option value="0">男</a-select-option>
                 <a-select-option value="1">女</a-select-option>
               </a-select>
@@ -28,25 +28,25 @@
           <a-col :md="8" :sm="24">
             <a-form-item
               label="手机号">
-              <a-input v-model="params.patient.phoneNumber" v-decorator="['phoneNumber', {rules: [{required: true, len: 11, message: '请输入手机号码！'}]}]" />
+              <a-input v-decorator="['patient.phoneNumber', {rules: [{required: true, len: 11, message: '请输入手机号码！'}]}]" />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item
               label="身份证">
-              <a-input v-model="params.patient.identityNumber" v-decorator="['identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]" />
+              <a-input v-decorator="['patient.identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]" />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item
               label="患者地址">
-              <a-cascader :options="city" v-model="params.add " placeholder="请选择省-市-区" />
+              <a-cascader :options="city" v-decorator="['temp.add']" placeholder="请选择省-市-区" />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item
               label="详细地址">
-              <a-input v-model="params.patient.detailAddress" placeholder="请输入街道、门牌号等信息"/>
+              <a-input v-decorator="['patient.detailAddress']" placeholder="请输入街道、门牌号等信息"/>
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24">
@@ -71,61 +71,61 @@
           <a-col :md="6" :sm="24">
             <a-form-item
               label="身高(cm)">
-              <a-input v-model="params.factors.height" v-decorator="['height']" />
+              <a-input v-decorator="['factors.height']" />
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
             <a-form-item
               label="体重(kg)">
-              <a-input v-model="params.factors.weight" v-decorator="['weight']" />
+              <a-input v-decorator="['factors.weight']" />
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
             <a-form-item
               label="腰围(cm)">
-              <a-input v-model="params.factors.waistline" v-decorator="['waistline']" />
+              <a-input v-decorator="['factors.waistline']" />
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
             <a-form-item
               label="舒张压(mmHg)">
-              <a-input v-model="params.factors.sbp" v-decorator="['sbp']" />
+              <a-input v-decorator="['factors.sbp']" />
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
             <a-form-item
               label="收缩压(mmHg)">
-              <a-input v-model="params.factors.dbp" v-decorator="['dbp']" />
+              <a-input v-decorator="['factors.dbp']" />
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
             <a-form-item
               label="空腹血糖(mmol/L)">
-              <a-input v-model="params.factors.fbg" v-decorator="['fbg']" />
+              <a-input v-decorator="['factors.fbg']" />
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
             <a-form-item
               label="血清总胆固醇(mmol/L)">
-              <a-input v-model="params.factors.serumTc" v-decorator="['serumTc']" />
+              <a-input v-decorator="['factors.serumTc']" />
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24">
             <a-form-item
               label="家族史（父母任意一方是否患有）">
-              <a-checkbox-group v-model="params.factors.family" :options="familyOptions"/>
+              <a-checkbox-group v-decorator="['temp.family']" :options="familyOptions" />
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24">
             <a-form-item
               label="症状">
-              <a-checkbox-group v-model="params.factors.symptom" :options="symptomOptions"/>
+              <a-checkbox-group v-decorator="['temp.symptom']" :options="symptomOptions"/>
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24">
             <a-form-item
               label="是否吸烟">
-              <a-radio-group v-model="params.factors.smoke" name="smoke">
+              <a-radio-group v-decorator="['factors.smoke']" name="smoke">
                 <a-radio :value="0">是</a-radio>
                 <a-radio :value="1">否</a-radio>
               </a-radio-group>
@@ -169,10 +169,11 @@ let familyOptions = [
 ]
 let diseaseOptions = {
   hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
-  hasDiabetes: { label: '糖尿病', iconType0: 'icon_diabetes', iconType1: 'icon_diabetes_red', value: 1 },
+  hasDiabetes: { label: '糖尿病', iconType0: 'icon_diabetes', iconType1: 'icon_diabetes_red', value: 0 },
   hasStroke: { label: '脑卒中', iconType0: 'icon_stroke', iconType1: 'icon_stroke_red', value: 0 },
-  hasAscvd: { label: '冠心病', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 1 },
-  hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 }
+  hasAscvd: { label: '冠心病', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 0 },
+  hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 },
+  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 }
 }
 
 export default {
@@ -195,17 +196,20 @@ export default {
       familyOptions,
       diseaseOptions,
       symptomCheck: [],
-      params:{
-        add: [],
-        patient: {},
-        factors: {}
-      },
       form: this.$form.createForm(this),
       city: City
     }
   },
   methods: {
     add () {
+      this.form.resetFields()
+      this.form.setFieldsValue({
+        'temp.family': [],
+        'temp.symptom': []
+      })
+      for(var o in this.diseaseOptions){
+        this.diseaseOptions[o].value = 0
+      }
       this.visible = true
     },
     selectDisease (item) {
@@ -217,17 +221,19 @@ export default {
       const self = this
       validateFields((errors, values) => {
         if (!errors) {          
-          Object.assign(this.params.patient, {
+          values.temp.add = []
+          Object.assign(values.patient, {
             hasHypertension: this.diseaseOptions.hasHypertension.value,
             hasDiabetes: this.diseaseOptions.hasDiabetes.value,
             hasStroke: this.diseaseOptions.hasStroke.value,
             hasAscvd: this.diseaseOptions.hasAscvd.value,
             hasCopd: this.diseaseOptions.hasCopd.value,
-            province: this.params.add[0] || '',
-            city: this.params.add[1] || '',
-            county: this.params.add[2] || ''
+            hasDyslipidemia: this.diseaseOptions.hasDyslipidemia.value,
+            province: ( values.temp.add.length && values.temp.add[0] ) || '',
+            city: ( values.temp.add.length && values.temp.add[1] ) || '',
+            county: ( values.temp.add.length && values.temp.add[2] ) || ''
           })
-          Object.assign(this.params.factors, {
+          Object.assign(values.factors, {
             "familyHistoryDiabetes": 0,
             "familyHistoryHypertension": 0,
             "familyHistoryStroke": 0,
@@ -239,19 +245,17 @@ export default {
             symptomsDiuresis: 0,
             symptomsDizziness: 0
           })
-          this.params.factors.symptom 
-          && this.params.factors.symptom.length 
-          && this.params.factors.symptom.forEach(function (el) {
-            self.params.factors[self.symptomOptions[el].name] = 1
+          values.temp.symptom 
+          && values.temp.symptom.length 
+          && values.temp.symptom.forEach(function (el) {
+            values.factors[self.symptomOptions[el].name] = 1
           })
-          this.params.factors.family 
-          && this.params.factors.family.length 
-          && this.params.factors.family.forEach(function (el) {
-            self.params.factors[self.familyOptions[el].name] = 1
+          values.temp.family 
+          && values.temp.family.length 
+          && values.temp.family.forEach(function (el) {
+            values.factors[self.familyOptions[el].name] = 1
           })
-          values={};
-          values.patient = this.params.patient
-          values.factors = this.params.factors
+          // delete values.temp
           console.log('values', values)
           setTimeout(() => {
             this.visible = false
