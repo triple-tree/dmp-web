@@ -67,7 +67,10 @@
       "@vue/standard"
     ],
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "babel-eslint",
+      "ecmaFeatures": {
+        "legacyDecorators": true
+      }
     },
     "rules": {
       "generator-star-spacing": "off",
