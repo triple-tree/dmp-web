@@ -2,8 +2,11 @@ import Mock, { Random } from 'mockjs2'
 import { builder, getQueryParameters, getBody } from '../util'
 
 const total = Random.integer(100, 200)
-const patients = [
-  ...Mock.mock({
+let patients = []
+
+// 3.1.1.	全部患者
+const patientAll = options => {
+  patients = Mock.mock({
     [`patients|${total}`]: [
       {
         id: () => Random.id(),
@@ -28,10 +31,6 @@ const patients = [
       }
     ]
   }).patients
-]
-
-// 3.1.1.	全部患者
-const patientAll = options => {
   const queryParameters = getQueryParameters(options) || {}
   if (queryParameters && !queryParameters.pageNo) {
     queryParameters.pageNo = 1
@@ -54,7 +53,7 @@ const patientAll = options => {
 const patientQueryById = options => {
   const queryParameters = getQueryParameters(options) || {}
   const patientId = queryParameters.patientId
-  const data = patients.filter(patient => patient.id === patientId)
+  const data = patients.filter(patient => patient.id === patientId)[0]
   return builder(data, '查询成功', 200)
 }
 

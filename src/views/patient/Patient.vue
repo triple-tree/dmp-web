@@ -16,27 +16,29 @@
           />
         </a-layout-header>
         <div class="patient-basic-info">
-          <h1>陈先生</h1>
+          <h1>{{model.name}}</h1>
           <div :style="{ marginBottom:'30px'}">
-            <span class="gender">男</span>
-            <span class="age">65岁</span>
+            <span class="gender">{{ model.gender ? '女': '男'}}</span>
+            <span class="age">{{model.age}}</span>
           </div>
           <div :style="{ marginBottom:'10px'}">
             <span class="info-key">手机号：</span>
-            <span class="info-value">18119183829</span>
+            <span class="info-value">{{model.phoneNumber}}</span>
           </div>
           <div :style="{ marginBottom:'10px'}">
             <span class="info-key">身份证号：</span>
-            <span class="info-value">372012192302392329</span>
+            <span class="info-value">{{model.identityNumber}}</span>
           </div>
           <div :style="{ marginBottom:'15px'}">
             <span class="info-key">住址：</span>
-            <span class="info-value">北京市朝阳区三元桥</span>
+            <span
+              class="info-value"
+            >{{model.province + model.city + model.county + model.detailAddress}}</span>
           </div>
           <div class="hint" :style="{ marginBottom:'10px'}">（以下为最新评估结果展示）</div>
           <div :style="{ marginBottom:'10px'}">
             <span class="ill-status">慢病综合风险：</span>
-            <span class="ill-value">高危</span>
+            <span class="ill-value">{{'null'}}</span>
           </div>
           <div class="chronic-disease-status">
             <div class="item">
@@ -119,19 +121,19 @@
               <span slot="tab">
                 <a-icon type="android"/>健康档案
               </span>
-              <record></record>
+              <record :id="id"></record>
             </a-tab-pane>
             <a-tab-pane key="2">
               <span slot="tab">
                 <a-icon type="apple"/>评估筛选
               </span>
-              <assessment></assessment>
+              <assessment :id="id"></assessment>
             </a-tab-pane>
             <a-tab-pane key="3">
               <span slot="tab">
                 <a-icon type="android"/>健康方案
               </span>
-              <plan></plan>
+              <plan :id="id"></plan>
             </a-tab-pane>
           </a-tabs>
         </a-layout-content>
@@ -150,23 +152,46 @@ import Assessment from './Assessment'
 // 健康方案
 import Plan from './Plan'
 
+import { patientQueryById } from '@/api/patient'
+
 @Component({
   components: {
     Record,
     Assessment,
     Plan
+  },
+  props: {
+    id: String
   }
 })
 export default class extends Vue {
+  async created() {
+    console.info(`created`)
+  }
+  async mounted() {
+    console.info(`mounted`)
+  }
+  async setData() {
+    console.info(`setData`)
+    const patientId = this.id
+    const patient = await patientQueryById({ patientId })
+    this.model = { ...this.model, ...patient.data }
+    console.info(this.model)
+  }
+  async beforeRouteEnter(to, from, next) {
+    console.info(`beforeRouteEnter`)
+    next(async vm => await vm.setData())
+  }
   data() {
     return {
+      model: {},
       collapsed: false
     }
   }
 }
 </script>
 
-<style lang="less"  scoped>
+<style lang="less" scoped>
 .patient-basic-info {
   flex-direction: column;
   padding: 10px;

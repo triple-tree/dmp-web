@@ -1,6 +1,6 @@
 <template>
   <div class="root-container">
-    <a-form layout="horizontal">
+    <a-form :form="form" @submit="handleSubmit" layout="horizontal">
       <h3>基本信息</h3>
       <a-row :gutter="8">
         <a-col :span="8">
@@ -10,10 +10,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[
-          'height',
-          {rules: [{  message: '请输入身高' }]}
-        ]"
+              v-decorator="['height', {rules: [{  message: '请输入身高' }]} ]"
               placeholder="输入身高"
               addonAfter="CM"
             />
@@ -26,10 +23,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[
-          'weight',
-          {rules: [{  message: '请输入体重' }]}
-        ]"
+              v-decorator="['weight', {rules: [{  message: '请输入体重' }]} ]"
               placeholder="输入体重"
               addonAfter="KG"
             />
@@ -42,10 +36,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[
-          'waistline',
-          {rules: [{  message: '请输入腰围' }]}
-        ]"
+              v-decorator="['waistline', {rules: [{  message: '请输入腰围' }]} ]"
               placeholder="输入腰围"
               addonAfter="CM"
             />
@@ -62,10 +53,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[
-          'height',
-          {rules: [{  message: '请输入舒张压' }]}
-        ]"
+              v-decorator="[ 'dbp', {rules: [{  message: '请输入舒张压' }]} ]"
               placeholder="输入舒张压"
               addonAfter="mmHg"
             />
@@ -78,10 +66,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[
-          'weight',
-          {rules: [{  message: '请输入收缩压' }]}
-        ]"
+              v-decorator="[ 'sbp', {rules: [{  message: '请输入收缩压' }]} ]"
               placeholder="输入收缩压"
               addonAfter="mmHg"
             />
@@ -94,10 +79,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[
-          'waistline',
-          {rules: [{  message: '请输入空腹血糖' }]}
-        ]"
+              v-decorator="[ 'fbg', {rules: [{  message: '请输入空腹血糖' }]} ]"
               placeholder="输入空腹血糖"
               addonAfter="mmol/L"
             />
@@ -112,10 +94,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[
-          'height',
-          {rules: [{  message: '请输入总胆固醇' }]}
-        ]"
+              v-decorator="[ 'serumTc', {rules: [{  message: '请输入总胆固醇' }]} ]"
               placeholder="输入总胆固醇"
               addonAfter="mmol/L"
             />
@@ -128,10 +107,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[
-          'weight',
-          {rules: [{  message: '请输入高密度蛋白质胆固醇' }]}
-        ]"
+              v-decorator="[ 'serumTc', {rules: [{  message: '请输入高密度蛋白质胆固醇' }]} ]"
               placeholder="输入高密度蛋白质胆固醇"
               addonAfter="mmol/L"
             />
@@ -144,10 +120,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[
-          'waistline',
-          {rules: [{  message: '请输入低密度蛋白质胆固醇' }]}
-        ]"
+              v-decorator="[ 'serumTc', {rules: [{  message: '请输入低密度蛋白质胆固醇' }]} ]"
               placeholder="输入低密度蛋白质胆固醇"
               addonAfter="mmol/L"
             />
@@ -156,21 +129,18 @@
       </a-row>
 
       <h3>既往史</h3>
+
       <a-row :gutter="8">
         <a-col :md="24" :sm="24">
           <a-form-item>
             <a-row type="flex">
               <a-col
-                :span="4"
-                align="center"
                 v-for="item in previousHistoryDiseasesOptions"
                 :key="item.index"
-                :value="item.value"
-                @click="selectPreviousHistoryDiseases(item)"
+                :span="4"
+                align="center"
               >
-                <icon-font class="icon-size" :type="item.iconType1" v-if="item.value === 1"/>
-                <icon-font class="icon-size" :type="item.iconType0" v-if="item.value === 0"/>
-                <div>{{ item.label }}</div>
+                <image-checkbox :item="item" :v-decorator="item.decorator"></image-checkbox>
               </a-col>
             </a-row>
           </a-form-item>
@@ -183,16 +153,12 @@
           <a-form-item>
             <a-row type="flex">
               <a-col
+                v-for="item in familyHistoryDiseasesOptions"
+                :key="item.index"
                 :span="4"
                 align="center"
-                v-for="item in diseasesOptions"
-                :key="item.index"
-                :value="item.value"
-                @click="selectDisease(item)"
               >
-                <icon-font class="icon-size" :type="item.iconType1" v-if="item.value === 1"/>
-                <icon-font class="icon-size" :type="item.iconType0" v-if="item.value === 0"/>
-                <div>{{ item.label }}</div>
+                <image-checkbox :item="item" :v-decorator="item.decorator"></image-checkbox>
               </a-col>
             </a-row>
           </a-form-item>
@@ -203,29 +169,29 @@
       <a-row :gutter="8">
         <a-col :span="7">
           <a-form-item>
-            <a-checkbox v-decorator="['height']">头晕、头疼症状</a-checkbox>
+            <a-checkbox v-decorator="['symptomsHeadache']">头晕、头疼症状</a-checkbox>
           </a-form-item>
         </a-col>
         <a-col :span="17">
           <a-form-item>
-            <a-checkbox v-decorator="['height']">体力劳动、精神紧张或激烈时出现胸痛症状、休息后逐渐缓解</a-checkbox>
+            <a-checkbox v-decorator="['symptomsStethalgia']">体力劳动、精神紧张或激烈时出现胸痛症状、休息后逐渐缓解</a-checkbox>
           </a-form-item>
         </a-col>
       </a-row>
       <a-row :gutter="8">
         <a-col :span="7">
           <a-form-item>
-            <a-checkbox v-decorator="['height']">呼吸困难或慢性咳嗽</a-checkbox>
+            <a-checkbox v-decorator="['symptomsDyspnea']">呼吸困难或慢性咳嗽</a-checkbox>
           </a-form-item>
         </a-col>
         <a-col :span="17">
           <a-form-item>
-            <a-checkbox v-decorator="['height']">多饮、多尿、多食、不明原因体重下降</a-checkbox>
+            <a-checkbox v-decorator="['symptomsDiuresis']">多饮、多尿、多食、不明原因体重下降</a-checkbox>
           </a-form-item>
         </a-col>
         <a-col :span="7">
           <a-form-item>
-            <a-checkbox v-decorator="['height']">一般性黑蒙、眩晕</a-checkbox>
+            <a-checkbox v-decorator="['symptomsDizziness']">一般性黑蒙、眩晕</a-checkbox>
           </a-form-item>
         </a-col>
       </a-row>
@@ -234,19 +200,19 @@
       <a-row :gutter="8">
         <a-col :span="8">
           <a-form-item>
-            <a-checkbox v-decorator="['height']">是否吸烟</a-checkbox>
+            <a-checkbox v-decorator="['smoke']">是否吸烟</a-checkbox>
           </a-form-item>
         </a-col>
         <a-col :span="8">
           <a-form-item>
-            <a-checkbox v-decorator="['height']">是否运动</a-checkbox>
+            <a-checkbox v-decorator="['sport']">是否运动</a-checkbox>
           </a-form-item>
         </a-col>
       </a-row>
       <a-row :gutter="8">
         <a-col :span="8">
           <a-form-item>
-            <a-checkbox v-decorator="['height']">是否饮酒</a-checkbox>
+            <a-checkbox v-decorator="['drink']">是否饮酒</a-checkbox>
           </a-form-item>
         </a-col>
 
@@ -257,10 +223,7 @@
             :wrapper-col="formItemLayout.horizontalWrapperCol"
           >
             <a-input
-              v-decorator="[
-          'weight',
-          {rules: [{  message: '请输入每天盐的摄入量' }]}
-        ]"
+              v-decorator="['salt', {rules: [{  message: '请输入每天盐的摄入量' }]} ]"
               placeholder="输入每天盐的摄入量"
               addonAfter="mg"
             />
@@ -276,13 +239,7 @@
             :label-col="formItemLayout.horizontalLabelCol"
             :wrapper-col="formItemLayout.horizontalWrapperCol"
           >
-            <a-input
-              v-decorator="[
-          'weight',
-          {rules: [{  message: '请输入血常规' }]}
-        ]"
-              placeholder="输入血常规"
-            />
+            <a-input v-decorator="['br', {rules: [{  message: '请输入血常规' }]} ]" placeholder="输入血常规"/>
           </a-form-item>
         </a-col>
         <a-col :span="8">
@@ -291,13 +248,7 @@
             :label-col="formItemLayout.horizontalLabelCol"
             :wrapper-col="formItemLayout.horizontalWrapperCol"
           >
-            <a-input
-              v-decorator="[
-          'weight',
-          {rules: [{  message: '请输入尿常规' }]}
-        ]"
-              placeholder="输入尿常规"
-            />
+            <a-input v-decorator="['ur', {rules: [{  message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
           </a-form-item>
         </a-col>
       </a-row>
@@ -310,54 +261,237 @@
         </a-col>
         <a-col :span="8">
           <a-form-item>
-            <a-button type="default" html-type="submit">历史健康档案</a-button>
+            <a-button type="default" @click="showHistoryRecords">历史健康档案</a-button>
           </a-form-item>
         </a-col>
       </a-row>
     </a-form>
+    <record-history-modal ref="modalForm"></record-history-modal>
   </div>
 </template>
 
 <script>
-import { statsAll, statsPatients, statsPlans } from '@/api/stats'
+import { recordLatest, recordDetail, recordAll, recordAdd } from '@/api/record'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
 import IconFont from '@/components/Icon/index.js'
+import pick from 'lodash.pick'
+import ImageCheckbox from '@/components/ImageCheckbox'
+import RecordHistoryModal from './RecordHistoryModal'
 
 let previousHistoryDiseasesOptions = {
-  hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
-  hasDiabetes: { label: '糖尿病', iconType0: 'icon_diabetes', iconType1: 'icon_diabetes_red', value: 1 },
-  hasStroke: {
+  previousHistoryHypertension: {
+    name: 'previousHistoryHypertension',
+    label: '高血压',
+    iconType0: 'icon_hypertension',
+    iconType1: 'icon_hypertension_red',
+    value: 0
+  },
+  previousHistoryDiabetes: {
+    name: 'previousHistoryDiabetes',
+    label: '糖尿病',
+    iconType0: 'icon_diabetes',
+    iconType1: 'icon_diabetes_red',
+    value: 1
+  },
+  previousHistoryStroke: {
+    name: 'previousHistoryStroke',
     label: '短暂性脑缺血发作(TIA)或缺血性卒中(脑梗死)',
     iconType0: 'icon_stroke',
     iconType1: 'icon_stroke_red',
     value: 0
   },
-  hasAscvd: { label: '急性冠脉综合征ACS', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 1 },
-  hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 },
-  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_dyslipidemiad', iconType1: 'icon_dyslipidemiad_red', value: 0 }
+  previousHistoryAscvd: {
+    name: 'previousHistoryAscvd',
+    label: '急性冠脉综合征ACS',
+    iconType0: 'icon_ascvd',
+    iconType1: 'icon_ascvd_red',
+    value: 1
+  },
+  previousHistoryCopd: {
+    name: 'previousHistoryCopd',
+    label: '慢阻肺',
+    iconType0: 'icon_copd',
+    iconType1: 'icon_copd_red',
+    value: 0
+  },
+  previousHistoryDyslipidemia: {
+    name: 'previousHistoryDyslipidemia',
+    label: '血脂异常',
+    iconType0: 'icon_dyslipidemiad',
+    iconType1: 'icon_dyslipidemiad_red',
+    value: 0
+  }
 }
 
-let diseasesOptions = {
-  hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
-  hasDiabetes: { label: '糖尿病', iconType0: 'icon_diabetes', iconType1: 'icon_diabetes_red', value: 1 },
-  hasStroke: { label: '脑卒中', iconType0: 'icon_stroke', iconType1: 'icon_stroke_red', value: 0 },
-  hasAscvd: { label: '冠心病', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 1 },
-  hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 }
+let familyHistoryDiseasesOptions = {
+  familyHistoryHypertension: {
+    name: 'familyHistoryHypertension',
+    label: '高血压',
+    iconType0: 'icon_hypertension',
+    iconType1: 'icon_hypertension_red',
+    value: 0
+  },
+  familyHistoryDiabetes: {
+    name: 'familyHistoryDiabetes',
+    label: '糖尿病',
+    iconType0: 'icon_diabetes',
+    iconType1: 'icon_diabetes_red',
+    value: 1
+  },
+  familyHistoryStroke: {
+    name: 'familyHistoryStroke',
+    label: '脑卒中',
+    iconType0: 'icon_stroke',
+    iconType1: 'icon_stroke_red',
+    value: 0
+  },
+  familyHistoryAscvd: {
+    name: 'familyHistoryAscvd',
+    label: '冠心病',
+    iconType0: 'icon_ascvd',
+    iconType1: 'icon_ascvd_red',
+    value: 1
+  },
+  familyHistoryCopd: {
+    name: 'familyHistoryCopd',
+    label: '慢阻肺',
+    iconType0: 'icon_copd',
+    iconType1: 'icon_copd_red',
+    value: 0
+  }
 }
 
 @Component({
   components: {
-    IconFont
+    IconFont,
+    ImageCheckbox,
+    RecordHistoryModal
+  },
+  props: {
+    id: String
+  },
+  watch: {
+    id: async (newVal, oldVal) => {
+      console.info(`watch.id changed`)
+      await this.setData()
+    }
   }
 })
 export default class extends Vue {
-  async created() {}
+  async created() {
+    console.info(`created`)
+  }
+  async mounted() {
+    console.info(`mounted`)
+    await this.setData()
+  }
+  async setData() {
+    console.info(`setData`)
+    console.info(`id: ${this.id}`)
+    const patientId = this.id
+    const latestRecord = await recordLatest({ patientId })
+    const factors = {}
+    latestRecord.data.patientRecordFactors.forEach(factor => {
+      factors[factor.factorName] = factor.factorValue
+    })
+    this.model = { ...this.model, ...factors }
+    console.info(this.model)
+    this.$nextTick(() => {
+      this.form.setFieldsValue(
+        pick(
+          this.model,
+          'weight',
+          'height',
+          'waistline',
+          'sbp',
+          'dbp',
+          'fbg',
+          'serumTc',
+          'serumTcLower',
+          'serumTcUpper',
+          'previousHistoryHypertension',
+          'previousHistoryDiabetes',
+          'previousHistoryStroke',
+          'previousHistoryAscvd',
+          'previousHistoryCopd',
+          'previousHistoryDyslipidemia',
+          'familyHistoryHypertension',
+          'familyHistoryDiabetes',
+          'familyHistoryStroke',
+          'familyHistoryAscvd',
+          'familyHistoryCopd',
+          'symptomsHeadache',
+          'symptomsStethalgia',
+          'symptomsDyspnea',
+          'symptomsDiuresis',
+          'symptomsDizziness',
+          'smoke',
+          'sport',
+          'drink',
+          'salt',
+          'br',
+          'ur'
+        )
+      )
+    })
+  }
+
+  async handleSubmit(e) {
+    e.preventDefault()
+    this.form.validateFields((err, values) => {
+      if (!err) {
+        return console.log('Received values of form: ', values)
+      }
+      const additionFields = [
+        'previousHistoryHypertension',
+        'previousHistoryDiabetes',
+        'previousHistoryStroke',
+        'previousHistoryAscvd',
+        'previousHistoryCopd',
+        'previousHistoryDyslipidemia',
+        'familyHistoryHypertension',
+        'familyHistoryDiabetes',
+        'familyHistoryStroke',
+        'familyHistoryAscvd',
+        'familyHistoryCopd'
+      ]
+      additionFields.forEach(key => {
+        values[key] = document.getElementById(key).value
+      })
+      console.info(`values: ${JSON.stringify(values, null, 2)}`)
+      // 添加健康档案
+      const data = {
+        patientId: this.id,
+        // TODO need to update the current id here
+        doctorId: 'b80c338df2974b58aaf9b51c351169e5',
+        patientRecordFactors: []
+      }
+      for (key in values) {
+        data.patientRecordFactors.push({
+          factorName: key,
+          factorValue: values[key]
+        })
+      }
+      recordAdd({ body: data })
+    })
+  }
+
+  showHistoryRecords() {
+    this.$refs.modalForm.show()
+  }
+
+  async beforeRouteEnter(to, from, next) {
+    console.info(`beforeRouteEnter`)
+    next(vm => vm.setData())
+  }
 
   data() {
     return {
-      diseasesOptions,
+      model: {},
+      form: this.$form.createForm(this),
+      familyHistoryDiseasesOptions,
       previousHistoryDiseasesOptions,
       formItemLayout: {
         labelCol: {

@@ -184,8 +184,8 @@ export default {
   filters: {},
   created () {},
   methods: {
-    handleEdit (record) {
-      this.$router.push({ name: 'patient' })
+    handleEdit(record) {
+      this.$router.push({ path: `/patient/${record.id}` })
     },
     handleOk (parameter) {
       const self = this

@@ -287,6 +287,9 @@ let previousHistoryDiseasesOptions = {
 @Component({
   components: {
     IconFont
+  },
+  props: {
+    id: String
   }
 })
 export default class extends Vue {

@@ -15,6 +15,8 @@ import './core/use'
 import './permission' // permission control
 import './utils/filter' // global filter
 
+import './class-component-hooks' // https://github.com/vuejs/vue-class-component/issues/335
+
 Vue.config.productionTip = false
 
 // mount axios Vue.$http and this.$http
