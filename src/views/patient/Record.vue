@@ -129,7 +129,6 @@
       </a-row>
 
       <h3>既往史</h3>
-
       <a-row :gutter="8">
         <a-col :md="24" :sm="24">
           <a-form-item>
@@ -141,8 +140,7 @@
                 align="center"
               >
                 <image-checkbox
-                  :label="item.label"
-                  :iconType="item.type"
+                  :iconTypeName="item.iconTypeName"
                   v-decorator="[
                     item.name,
                     {initialValue: item.value}
@@ -167,7 +165,7 @@
               >
                 <image-checkbox
                   :label="item.label"
-                  :iconType="item.type"
+                  :iconTypeName="item.iconTypeName"
                   v-decorator="[
                     item.name,
                     {initialValue: item.value}
@@ -313,37 +311,37 @@ let previousHistoryDiseasesOptions = {
   previousHistoryHypertension: {
     name: 'previousHistoryHypertension',
     label: '高血压',
-    type: ['icon_hypertension', 'icon_hypertension_red'],
+    iconTypeName: 'hypertension',
     value: 0
   },
   previousHistoryDiabetes: {
     name: 'previousHistoryDiabetes',
     label: '糖尿病',
-    type: ['icon_diabetes', 'icon_diabetes_red'],
+    iconTypeName: 'diabetes',
     value: 0
   },
   previousHistoryStroke: {
     name: 'previousHistoryStroke',
     label: '短暂性脑缺血发作(TIA)或缺血性卒中(脑梗死)',
-    type: ['icon_stroke', 'icon_stroke_red'],
+    iconTypeName: 'stroke',
     value: 0
   },
   previousHistoryAscvd: {
     name: 'previousHistoryAscvd',
     label: '急性冠脉综合征ACS',
-    type: ['icon_ascvd', 'icon_ascvd_red'],
+    iconTypeName: 'ascvd',
     value: 0
   },
   previousHistoryCopd: {
     name: 'previousHistoryCopd',
     label: '慢阻肺',
-    type: ['icon_copd', 'icon_copd_red'],
+    iconTypeName: 'copd',
     value: 0
   },
   previousHistoryDyslipidemia: {
     name: 'previousHistoryDyslipidemia',
     label: '血脂异常',
-    type: ['icon_dyslipidemiad', 'icon_dyslipidemiad_red'],
+    iconTypeName: 'dyslipidemiad',
     value: 0
   }
 }
@@ -352,31 +350,31 @@ let familyHistoryDiseasesOptions = {
   familyHistoryHypertension: {
     name: 'familyHistoryHypertension',
     label: '高血压',
-    type: ['icon_hypertension', 'icon_hypertension_red'],
+    iconTypeName: 'hypertension',
     value: 0
   },
   familyHistoryDiabetes: {
     name: 'familyHistoryDiabetes',
     label: '糖尿病',
-    type: ['icon_diabetes', 'icon_diabetes_red'],
+    iconTypeName: 'diabetes',
     value: 0
   },
   familyHistoryStroke: {
     name: 'familyHistoryStroke',
     label: '脑卒中',
-    type: ['icon_stroke', 'icon_stroke_red'],
+    iconTypeName: 'stroke',
     value: 0
   },
   familyHistoryAscvd: {
     name: 'familyHistoryAscvd',
     label: '冠心病',
-    type: ['icon_ascvd', 'icon_ascvd_red'],
+    iconTypeName: 'ascvd',
     value: 0
   },
   familyHistoryCopd: {
     name: 'familyHistoryCopd',
     label: '慢阻肺',
-    type: ['icon_copd', 'icon_copd_red'],
+    iconTypeName: 'copd',
     value: 0
   }
 }
