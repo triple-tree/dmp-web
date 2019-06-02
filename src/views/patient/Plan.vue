@@ -2,7 +2,7 @@
   <div class="root-container">
     <a-form layout="inline">
       <h3>评估</h3>
-      <a-row :gutter="8" v-for="(k, index) in form.getFieldValue('assessments')" :key="k">
+      <a-row :gutter="8" v-for="(k) in form.getFieldValue('assessments')" :key="k">
         <a-col :span="11">
           <a-form-item
             label="评估"
@@ -24,9 +24,9 @@
           >
             <a-input
               v-decorator="[
-          'weight',
-          {rules: [{ initialValue: '', required: true, message: '请输入评估结果' }]}
-        ]"
+                'weight',
+                {rules: [{ initialValue: '', required: true, message: '请输入评估结果' }]}
+              ]"
               placeholder="输入评估结果"
             />
           </a-form-item>
@@ -62,9 +62,9 @@
           >
             <a-input
               v-decorator="[
-          'medicine',
-          {rules: [{ initialValue: '', required: true, message: '请输入药名' }]}
-        ]"
+                'medicine',
+                {rules: [{ initialValue: '', required: true, message: '请输入药名' }]}
+              ]"
               placeholder="输入药名"
             />
           </a-form-item>
@@ -77,9 +77,9 @@
           >
             <a-input
               v-decorator="[
-          'frequency',
-          {rules: [{ initialValue: '', required: true, message: '请输入频次' }]}
-        ]"
+                'frequency',
+                {rules: [{ initialValue: '', required: true, message: '请输入频次' }]}
+              ]"
               placeholder="输入频次"
             />
           </a-form-item>
@@ -92,9 +92,9 @@
           >
             <a-input
               v-decorator="[
-          'dosage',
-          {rules: [{ initialValue: '', required: true, message: '请输入剂量' }]}
-        ]"
+                'dosage',
+                {rules: [{ initialValue: '', required: true, message: '请输入剂量' }]}
+              ]"
               placeholder="输入剂量"
             />
           </a-form-item>
@@ -107,9 +107,9 @@
           >
             <a-input
               v-decorator="[
-          'remark',
-          {rules: [{ initialValue: '', required: true, message: '请输入备注' }]}
-        ]"
+                'remark',
+                {rules: [{ initialValue: '', required: true, message: '请输入备注' }]}
+              ]"
               placeholder="输入备注"
             />
           </a-form-item>
@@ -136,7 +136,7 @@
       </a-row>
 
       <h3>运动</h3>
-      <a-row :gutter="8" v-for="(k, index) in form.getFieldValue('sports')" :key="k">
+      <a-row :gutter="8" v-for="(k) in form.getFieldValue('sports')" :key="k">
         <a-col :span="7">
           <a-form-item
             label="运动"
@@ -145,9 +145,9 @@
           >
             <a-input
               v-decorator="[
-          'sport',
-          {rules: [{ initialValue: '', required: true, message: '请输入运动' }]}
-        ]"
+                'sport',
+                {rules: [{ initialValue: '', required: true, message: '请输入运动' }]}
+              ]"
               placeholder="输入运动"
             />
           </a-form-item>
@@ -160,9 +160,9 @@
           >
             <a-input
               v-decorator="[
-          's-frequency',
-          {rules: [{ initialValue: '', required: true, message: '请输入频次' }]}
-        ]"
+                's-frequency',
+                {rules: [{ initialValue: '', required: true, message: '请输入频次' }]}
+              ]"
               placeholder="输入频次"
             />
           </a-form-item>
@@ -175,9 +175,9 @@
           >
             <a-input
               v-decorator="[
-          's-dosage',
-          {rules: [{ initialValue: '', required: true, message: '请输入剂量' }]}
-        ]"
+                's-dosage',
+                {rules: [{ initialValue: '', required: true, message: '请输入剂量' }]}
+              ]"
               placeholder="输入剂量"
             />
           </a-form-item>
@@ -190,9 +190,9 @@
           >
             <a-input
               v-decorator="[
-          's-remark',
-          {rules: [{ initialValue: '', required: true, message: '请输入备注' }]}
-        ]"
+                's-remark',
+                {rules: [{ initialValue: '', required: true, message: '请输入备注' }]}
+              ]"
               placeholder="输入备注"
             />
           </a-form-item>
@@ -219,7 +219,7 @@
       </a-row>
 
       <h3>饮食建议</h3>
-      <a-row :gutter="8" v-for="(k, index) in form.getFieldValue('diets')" :key="k">
+      <a-row :gutter="8" v-for="(k) in form.getFieldValue('diets')" :key="k">
         <a-col :span="22">
           <a-form-item
             label="饮食建议"
@@ -228,9 +228,9 @@
           >
             <a-input
               v-decorator="[
-          'diet',
-          {rules: [{ initialValue: '', required: true, message: '请输入饮食建议' }]}
-        ]"
+                'diet',
+                {rules: [{ initialValue: '', required: true, message: '请输入饮食建议' }]}
+              ]"
               placeholder="输入饮食建议"
             />
           </a-form-item>
@@ -257,7 +257,7 @@
       </a-row>
 
       <h3>其他建议</h3>
-      <a-row :gutter="8" v-for="(k, index) in form.getFieldValue('others')" :key="k">
+      <a-row :gutter="8" v-for="(k) in form.getFieldValue('others')" :key="k">
         <a-col :span="22">
           <a-form-item
             label="其他建议"
@@ -266,9 +266,9 @@
           >
             <a-input
               v-decorator="[
-          'other',
-          {rules: [{ initialValue: '', required: true, message: '请输入其他建议' }]}
-        ]"
+                'other',
+                {rules: [{ initialValue: '', required: true, message: '请输入其他建议' }]}
+              ]"
               placeholder="输入其他建议"
             />
           </a-form-item>
@@ -326,9 +326,9 @@
           >
             <a-input
               v-decorator="[
-          'height',
-          {rules: [{ required: true, message: '请输入就诊医院' }]}
-        ]"
+                'height',
+                {rules: [{ required: true, message: '请输入就诊医院' }]}
+              ]"
               placeholder="输入就诊医院"
             />
           </a-form-item>
@@ -343,9 +343,9 @@
           >
             <a-input
               v-decorator="[
-          'weight',
-          {rules: [{ required: true, message: '请输入相关病' }]}
-        ]"
+                'weight',
+                {rules: [{ required: true, message: '请输入相关病' }]}
+              ]"
               placeholder="输入相关病"
             />
           </a-form-item>
@@ -358,9 +358,9 @@
           >
             <a-input
               v-decorator="[
-          'waistline',
-          {rules: [{ required: true, message: '请输入原因' }]}
-        ]"
+                'waistline',
+                {rules: [{ required: true, message: '请输入原因' }]}
+              ]"
               placeholder="输入原因"
             />
           </a-form-item>
@@ -400,9 +400,9 @@ import Mock, { Random } from 'mockjs2'
   }
 })
 export default class extends Vue {
-  async created() {}
+  async created () {}
 
-  beforeCreate() {
+  beforeCreate () {
     this.form = this.$form.createForm(this)
     this.form.getFieldDecorator('assessments', { initialValue: [{ assessment: '', value: '' }], preserve: true })
     this.form.getFieldDecorator('prescriptions', {
@@ -423,7 +423,7 @@ export default class extends Vue {
     })
   }
 
-  remove(type, k) {
+  remove (type, k) {
     const { form } = this
     // can use data-binding to get
     const value = form.getFieldValue(type)
@@ -433,7 +433,7 @@ export default class extends Vue {
     })
   }
 
-  add(type) {
+  add (type) {
     const { form } = this
     // can use data-binding to get
     const value = form.getFieldValue(type)
@@ -456,11 +456,11 @@ export default class extends Vue {
     })
   }
 
-  MockImage(text) {
+  MockImage (text) {
     return Random.image('100x100', Random.color(), '#000', 'png', text)
   }
 
-  data() {
+  data () {
     return {
       formItemLayout: {
         labelCol: {

@@ -143,7 +143,7 @@
 <script>
 import IconFont from '@/components/Icon/index.js'
 
-let symptomOptions = [
+const symptomOptions = [
   { label: '头晕、头疼症状', value: 0, name: 'symptomsHeadache' },
   { label: '体力劳动、精神紧张或激动时出现胸痛症状，休息后逐渐缓解', value: 1, name: 'symptomsStethalgia' },
   { label: '呼吸困难或慢性咳嗽', value: 2, name: 'symptomsDyspnea' },
@@ -151,14 +151,14 @@ let symptomOptions = [
   { label: '一过性黑蒙、眩晕', value: 4, name: 'symptomsDizziness' }
 ]
 
-let familyOptions = [
+const familyOptions = [
   { label: '糖尿病', value: 0, name: 'familyHistoryDiabetes' },
   { label: '高血压', value: 1, name: 'familyHistoryHypertension' },
   { label: '冠心病', value: 2, name: 'familyHistoryAscvd' },
   { label: '缺血性卒中（脑更死）', value: 3, name: 'familyHistoryStroke' },
   { label: '慢阻肺（COPD）', value: 4, name: 'familyHistoryCopd' }
 ]
-let diseaseOptions = {
+const diseaseOptions = {
   hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
   hasDiabetes: { label: '糖尿病', iconType0: 'icon_diabetes', iconType1: 'icon_diabetes_red', value: 1 },
   hasStroke: { label: '脑卒中', iconType0: 'icon_stroke', iconType1: 'icon_stroke_red', value: 0 },
@@ -186,7 +186,7 @@ export default {
       familyOptions,
       diseaseOptions,
       symptomCheck: [],
-      params:{
+      params: {
         patient: {},
         factors: {}
       },
@@ -205,7 +205,7 @@ export default {
       this.confirmLoading = true
       const self = this
       validateFields((errors, values) => {
-        if (!errors) {          
+        if (!errors) {
           Object.assign(this.params.patient, {
             hasHypertension: this.diseaseOptions.hasHypertension.value,
             hasDiabetes: this.diseaseOptions.hasDiabetes.value,
@@ -214,28 +214,28 @@ export default {
             hasCopd: this.diseaseOptions.hasCopd.value
           })
           Object.assign(this.params.factors, {
-            "familyHistoryDiabetes": 0,
-            "familyHistoryHypertension": 0,
-            "familyHistoryStroke": 0,
-            "familyHistoryAscvd": 0,
-            "familyHistoryCopd": 0,
+            'familyHistoryDiabetes': 0,
+            'familyHistoryHypertension': 0,
+            'familyHistoryStroke': 0,
+            'familyHistoryAscvd': 0,
+            'familyHistoryCopd': 0,
             symptomsHeadache: 0,
             symptomsStethalgia: 0,
             symptomsDyspnea: 0,
             symptomsDiuresis: 0,
             symptomsDizziness: 0
           })
-          this.params.factors.symptom 
-          && this.params.factors.symptom.length 
-          && this.params.factors.symptom.forEach(function (el) {
+          this.params.factors.symptom &&
+          this.params.factors.symptom.length &&
+          this.params.factors.symptom.forEach(function (el) {
             self.params.factors[self.symptomOptions[el].name] = 1
           })
-          this.params.factors.family 
-          && this.params.factors.family.length 
-          && this.params.factors.family.forEach(function (el) {
+          this.params.factors.family &&
+          this.params.factors.family.length &&
+          this.params.factors.family.forEach(function (el) {
             self.params.factors[self.familyOptions[el].name] = 1
           })
-          values = this.params;
+          values = this.params
           console.log('values', values)
           setTimeout(() => {
             this.visible = false

@@ -10,7 +10,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="['height', {rules: [{  message: '请输入身高' }]} ]"
+              v-decorator="['height', {rules: [{ message: '请输入身高' }]} ]"
               placeholder="输入身高"
               addonAfter="CM"
             />
@@ -23,7 +23,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="['weight', {rules: [{  message: '请输入体重' }]} ]"
+              v-decorator="['weight', {rules: [{ message: '请输入体重' }]} ]"
               placeholder="输入体重"
               addonAfter="KG"
             />
@@ -36,7 +36,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="['waistline', {rules: [{  message: '请输入腰围' }]} ]"
+              v-decorator="['waistline', {rules: [{ message: '请输入腰围' }]} ]"
               placeholder="输入腰围"
               addonAfter="CM"
             />
@@ -53,7 +53,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'dbp', {rules: [{  message: '请输入舒张压' }]} ]"
+              v-decorator="[ 'dbp', {rules: [{ message: '请输入舒张压' }]} ]"
               placeholder="输入舒张压"
               addonAfter="mmHg"
             />
@@ -66,7 +66,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'sbp', {rules: [{  message: '请输入收缩压' }]} ]"
+              v-decorator="[ 'sbp', {rules: [{ message: '请输入收缩压' }]} ]"
               placeholder="输入收缩压"
               addonAfter="mmHg"
             />
@@ -79,7 +79,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'fbg', {rules: [{  message: '请输入空腹血糖' }]} ]"
+              v-decorator="[ 'fbg', {rules: [{ message: '请输入空腹血糖' }]} ]"
               placeholder="输入空腹血糖"
               addonAfter="mmol/L"
             />
@@ -94,7 +94,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'serumTc', {rules: [{  message: '请输入总胆固醇' }]} ]"
+              v-decorator="[ 'serumTc', {rules: [{ message: '请输入总胆固醇' }]} ]"
               placeholder="输入总胆固醇"
               addonAfter="mmol/L"
             />
@@ -107,7 +107,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'serumTc', {rules: [{  message: '请输入高密度蛋白质胆固醇' }]} ]"
+              v-decorator="[ 'serumTc', {rules: [{ message: '请输入高密度蛋白质胆固醇' }]} ]"
               placeholder="输入高密度蛋白质胆固醇"
               addonAfter="mmol/L"
             />
@@ -120,7 +120,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'serumTc', {rules: [{  message: '请输入低密度蛋白质胆固醇' }]} ]"
+              v-decorator="[ 'serumTc', {rules: [{ message: '请输入低密度蛋白质胆固醇' }]} ]"
               placeholder="输入低密度蛋白质胆固醇"
               addonAfter="mmol/L"
             />
@@ -235,7 +235,7 @@
             :wrapper-col="formItemLayout.horizontalWrapperCol"
           >
             <a-input
-              v-decorator="['salt', {rules: [{  message: '请输入每天盐的摄入量' }]} ]"
+              v-decorator="['salt', {rules: [{ message: '请输入每天盐的摄入量' }]} ]"
               placeholder="输入每天盐的摄入量"
               addonAfter="mg"
             />
@@ -251,7 +251,7 @@
             :label-col="formItemLayout.horizontalLabelCol"
             :wrapper-col="formItemLayout.horizontalWrapperCol"
           >
-            <a-input v-decorator="['br', {rules: [{  message: '请输入血常规' }]} ]" placeholder="输入血常规"/>
+            <a-input v-decorator="['br', {rules: [{ message: '请输入血常规' }]} ]" placeholder="输入血常规"/>
           </a-form-item>
         </a-col>
         <a-col :span="8">
@@ -260,7 +260,7 @@
             :label-col="formItemLayout.horizontalLabelCol"
             :wrapper-col="formItemLayout.horizontalWrapperCol"
           >
-            <a-input v-decorator="['ur', {rules: [{  message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
+            <a-input v-decorator="['ur', {rules: [{ message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
           </a-form-item>
         </a-col>
       </a-row>
@@ -277,20 +277,6 @@
           </a-form-item>
         </a-col>
       </a-row>
-      <a-col :span="8">
-        <a-form-item>
-          <image-checkbox
-            :label="'高血压'"
-            :iconType="['icon_hypertension', 'icon_hypertension_red']"
-            v-decorator="[
-              'xxx',
-              {
-                initialValue: 0
-              }
-            ]"
-          ></image-checkbox>
-        </a-form-item>
-      </a-col>
     </a-form>
     <record-history-modal ref="modalForm"></record-history-modal>
   </div>
@@ -307,7 +293,7 @@ import ImageCheckbox from '@/components/ImageCheckbox'
 import RecordHistoryModal from './RecordHistoryModal'
 import PriceInput from '@/components/PriceInput'
 
-let previousHistoryDiseasesOptions = {
+const previousHistoryDiseasesOptions = {
   previousHistoryHypertension: {
     name: 'previousHistoryHypertension',
     label: '高血压',
@@ -346,7 +332,7 @@ let previousHistoryDiseasesOptions = {
   }
 }
 
-let familyHistoryDiseasesOptions = {
+const familyHistoryDiseasesOptions = {
   familyHistoryHypertension: {
     name: 'familyHistoryHypertension',
     label: '高血压',
@@ -400,18 +386,18 @@ let familyHistoryDiseasesOptions = {
   }
 })
 export default class extends Vue {
-  async created() {
+  async created () {
     console.info(`created`)
   }
-  async mounted() {
+  async mounted () {
     console.info(`mounted`)
     await this.setData()
   }
-  async idChanged(newVal, oldVal) {
+  async idChanged (newVal, oldVal) {
     console.info(`watch.id changed`)
     await this.setData()
   }
-  async setData() {
+  async setData () {
     console.info(`setData`)
     console.info(`id: ${this.id}`)
     const patientId = this.id
@@ -464,7 +450,7 @@ export default class extends Vue {
     }
   }
 
-  async handleSubmit(e) {
+  async handleSubmit (e) {
     e.preventDefault()
     this.form.validateFields((err, values) => {
       if (err) {
@@ -478,7 +464,7 @@ export default class extends Vue {
         doctorId: 'b80c338df2974b58aaf9b51c351169e5',
         patientRecordFactors: []
       }
-      for (key in values) {
+      for (const key in values) {
         data.patientRecordFactors.push({
           factorName: key,
           factorValue: values[key]
@@ -488,16 +474,16 @@ export default class extends Vue {
     })
   }
 
-  showHistoryRecords() {
+  showHistoryRecords () {
     this.$refs.modalForm.show(this.id)
   }
 
-  async beforeRouteEnter(to, from, next) {
+  async beforeRouteEnter (to, from, next) {
     console.info(`beforeRouteEnter`)
     next(vm => vm.setData())
   }
 
-  data() {
+  data () {
     return {
       model: {},
       form: this.$form.createForm(this),
@@ -524,13 +510,13 @@ export default class extends Vue {
     }
   }
 
-  MockImage(text) {
+  MockImage (text) {
     return Random.image('100x100', Random.color(), '#000', 'png', text)
   }
-  selectDisease(item) {
+  selectDisease (item) {
     item.value = item.value === 1 ? 0 : 1
   }
-  selectPreviousHistoryDiseases(item) {
+  selectPreviousHistoryDiseases (item) {
     item.value = item.value === 1 ? 0 : 1
   }
 }

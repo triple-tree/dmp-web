@@ -9,7 +9,7 @@
     cancelText="关闭"
   >
     <s-table :columns="columns" :data="data">
-      <a slot="name" slot-scope="text" @click="viewDetail(text)" href="javascript:;">{{text}}</a>
+      <a slot="name" slot-scope="text" @click="viewDetail(text)" href="javascript:;">{{ text }}</a>
     </s-table>
     <record-detail-modal ref="modalForm"></record-detail-modal>
   </a-modal>
@@ -46,7 +46,7 @@ const columns = [
   props: {}
 })
 export default class RecordHistoryModal extends Vue {
-  async setData(parameter) {
+  async setData (parameter) {
     const res = await recordAll(null, { ...parameter })
     return {
       pageSize: parameter.pageSize,
@@ -56,7 +56,7 @@ export default class RecordHistoryModal extends Vue {
       data: res.data.records
     }
   }
-  data() {
+  data () {
     return {
       visible: false,
       confirmLoading: false,
@@ -64,18 +64,18 @@ export default class RecordHistoryModal extends Vue {
       columns
     }
   }
-  async show(patientId) {
+  async show (patientId) {
     this.visible = true
     this.setData({ pageNum: 1, pageSize: 10, patientId })
   }
-  handleOk() {
+  handleOk () {
     this.visible = false
   }
 
-  handleCancel() {
+  handleCancel () {
     this.visible = false
   }
-  viewDetail(id) {
+  viewDetail (id) {
     this.$refs.modalForm.show(id)
   }
 }

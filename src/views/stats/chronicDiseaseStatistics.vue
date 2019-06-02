@@ -22,25 +22,25 @@
     </a-col>
     <a-col :xl="6" :lg="6" :md="12" :sm="24" :xs="24">
       <a-card title="全部患者">
-        <p>{{this.statusAll.all}}</p>
+        <p>{{ this.statusAll.all }}</p>
       </a-card>
       <a-card title="高血压+糖尿病">
-        <p>{{this.statusAll.ascvdPatients}}</p>
+        <p>{{ this.statusAll.ascvdPatients }}</p>
       </a-card>
       <a-card title="高血压">
-        <p>{{this.statusAll.copdPatients}}</p>
+        <p>{{ this.statusAll.copdPatients }}</p>
       </a-card>
       <a-card title="糖尿病">
-        <p>{{this.statusAll.diabetesAndHypertensionPatients}}</p>
+        <p>{{ this.statusAll.diabetesAndHypertensionPatients }}</p>
       </a-card>
       <a-card title="脑卒中">
-        <p>{{this.statusAll.diabetesPatients}}</p>
+        <p>{{ this.statusAll.diabetesPatients }}</p>
       </a-card>
       <a-card title="冠心病">
-        <p>{{this.statusAll.strokePatients}}</p>
+        <p>{{ this.statusAll.strokePatients }}</p>
       </a-card>
       <a-card title="慢阻肺">
-        <p>{{this.statusAll.hypertensionPatients}}</p>
+        <p>{{ this.statusAll.hypertensionPatients }}</p>
       </a-card>
     </a-col>
   </a-row>
@@ -57,13 +57,13 @@ import Component from 'vue-class-component'
 
 @Component
 export default class extends Vue {
-  async created() {
+  async created () {
     await this.loadStatsPatientsData()
     await this.loadStatsPlansData()
     await this.loadStatsAllData()
   }
 
-  async loadStatsPatientsData() {
+  async loadStatsPatientsData () {
     const res = await statsPatients()
     const data = res.data
     /* construct sourceData like this
@@ -105,7 +105,7 @@ export default class extends Vue {
     this.statusPatients = dv.rows
   }
 
-  async loadStatsPlansData() {
+  async loadStatsPlansData () {
     const res = await statsPlans()
     const data = res.data
     const sourceData = [{ name: '患者健康处方' }, { name: '高危人群健康处方' }]
@@ -123,12 +123,12 @@ export default class extends Vue {
     this.statusPlans = dv.rows
   }
 
-  async loadStatsAllData() {
+  async loadStatsAllData () {
     const res = await statsAll()
     const data = res.data
     this.statusAll = data
   }
-  data() {
+  data () {
     return {
       statusAll: {
         all: 0,

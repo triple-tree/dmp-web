@@ -81,7 +81,7 @@ export default {
     StepByStepModal,
     IconFont
   },
-  data() {
+  data () {
     return {
       mdl: {},
       // 查询参数
@@ -167,19 +167,19 @@ export default {
     }
   },
   filters: {},
-  created() {},
+  created () {},
   methods: {
-    handleEdit(record) {
+    handleEdit (record) {
       this.$router.push({ path: `/patient/${record.id}` })
     },
-    handleOk() {
+    handleOk () {
       this.$refs.table.refresh()
     },
-    onSelectChange(selectedRowKeys, selectedRows) {
+    onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    resetSearchForm() {
+    resetSearchForm () {
       this.queryParam = {
         date: moment(new Date())
       }

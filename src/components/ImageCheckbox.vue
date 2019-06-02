@@ -14,7 +14,6 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import IconFont from '@/components/Icon/index.js'
-import { throws } from 'assert'
 
 const iconTypeDic = {
   hypertension: { icons: ['icon_hypertension', 'icon_hypertension_red'], label: '高血压' },
@@ -72,17 +71,17 @@ const iconTypeDic = {
   }
 })
 export default class ImageCheckbox extends Vue {
-  created() {
+  created () {
     if (!(this.iconType || this.iconTypeName)) {
-      throw 'iconType or iconTypeName should specified'
+      throw new Error('iconType or iconTypeName should specified')
     }
   }
-  data() {
+  data () {
     const innerValue = this.value || 0
     const innerLabel = this.label || iconTypeDic[this.iconTypeName].label
     const innerIconType = this.iconType || iconTypeDic[this.iconTypeName].icons
     if (!innerIconType || !innerLabel) {
-      throw `innerIconType or innerLabel could not calculated, $attrs: ${JSON.stringify(this.$attrs)}`
+      throw new Error(`innerIconType or innerLabel could not calculated, $attrs: ${JSON.stringify(this.$attrs)}`)
     }
     return {
       innerValue,
@@ -90,18 +89,18 @@ export default class ImageCheckbox extends Vue {
       innerLabel
     }
   }
-  valueChanged(val = 0) {
+  valueChanged (val = 0) {
     this.innerValue = val
   }
 
-  get checked() {
+  get checked () {
     return this.innerValue === 1
   }
-  get type() {
+  get type () {
     return this.innerValue ? this.innerIconType[1] : this.innerIconType[0]
   }
 
-  onChange(e) {
+  onChange (e) {
     const checked = e.target.checked
     this.innerValue = checked ? 1 : 0
     // Should provide an event to pass value to Form.

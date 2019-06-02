@@ -118,7 +118,9 @@
         {
           "ignoreReadBeforeAssign": false
         }
-      ]
+      ],
+      "no-unused-vars": "warn",
+      "vue/no-unused-vars": "warn"
     }
   },
   "postcss": {
