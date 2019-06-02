@@ -4,7 +4,7 @@ import { searchParasToString } from '@/utils/helper/url'
 
 export function recordLatest (data, search) {
   return axios({
-    url: api.recordLatest,
+    url: `${api.recordLatest}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
     data
   })

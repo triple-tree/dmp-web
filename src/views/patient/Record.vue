@@ -373,10 +373,13 @@ let familyHistoryDiseasesOptions = {
     id: String
   },
   watch: {
-    id: async (newVal, oldVal) => {
-      console.info(`watch.id changed`)
-      await this.setData()
-    }
+    id: [
+      {
+        handler: 'idChanged',
+        immediate: false,
+        deep: false
+      }
+    ]
   }
 })
 export default class extends Vue {
@@ -387,55 +390,61 @@ export default class extends Vue {
     console.info(`mounted`)
     await this.setData()
   }
+  async idChanged(newVal, oldVal) {
+    console.info(`watch.id changed`)
+    await this.setData()
+  }
   async setData() {
     console.info(`setData`)
     console.info(`id: ${this.id}`)
     const patientId = this.id
-    const latestRecord = await recordLatest({ patientId })
+    const latestRecord = await recordLatest(null, { patientId }).data
     const factors = {}
-    latestRecord.data.patientRecordFactors.forEach(factor => {
-      factors[factor.factorName] = factor.factorValue
-    })
-    this.model = { ...this.model, ...factors }
-    console.info(this.model)
-    this.$nextTick(() => {
-      this.form.setFieldsValue(
-        pick(
-          this.model,
-          'weight',
-          'height',
-          'waistline',
-          'sbp',
-          'dbp',
-          'fbg',
-          'serumTc',
-          'serumTcLower',
-          'serumTcUpper',
-          'previousHistoryHypertension',
-          'previousHistoryDiabetes',
-          'previousHistoryStroke',
-          'previousHistoryAscvd',
-          'previousHistoryCopd',
-          'previousHistoryDyslipidemia',
-          'familyHistoryHypertension',
-          'familyHistoryDiabetes',
-          'familyHistoryStroke',
-          'familyHistoryAscvd',
-          'familyHistoryCopd',
-          'symptomsHeadache',
-          'symptomsStethalgia',
-          'symptomsDyspnea',
-          'symptomsDiuresis',
-          'symptomsDizziness',
-          'smoke',
-          'sport',
-          'drink',
-          'salt',
-          'br',
-          'ur'
+    if (latestRecord) {
+      latestRecord.patientRecordFactors.forEach(factor => {
+        factors[factor.factorName] = factor.factorValue
+      })
+      this.model = { ...this.model, ...factors }
+      console.info(this.model)
+      this.$nextTick(() => {
+        this.form.setFieldsValue(
+          pick(
+            this.model,
+            'weight',
+            'height',
+            'waistline',
+            'sbp',
+            'dbp',
+            'fbg',
+            'serumTc',
+            'serumTcLower',
+            'serumTcUpper',
+            'previousHistoryHypertension',
+            'previousHistoryDiabetes',
+            'previousHistoryStroke',
+            'previousHistoryAscvd',
+            'previousHistoryCopd',
+            'previousHistoryDyslipidemia',
+            'familyHistoryHypertension',
+            'familyHistoryDiabetes',
+            'familyHistoryStroke',
+            'familyHistoryAscvd',
+            'familyHistoryCopd',
+            'symptomsHeadache',
+            'symptomsStethalgia',
+            'symptomsDyspnea',
+            'symptomsDiuresis',
+            'symptomsDizziness',
+            'smoke',
+            'sport',
+            'drink',
+            'salt',
+            'br',
+            'ur'
+          )
         )
-      )
-    })
+      })
+    }
   }
 
   async handleSubmit(e) {
@@ -479,7 +488,7 @@ export default class extends Vue {
   }
 
   showHistoryRecords() {
-    this.$refs.modalForm.show()
+    this.$refs.modalForm.show(this.id)
   }
 
   async beforeRouteEnter(to, from, next) {

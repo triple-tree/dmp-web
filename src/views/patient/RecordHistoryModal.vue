@@ -46,25 +46,27 @@ const columns = [
   props: {}
 })
 export default class RecordHistoryModal extends Vue {
+  async setData(parameter) {
+    const res = await recordAll(null, { ...parameter })
+    return {
+      pageSize: parameter.pageSize,
+      pageNo: res.data.page,
+      totalCount: res.data.total,
+      totalPage: res.data.total / parameter.pageSize,
+      data: res.data.records
+    }
+  }
   data() {
     return {
       visible: false,
       confirmLoading: false,
-      data: async parameter => {
-        const res = await recordAll(null, { ...parameter })
-        return {
-          pageSize: parameter.pageSize,
-          pageNo: res.data.page,
-          totalCount: res.data.total,
-          totalPage: res.data.total / parameter.pageSize,
-          data: res.data.records
-        }
-      },
+      data: () => ({}),
       columns
     }
   }
-  async show() {
+  async show(patientId) {
     this.visible = true
+    this.setData({ pageNum: 1, pageSize: 10, patientId })
   }
   handleOk() {
     this.visible = false

@@ -137,7 +137,10 @@ for (let i = 0; i < total; i++) {
 
 // 最新健康档案
 const recordLatest = options => {
-  const record = records.sort((record1, record2) => {
+  const queryParameters = getQueryParameters(options) || {}
+  const { patientId } = queryParameters
+  const filtedRecords = records.filter(record => record.patientId === patientId)
+  const record = filtedRecords.sort((record1, record2) => {
     return new Date(record2.createDate).getTime() - new Date(record1.createDate).getTime()
   })[0]
   return builder(record, '请求成功', 200)
@@ -146,6 +149,8 @@ const recordLatest = options => {
 // 历史健康档案
 const recordAll = options => {
   const queryParameters = getQueryParameters(options) || {}
+  const { patientId } = queryParameters
+  const filtedRecords = records.filter(record => record.patientId === patientId)
   if (queryParameters && !queryParameters.pageNo) {
     queryParameters.pageNo = 1
   }
@@ -154,8 +159,8 @@ const recordAll = options => {
   }
 
   const data = {
-    total: records.length,
-    records: records.slice(
+    total: filtedRecords.length,
+    records: filtedRecords.slice(
       (queryParameters.pageNo - 1) * queryParameters.pageSize,
       queryParameters.pageNo * queryParameters.pageSize
     ),

@@ -1,26 +1,30 @@
 import api from './index'
 import { axios } from '@/utils/request'
+import { searchParasToString } from '@/utils/helper/url'
 
-export function assessmentLatest (parameter) {
+export function assessmentLatest (data, search) {
   return axios({
-    url: api.assessmentLatest,
+    url: `${api.assessmentLatest}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    data: parameter
+    data: data,
+    search
   })
 }
 
-export function assessmentAll (parameter) {
+export function assessmentAll (data, search) {
   return axios({
-    url: api.assessmentAll,
+    url: `${api.assessmentAll}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    data: parameter
+    data: data,
+    search
   })
 }
 
-export function assessmentAssess (parameter) {
+export function assessmentAssess (data, search) {
   return axios({
-    url: api.assessmentAssess,
+    url: `${api.assessmentAssess}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'post',
-    data: parameter
+    data: data,
+    search
   })
 }
