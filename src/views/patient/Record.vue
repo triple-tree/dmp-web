@@ -140,7 +140,14 @@
                 :span="4"
                 align="center"
               >
-                <image-checkbox :item="item" :v-decorator="item.decorator"></image-checkbox>
+                <image-checkbox
+                  :label="item.label"
+                  :iconType="item.type"
+                  v-decorator="[
+                    item.name,
+                    {initialValue: item.value}
+                  ]"
+                ></image-checkbox>
               </a-col>
             </a-row>
           </a-form-item>
@@ -158,7 +165,14 @@
                 :span="4"
                 align="center"
               >
-                <image-checkbox :item="item" :v-decorator="item.decorator"></image-checkbox>
+                <image-checkbox
+                  :label="item.label"
+                  :iconType="item.type"
+                  v-decorator="[
+                    item.name,
+                    {initialValue: item.value}
+                  ]"
+                ></image-checkbox>
               </a-col>
             </a-row>
           </a-form-item>
@@ -265,6 +279,20 @@
           </a-form-item>
         </a-col>
       </a-row>
+      <a-col :span="8">
+        <a-form-item>
+          <image-checkbox
+            :label="'高血压'"
+            :iconType="['icon_hypertension', 'icon_hypertension_red']"
+            v-decorator="[
+              'xxx',
+              {
+                initialValue: 0
+              }
+            ]"
+          ></image-checkbox>
+        </a-form-item>
+      </a-col>
     </a-form>
     <record-history-modal ref="modalForm"></record-history-modal>
   </div>
@@ -279,48 +307,43 @@ import IconFont from '@/components/Icon/index.js'
 import pick from 'lodash.pick'
 import ImageCheckbox from '@/components/ImageCheckbox'
 import RecordHistoryModal from './RecordHistoryModal'
+import PriceInput from '@/components/PriceInput'
 
 let previousHistoryDiseasesOptions = {
   previousHistoryHypertension: {
     name: 'previousHistoryHypertension',
     label: '高血压',
-    iconType0: 'icon_hypertension',
-    iconType1: 'icon_hypertension_red',
+    type: ['icon_hypertension', 'icon_hypertension_red'],
     value: 0
   },
   previousHistoryDiabetes: {
     name: 'previousHistoryDiabetes',
     label: '糖尿病',
-    iconType0: 'icon_diabetes',
-    iconType1: 'icon_diabetes_red',
-    value: 1
+    type: ['icon_diabetes', 'icon_diabetes_red'],
+    value: 0
   },
   previousHistoryStroke: {
     name: 'previousHistoryStroke',
     label: '短暂性脑缺血发作(TIA)或缺血性卒中(脑梗死)',
-    iconType0: 'icon_stroke',
-    iconType1: 'icon_stroke_red',
+    type: ['icon_stroke', 'icon_stroke_red'],
     value: 0
   },
   previousHistoryAscvd: {
     name: 'previousHistoryAscvd',
     label: '急性冠脉综合征ACS',
-    iconType0: 'icon_ascvd',
-    iconType1: 'icon_ascvd_red',
-    value: 1
+    type: ['icon_ascvd', 'icon_ascvd_red'],
+    value: 0
   },
   previousHistoryCopd: {
     name: 'previousHistoryCopd',
     label: '慢阻肺',
-    iconType0: 'icon_copd',
-    iconType1: 'icon_copd_red',
+    type: ['icon_copd', 'icon_copd_red'],
     value: 0
   },
   previousHistoryDyslipidemia: {
     name: 'previousHistoryDyslipidemia',
     label: '血脂异常',
-    iconType0: 'icon_dyslipidemiad',
-    iconType1: 'icon_dyslipidemiad_red',
+    type: ['icon_dyslipidemiad', 'icon_dyslipidemiad_red'],
     value: 0
   }
 }
@@ -329,36 +352,31 @@ let familyHistoryDiseasesOptions = {
   familyHistoryHypertension: {
     name: 'familyHistoryHypertension',
     label: '高血压',
-    iconType0: 'icon_hypertension',
-    iconType1: 'icon_hypertension_red',
+    type: ['icon_hypertension', 'icon_hypertension_red'],
     value: 0
   },
   familyHistoryDiabetes: {
     name: 'familyHistoryDiabetes',
     label: '糖尿病',
-    iconType0: 'icon_diabetes',
-    iconType1: 'icon_diabetes_red',
-    value: 1
+    type: ['icon_diabetes', 'icon_diabetes_red'],
+    value: 0
   },
   familyHistoryStroke: {
     name: 'familyHistoryStroke',
     label: '脑卒中',
-    iconType0: 'icon_stroke',
-    iconType1: 'icon_stroke_red',
+    type: ['icon_stroke', 'icon_stroke_red'],
     value: 0
   },
   familyHistoryAscvd: {
     name: 'familyHistoryAscvd',
     label: '冠心病',
-    iconType0: 'icon_ascvd',
-    iconType1: 'icon_ascvd_red',
-    value: 1
+    type: ['icon_ascvd', 'icon_ascvd_red'],
+    value: 0
   },
   familyHistoryCopd: {
     name: 'familyHistoryCopd',
     label: '慢阻肺',
-    iconType0: 'icon_copd',
-    iconType1: 'icon_copd_red',
+    type: ['icon_copd', 'icon_copd_red'],
     value: 0
   }
 }
@@ -367,7 +385,8 @@ let familyHistoryDiseasesOptions = {
   components: {
     IconFont,
     ImageCheckbox,
-    RecordHistoryModal
+    RecordHistoryModal,
+    PriceInput
   },
   props: {
     id: String
@@ -450,26 +469,10 @@ export default class extends Vue {
   async handleSubmit(e) {
     e.preventDefault()
     this.form.validateFields((err, values) => {
-      if (!err) {
-        return console.log('Received values of form: ', values)
+      if (err) {
+        return console.error(err)
       }
-      const additionFields = [
-        'previousHistoryHypertension',
-        'previousHistoryDiabetes',
-        'previousHistoryStroke',
-        'previousHistoryAscvd',
-        'previousHistoryCopd',
-        'previousHistoryDyslipidemia',
-        'familyHistoryHypertension',
-        'familyHistoryDiabetes',
-        'familyHistoryStroke',
-        'familyHistoryAscvd',
-        'familyHistoryCopd'
-      ]
-      additionFields.forEach(key => {
-        values[key] = document.getElementById(key).value
-      })
-      console.info(`values: ${JSON.stringify(values, null, 2)}`)
+      console.log('Received values of form: ', values)
       // 添加健康档案
       const data = {
         patientId: this.id,

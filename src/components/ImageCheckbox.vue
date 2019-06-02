@@ -1,13 +1,7 @@
 <template>
-  <a-checkbox
-    :id="item.name"
-    :checked="checked"
-    @change="onChange"
-    class="image-checkbox"
-    :value="item.value"
-  >
+  <a-checkbox :checked="checked" @change="onChange" class="image-checkbox">
     <icon-font class="icon-size" :type="type"/>
-    <div>{{ item.label }}</div>
+    <div>{{ label }}</div>
   </a-checkbox>
 </template>
 
@@ -20,26 +14,48 @@ import IconFont from '@/components/Icon/index.js'
   components: {
     IconFont
   },
-  props: {
-    item: Object
+  props: ['value', 'label', 'iconType'],
+  watch: {
+    value: [
+      {
+        handler: 'valueChanged',
+        immediate: false,
+        deep: false
+      }
+    ]
   }
 })
 export default class ImageCheckbox extends Vue {
   created() {
-    // console.info(`ImageCheckbox created with item: ${JSON.stringify(this.item)}`)
+    // console.info(`ImageCheckbox created with value: ${JSON.stringify(this.value)}`)
+    // console.info(`ImageCheckbox created with label: ${this.label}`)
+    // console.info(`ImageCheckbox created with iconType: ${JSON.stringify(this.iconType)}`)
   }
   data() {
+    // console.info(`data, this.value: ${this.value}`)
     return {
-      checked: this.item.value == 1,
-      type: this.item.value ? this.item.iconType1 : this.item.iconType0,
-      text: this.item.label,
-      decorator: JSON.stringify([this.item.name, {}])
+      innerValue: this.value || 0
     }
   }
+  valueChanged(val = 0) {
+    // console.info(`valueChanged`)
+    this.innerValue = val
+  }
+
+  get checked() {
+    // console.info(`get checked`)
+    return this.innerValue === 1
+  }
+  get type() {
+    // console.info(`get type`)
+    return this.innerValue ? this.iconType[1] : this.iconType[0]
+  }
+
   onChange(e) {
-    this.checked = e.target.checked
-    this.type = this.checked ? this.item.iconType1 : this.item.iconType0
-    this.item.value = this.checked ? 1 : 0
+    const checked = e.target.checked
+    this.innerValue = checked ? 1 : 0
+    // Should provide an event to pass value to Form.
+    this.$emit('change', this.innerValue)
   }
 }
 </script>
