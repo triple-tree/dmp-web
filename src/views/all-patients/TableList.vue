@@ -81,7 +81,7 @@ export default {
     StepByStepModal,
     IconFont
   },
-  data () {
+  data() {
     return {
       mdl: {},
       // 查询参数
@@ -108,7 +108,7 @@ export default {
         },
         {
           title: '医生',
-          dataIndex: 'name'
+          dataIndex: 'doctorId'
         },
         {
           title: '高血压',
@@ -149,10 +149,10 @@ export default {
         const res = await patientAll({ ...parameter, ...this.queryParam })
         // console.info(`res: ${JSON.stringify(res)}`)
         return {
-          pageSize: parameter.pageSize,
-          pageNo: res.data.page,
-          totalCount: res.data.total,
-          totalPage: res.data.total / parameter.pageSize,
+          pageSize: parseInt(parameter.pageSize),
+          pageNo: parseInt(res.data.page),
+          totalCount: parseInt(res.data.total),
+          totalPage: parseInt(res.data.total) / parseInt(parameter.pageSize),
           data: res.data.patients
         }
       },
@@ -167,19 +167,19 @@ export default {
     }
   },
   filters: {},
-  created () {},
+  created() {},
   methods: {
-    handleEdit (record) {
+    handleEdit(record) {
       this.$router.push({ path: `/patient/${record.id}` })
     },
-    handleOk () {
+    handleOk() {
       this.$refs.table.refresh()
     },
-    onSelectChange (selectedRowKeys, selectedRows) {
+    onSelectChange(selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
     },
-    resetSearchForm () {
+    resetSearchForm() {
       this.queryParam = {
         date: moment(new Date())
       }

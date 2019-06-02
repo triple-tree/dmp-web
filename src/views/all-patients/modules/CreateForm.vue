@@ -8,44 +8,50 @@
     @cancel="handleCancel"
   >
     <a-spin :spinning="confirmLoading">
-      <a-form :form="form" :layout="vertical">
+      <a-form :form="form" layout="vertical">
         <a-row :gutter="12" type="flex" align="top">
           <a-col :md="8" :sm="24">
-            <a-form-item
-              label="姓名">
-              <a-input v-model="params.patient.name" v-decorator="['name', {rules: [{required: true, min: 2, message: '请输入姓名！'}]}]" />
+            <a-form-item label="姓名">
+              <a-input
+                v-model="params.patient.name"
+                v-decorator="['name', {rules: [{required: true, min: 2, message: '请输入姓名！'}]}]"
+              />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
-            <a-form-item
-              label="性别">
-              <a-select v-model="params.patient.gender" v-decorator="['gender', {rules: [{required: true, message: '请选择性别！'}]}]" >
+            <a-form-item label="性别">
+              <a-select
+                v-model="params.patient.gender"
+                v-decorator="['gender', {rules: [{required: true, message: '请选择性别！'}]}]"
+              >
                 <a-select-option value="0">男</a-select-option>
                 <a-select-option value="1">女</a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
-            <a-form-item
-              label="手机号">
-              <a-input v-model="params.patient.phoneNumber" v-decorator="['phoneNumber', {rules: [{required: true, len: 11, message: '请输入手机号码！'}]}]" />
+            <a-form-item label="手机号">
+              <a-input
+                v-model="params.patient.phoneNumber"
+                v-decorator="['phoneNumber', {rules: [{required: true, len: 11, message: '请输入手机号码！'}]}]"
+              />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
-            <a-form-item
-              label="身份证">
-              <a-input v-model="params.patient.identityNumber" v-decorator="['identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]" />
+            <a-form-item label="身份证">
+              <a-input
+                v-model="params.patient.identityNumber"
+                v-decorator="['identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]"
+              />
             </a-form-item>
           </a-col>
           <a-col :md="16" :sm="24">
-            <a-form-item
-              label="患者地址信息">
-              <a-input v-model="params.patient.add" phoneNumberv-decorator="['add']" />
+            <a-form-item label="患者地址信息">
+              <a-input v-model="params.patient.add" phoneNumberv-decorator="['add']"/>
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24">
-            <a-form-item
-              label="疾病史">
+            <a-form-item label="疾病史">
               <a-row type="flex">
                 <a-col
                   :span="8"
@@ -63,62 +69,52 @@
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-form-item
-              label="身高(cm)">
-              <a-input v-model="params.factors.height" v-decorator="['height']" />
+            <a-form-item label="身高(cm)">
+              <a-input v-model="params.factors.height" v-decorator="['height']"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-form-item
-              label="体重(kg)">
-              <a-input v-model="params.factors.weight" v-decorator="['weight']" />
+            <a-form-item label="体重(kg)">
+              <a-input v-model="params.factors.weight" v-decorator="['weight']"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-form-item
-              label="腰围(cm)">
-              <a-input v-model="params.factors.waistline" v-decorator="['waistline']" />
+            <a-form-item label="腰围(cm)">
+              <a-input v-model="params.factors.waistline" v-decorator="['waistline']"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-form-item
-              label="舒张压(mmHg)">
-              <a-input v-model="params.factors.sbp" v-decorator="['sbp']" />
+            <a-form-item label="舒张压(mmHg)">
+              <a-input v-model="params.factors.sbp" v-decorator="['sbp']"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-form-item
-              label="收缩压(mmHg)">
-              <a-input v-model="params.factors.dbp" v-decorator="['dbp']" />
+            <a-form-item label="收缩压(mmHg)">
+              <a-input v-model="params.factors.dbp" v-decorator="['dbp']"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-form-item
-              label="空腹血糖(mmol/L)">
-              <a-input v-model="params.factors.fbg" v-decorator="['fbg']" />
+            <a-form-item label="空腹血糖(mmol/L)">
+              <a-input v-model="params.factors.fbg" v-decorator="['fbg']"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-form-item
-              label="血清总胆固醇(mmol/L)">
-              <a-input v-model="params.factors.serumTc" v-decorator="['serumTc']" />
+            <a-form-item label="血清总胆固醇(mmol/L)">
+              <a-input v-model="params.factors.serumTc" v-decorator="['serumTc']"/>
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24">
-            <a-form-item
-              label="家族史（父母任意一方是否患有）">
+            <a-form-item label="家族史（父母任意一方是否患有）">
               <a-checkbox-group v-model="params.factors.family" :options="familyOptions"/>
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24">
-            <a-form-item
-              label="症状">
+            <a-form-item label="症状">
               <a-checkbox-group v-model="params.factors.symptom" :options="symptomOptions"/>
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24">
-            <a-form-item
-              label="是否吸烟">
+            <a-form-item label="是否吸烟">
               <a-radio-group v-model="params.factors.smoke" name="smoke">
                 <a-radio :value="0">是</a-radio>
                 <a-radio :value="1">否</a-radio>
@@ -201,7 +197,9 @@ export default {
       item.value = item.value === 1 ? 0 : 1
     },
     handleSubmit () {
-      const { form: { validateFields } } = this
+      const {
+        form: { validateFields }
+      } = this
       this.confirmLoading = true
       const self = this
       validateFields((errors, values) => {
@@ -214,11 +212,11 @@ export default {
             hasCopd: this.diseaseOptions.hasCopd.value
           })
           Object.assign(this.params.factors, {
-            'familyHistoryDiabetes': 0,
-            'familyHistoryHypertension': 0,
-            'familyHistoryStroke': 0,
-            'familyHistoryAscvd': 0,
-            'familyHistoryCopd': 0,
+            familyHistoryDiabetes: 0,
+            familyHistoryHypertension: 0,
+            familyHistoryStroke: 0,
+            familyHistoryAscvd: 0,
+            familyHistoryCopd: 0,
             symptomsHeadache: 0,
             symptomsStethalgia: 0,
             symptomsDyspnea: 0,
@@ -226,15 +224,15 @@ export default {
             symptomsDizziness: 0
           })
           this.params.factors.symptom &&
-          this.params.factors.symptom.length &&
-          this.params.factors.symptom.forEach(function (el) {
-            self.params.factors[self.symptomOptions[el].name] = 1
-          })
+            this.params.factors.symptom.length &&
+            this.params.factors.symptom.forEach(function (el) {
+              self.params.factors[self.symptomOptions[el].name] = 1
+            })
           this.params.factors.family &&
-          this.params.factors.family.length &&
-          this.params.factors.family.forEach(function (el) {
-            self.params.factors[self.familyOptions[el].name] = 1
-          })
+            this.params.factors.family.length &&
+            this.params.factors.family.forEach(function (el) {
+              self.params.factors[self.familyOptions[el].name] = 1
+            })
           values = this.params
           console.log('values', values)
           setTimeout(() => {
