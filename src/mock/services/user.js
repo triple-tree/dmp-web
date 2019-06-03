@@ -18,7 +18,7 @@ const info = options => {
     merchantCode: 'TLif2btpzg079h15bk',
     deleted: 0,
     roleId: 'admin',
-    role: {}
+    role: {},
   }
   // role
   const roleObj = {
@@ -40,31 +40,31 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'query',
             describe: '查询',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'delete',
             describe: '删除',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
+        dataAccess: null,
       },
       {
         roleId: 'admin',
@@ -76,31 +76,31 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'query',
             describe: '查询',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'delete',
             describe: '删除',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
+        dataAccess: null,
       },
       {
         roleId: 'admin',
@@ -112,31 +112,31 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'query',
             describe: '查询',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'delete',
             describe: '删除',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
+        dataAccess: null,
       },
       {
         roleId: 'admin',
@@ -148,31 +148,31 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'query',
             describe: '查询',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'delete',
             describe: '删除',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
+        dataAccess: null,
       },
       {
         roleId: 'admin',
@@ -184,26 +184,26 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'import',
             describe: '导入',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
+        dataAccess: null,
       },
       {
         roleId: 'admin',
@@ -215,31 +215,31 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'query',
             describe: '查询',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'delete',
             describe: '删除',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
+        dataAccess: null,
       },
       {
         roleId: 'admin',
@@ -251,31 +251,31 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'query',
             describe: '查询',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'delete',
             describe: '删除',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
+        dataAccess: null,
       },
       {
         roleId: 'admin',
@@ -287,26 +287,26 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'delete',
             describe: '删除',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
+        dataAccess: null,
       },
       {
         roleId: 'admin',
@@ -318,26 +318,26 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'delete',
             describe: '删除',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
+        dataAccess: null,
       },
       {
         roleId: 'admin',
@@ -349,31 +349,31 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'query',
             describe: '查询',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'delete',
             describe: '删除',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
+        dataAccess: null,
       },
       {
         roleId: 'admin',
@@ -385,38 +385,38 @@ const info = options => {
           {
             action: 'add',
             describe: '新增',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'import',
             describe: '导入',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'get',
             describe: '详情',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'update',
             describe: '修改',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'delete',
             describe: '删除',
-            defaultCheck: false
+            defaultCheck: false,
           },
           {
             action: 'export',
             describe: '导出',
-            defaultCheck: false
-          }
+            defaultCheck: false,
+          },
         ],
         actionList: null,
-        dataAccess: null
-      }
-    ]
+        dataAccess: null,
+      },
+    ],
   }
 
   roleObj.permissions.push({
@@ -429,36 +429,36 @@ const info = options => {
       {
         action: 'add',
         describe: '新增',
-        defaultCheck: false
+        defaultCheck: false,
       },
       {
         action: 'import',
         describe: '导入',
-        defaultCheck: false
+        defaultCheck: false,
       },
       {
         action: 'get',
         describe: '详情',
-        defaultCheck: false
+        defaultCheck: false,
       },
       {
         action: 'update',
         describe: '修改',
-        defaultCheck: false
+        defaultCheck: false,
       },
       {
         action: 'delete',
         describe: '删除',
-        defaultCheck: false
+        defaultCheck: false,
       },
       {
         action: 'export',
         describe: '导出',
-        defaultCheck: false
-      }
+        defaultCheck: false,
+      },
     ],
     actionList: null,
-    dataAccess: null
+    dataAccess: null,
   })
 
   userInfo.role = roleObj

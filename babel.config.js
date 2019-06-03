@@ -4,11 +4,11 @@ module.exports = {
     [
       '@babel/preset-env',
       {
-        useBuiltIns: 'entry'
-      }
-    ]
+        useBuiltIns: 'entry',
+      },
+    ],
   ],
-  plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]]
+  plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]],
   // if your use import on Demand, Use this code
   // ,
   // plugins: [

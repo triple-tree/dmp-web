@@ -9,7 +9,7 @@
     cancelText="关闭"
   >
     <a-spin :spinning="confirmLoading">
-      <a-form :form="form" @submit="handleSubmit" layout="horizontal">
+      <a-form :form="form" layout="horizontal">
         <h3>基本信息</h3>
         <a-row :gutter="8">
           <a-col :span="8">
@@ -19,7 +19,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input
-                v-decorator="['height', {rules: [{  message: '请输入身高' }]} ]"
+                v-decorator="['height', {rules: [{ message: '请输入身高' }]} ]"
                 placeholder="输入身高"
                 addonAfter="CM"
               />
@@ -32,7 +32,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input
-                v-decorator="['weight', {rules: [{  message: '请输入体重' }]} ]"
+                v-decorator="['weight', {rules: [{ message: '请输入体重' }]} ]"
                 placeholder="输入体重"
                 addonAfter="KG"
               />
@@ -45,7 +45,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input
-                v-decorator="['waistline', {rules: [{  message: '请输入腰围' }]} ]"
+                v-decorator="['waistline', {rules: [{ message: '请输入腰围' }]} ]"
                 placeholder="输入腰围"
                 addonAfter="CM"
               />
@@ -62,7 +62,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input
-                v-decorator="[ 'dbp', {rules: [{  message: '请输入舒张压' }]} ]"
+                v-decorator="[ 'dbp', {rules: [{ message: '请输入舒张压' }]} ]"
                 placeholder="输入舒张压"
                 addonAfter="mmHg"
               />
@@ -75,7 +75,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input
-                v-decorator="[ 'sbp', {rules: [{  message: '请输入收缩压' }]} ]"
+                v-decorator="[ 'sbp', {rules: [{ message: '请输入收缩压' }]} ]"
                 placeholder="输入收缩压"
                 addonAfter="mmHg"
               />
@@ -88,7 +88,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input
-                v-decorator="[ 'fbg', {rules: [{  message: '请输入空腹血糖' }]} ]"
+                v-decorator="[ 'fbg', {rules: [{ message: '请输入空腹血糖' }]} ]"
                 placeholder="输入空腹血糖"
                 addonAfter="mmol/L"
               />
@@ -103,7 +103,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input
-                v-decorator="[ 'serumTc', {rules: [{  message: '请输入总胆固醇' }]} ]"
+                v-decorator="[ 'serumTc', {rules: [{ message: '请输入总胆固醇' }]} ]"
                 placeholder="输入总胆固醇"
                 addonAfter="mmol/L"
               />
@@ -116,7 +116,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input
-                v-decorator="[ 'serumTc', {rules: [{  message: '请输入高密度蛋白质胆固醇' }]} ]"
+                v-decorator="[ 'serumTc', {rules: [{ message: '请输入高密度蛋白质胆固醇' }]} ]"
                 placeholder="输入高密度蛋白质胆固醇"
                 addonAfter="mmol/L"
               />
@@ -129,7 +129,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input
-                v-decorator="[ 'serumTc', {rules: [{  message: '请输入低密度蛋白质胆固醇' }]} ]"
+                v-decorator="[ 'serumTc', {rules: [{ message: '请输入低密度蛋白质胆固醇' }]} ]"
                 placeholder="输入低密度蛋白质胆固醇"
                 addonAfter="mmol/L"
               />
@@ -138,7 +138,6 @@
         </a-row>
 
         <h3>既往史</h3>
-
         <a-row :gutter="8">
           <a-col :md="24" :sm="24">
             <a-form-item>
@@ -149,7 +148,14 @@
                   :span="4"
                   align="center"
                 >
-                  <image-checkbox :item="item" :v-decorator="item.decorator"></image-checkbox>
+                  <image-checkbox
+                    disabled="true"
+                    :iconTypeName="item.iconTypeName"
+                    v-decorator="[
+                      item.name,
+                      {initialValue: item.value}
+                    ]"
+                  ></image-checkbox>
                 </a-col>
               </a-row>
             </a-form-item>
@@ -167,7 +173,15 @@
                   :span="4"
                   align="center"
                 >
-                  <image-checkbox :item="item" :v-decorator="item.decorator"></image-checkbox>
+                  <image-checkbox
+                    :label="item.label"
+                    disabled="true"
+                    :iconTypeName="item.iconTypeName"
+                    v-decorator="[
+                      item.name,
+                      {initialValue: item.value}
+                    ]"
+                  ></image-checkbox>
                 </a-col>
               </a-row>
             </a-form-item>
@@ -232,7 +246,7 @@
               :wrapper-col="formItemLayout.horizontalWrapperCol"
             >
               <a-input
-                v-decorator="['salt', {rules: [{  message: '请输入每天盐的摄入量' }]} ]"
+                v-decorator="['salt', {rules: [{ message: '请输入每天盐的摄入量' }]} ]"
                 placeholder="输入每天盐的摄入量"
                 addonAfter="mg"
               />
@@ -248,10 +262,7 @@
               :label-col="formItemLayout.horizontalLabelCol"
               :wrapper-col="formItemLayout.horizontalWrapperCol"
             >
-              <a-input
-                v-decorator="['br', {rules: [{  message: '请输入血常规' }]} ]"
-                placeholder="输入血常规"
-              />
+              <a-input v-decorator="['br', {rules: [{ message: '请输入血常规' }]} ]" placeholder="输入血常规"/>
             </a-form-item>
           </a-col>
           <a-col :span="8">
@@ -260,23 +271,7 @@
               :label-col="formItemLayout.horizontalLabelCol"
               :wrapper-col="formItemLayout.horizontalWrapperCol"
             >
-              <a-input
-                v-decorator="['ur', {rules: [{  message: '请输入尿常规' }]} ]"
-                placeholder="输入尿常规"
-              />
-            </a-form-item>
-          </a-col>
-        </a-row>
-
-        <a-row :gutter="8">
-          <a-col :span="8">
-            <a-form-item>
-              <a-button type="primary" html-type="submit">提交</a-button>
-            </a-form-item>
-          </a-col>
-          <a-col :span="8">
-            <a-form-item>
-              <a-button type="default" @click="showHistoryRecords">历史健康档案</a-button>
+              <a-input v-decorator="['ur', {rules: [{ message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
             </a-form-item>
           </a-col>
         </a-row>
@@ -294,95 +289,84 @@ import pick from 'lodash.pick'
 import ImageCheckbox from '@/components/ImageCheckbox'
 import { recordDetail } from '../../api/record'
 
-let previousHistoryDiseasesOptions = {
+const previousHistoryDiseasesOptions = {
   previousHistoryHypertension: {
     name: 'previousHistoryHypertension',
     label: '高血压',
-    iconType0: 'icon_hypertension',
-    iconType1: 'icon_hypertension_red',
-    value: 0
+    iconTypeName: 'hypertension',
+    value: 0,
   },
   previousHistoryDiabetes: {
     name: 'previousHistoryDiabetes',
     label: '糖尿病',
-    iconType0: 'icon_diabetes',
-    iconType1: 'icon_diabetes_red',
-    value: 1
+    iconTypeName: 'diabetes',
+    value: 0,
   },
   previousHistoryStroke: {
     name: 'previousHistoryStroke',
     label: '短暂性脑缺血发作(TIA)或缺血性卒中(脑梗死)',
-    iconType0: 'icon_stroke',
-    iconType1: 'icon_stroke_red',
-    value: 0
+    iconTypeName: 'stroke',
+    value: 0,
   },
   previousHistoryAscvd: {
     name: 'previousHistoryAscvd',
     label: '急性冠脉综合征ACS',
-    iconType0: 'icon_ascvd',
-    iconType1: 'icon_ascvd_red',
-    value: 1
+    iconTypeName: 'ascvd',
+    value: 0,
   },
   previousHistoryCopd: {
     name: 'previousHistoryCopd',
     label: '慢阻肺',
-    iconType0: 'icon_copd',
-    iconType1: 'icon_copd_red',
-    value: 0
+    iconTypeName: 'copd',
+    value: 0,
   },
   previousHistoryDyslipidemia: {
     name: 'previousHistoryDyslipidemia',
     label: '血脂异常',
-    iconType0: 'icon_dyslipidemiad',
-    iconType1: 'icon_dyslipidemiad_red',
-    value: 0
-  }
+    iconTypeName: 'dyslipidemiad',
+    value: 0,
+  },
 }
 
-let familyHistoryDiseasesOptions = {
+const familyHistoryDiseasesOptions = {
   familyHistoryHypertension: {
     name: 'familyHistoryHypertension',
     label: '高血压',
-    iconType0: 'icon_hypertension',
-    iconType1: 'icon_hypertension_red',
-    value: 0
+    iconTypeName: 'hypertension',
+    value: 0,
   },
   familyHistoryDiabetes: {
     name: 'familyHistoryDiabetes',
     label: '糖尿病',
-    iconType0: 'icon_diabetes',
-    iconType1: 'icon_diabetes_red',
-    value: 1
+    iconTypeName: 'diabetes',
+    value: 0,
   },
   familyHistoryStroke: {
     name: 'familyHistoryStroke',
     label: '脑卒中',
-    iconType0: 'icon_stroke',
-    iconType1: 'icon_stroke_red',
-    value: 0
+    iconTypeName: 'stroke',
+    value: 0,
   },
   familyHistoryAscvd: {
     name: 'familyHistoryAscvd',
     label: '冠心病',
-    iconType0: 'icon_ascvd',
-    iconType1: 'icon_ascvd_red',
-    value: 1
+    iconTypeName: 'ascvd',
+    value: 0,
   },
   familyHistoryCopd: {
     name: 'familyHistoryCopd',
     label: '慢阻肺',
-    iconType0: 'icon_copd',
-    iconType1: 'icon_copd_red',
-    value: 0
-  }
+    iconTypeName: 'copd',
+    value: 0,
+  },
 }
 
 @Component({
   components: {
     IconFont,
-    ImageCheckbox
+    ImageCheckbox,
   },
-  props: {}
+  props: {},
 })
 export default class RecordDetailModal extends Vue {
   data() {
@@ -396,21 +380,21 @@ export default class RecordDetailModal extends Vue {
       formItemLayout: {
         labelCol: {
           md: { span: 24 },
-          sm: { span: 24 }
+          sm: { span: 24 },
         },
         wrapperCol: {
           md: { span: 24 },
-          sm: { span: 24 }
+          sm: { span: 24 },
         },
         horizontalLabelCol: {
           md: { span: 8 },
-          sm: { span: 8 }
+          sm: { span: 8 },
         },
         horizontalWrapperCol: {
           md: { span: 16 },
-          sm: { span: 16 }
-        }
-      }
+          sm: { span: 16 },
+        },
+      },
     }
   }
 

@@ -12,31 +12,31 @@ const assessments = [
         assessmentDate: () => Random.date('yyyy-MM-dd'),
         chronicDiseaseRisk: () =>
           Mock.mock({
-            'status|1': ['患者', '一般群众', '高危', '不详']
+            'status|1': ['患者', '一般群众', '高危', '不详'],
           }).status,
         diabetesRisk: () =>
           Mock.mock({
-            'status|1': ['患者', '一般群众', '高危', '不详']
+            'status|1': ['患者', '一般群众', '高危', '不详'],
           }).status,
         hypertensionRisk: () =>
           Mock.mock({
-            'status|1': ['患者', '一般群众', '高危', '不详']
+            'status|1': ['患者', '一般群众', '高危', '不详'],
           }).status,
         strokeRisk: () =>
           Mock.mock({
-            'status|1': ['患者', '一般群众', '高危', '不详']
+            'status|1': ['患者', '一般群众', '高危', '不详'],
           }).status,
         ascvdRisk: () =>
           Mock.mock({
-            'status|1': ['患者', '一般群众', '高危', '不详']
+            'status|1': ['患者', '一般群众', '高危', '不详'],
           }).status,
         copdRisk: () =>
           Mock.mock({
-            'status|1': ['患者', '一般群众', '高危', '不详']
-          }).status
-      }
-    ]
-  }).assessments
+            'status|1': ['患者', '一般群众', '高危', '不详'],
+          }).status,
+      },
+    ],
+  }).assessments,
 ]
 
 // 最新评估结果
@@ -63,7 +63,7 @@ const assessmentAll = options => {
       (queryParameters.pageNo - 1) * queryParameters.pageSize,
       queryParameters.pageNo * queryParameters.pageSize
     ),
-    page: queryParameters.pageNo
+    page: queryParameters.pageNo,
   }
   return builder(data, '请求成功', 200)
 }
@@ -77,28 +77,28 @@ const assessmentAssess = options => {
     assessmentDate: () => Random.date('yyyy-MM-dd'),
     chronicDiseaseRisk: () =>
       Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详']
+        'status|1': ['患者', '一般群众', '高危', '不详'],
       }).status,
     diabetesRisk: () =>
       Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详']
+        'status|1': ['患者', '一般群众', '高危', '不详'],
       }).status,
     hypertensionRisk: () =>
       Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详']
+        'status|1': ['患者', '一般群众', '高危', '不详'],
       }).status,
     strokeRisk: () =>
       Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详']
+        'status|1': ['患者', '一般群众', '高危', '不详'],
       }).status,
     ascvdRisk: () =>
       Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详']
+        'status|1': ['患者', '一般群众', '高危', '不详'],
       }).status,
     copdRisk: () =>
       Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详']
-      }).status
+        'status|1': ['患者', '一般群众', '高危', '不详'],
+      }).status,
   }
 
   return builder(data, '请求成功', 200)

@@ -16,29 +16,29 @@
           />
         </a-layout-header>
         <div class="patient-basic-info">
-          <h1>{{model.name}}</h1>
+          <h1>{{ model.name }}</h1>
           <div :style="{ marginBottom:'30px'}">
-            <span class="gender">{{ model.gender ? '女': '男'}}</span>
-            <span class="age">{{model.age}}</span>
+            <span class="gender">{{ model.gender ? '女': '男' }}</span>
+            <span class="age">{{ model.age }}</span>
           </div>
           <div :style="{ marginBottom:'10px'}">
             <span class="info-key">手机号：</span>
-            <span class="info-value">{{model.phoneNumber}}</span>
+            <span class="info-value">{{ model.phoneNumber }}</span>
           </div>
           <div :style="{ marginBottom:'10px'}">
             <span class="info-key">身份证号：</span>
-            <span class="info-value">{{model.identityNumber}}</span>
+            <span class="info-value">{{ model.identityNumber }}</span>
           </div>
           <div :style="{ marginBottom:'15px'}">
             <span class="info-key">住址：</span>
             <span
               class="info-value"
-            >{{model.province + model.city + model.county + model.detailAddress}}</span>
+            >{{ model.province + model.city + model.county + model.detailAddress }}</span>
           </div>
           <div class="hint" :style="{ marginBottom:'10px'}">（以下为最新评估结果展示）</div>
           <div :style="{ marginBottom:'10px'}">
             <span class="ill-status">慢病综合风险：</span>
-            <span class="ill-value">{{'null'}}</span>
+            <span class="ill-value">{{ 'null' }}</span>
           </div>
           <div class="chronic-disease-status">
             <div class="item">
@@ -158,11 +158,11 @@ import { patientQueryById } from '@/api/patient'
   components: {
     Record,
     Assessment,
-    Plan
+    Plan,
   },
   props: {
-    id: String
-  }
+    id: String,
+  },
 })
 export default class extends Vue {
   async created() {
@@ -180,12 +180,12 @@ export default class extends Vue {
   }
   async beforeRouteEnter(to, from, next) {
     console.info(`beforeRouteEnter`)
-    next(async vm => await vm.setData())
+    next(async vm => vm.setData())
   }
   data() {
     return {
       model: {},
-      collapsed: false
+      collapsed: false,
     }
   }
 }

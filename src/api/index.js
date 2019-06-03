@@ -36,6 +36,6 @@ const api = {
   Service: '/service',
   Permission: '/permission',
   PermissionNoPager: '/permission/no-pager',
-  OrgTree: '/org/tree'
+  OrgTree: '/org/tree',
 }
 export default api

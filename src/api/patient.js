@@ -1,43 +1,44 @@
 import api from './index'
 import { axios } from '@/utils/request'
+import { searchParasToString } from '@/utils/helper/url'
 
 // 全部患者
-export function patientAll (parameter) {
+export function patientAll(data, search) {
   return axios({
-    url: api.patientAll,
+    url: `${api.patientAll}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    params: parameter
+    params: data,
   })
 }
 
-export function patientQueryById (parameter) {
+export function patientQueryById(data, search) {
   return axios({
-    url: api.patientQueryById,
+    url: `${api.patientQueryById}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    params: parameter
+    params: data,
   })
 }
 
-export function patientQuery (parameter) {
+export function patientQuery(data, search) {
   return axios({
-    url: api.patientQuery,
+    url: `${api.patientQuery}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'post',
-    params: parameter
+    params: data,
   })
 }
 
-export function patientAdd (parameter) {
+export function patientAdd(data, search) {
   return axios({
-    url: api.patientAdd,
+    url: `${api.patientAdd}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'post',
-    params: parameter
+    params: data,
   })
 }
 
-export function patientGetPatientReport (parameter) {
+export function patientGetPatientReport(data, search) {
   return axios({
-    url: api.patientGetPatientReport,
+    url: `${api.patientGetPatientReport}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    params: parameter
+    params: data,
   })
 }

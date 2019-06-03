@@ -8,8 +8,8 @@
     @cancel="handleCancel"
     cancelText="关闭"
   >
-    <s-table :columns="columns" :data="data">
-      <a slot="name" slot-scope="text" @click="viewDetail(text)" href="javascript:;">{{text}}</a>
+    <s-table :columns="columns" :data="data" ref="dataTable">
+      <a slot="name" slot-scope="text" @click="viewDetail(text)" href="javascript:;">{{ text }}</a>
     </s-table>
     <record-detail-modal ref="modalForm"></record-detail-modal>
   </a-modal>
@@ -27,44 +27,48 @@ const columns = [
     title: '编号',
     dataIndex: 'id',
     key: 'id',
-    scopedSlots: { customRender: 'name' }
+    scopedSlots: { customRender: 'name' },
   },
   {
     title: '医生',
     dataIndex: 'doctorId',
-    key: 'doctorId'
+    key: 'doctorId',
   },
   {
     title: '日期',
     dataIndex: 'createDate',
-    key: 'createDate'
-  }
+    key: 'createDate',
+  },
 ]
 
 @Component({
   components: { STable, RecordDetailModal },
-  props: {}
+  props: {},
 })
 export default class RecordHistoryModal extends Vue {
+  async setData(parameter) {
+    const res = await recordAll(null, { ...parameter })
+    // console.info(`res: ${JSON.stringify(res)}`)
+    return {
+      pageSize: parseInt(parameter.pageSize),
+      pageNo: parseInt(res.data.page),
+      totalCount: parseInt(res.data.total),
+      totalPage: parseInt(res.data.total) / parseInt(parameter.pageSize),
+      data: res.data.records,
+    }
+  }
   data() {
     return {
       visible: false,
       confirmLoading: false,
-      data: async parameter => {
-        const res = await recordAll(null, { ...parameter })
-        return {
-          pageSize: parameter.pageSize,
-          pageNo: res.data.page,
-          totalCount: res.data.total,
-          totalPage: res.data.total / parameter.pageSize,
-          data: res.data.records
-        }
-      },
-      columns
+      data: () => ({}),
+      columns,
     }
   }
-  async show() {
+  async show(patientId) {
     this.visible = true
+    this.data = this.setData
+    // this.$refs.dataTable.refresh()
   }
   handleOk() {
     this.visible = false

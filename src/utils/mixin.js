@@ -18,40 +18,40 @@ const mixin = {
       contentWidth: state => state.app.contentWidth,
       autoHideHeader: state => state.app.autoHideHeader,
       sidebarOpened: state => state.app.sidebar,
-      multiTab: state => state.app.multiTab
-    })
+      multiTab: state => state.app.multiTab,
+    }),
   },
   methods: {
-    isTopMenu () {
+    isTopMenu() {
       return this.layoutMode === 'topmenu'
     },
-    isSideMenu () {
+    isSideMenu() {
       return !this.isTopMenu()
-    }
-  }
+    },
+  },
 }
 
 const mixinDevice = {
   computed: {
     ...mapState({
-      device: state => state.app.device
-    })
+      device: state => state.app.device,
+    }),
   },
   methods: {
-    isMobile () {
+    isMobile() {
       return this.device === DEVICE_TYPE.MOBILE
     },
-    isDesktop () {
+    isDesktop() {
       return this.device === DEVICE_TYPE.DESKTOP
     },
-    isTablet () {
+    isTablet() {
       return this.device === DEVICE_TYPE.TABLET
-    }
-  }
+    },
+  },
 }
 
 const AppDeviceEnquire = {
-  mounted () {
+  mounted() {
     const { $store } = this
     deviceEnquire(deviceType => {
       switch (deviceType) {
@@ -70,7 +70,7 @@ const AppDeviceEnquire = {
           break
       }
     })
-  }
+  },
 }
 
 export { mixin, AppDeviceEnquire, mixinDevice }

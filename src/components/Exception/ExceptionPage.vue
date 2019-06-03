@@ -22,19 +22,19 @@ export default {
   props: {
     type: {
       type: String,
-      default: '404'
-    }
+      default: '404',
+    },
   },
-  data () {
+  data() {
     return {
-      config: types
+      config: types,
     }
   },
   methods: {
-    handleToHome () {
+    handleToHome() {
       this.$router.push({ name: 'dashboard' })
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="less">

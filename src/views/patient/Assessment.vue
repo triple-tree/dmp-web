@@ -11,9 +11,9 @@
           >
             <a-input
               v-decorator="[
-          'height',
-          {rules: [{ required: true, message: '请输入身高' }]}
-        ]"
+                'height',
+                {rules: [{ required: true, message: '请输入身高' }]}
+              ]"
               placeholder="输入身高"
               addonAfter="CM"
             />
@@ -27,9 +27,9 @@
           >
             <a-input
               v-decorator="[
-          'weight',
-          {rules: [{ required: true, message: '请输入体重' }]}
-        ]"
+                'weight',
+                {rules: [{ required: true, message: '请输入体重' }]}
+              ]"
               placeholder="输入体重"
               addonAfter="KG"
             />
@@ -43,9 +43,9 @@
           >
             <a-input
               v-decorator="[
-          'waistline',
-          {rules: [{ required: true, message: '请输入腰围' }]}
-        ]"
+                'waistline',
+                {rules: [{ required: true, message: '请输入腰围' }]}
+              ]"
               placeholder="输入腰围"
               addonAfter="CM"
             />
@@ -61,9 +61,9 @@
           >
             <a-input
               v-decorator="[
-          'height',
-          {rules: [{ required: true, message: '请输入舒张压' }]}
-        ]"
+                'height',
+                {rules: [{ required: true, message: '请输入舒张压' }]}
+              ]"
               placeholder="输入舒张压"
               addonAfter="mmHg"
             />
@@ -77,9 +77,9 @@
           >
             <a-input
               v-decorator="[
-          'weight',
-          {rules: [{ required: true, message: '请输入收缩压' }]}
-        ]"
+                'weight',
+                {rules: [{ required: true, message: '请输入收缩压' }]}
+              ]"
               placeholder="输入收缩压"
               addonAfter="mmHg"
             />
@@ -93,9 +93,9 @@
           >
             <a-input
               v-decorator="[
-          'waistline',
-          {rules: [{ required: true, message: '请输入空腹血糖' }]}
-        ]"
+                'waistline',
+                {rules: [{ required: true, message: '请输入空腹血糖' }]}
+              ]"
               placeholder="输入空腹血糖"
               addonAfter="mmol/L"
             />
@@ -111,9 +111,9 @@
           >
             <a-input
               v-decorator="[
-          'height',
-          {rules: [{ required: true, message: '请输入总胆固醇' }]}
-        ]"
+                'height',
+                {rules: [{ required: true, message: '请输入总胆固醇' }]}
+              ]"
               placeholder="输入总胆固醇"
               addonAfter="mmol/L"
             />
@@ -270,27 +270,27 @@ import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
 import IconFont from '@/components/Icon/index.js'
 
-let previousHistoryDiseasesOptions = {
+const previousHistoryDiseasesOptions = {
   hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
   hasDiabetes: { label: '糖尿病', iconType0: 'icon_diabetes', iconType1: 'icon_diabetes_red', value: 1 },
   hasStroke: {
     label: '短暂性脑缺血发作(TIA)或缺血性卒中(脑梗死)',
     iconType0: 'icon_stroke',
     iconType1: 'icon_stroke_red',
-    value: 0
+    value: 0,
   },
   hasAscvd: { label: '急性冠脉综合征ACS', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 1 },
   hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 },
-  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_dyslipidemiad', iconType1: 'icon_dyslipidemiad_red', value: 0 }
+  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_dyslipidemiad', iconType1: 'icon_dyslipidemiad_red', value: 0 },
 }
 
 @Component({
   components: {
-    IconFont
+    IconFont,
   },
   props: {
-    id: String
-  }
+    id: String,
+  },
 })
 export default class extends Vue {
   data() {
@@ -299,21 +299,21 @@ export default class extends Vue {
       formItemLayout: {
         labelCol: {
           xs: { span: 24 },
-          sm: { span: 24 }
+          sm: { span: 24 },
         },
         wrapperCol: {
           xs: { span: 24, offset: 0 },
-          sm: { span: 24, offset: 0 }
+          sm: { span: 24, offset: 0 },
         },
         checkboxLabelCol: {
           xs: { span: 0 },
-          sm: { span: 0 }
+          sm: { span: 0 },
         },
         checkboxWrapperCol: {
           xs: { span: 24 },
-          sm: { span: 24 }
-        }
-      }
+          sm: { span: 24 },
+        },
+      },
     }
   }
   async created() {}

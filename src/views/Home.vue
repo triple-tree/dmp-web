@@ -171,33 +171,33 @@ export default {
     TagSelectOption,
     TagCloud,
     DescriptionList,
-    DescriptionListItem
+    DescriptionListItem,
   },
-  data () {
+  data() {
     return {
       targetTime: new Date().getTime() + 3900000,
-      tagCloudData: []
+      tagCloudData: [],
     }
   },
-  created () {
+  created() {
     this.getTagCloudData()
   },
   methods: {
-    onEndHandle () {
+    onEndHandle() {
       this.$message.success('CountDown callback!!!')
     },
-    onEndHandle2 () {
+    onEndHandle2() {
       this.$notification.open({
         message: 'Notification Title',
-        description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.'
+        description: 'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
       })
     },
-    getTagCloudData () {
+    getTagCloudData() {
       this.$http.get('/data/antv/tag-cloud').then(res => {
         this.tagCloudData = res.data
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

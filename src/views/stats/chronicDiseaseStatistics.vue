@@ -22,25 +22,25 @@
     </a-col>
     <a-col :xl="6" :lg="6" :md="12" :sm="24" :xs="24">
       <a-card title="全部患者">
-        <p>{{this.statusAll.all}}</p>
+        <p>{{ this.statusAll.all }}</p>
       </a-card>
       <a-card title="高血压+糖尿病">
-        <p>{{this.statusAll.ascvdPatients}}</p>
+        <p>{{ this.statusAll.ascvdPatients }}</p>
       </a-card>
       <a-card title="高血压">
-        <p>{{this.statusAll.copdPatients}}</p>
+        <p>{{ this.statusAll.copdPatients }}</p>
       </a-card>
       <a-card title="糖尿病">
-        <p>{{this.statusAll.diabetesAndHypertensionPatients}}</p>
+        <p>{{ this.statusAll.diabetesAndHypertensionPatients }}</p>
       </a-card>
       <a-card title="脑卒中">
-        <p>{{this.statusAll.diabetesPatients}}</p>
+        <p>{{ this.statusAll.diabetesPatients }}</p>
       </a-card>
       <a-card title="冠心病">
-        <p>{{this.statusAll.strokePatients}}</p>
+        <p>{{ this.statusAll.strokePatients }}</p>
       </a-card>
       <a-card title="慢阻肺">
-        <p>{{this.statusAll.hypertensionPatients}}</p>
+        <p>{{ this.statusAll.hypertensionPatients }}</p>
       </a-card>
     </a-col>
   </a-row>
@@ -99,7 +99,7 @@ export default class extends Vue {
       type: 'fold',
       fields: ['diabetesAndHypertension', 'ascvd', 'diabetes', 'hypertension', 'stroke', 'copd'],
       key: '类别',
-      value: '人数'
+      value: '人数',
     })
     // console.info(`dv transform: ${JSON.stringify(dv, null, 2)}`)
     this.statusPatients = dv.rows
@@ -118,7 +118,7 @@ export default class extends Vue {
       type: 'fold',
       fields: ['diabetesAndHypertension', 'ascvd', 'diabetes', 'hypertension', 'stroke', 'copd'],
       key: '类别',
-      value: '处方数'
+      value: '处方数',
     })
     this.statusPlans = dv.rows
   }
@@ -137,7 +137,7 @@ export default class extends Vue {
         diabetesAndHypertensionPatients: 0,
         diabetesPatients: 0,
         strokePatients: 0,
-        hypertensionPatients: 0
+        hypertensionPatients: 0,
       },
 
       statusPatients: [],
@@ -145,9 +145,9 @@ export default class extends Vue {
       height: 400,
       adjust: [
         {
-          type: 'dodge'
-        }
-      ]
+          type: 'dodge',
+        },
+      ],
     }
   }
 }

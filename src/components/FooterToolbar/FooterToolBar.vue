@@ -15,13 +15,13 @@ export default {
   props: {
     prefixCls: {
       type: String,
-      default: 'ant-pro-footer-toolbar'
+      default: 'ant-pro-footer-toolbar',
     },
     extra: {
       type: [String, Object],
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 

@@ -58,50 +58,50 @@ import PageHeader from '@/components/PageHeader'
 export default {
   name: 'PageView',
   components: {
-    PageHeader
+    PageHeader,
   },
   props: {
     avatar: {
       type: String,
-      default: null
+      default: null,
     },
     title: {
       type: [String, Boolean],
-      default: true
+      default: true,
     },
     logo: {
       type: String,
-      default: null
+      default: null,
     },
     directTabs: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
-  data () {
+  data() {
     return {
       pageTitle: null,
       description: null,
       linkList: [],
       extraImage: '',
       search: false,
-      tabs: {}
+      tabs: {},
     }
   },
   computed: {
     ...mapState({
-      multiTab: state => state.app.multiTab
-    })
+      multiTab: state => state.app.multiTab,
+    }),
   },
-  mounted () {
+  mounted() {
     this.tabs = this.directTabs
     this.getPageMeta()
   },
-  updated () {
+  updated() {
     this.getPageMeta()
   },
   methods: {
-    getPageMeta () {
+    getPageMeta() {
       // eslint-disable-next-line
       this.pageTitle = (typeof(this.title) === 'string' || !this.title) ? this.title : this.$route.meta.title
 
@@ -117,8 +117,8 @@ export default {
           this.tabs = content.tabs
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

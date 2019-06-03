@@ -10,7 +10,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="['height', {rules: [{  message: '请输入身高' }]} ]"
+              v-decorator="['height', {rules: [{ message: '请输入身高' }]} ]"
               placeholder="输入身高"
               addonAfter="CM"
             />
@@ -23,7 +23,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="['weight', {rules: [{  message: '请输入体重' }]} ]"
+              v-decorator="['weight', {rules: [{ message: '请输入体重' }]} ]"
               placeholder="输入体重"
               addonAfter="KG"
             />
@@ -36,7 +36,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="['waistline', {rules: [{  message: '请输入腰围' }]} ]"
+              v-decorator="['waistline', {rules: [{ message: '请输入腰围' }]} ]"
               placeholder="输入腰围"
               addonAfter="CM"
             />
@@ -53,7 +53,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'dbp', {rules: [{  message: '请输入舒张压' }]} ]"
+              v-decorator="[ 'dbp', {rules: [{ message: '请输入舒张压' }]} ]"
               placeholder="输入舒张压"
               addonAfter="mmHg"
             />
@@ -66,7 +66,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'sbp', {rules: [{  message: '请输入收缩压' }]} ]"
+              v-decorator="[ 'sbp', {rules: [{ message: '请输入收缩压' }]} ]"
               placeholder="输入收缩压"
               addonAfter="mmHg"
             />
@@ -79,7 +79,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'fbg', {rules: [{  message: '请输入空腹血糖' }]} ]"
+              v-decorator="[ 'fbg', {rules: [{ message: '请输入空腹血糖' }]} ]"
               placeholder="输入空腹血糖"
               addonAfter="mmol/L"
             />
@@ -94,7 +94,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'serumTc', {rules: [{  message: '请输入总胆固醇' }]} ]"
+              v-decorator="[ 'serumTc', {rules: [{ message: '请输入总胆固醇' }]} ]"
               placeholder="输入总胆固醇"
               addonAfter="mmol/L"
             />
@@ -107,7 +107,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'serumTc', {rules: [{  message: '请输入高密度蛋白质胆固醇' }]} ]"
+              v-decorator="[ 'serumTc', {rules: [{ message: '请输入高密度蛋白质胆固醇' }]} ]"
               placeholder="输入高密度蛋白质胆固醇"
               addonAfter="mmol/L"
             />
@@ -120,7 +120,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'serumTc', {rules: [{  message: '请输入低密度蛋白质胆固醇' }]} ]"
+              v-decorator="[ 'serumTc', {rules: [{ message: '请输入低密度蛋白质胆固醇' }]} ]"
               placeholder="输入低密度蛋白质胆固醇"
               addonAfter="mmol/L"
             />
@@ -129,7 +129,6 @@
       </a-row>
 
       <h3>既往史</h3>
-
       <a-row :gutter="8">
         <a-col :md="24" :sm="24">
           <a-form-item>
@@ -140,7 +139,13 @@
                 :span="4"
                 align="center"
               >
-                <image-checkbox :item="item" :v-decorator="item.decorator"></image-checkbox>
+                <image-checkbox
+                  :iconTypeName="item.iconTypeName"
+                  v-decorator="[
+                    item.name,
+                    {initialValue: item.value}
+                  ]"
+                ></image-checkbox>
               </a-col>
             </a-row>
           </a-form-item>
@@ -158,7 +163,14 @@
                 :span="4"
                 align="center"
               >
-                <image-checkbox :item="item" :v-decorator="item.decorator"></image-checkbox>
+                <image-checkbox
+                  :label="item.label"
+                  :iconTypeName="item.iconTypeName"
+                  v-decorator="[
+                    item.name,
+                    {initialValue: item.value}
+                  ]"
+                ></image-checkbox>
               </a-col>
             </a-row>
           </a-form-item>
@@ -223,7 +235,7 @@
             :wrapper-col="formItemLayout.horizontalWrapperCol"
           >
             <a-input
-              v-decorator="['salt', {rules: [{  message: '请输入每天盐的摄入量' }]} ]"
+              v-decorator="['salt', {rules: [{ message: '请输入每天盐的摄入量' }]} ]"
               placeholder="输入每天盐的摄入量"
               addonAfter="mg"
             />
@@ -239,7 +251,7 @@
             :label-col="formItemLayout.horizontalLabelCol"
             :wrapper-col="formItemLayout.horizontalWrapperCol"
           >
-            <a-input v-decorator="['br', {rules: [{  message: '请输入血常规' }]} ]" placeholder="输入血常规"/>
+            <a-input v-decorator="['br', {rules: [{ message: '请输入血常规' }]} ]" placeholder="输入血常规"/>
           </a-form-item>
         </a-col>
         <a-col :span="8">
@@ -248,7 +260,7 @@
             :label-col="formItemLayout.horizontalLabelCol"
             :wrapper-col="formItemLayout.horizontalWrapperCol"
           >
-            <a-input v-decorator="['ur', {rules: [{  message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
+            <a-input v-decorator="['ur', {rules: [{ message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
           </a-form-item>
         </a-col>
       </a-row>
@@ -279,105 +291,98 @@ import IconFont from '@/components/Icon/index.js'
 import pick from 'lodash.pick'
 import ImageCheckbox from '@/components/ImageCheckbox'
 import RecordHistoryModal from './RecordHistoryModal'
+import PriceInput from '@/components/PriceInput'
 
-let previousHistoryDiseasesOptions = {
+const previousHistoryDiseasesOptions = {
   previousHistoryHypertension: {
     name: 'previousHistoryHypertension',
     label: '高血压',
-    iconType0: 'icon_hypertension',
-    iconType1: 'icon_hypertension_red',
-    value: 0
+    iconTypeName: 'hypertension',
+    value: 0,
   },
   previousHistoryDiabetes: {
     name: 'previousHistoryDiabetes',
     label: '糖尿病',
-    iconType0: 'icon_diabetes',
-    iconType1: 'icon_diabetes_red',
-    value: 1
+    iconTypeName: 'diabetes',
+    value: 0,
   },
   previousHistoryStroke: {
     name: 'previousHistoryStroke',
     label: '短暂性脑缺血发作(TIA)或缺血性卒中(脑梗死)',
-    iconType0: 'icon_stroke',
-    iconType1: 'icon_stroke_red',
-    value: 0
+    iconTypeName: 'stroke',
+    value: 0,
   },
   previousHistoryAscvd: {
     name: 'previousHistoryAscvd',
     label: '急性冠脉综合征ACS',
-    iconType0: 'icon_ascvd',
-    iconType1: 'icon_ascvd_red',
-    value: 1
+    iconTypeName: 'ascvd',
+    value: 0,
   },
   previousHistoryCopd: {
     name: 'previousHistoryCopd',
     label: '慢阻肺',
-    iconType0: 'icon_copd',
-    iconType1: 'icon_copd_red',
-    value: 0
+    iconTypeName: 'copd',
+    value: 0,
   },
   previousHistoryDyslipidemia: {
     name: 'previousHistoryDyslipidemia',
     label: '血脂异常',
-    iconType0: 'icon_dyslipidemiad',
-    iconType1: 'icon_dyslipidemiad_red',
-    value: 0
-  }
+    iconTypeName: 'dyslipidemiad',
+    value: 0,
+  },
 }
 
-let familyHistoryDiseasesOptions = {
+const familyHistoryDiseasesOptions = {
   familyHistoryHypertension: {
     name: 'familyHistoryHypertension',
     label: '高血压',
-    iconType0: 'icon_hypertension',
-    iconType1: 'icon_hypertension_red',
-    value: 0
+    iconTypeName: 'hypertension',
+    value: 0,
   },
   familyHistoryDiabetes: {
     name: 'familyHistoryDiabetes',
     label: '糖尿病',
-    iconType0: 'icon_diabetes',
-    iconType1: 'icon_diabetes_red',
-    value: 1
+    iconTypeName: 'diabetes',
+    value: 0,
   },
   familyHistoryStroke: {
     name: 'familyHistoryStroke',
     label: '脑卒中',
-    iconType0: 'icon_stroke',
-    iconType1: 'icon_stroke_red',
-    value: 0
+    iconTypeName: 'stroke',
+    value: 0,
   },
   familyHistoryAscvd: {
     name: 'familyHistoryAscvd',
     label: '冠心病',
-    iconType0: 'icon_ascvd',
-    iconType1: 'icon_ascvd_red',
-    value: 1
+    iconTypeName: 'ascvd',
+    value: 0,
   },
   familyHistoryCopd: {
     name: 'familyHistoryCopd',
     label: '慢阻肺',
-    iconType0: 'icon_copd',
-    iconType1: 'icon_copd_red',
-    value: 0
-  }
+    iconTypeName: 'copd',
+    value: 0,
+  },
 }
 
 @Component({
   components: {
     IconFont,
     ImageCheckbox,
-    RecordHistoryModal
+    RecordHistoryModal,
   },
   props: {
-    id: String
+    id: String,
   },
   watch: {
-    id: async (newVal, oldVal) => {
-      console.info(`watch.id changed`)
-      await this.setData()
-    }
-  }
+    id: [
+      {
+        handler: 'idChanged',
+        immediate: false,
+        deep: false,
+      },
+    ],
+  },
 })
 export default class extends Vue {
   async created() {
@@ -387,91 +392,81 @@ export default class extends Vue {
     console.info(`mounted`)
     await this.setData()
   }
+  async idChanged(newVal, oldVal) {
+    console.info(`watch.id changed`)
+    await this.setData()
+  }
   async setData() {
     console.info(`setData`)
     console.info(`id: ${this.id}`)
     const patientId = this.id
-    const latestRecord = await recordLatest({ patientId })
+    const latestRecord = await recordLatest(null, { patientId }).data
     const factors = {}
-    latestRecord.data.patientRecordFactors.forEach(factor => {
-      factors[factor.factorName] = factor.factorValue
-    })
-    this.model = { ...this.model, ...factors }
-    console.info(this.model)
-    this.$nextTick(() => {
-      this.form.setFieldsValue(
-        pick(
-          this.model,
-          'weight',
-          'height',
-          'waistline',
-          'sbp',
-          'dbp',
-          'fbg',
-          'serumTc',
-          'serumTcLower',
-          'serumTcUpper',
-          'previousHistoryHypertension',
-          'previousHistoryDiabetes',
-          'previousHistoryStroke',
-          'previousHistoryAscvd',
-          'previousHistoryCopd',
-          'previousHistoryDyslipidemia',
-          'familyHistoryHypertension',
-          'familyHistoryDiabetes',
-          'familyHistoryStroke',
-          'familyHistoryAscvd',
-          'familyHistoryCopd',
-          'symptomsHeadache',
-          'symptomsStethalgia',
-          'symptomsDyspnea',
-          'symptomsDiuresis',
-          'symptomsDizziness',
-          'smoke',
-          'sport',
-          'drink',
-          'salt',
-          'br',
-          'ur'
+    if (latestRecord) {
+      latestRecord.patientRecordFactors.forEach(factor => {
+        factors[factor.factorName] = factor.factorValue
+      })
+      this.model = { ...this.model, ...factors }
+      console.info(this.model)
+      this.$nextTick(() => {
+        this.form.setFieldsValue(
+          pick(
+            this.model,
+            'weight',
+            'height',
+            'waistline',
+            'sbp',
+            'dbp',
+            'fbg',
+            'serumTc',
+            'serumTcLower',
+            'serumTcUpper',
+            'previousHistoryHypertension',
+            'previousHistoryDiabetes',
+            'previousHistoryStroke',
+            'previousHistoryAscvd',
+            'previousHistoryCopd',
+            'previousHistoryDyslipidemia',
+            'familyHistoryHypertension',
+            'familyHistoryDiabetes',
+            'familyHistoryStroke',
+            'familyHistoryAscvd',
+            'familyHistoryCopd',
+            'symptomsHeadache',
+            'symptomsStethalgia',
+            'symptomsDyspnea',
+            'symptomsDiuresis',
+            'symptomsDizziness',
+            'smoke',
+            'sport',
+            'drink',
+            'salt',
+            'br',
+            'ur'
+          )
         )
-      )
-    })
+      })
+    }
   }
 
   async handleSubmit(e) {
     e.preventDefault()
     this.form.validateFields((err, values) => {
-      if (!err) {
-        return console.log('Received values of form: ', values)
+      if (err) {
+        return console.error(err)
       }
-      const additionFields = [
-        'previousHistoryHypertension',
-        'previousHistoryDiabetes',
-        'previousHistoryStroke',
-        'previousHistoryAscvd',
-        'previousHistoryCopd',
-        'previousHistoryDyslipidemia',
-        'familyHistoryHypertension',
-        'familyHistoryDiabetes',
-        'familyHistoryStroke',
-        'familyHistoryAscvd',
-        'familyHistoryCopd'
-      ]
-      additionFields.forEach(key => {
-        values[key] = document.getElementById(key).value
-      })
-      console.info(`values: ${JSON.stringify(values, null, 2)}`)
+      console.log('Received values of form: ', values)
       // 添加健康档案
       const data = {
         patientId: this.id,
         // TODO need to update the current id here
         doctorId: 'b80c338df2974b58aaf9b51c351169e5',
-        patientRecordFactors: []
+        patientRecordFactors: [],
       }
-      for (key in values) {
+      for (const key in values) {
         data.patientRecordFactors.push({
           factorName: key,
-          factorValue: values[key]
+          factorValue: values[key],
         })
       }
       recordAdd({ body: data })
@@ -479,7 +474,7 @@ export default class extends Vue {
   }
 
   showHistoryRecords() {
-    this.$refs.modalForm.show()
+    this.$refs.modalForm.show(this.id)
   }
 
   async beforeRouteEnter(to, from, next) {
@@ -496,32 +491,22 @@ export default class extends Vue {
       formItemLayout: {
         labelCol: {
           md: { span: 24 },
-          sm: { span: 24 }
+          sm: { span: 24 },
         },
         wrapperCol: {
           md: { span: 24 },
-          sm: { span: 24 }
+          sm: { span: 24 },
         },
         horizontalLabelCol: {
           md: { span: 8 },
-          sm: { span: 8 }
+          sm: { span: 8 },
         },
         horizontalWrapperCol: {
           md: { span: 16 },
-          sm: { span: 16 }
-        }
-      }
+          sm: { span: 16 },
+        },
+      },
     }
-  }
-
-  MockImage(text) {
-    return Random.image('100x100', Random.color(), '#000', 'png', text)
-  }
-  selectDisease(item) {
-    item.value = item.value === 1 ? 0 : 1
-  }
-  selectPreviousHistoryDiseases(item) {
-    item.value = item.value === 1 ? 0 : 1
   }
 }
 </script>
@@ -547,6 +532,17 @@ h3 {
 
 .root-container /deep/ .ant-form-item-label {
   text-align: left;
+  line-height: 25px;
+}
+
+.root-container /deep/ .ant-form-item {
+  margin: 0 0 5px 0;
+}
+
+.icon-size {
+  font-size: 36px;
+}
+</style>
   line-height: 25px;
 }
 

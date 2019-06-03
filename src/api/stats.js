@@ -1,26 +1,30 @@
 import api from './index'
 import { axios } from '@/utils/request'
+import { searchParasToString } from '@/utils/helper/url'
 
-export function statsAll (parameter) {
+export function statsAll(data, search) {
   return axios({
-    url: api.statsAll,
+    url: `${api.statsAll}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    data: parameter
+    data: data,
+    search,
   })
 }
 
-export function statsPatients (parameter) {
+export function statsPatients(data, search) {
   return axios({
-    url: api.statsPatients,
+    url: `${api.statsPatients}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    data: parameter
+    data: data,
+    search,
   })
 }
 
-export function statsPlans (parameter) {
+export function statsPlans(data, search) {
   return axios({
-    url: api.statsPlans,
+    url: `${api.statsPlans}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    data: parameter
+    data: data,
+    search,
   })
 }

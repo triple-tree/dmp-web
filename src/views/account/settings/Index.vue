@@ -55,10 +55,10 @@ import { mixinDevice } from '@/utils/mixin.js'
 export default {
   components: {
     RouteView,
-    PageView
+    PageView,
   },
   mixins: [mixinDevice],
-  data () {
+  data() {
     return {
       // horizontal  inline
       mode: 'inline',
@@ -81,24 +81,24 @@ export default {
         fixedBox: true,
         // 开启宽度和高度比例
         fixed: true,
-        fixedNumber: [1, 1]
+        fixedNumber: [1, 1],
       },
 
-      pageTitle: ''
+      pageTitle: '',
     }
   },
-  created () {
+  created() {
     this.updateMenu()
   },
   methods: {
-    onOpenChange (openKeys) {
+    onOpenChange(openKeys) {
       this.openKeys = openKeys
     },
-    updateMenu () {
+    updateMenu() {
       const routes = this.$route.matched.concat()
       this.defaultSelectedKeys = [ routes.pop().path ]
-    }
-  }
+    },
+  },
 }
 </script>
 

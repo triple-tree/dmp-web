@@ -35,21 +35,21 @@ import { Result } from '@/components'
 export default {
   name: 'Step3',
   components: {
-    Result
+    Result,
   },
-  data () {
+  data() {
     return {
-      loading: false
+      loading: false,
     }
   },
   methods: {
-    finish () {
+    finish() {
       this.$emit('finish')
     },
-    toOrderList () {
+    toOrderList() {
       this.$router.push('/list/table-list')
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="less" scoped>

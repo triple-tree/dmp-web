@@ -8,7 +8,7 @@ import { ACCESS_TOKEN } from '@/store/mutation-types'
 // 创建 axios 实例
 const service = axios.create({
   baseURL: '/', // api base_url
-  timeout: 6000 // 请求超时时间
+  timeout: 6000, // 请求超时时间
 })
 
 const err = error => {
@@ -18,13 +18,13 @@ const err = error => {
     if (error.response.status === 403) {
       notification.error({
         message: 'Forbidden',
-        description: data.message
+        description: data.message,
       })
     }
     if (error.response.status === 401 && !(data.result && data.result.isLogin)) {
       notification.error({
         message: 'Unauthorized',
-        description: 'Authorization verification failed'
+        description: 'Authorization verification failed',
       })
       if (token) {
         store.dispatch('Logout').then(() => {
@@ -54,9 +54,9 @@ service.interceptors.response.use(response => {
 
 const installer = {
   vm: {},
-  install (Vue) {
+  install(Vue) {
     Vue.use(VueAxios, service)
-  }
+  },
 }
 
 export { installer as VueAxios, service as axios }

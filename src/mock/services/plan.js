@@ -17,15 +17,15 @@ for (let i = 0; i < total; i++) {
         healthPlanId: id,
         adviceType: 'food',
         adviceValue: '少盐，戒烟酒',
-        reason: null
+        reason: null,
       },
       {
         healthAdviceId: () => Random.id(),
         healthPlanId: id,
         adviceType: 'exercise',
         adviceValue: '多户外运动',
-        reason: null
-      }
+        reason: null,
+      },
     ],
     clinicRemind: {
       clinicRemindId: () => Random.id(),
@@ -36,8 +36,8 @@ for (let i = 0; i < total; i++) {
       reason: '脑卒中极高危',
       targetHospital: '卫生所',
       status: 0,
-      currentHospital: null
-    }
+      currentHospital: null,
+    },
   })
 }
 
@@ -68,9 +68,9 @@ const planAll = options => {
         patientId: item.patientId,
         doctorId: item.doctorId,
         createDate: item.createDate,
-        status: item.createDate
+        status: item.createDate,
       })),
-    page: queryParameters.pageNo
+    page: queryParameters.pageNo,
   }
   return builder(data, '请求成功', 200)
 }
