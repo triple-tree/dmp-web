@@ -9,7 +9,7 @@
     cancelText="关闭"
   >
     <a-spin :spinning="confirmLoading">
-      <a-form :form="form" @submit="handleSubmit" layout="horizontal">
+      <a-form :form="form" layout="horizontal">
         <h3>基本信息</h3>
         <a-row :gutter="8">
           <a-col :span="8">
@@ -138,7 +138,6 @@
         </a-row>
 
         <h3>既往史</h3>
-
         <a-row :gutter="8">
           <a-col :md="24" :sm="24">
             <a-form-item>
@@ -149,7 +148,14 @@
                   :span="4"
                   align="center"
                 >
-                  <image-checkbox :item="item" :v-decorator="item.decorator"></image-checkbox>
+                  <image-checkbox
+                    disabled="true"
+                    :iconTypeName="item.iconTypeName"
+                    v-decorator="[
+                      item.name,
+                      {initialValue: item.value}
+                    ]"
+                  ></image-checkbox>
                 </a-col>
               </a-row>
             </a-form-item>
@@ -167,7 +173,15 @@
                   :span="4"
                   align="center"
                 >
-                  <image-checkbox :item="item" :v-decorator="item.decorator"></image-checkbox>
+                  <image-checkbox
+                    :label="item.label"
+                    disabled="true"
+                    :iconTypeName="item.iconTypeName"
+                    v-decorator="[
+                      item.name,
+                      {initialValue: item.value}
+                    ]"
+                  ></image-checkbox>
                 </a-col>
               </a-row>
             </a-form-item>
@@ -248,10 +262,7 @@
               :label-col="formItemLayout.horizontalLabelCol"
               :wrapper-col="formItemLayout.horizontalWrapperCol"
             >
-              <a-input
-                v-decorator="['br', {rules: [{ message: '请输入血常规' }]} ]"
-                placeholder="输入血常规"
-              />
+              <a-input v-decorator="['br', {rules: [{ message: '请输入血常规' }]} ]" placeholder="输入血常规"/>
             </a-form-item>
           </a-col>
           <a-col :span="8">
@@ -260,23 +271,7 @@
               :label-col="formItemLayout.horizontalLabelCol"
               :wrapper-col="formItemLayout.horizontalWrapperCol"
             >
-              <a-input
-                v-decorator="['ur', {rules: [{ message: '请输入尿常规' }]} ]"
-                placeholder="输入尿常规"
-              />
-            </a-form-item>
-          </a-col>
-        </a-row>
-
-        <a-row :gutter="8">
-          <a-col :span="8">
-            <a-form-item>
-              <a-button type="primary" html-type="submit">提交</a-button>
-            </a-form-item>
-          </a-col>
-          <a-col :span="8">
-            <a-form-item>
-              <a-button type="default" @click="showHistoryRecords">历史健康档案</a-button>
+              <a-input v-decorator="['ur', {rules: [{ message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
             </a-form-item>
           </a-col>
         </a-row>
@@ -298,43 +293,37 @@ const previousHistoryDiseasesOptions = {
   previousHistoryHypertension: {
     name: 'previousHistoryHypertension',
     label: '高血压',
-    iconType0: 'icon_hypertension',
-    iconType1: 'icon_hypertension_red',
+    iconTypeName: 'hypertension',
     value: 0
   },
   previousHistoryDiabetes: {
     name: 'previousHistoryDiabetes',
     label: '糖尿病',
-    iconType0: 'icon_diabetes',
-    iconType1: 'icon_diabetes_red',
-    value: 1
+    iconTypeName: 'diabetes',
+    value: 0
   },
   previousHistoryStroke: {
     name: 'previousHistoryStroke',
     label: '短暂性脑缺血发作(TIA)或缺血性卒中(脑梗死)',
-    iconType0: 'icon_stroke',
-    iconType1: 'icon_stroke_red',
+    iconTypeName: 'stroke',
     value: 0
   },
   previousHistoryAscvd: {
     name: 'previousHistoryAscvd',
     label: '急性冠脉综合征ACS',
-    iconType0: 'icon_ascvd',
-    iconType1: 'icon_ascvd_red',
-    value: 1
+    iconTypeName: 'ascvd',
+    value: 0
   },
   previousHistoryCopd: {
     name: 'previousHistoryCopd',
     label: '慢阻肺',
-    iconType0: 'icon_copd',
-    iconType1: 'icon_copd_red',
+    iconTypeName: 'copd',
     value: 0
   },
   previousHistoryDyslipidemia: {
     name: 'previousHistoryDyslipidemia',
     label: '血脂异常',
-    iconType0: 'icon_dyslipidemiad',
-    iconType1: 'icon_dyslipidemiad_red',
+    iconTypeName: 'dyslipidemiad',
     value: 0
   }
 }
@@ -343,36 +332,31 @@ const familyHistoryDiseasesOptions = {
   familyHistoryHypertension: {
     name: 'familyHistoryHypertension',
     label: '高血压',
-    iconType0: 'icon_hypertension',
-    iconType1: 'icon_hypertension_red',
+    iconTypeName: 'hypertension',
     value: 0
   },
   familyHistoryDiabetes: {
     name: 'familyHistoryDiabetes',
     label: '糖尿病',
-    iconType0: 'icon_diabetes',
-    iconType1: 'icon_diabetes_red',
-    value: 1
+    iconTypeName: 'diabetes',
+    value: 0
   },
   familyHistoryStroke: {
     name: 'familyHistoryStroke',
     label: '脑卒中',
-    iconType0: 'icon_stroke',
-    iconType1: 'icon_stroke_red',
+    iconTypeName: 'stroke',
     value: 0
   },
   familyHistoryAscvd: {
     name: 'familyHistoryAscvd',
     label: '冠心病',
-    iconType0: 'icon_ascvd',
-    iconType1: 'icon_ascvd_red',
-    value: 1
+    iconTypeName: 'ascvd',
+    value: 0
   },
   familyHistoryCopd: {
     name: 'familyHistoryCopd',
     label: '慢阻肺',
-    iconType0: 'icon_copd',
-    iconType1: 'icon_copd_red',
+    iconTypeName: 'copd',
     value: 0
   }
 }
@@ -385,7 +369,7 @@ const familyHistoryDiseasesOptions = {
   props: {}
 })
 export default class RecordDetailModal extends Vue {
-  data () {
+  data() {
     return {
       visible: false,
       confirmLoading: false,
@@ -414,7 +398,7 @@ export default class RecordDetailModal extends Vue {
     }
   }
 
-  async setData (id) {
+  async setData(id) {
     const record = await recordDetail(null, { id })
     const factors = {}
     record.data.patientRecordFactors.forEach(factor => {
@@ -462,16 +446,16 @@ export default class RecordDetailModal extends Vue {
     })
   }
 
-  async show (id) {
+  async show(id) {
     console.info(`show record: ${id}`)
     this.visible = true
     this.setData(id)
   }
-  handleOk () {
+  handleOk() {
     this.visible = false
   }
 
-  handleCancel () {
+  handleCancel() {
     this.visible = false
   }
 }

@@ -369,8 +369,7 @@ const familyHistoryDiseasesOptions = {
   components: {
     IconFont,
     ImageCheckbox,
-    RecordHistoryModal,
-    PriceInput
+    RecordHistoryModal
   },
   props: {
     id: String
@@ -386,18 +385,18 @@ const familyHistoryDiseasesOptions = {
   }
 })
 export default class extends Vue {
-  async created () {
+  async created() {
     console.info(`created`)
   }
-  async mounted () {
+  async mounted() {
     console.info(`mounted`)
     await this.setData()
   }
-  async idChanged (newVal, oldVal) {
+  async idChanged(newVal, oldVal) {
     console.info(`watch.id changed`)
     await this.setData()
   }
-  async setData () {
+  async setData() {
     console.info(`setData`)
     console.info(`id: ${this.id}`)
     const patientId = this.id
@@ -450,7 +449,7 @@ export default class extends Vue {
     }
   }
 
-  async handleSubmit (e) {
+  async handleSubmit(e) {
     e.preventDefault()
     this.form.validateFields((err, values) => {
       if (err) {
@@ -474,16 +473,16 @@ export default class extends Vue {
     })
   }
 
-  showHistoryRecords () {
+  showHistoryRecords() {
     this.$refs.modalForm.show(this.id)
   }
 
-  async beforeRouteEnter (to, from, next) {
+  async beforeRouteEnter(to, from, next) {
     console.info(`beforeRouteEnter`)
     next(vm => vm.setData())
   }
 
-  data () {
+  data() {
     return {
       model: {},
       form: this.$form.createForm(this),
@@ -509,16 +508,6 @@ export default class extends Vue {
       }
     }
   }
-
-  MockImage (text) {
-    return Random.image('100x100', Random.color(), '#000', 'png', text)
-  }
-  selectDisease (item) {
-    item.value = item.value === 1 ? 0 : 1
-  }
-  selectPreviousHistoryDiseases (item) {
-    item.value = item.value === 1 ? 0 : 1
-  }
 }
 </script>
 
@@ -543,6 +532,17 @@ h3 {
 
 .root-container /deep/ .ant-form-item-label {
   text-align: left;
+  line-height: 25px;
+}
+
+.root-container /deep/ .ant-form-item {
+  margin: 0 0 5px 0;
+}
+
+.icon-size {
+  font-size: 36px;
+}
+</style>
   line-height: 25px;
 }
 
