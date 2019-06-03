@@ -58,12 +58,13 @@
                   align="center"
                   v-for="item in diseaseOptions"
                   :key="item.index"
-                  :value="item.value"
-                  @click="selectDisease(item)"
+                  style="margin-top:10px;margin-bottom:10px"
                 >
-                  <icon-font :type="item.iconType1" v-if="item.value === 1"/>
-                  <icon-font :type="item.iconType0" v-if="item.value === 0"/>
-                  <div>{{ item.label }}</div>
+                  <image-checkbox
+                    :iconTypeName="item.iconTypeName"
+                    v-decorator="['patient.'+item.name,
+                      {initialValue: item.value}]"
+                  ></image-checkbox>
                 </a-col>
               </a-row>
             </a-form-item>
@@ -140,15 +141,9 @@
   </a-modal>
 </template>
 
-<style scoped>
-.ant-modal .anticon {
-  font-size: 36px;
-}
-</style>
-
 <script>
-import IconFont from '@/components/Icon/index.js'
-import City from '@/api/city.js'
+import ImageCheckbox from '@/components/ImageCheckbox'
+import City from '@/api/city'
 
 console.log(City);
 
@@ -168,17 +163,41 @@ let familyOptions = [
   { label: '慢阻肺（COPD）', value: 4, name: 'familyHistoryCopd' }
 ]
 let diseaseOptions = {
-  hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
-  hasDiabetes: { label: '糖尿病', iconType0: 'icon_diabetes', iconType1: 'icon_diabetes_red', value: 0 },
-  hasStroke: { label: '脑卒中', iconType0: 'icon_stroke', iconType1: 'icon_stroke_red', value: 0 },
-  hasAscvd: { label: '冠心病', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 0 },
-  hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 },
-  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 }
+  hasHypertension: { 
+    label: '高血压', 
+    name: 'hasHypertension',
+    iconTypeName: 'hypertension',
+    value: 0 },
+  hasDiabetes: { 
+    label: '糖尿病', 
+    name: 'hasDiabetes',
+    iconTypeName: 'diabetes',
+    value: 0 },
+  hasStroke: { 
+    label: '脑卒中', 
+    name: 'hasStroke',
+    iconTypeName: 'stroke',
+    value: 0 },
+  hasAscvd: { 
+    label: '冠心病',
+    name: 'hasAscvd',
+    iconTypeName: 'ascvd',
+    value: 0 },
+  hasCopd: { 
+    label: '慢阻肺', 
+    name: 'hasCopd',
+    iconTypeName: 'copd',
+    value: 0 },
+  hasDyslipidemia: { 
+    label: '血脂异常',
+    name: 'hasDyslipidemia',
+    iconTypeName: 'dyslipidemiad',
+    value: 0 }
 }
 
 export default {
   components: {
-    IconFont
+    ImageCheckbox
   },
   data () {
     return {
@@ -207,9 +226,6 @@ export default {
         'temp.family': [],
         'temp.symptom': []
       })
-      for(var o in this.diseaseOptions){
-        this.diseaseOptions[o].value = 0
-      }
       this.visible = true
     },
     selectDisease (item) {
@@ -223,12 +239,6 @@ export default {
         if (!errors) {          
           values.temp.add = []
           Object.assign(values.patient, {
-            hasHypertension: this.diseaseOptions.hasHypertension.value,
-            hasDiabetes: this.diseaseOptions.hasDiabetes.value,
-            hasStroke: this.diseaseOptions.hasStroke.value,
-            hasAscvd: this.diseaseOptions.hasAscvd.value,
-            hasCopd: this.diseaseOptions.hasCopd.value,
-            hasDyslipidemia: this.diseaseOptions.hasDyslipidemia.value,
             province: ( values.temp.add.length && values.temp.add[0] ) || '',
             city: ( values.temp.add.length && values.temp.add[1] ) || '',
             county: ( values.temp.add.length && values.temp.add[2] ) || ''

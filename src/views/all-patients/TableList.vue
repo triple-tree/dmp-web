@@ -23,7 +23,7 @@
 
     <s-table
       ref="table"
-      size="default"
+      size="default"      
       rowKey="key"
       :columns="columns"
       :data="loadData"
