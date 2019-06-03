@@ -59,6 +59,13 @@ const patientQueryById = options => {
 
 // 3.2.2.	复合条件查询
 const patientQuery = options => {
+  const queryParameters = getQueryParameters(options) || {}
+  if (queryParameters && !queryParameters.pageNo) {
+    queryParameters.pageNo = 1
+  }
+  if (queryParameters && !queryParameters.pageSize) {
+    queryParameters.pageSize = 10
+  }
   /**
    * The data structure passed in
   {
@@ -103,6 +110,7 @@ const patientQuery = options => {
       },
     ],
   }).patients
+  console.info(`here`)
   const body = getBody(options) || {}
   const filteredPatients = patients.filter(patient => {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
@@ -133,8 +141,11 @@ const patientQuery = options => {
   })
   const data = {
     total: filteredPatients.length,
-    patients: filteredPatients.slice((body['page'] - 1) * body['size'], body['page'] * body['size']),
-    page: body['page'],
+    patients: filteredPatients.slice(
+      (queryParameters.pageNo - 1) * queryParameters.pageSize,
+      queryParameters.pageNo * queryParameters.pageSize
+    ),
+    page: queryParameters.pageNo,
   }
   return builder(data, '查询成功', 200)
 }

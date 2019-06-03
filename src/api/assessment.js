@@ -25,6 +25,5 @@ export function assessmentAssess(data, search) {
     url: `${api.assessmentAssess}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'post',
     data: data,
-    search,
   })
 }

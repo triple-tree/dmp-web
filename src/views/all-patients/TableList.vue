@@ -140,26 +140,26 @@ export default {
         console.log('this.queryParam', this.queryParam)
         const params = {}
         params.and = []
-        !!this.queryParam.id && params.and.push({
-          'columnName': 'id',
-          'method': 'eq',
-          'value': +this.queryParam.id,
-        })
-        this.queryParam.type &&
-        this.queryParam.type.length &&
-        this.queryParam.type.forEach(function (e) {
+        !!this.queryParam.id &&
           params.and.push({
-            'columnName': e,
-            'method': 'eq',
-            'value': 1,
+            columnName: 'id',
+            method: 'eq',
+            value: +this.queryParam.id,
           })
-        })
-        const pageParam = {
-          page: parameter.pageNo,
-          size: parameter.pageSize,
+        this.queryParam.type &&
+          this.queryParam.type.length &&
+          this.queryParam.type.forEach(function(e) {
+            params.and.push({
+              columnName: e,
+              method: 'eq',
+              value: 1,
+            })
+          })
+        const paginationParam = {
+          pageNo: parameter.pageNo,
+          pageSize: parameter.pageSize,
         }
-        console.log({ ...pageParam, ...params })
-        const res = await patientQuery({ ...pageParam, ...params })
+        const res = await patientQuery(params, paginationParam)
         console.info(`res: ${JSON.stringify(res)}`)
         return {
           pageSize: parseInt(parameter.pageSize),
