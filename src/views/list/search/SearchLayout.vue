@@ -7,22 +7,22 @@
 <script>
 export default {
   name: 'SearchLayout',
-  data () {
+  data() {
     return {
       tabs: {
         items: [
           {
             key: '1',
-            title: '文章'
+            title: '文章',
           },
           {
             key: '2',
-            title: '项目'
+            title: '项目',
           },
           {
             key: '3',
-            title: '应用'
-          }
+            title: '应用',
+          },
         ],
         active: () => {
           switch (this.$route.path) {
@@ -50,16 +50,16 @@ export default {
             default:
               this.$router.push('/workplace')
           }
-        }
+        },
       },
-      search: true
+      search: true,
     }
   },
   computed: {
 
   },
   methods: {
-  }
+  },
 }
 </script>
 

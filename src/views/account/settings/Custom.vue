@@ -12,37 +12,37 @@ export default {
     AListItem,
     AList,
     ASwitch,
-    Meta
+    Meta,
   },
   mixins: [mixin],
-  data () {
+  data() {
     return {
     }
   },
   filters: {
-    themeFilter (theme) {
+    themeFilter(theme) {
       const themeMap = {
         'dark': '暗色',
-        'light': '白色'
+        'light': '白色',
       }
       return themeMap[theme]
-    }
+    },
   },
   methods: {
-    colorFilter (color) {
+    colorFilter(color) {
       const c = colorList.filter(o => o.color === color)[0]
       return c && c.key
     },
 
-    onChange (checked) {
+    onChange(checked) {
       if (checked) {
         this.$store.dispatch('ToggleTheme', 'dark')
       } else {
         this.$store.dispatch('ToggleTheme', 'light')
       }
-    }
+    },
   },
-  render () {
+  render() {
     return (
       <AList itemLayout="horizontal">
         <AListItem>
@@ -66,7 +66,7 @@ export default {
         </AListItem>
       </AList>
     )
-  }
+  },
 }
 </script>
 

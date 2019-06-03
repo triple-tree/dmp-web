@@ -72,37 +72,37 @@ export default {
   name: 'RoleList',
   mixins: [mixinDevice],
   components: {},
-  data () {
+  data() {
     return {
       form: this.$form.createForm(this),
       mdl: {},
 
       roles: [],
-      permissions: []
+      permissions: [],
     }
   },
-  created () {
+  created() {
     getRoleList().then((res) => {
       this.roles = res.data.data
       this.roles.push({
         id: '-1',
         name: '新增角色',
-        describe: '新增一个角色'
+        describe: '新增一个角色',
       })
       console.log('this.roles', this.roles)
     })
     this.loadPermissions()
   },
   methods: {
-    callback (val) {
+    callback(val) {
       console.log(val)
     },
 
-    add () {
+    add() {
       this.edit({ id: 0 })
     },
 
-    edit (record) {
+    edit(record) {
       this.mdl = Object.assign({}, record)
       // 有权限表，处理勾选
       if (this.mdl.permissions && this.permissions) {
@@ -129,20 +129,20 @@ export default {
       console.log('this.mdl', this.mdl)
     },
 
-    onChangeCheck (permission) {
+    onChangeCheck(permission) {
       permission.indeterminate = !!permission.selected.length && (permission.selected.length < permission.actionsOptions.length)
       permission.checkedAll = permission.selected.length === permission.actionsOptions.length
     },
-    onChangeCheckAll (e, permission) {
+    onChangeCheckAll(e, permission) {
       console.log('permission:', permission)
 
       Object.assign(permission, {
         selected: e.target.checked ? permission.actionsOptions.map(obj => obj.value) : [],
         indeterminate: false,
-        checkedAll: e.target.checked
+        checkedAll: e.target.checked,
       })
     },
-    loadPermissions () {
+    loadPermissions() {
       getPermissions().then(res => {
         const result = res.data
         this.permissions = result.map(permission => {
@@ -153,14 +153,14 @@ export default {
           permission.actionsOptions = options.map(option => {
             return {
               label: option.describe,
-              value: option.action
+              value: option.action,
             }
           })
           return permission
         })
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

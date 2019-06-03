@@ -396,44 +396,44 @@ import Mock, { Random } from 'mockjs2'
 
 @Component({
   props: {
-    id: String
-  }
+    id: String,
+  },
 })
 export default class extends Vue {
-  async created () {}
+  async created() {}
 
-  beforeCreate () {
+  beforeCreate() {
     this.form = this.$form.createForm(this)
     this.form.getFieldDecorator('assessments', { initialValue: [{ assessment: '', value: '' }], preserve: true })
     this.form.getFieldDecorator('prescriptions', {
       initialValue: [{ medicine: '', frequency: '', dosage: '', remark: '' }],
-      preserve: true
+      preserve: true,
     })
     this.form.getFieldDecorator('sports', {
       initialValue: [{ sport: '', 's-frequency': '', 's-dosage': '', 's-remark': '' }],
-      preserve: true
+      preserve: true,
     })
     this.form.getFieldDecorator('diets', {
       initialValue: [{ diet: '' }],
-      preserve: true
+      preserve: true,
     })
     this.form.getFieldDecorator('others', {
       initialValue: [{ other: '' }],
-      preserve: true
+      preserve: true,
     })
   }
 
-  remove (type, k) {
+  remove(type, k) {
     const { form } = this
     // can use data-binding to get
     const value = form.getFieldValue(type)
     // can use data-binding to set
     form.setFieldsValue({
-      [type]: value.filter(key => key !== k)
+      [type]: value.filter(key => key !== k),
     })
   }
 
-  add (type) {
+  add(type) {
     const { form } = this
     // can use data-binding to get
     const value = form.getFieldValue(type)
@@ -452,34 +452,34 @@ export default class extends Vue {
     // can use data-binding to set
     // important! notify form to detect changes
     form.setFieldsValue({
-      [type]: newValue
+      [type]: newValue,
     })
   }
 
-  MockImage (text) {
+  MockImage(text) {
     return Random.image('100x100', Random.color(), '#000', 'png', text)
   }
 
-  data () {
+  data() {
     return {
       formItemLayout: {
         labelCol: {
           xs: { span: 8 },
-          sm: { span: 8 }
+          sm: { span: 8 },
         },
         wrapperCol: {
           xs: { span: 16, offset: 0 },
-          sm: { span: 16, offset: 0 }
+          sm: { span: 16, offset: 0 },
         },
         shortLabelCol: {
           xs: { span: 4 },
-          sm: { span: 4 }
+          sm: { span: 4 },
         },
         shortWrapperCol: {
           xs: { span: 20, offset: 0 },
-          sm: { span: 20, offset: 0 }
-        }
-      }
+          sm: { span: 20, offset: 0 },
+        },
+      },
     }
   }
 }

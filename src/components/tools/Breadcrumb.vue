@@ -12,17 +12,17 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       name: '',
-      breadList: []
+      breadList: [],
     }
   },
-  created () {
+  created() {
     this.getBreadcrumb()
   },
   methods: {
-    getBreadcrumb () {
+    getBreadcrumb() {
       this.breadList = []
       // this.breadList.push({name: 'index', path: '/dashboard/', meta: {title: '首页'}})
 
@@ -31,13 +31,13 @@ export default {
         // item.name !== 'index' && this.breadList.push(item)
         this.breadList.push(item)
       })
-    }
+    },
   },
   watch: {
-    $route () {
+    $route() {
       this.getBreadcrumb()
-    }
-  }
+    },
+  },
 }
 </script>
 

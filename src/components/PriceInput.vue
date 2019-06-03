@@ -22,21 +22,21 @@ const hasProp = (instance, prop) => {
 
 const PriceInput = {
   props: ['value'],
-  data () {
+  data() {
     const value = this.value || {}
     return {
       number: value.number || 0,
-      currency: value.currency || 'rmb'
+      currency: value.currency || 'rmb',
     }
   },
   watch: {
-    value (val = {}) {
+    value(val = {}) {
       this.number = val.number || 0
       this.currency = val.currency || 'rmb'
-    }
+    },
   },
   methods: {
-    handleNumberChange (e) {
+    handleNumberChange(e) {
       const number = parseInt(e.target.value || 0, 10)
       if (isNaN(number)) {
         return
@@ -46,17 +46,17 @@ const PriceInput = {
       }
       this.triggerChange({ number })
     },
-    handleCurrencyChange (currency) {
+    handleCurrencyChange(currency) {
       if (!hasProp(this, 'value')) {
         this.currency = currency
       }
       this.triggerChange({ currency })
     },
-    triggerChange (changedValue) {
+    triggerChange(changedValue) {
       // Should provide an event to pass value to Form.
       this.$emit('change', Object.assign({}, this.$data, changedValue))
-    }
-  }
+    },
+  },
 }
 export default PriceInput
 </script>

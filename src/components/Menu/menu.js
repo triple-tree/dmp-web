@@ -8,29 +8,29 @@ export default {
   props: {
     menu: {
       type: Array,
-      required: true
+      required: true,
     },
     theme: {
       type: String,
       required: false,
-      default: 'dark'
+      default: 'dark',
     },
     mode: {
       type: String,
       required: false,
-      default: 'inline'
+      default: 'inline',
     },
     collapsed: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     return {
       openKeys: [],
       selectedKeys: [],
-      cachedOpenKeys: []
+      cachedOpenKeys: [],
     }
   },
   computed: {
@@ -38,13 +38,13 @@ export default {
       const keys = []
       vm.menu.forEach(item => keys.push(item.path))
       return keys
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.updateMenu()
   },
   watch: {
-    collapsed (val) {
+    collapsed(val) {
       if (val) {
         this.cachedOpenKeys = this.openKeys.concat()
         this.openKeys = []
@@ -54,11 +54,11 @@ export default {
     },
     $route: function () {
       this.updateMenu()
-    }
+    },
   },
   methods: {
     // select menu item
-    onOpenChange (openKeys) {
+    onOpenChange(openKeys) {
       // 在水平模式下时执行，并且不再执行后续
       if (this.mode === 'horizontal') {
         this.openKeys = openKeys
@@ -72,7 +72,7 @@ export default {
         this.openKeys = latestOpenKey ? [latestOpenKey] : []
       }
     },
-    updateMenu () {
+    updateMenu() {
       const routes = this.$route.matched.concat()
       const { hidden } = this.$route.meta
       if (routes.length >= 3 && hidden) {
@@ -92,13 +92,13 @@ export default {
     },
 
     // render
-    renderItem (menu) {
+    renderItem(menu) {
       if (!menu.hidden) {
         return menu.children && !menu.hideChildrenInMenu ? this.renderSubMenu(menu) : this.renderMenuItem(menu)
       }
       return null
     },
-    renderMenuItem (menu) {
+    renderMenuItem(menu) {
       const target = menu.meta.target || null
       const tag = target && 'a' || 'router-link'
       const props = { to: { name: menu.name } }
@@ -122,7 +122,7 @@ export default {
         </Item>
       )
     },
-    renderSubMenu (menu) {
+    renderSubMenu(menu) {
       const itemArr = []
       if (!menu.hideChildrenInMenu) {
         menu.children.forEach(item => itemArr.push(this.renderItem(item)))
@@ -137,7 +137,7 @@ export default {
         </SubMenu>
       )
     },
-    renderIcon (icon) {
+    renderIcon(icon) {
       if (icon === 'none' || icon === undefined) {
         return null
       }
@@ -146,22 +146,22 @@ export default {
       return (
         <Icon {... { props } }/>
       )
-    }
+    },
   },
 
-  render () {
+  render() {
     const { mode, theme, menu } = this
     const props = {
       mode: mode,
       theme: theme,
-      openKeys: this.openKeys
+      openKeys: this.openKeys,
     }
     const on = {
       select: obj => {
         this.selectedKeys = obj.selectedKeys
         this.$emit('select', obj)
       },
-      openChange: this.onOpenChange
+      openChange: this.onOpenChange,
     }
 
     const menuTree = menu.map(item => {
@@ -176,5 +176,5 @@ export default {
         {menuTree}
       </Menu>
     )
-  }
+  },
 }

@@ -21,62 +21,62 @@ const iconTypeDic = {
   stroke: { icons: ['icon_stroke', 'icon_stroke_red'], label: '脑卒中' },
   ascvd: { icons: ['icon_ascvd', 'icon_ascvd_red'], label: '冠心病' },
   copd: { icons: ['icon_copd', 'icon_copd_red'], label: '慢阻肺' },
-  dyslipidemiad: { icons: ['icon_dyslipidemiad', 'icon_dyslipidemiad_red'], label: '血脂异常' }
+  dyslipidemiad: { icons: ['icon_dyslipidemiad', 'icon_dyslipidemiad_red'], label: '血脂异常' },
 }
 
 @Component({
   components: {
-    IconFont
+    IconFont,
   },
   props: {
     value: {
       type: Number,
       required: false,
-      default: 0
+      default: 0,
     },
     label: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
     iconTypeName: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
     iconType: {
       type: Array,
       required: false,
-      default: null
+      default: null,
     },
     disabled: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     showCheckbox: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
   watch: {
     value: [
       {
         handler: 'valueChanged',
         immediate: false,
-        deep: false
-      }
-    ]
-  }
+        deep: false,
+      },
+    ],
+  },
 })
 export default class ImageCheckbox extends Vue {
-  created () {
+  created() {
     if (!(this.iconType || this.iconTypeName)) {
       throw new Error('iconType or iconTypeName should specified')
     }
   }
-  data () {
+  data() {
     const innerValue = this.value || 0
     const innerLabel = this.label || iconTypeDic[this.iconTypeName].label
     const innerIconType = this.iconType || iconTypeDic[this.iconTypeName].icons
@@ -86,21 +86,21 @@ export default class ImageCheckbox extends Vue {
     return {
       innerValue,
       innerIconType,
-      innerLabel
+      innerLabel,
     }
   }
-  valueChanged (val = 0) {
+  valueChanged(val = 0) {
     this.innerValue = val
   }
 
-  get checked () {
+  get checked() {
     return this.innerValue === 1
   }
-  get type () {
+  get type() {
     return this.innerValue ? this.innerIconType[1] : this.innerIconType[0]
   }
 
-  onChange (e) {
+  onChange(e) {
     const checked = e.target.checked
     this.innerValue = checked ? 1 : 0
     // Should provide an event to pass value to Form.

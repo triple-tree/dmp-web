@@ -12,7 +12,7 @@ export default new Vuex.Store({
   modules: {
     app,
     user,
-    permission
+    permission,
   },
   state: {
 
@@ -23,5 +23,5 @@ export default new Vuex.Store({
   actions: {
 
   },
-  getters
+  getters,
 })

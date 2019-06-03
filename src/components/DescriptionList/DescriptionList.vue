@@ -16,64 +16,64 @@ const Item = {
     term: {
       type: String,
       default: '',
-      required: false
-    }
+      required: false,
+    },
   },
   inject: {
     col: {
-      type: Number
-    }
+      type: Number,
+    },
   },
-  render () {
+  render() {
     return (
       <Col {...{ props: responsive[this.col] }}>
         <div class="term">{this.$props.term}</div>
         <div class="content">{this.$slots.default}</div>
       </Col>
     )
-  }
+  },
 }
 
 const responsive = {
   1: { xs: 24 },
   2: { xs: 24, sm: 12 },
   3: { xs: 24, sm: 12, md: 8 },
-  4: { xs: 24, sm: 12, md: 6 }
+  4: { xs: 24, sm: 12, md: 6 },
 }
 
 export default {
   name: 'DetailList',
   Item: Item,
   components: {
-    Col
+    Col,
   },
   props: {
     title: {
       type: String,
       default: '',
-      required: false
+      required: false,
     },
     col: {
       type: Number,
       required: false,
-      default: 3
+      default: 3,
     },
     size: {
       type: String,
       required: false,
-      default: 'large'
+      default: 'large',
     },
     layout: {
       type: String,
       required: false,
-      default: 'horizontal'
+      default: 'horizontal',
+    },
+  },
+  provide() {
+    return {
+      col: this.col > 4 ? 4 : this.col,
     }
   },
-  provide () {
-    return {
-      col: this.col > 4 ? 4 : this.col
-    }
-  }
 }
 </script>
 

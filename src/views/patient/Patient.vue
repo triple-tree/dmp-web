@@ -158,34 +158,34 @@ import { patientQueryById } from '@/api/patient'
   components: {
     Record,
     Assessment,
-    Plan
+    Plan,
   },
   props: {
-    id: String
-  }
+    id: String,
+  },
 })
 export default class extends Vue {
-  async created () {
+  async created() {
     console.info(`created`)
   }
-  async mounted () {
+  async mounted() {
     console.info(`mounted`)
   }
-  async setData () {
+  async setData() {
     console.info(`setData`)
     const patientId = this.id
     const patient = await patientQueryById({ patientId })
     this.model = { ...this.model, ...patient.data }
     console.info(this.model)
   }
-  async beforeRouteEnter (to, from, next) {
+  async beforeRouteEnter(to, from, next) {
     console.info(`beforeRouteEnter`)
     next(async vm => vm.setData())
   }
-  data () {
+  data() {
     return {
       model: {},
-      collapsed: false
+      collapsed: false,
     }
   }
 }

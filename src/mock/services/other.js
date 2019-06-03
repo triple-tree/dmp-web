@@ -14,19 +14,19 @@ const orgTree = () => {
       children: [{
         'key': 'key-01-01-01',
         'title': 'JAVA',
-        'icon': null
+        'icon': null,
       },
       {
         'key': 'key-01-01-02',
         'title': 'PHP',
-        'icon': null
+        'icon': null,
       },
       {
         'key': 'key-01-01-03',
         'title': 'Golang',
-        'icon': null
-      }
-      ]
+        'icon': null,
+      },
+      ],
     }, {
       'key': 'key-01-02',
       'title': '前端组',
@@ -35,20 +35,20 @@ const orgTree = () => {
       children: [{
         'key': 'key-01-02-01',
         'title': 'React',
-        'icon': null
+        'icon': null,
       },
       {
         'key': 'key-01-02-02',
         'title': 'Vue',
-        'icon': null
+        'icon': null,
       },
       {
         'key': 'key-01-02-03',
         'title': 'Angular',
-        'icon': null
-      }
-      ]
-    }]
+        'icon': null,
+      },
+      ],
+    }],
   }, {
     'key': 'key-02',
     'title': '财务部',
@@ -56,11 +56,11 @@ const orgTree = () => {
     'children': [{
       'key': 'key-02-01',
       'title': '会计核算',
-      'icon': null
+      'icon': null,
     }, {
       'key': 'key-02-02',
       'title': '成本控制',
-      'icon': null
+      'icon': null,
     }, {
       'key': 'key-02-03',
       'title': '内部控制',
@@ -68,15 +68,15 @@ const orgTree = () => {
       'children': [{
         'key': 'key-02-03-01',
         'title': '财务制度建设',
-        'icon': null
+        'icon': null,
       },
       {
         'key': 'key-02-03-02',
         'title': '会计核算',
-        'icon': null
-      }
-      ]
-    }]
+        'icon': null,
+      },
+      ],
+    }],
   }])
 }
 
@@ -98,31 +98,31 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'query',
           'describe': '查询',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'delete',
           'describe': '删除',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -132,31 +132,31 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'query',
           'describe': '查询',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'delete',
           'describe': '删除',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -166,26 +166,26 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'import',
           'describe': '导入',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -195,31 +195,31 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'query',
           'describe': '查询',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'delete',
           'describe': '删除',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -229,26 +229,26 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'delete',
           'describe': '删除',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -258,26 +258,26 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'delete',
           'describe': '删除',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -286,7 +286,7 @@ const role = () => {
         'actions': '[]',
         'actionEntitySet': [],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -296,38 +296,38 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'import',
           'describe': '导入',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'delete',
           'describe': '删除',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'export',
           'describe': '导出',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
-      }
-      ]
+        'dataAccess': null,
+      },
+      ],
     },
     {
       'id': 'svip',
@@ -345,31 +345,31 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'query',
           'describe': '查询',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'delete',
           'describe': '删除',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -379,21 +379,21 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'query',
           'describe': '查询',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -403,21 +403,21 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'import',
           'describe': '导入',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -427,26 +427,26 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'query',
           'describe': '查询',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -456,21 +456,21 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -480,21 +480,21 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'delete',
           'describe': '删除',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -503,7 +503,7 @@ const role = () => {
         'actions': '[]',
         'actionEntitySet': [],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'admin',
@@ -513,28 +513,28 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'add',
           'describe': '新增',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'import',
           'describe': '导入',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'update',
           'describe': '修改',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
-      }
-      ]
+        'dataAccess': null,
+      },
+      ],
     },
     {
       'id': 'user',
@@ -552,16 +552,16 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'query',
           'describe': '查询',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
 
       {
@@ -571,7 +571,7 @@ const role = () => {
         'actions': '[]',
         'actionEntitySet': [],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'user',
@@ -581,16 +581,16 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'query',
           'describe': '查询',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'user',
@@ -599,7 +599,7 @@ const role = () => {
         'actions': '[]',
         'actionEntitySet': [],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
 
       {
@@ -610,16 +610,16 @@ const role = () => {
         'actionEntitySet': [{
           'action': 'query',
           'describe': '查询',
-          'defaultCheck': false
+          'defaultCheck': false,
         },
         {
           'action': 'get',
           'describe': '详情',
-          'defaultCheck': false
-        }
+          'defaultCheck': false,
+        },
         ],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'user',
@@ -628,7 +628,7 @@ const role = () => {
         'actions': '[]',
         'actionEntitySet': [],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'user',
@@ -637,7 +637,7 @@ const role = () => {
         'actions': '[]',
         'actionEntitySet': [],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
 
       {
@@ -647,7 +647,7 @@ const role = () => {
         'actions': '[]',
         'actionEntitySet': [],
         'actionList': null,
-        'dataAccess': null
+        'dataAccess': null,
       },
       {
         'roleId': 'user',
@@ -656,15 +656,15 @@ const role = () => {
         'actions': '[]',
         'actionEntitySet': [],
         'actionList': null,
-        'dataAccess': null
-      }
-      ]
-    }
+        'dataAccess': null,
+      },
+      ],
+    },
     ],
     'pageSize': 10,
     'pageNo': 0,
     'totalPage': 1,
-    'totalCount': 5
+    'totalCount': 5,
   })
 }
 
@@ -685,8 +685,8 @@ const permissionNoPager = () => {
       'query',
       'get',
       'update',
-      'delete'
-    ]
+      'delete',
+    ],
   },
   {
     'id': 'member',
@@ -704,8 +704,8 @@ const permissionNoPager = () => {
       'query',
       'get',
       'update',
-      'delete'
-    ]
+      'delete',
+    ],
   },
   {
     'id': 'menu',
@@ -722,8 +722,8 @@ const permissionNoPager = () => {
       'add',
       'import',
       'get',
-      'update'
-    ]
+      'update',
+    ],
   },
   {
     'id': 'order',
@@ -741,8 +741,8 @@ const permissionNoPager = () => {
       'query',
       'get',
       'update',
-      'delete'
-    ]
+      'delete',
+    ],
   },
   {
     'id': 'permission',
@@ -759,8 +759,8 @@ const permissionNoPager = () => {
       'add',
       'get',
       'update',
-      'delete'
-    ]
+      'delete',
+    ],
   },
   {
     'id': 'role',
@@ -777,8 +777,8 @@ const permissionNoPager = () => {
       'add',
       'get',
       'update',
-      'delete'
-    ]
+      'delete',
+    ],
   },
   {
     'id': 'test',
@@ -793,8 +793,8 @@ const permissionNoPager = () => {
     'deleted': 0,
     'actions': [
       'add',
-      'get'
-    ]
+      'get',
+    ],
   },
   {
     'id': 'user',
@@ -809,9 +809,9 @@ const permissionNoPager = () => {
     'deleted': 0,
     'actions': [
       'add',
-      'get'
-    ]
-  }
+      'get',
+    ],
+  },
   ])
 }
 
@@ -833,8 +833,8 @@ const permissions = () => {
         'query',
         'get',
         'update',
-        'delete'
-      ]
+        'delete',
+      ],
     },
     {
       'id': 'member',
@@ -852,8 +852,8 @@ const permissions = () => {
         'query',
         'get',
         'update',
-        'delete'
-      ]
+        'delete',
+      ],
     },
     {
       'id': 'menu',
@@ -870,8 +870,8 @@ const permissions = () => {
         'add',
         'import',
         'get',
-        'update'
-      ]
+        'update',
+      ],
     },
     {
       'id': 'order',
@@ -889,8 +889,8 @@ const permissions = () => {
         'query',
         'get',
         'update',
-        'delete'
-      ]
+        'delete',
+      ],
     },
     {
       'id': 'permission',
@@ -907,8 +907,8 @@ const permissions = () => {
         'add',
         'get',
         'update',
-        'delete'
-      ]
+        'delete',
+      ],
     },
     {
       'id': 'role',
@@ -925,8 +925,8 @@ const permissions = () => {
         'add',
         'get',
         'update',
-        'delete'
-      ]
+        'delete',
+      ],
     },
     {
       'id': 'test',
@@ -941,8 +941,8 @@ const permissions = () => {
       'deleted': 0,
       'actions': [
         'add',
-        'get'
-      ]
+        'get',
+      ],
     },
     {
       'id': 'user',
@@ -957,14 +957,14 @@ const permissions = () => {
       'deleted': 0,
       'actions': [
         'add',
-        'get'
-      ]
-    }
+        'get',
+      ],
+    },
     ],
     'pageSize': 10,
     'pageNo': 0,
     'totalPage': 1,
-    'totalCount': 5
+    'totalCount': 5,
   })
 }
 

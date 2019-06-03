@@ -144,7 +144,7 @@ const symptomOptions = [
   { label: '体力劳动、精神紧张或激动时出现胸痛症状，休息后逐渐缓解', value: 1, name: 'symptomsStethalgia' },
   { label: '呼吸困难或慢性咳嗽', value: 2, name: 'symptomsDyspnea' },
   { label: '多饮、多尿、多食、不明原因体重下降', value: 3, name: 'symptomsDiuresis' },
-  { label: '一过性黑蒙、眩晕', value: 4, name: 'symptomsDizziness' }
+  { label: '一过性黑蒙、眩晕', value: 4, name: 'symptomsDizziness' },
 ]
 
 const familyOptions = [
@@ -152,29 +152,29 @@ const familyOptions = [
   { label: '高血压', value: 1, name: 'familyHistoryHypertension' },
   { label: '冠心病', value: 2, name: 'familyHistoryAscvd' },
   { label: '缺血性卒中（脑更死）', value: 3, name: 'familyHistoryStroke' },
-  { label: '慢阻肺（COPD）', value: 4, name: 'familyHistoryCopd' }
+  { label: '慢阻肺（COPD）', value: 4, name: 'familyHistoryCopd' },
 ]
 const diseaseOptions = {
   hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
   hasDiabetes: { label: '糖尿病', iconType0: 'icon_diabetes', iconType1: 'icon_diabetes_red', value: 1 },
   hasStroke: { label: '脑卒中', iconType0: 'icon_stroke', iconType1: 'icon_stroke_red', value: 0 },
   hasAscvd: { label: '冠心病', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 1 },
-  hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 }
+  hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 },
 }
 
 export default {
   components: {
-    IconFont
+    IconFont,
   },
-  data () {
+  data() {
     return {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 9 }
+        sm: { span: 9 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 15 }
+        sm: { span: 15 },
       },
       visible: false,
       confirmLoading: false,
@@ -184,21 +184,21 @@ export default {
       symptomCheck: [],
       params: {
         patient: {},
-        factors: {}
+        factors: {},
       },
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
     }
   },
   methods: {
-    add () {
+    add() {
       this.visible = true
     },
-    selectDisease (item) {
+    selectDisease(item) {
       item.value = item.value === 1 ? 0 : 1
     },
-    handleSubmit () {
+    handleSubmit() {
       const {
-        form: { validateFields }
+        form: { validateFields },
       } = this
       this.confirmLoading = true
       const self = this
@@ -209,7 +209,7 @@ export default {
             hasDiabetes: this.diseaseOptions.hasDiabetes.value,
             hasStroke: this.diseaseOptions.hasStroke.value,
             hasAscvd: this.diseaseOptions.hasAscvd.value,
-            hasCopd: this.diseaseOptions.hasCopd.value
+            hasCopd: this.diseaseOptions.hasCopd.value,
           })
           Object.assign(this.params.factors, {
             familyHistoryDiabetes: 0,
@@ -221,7 +221,7 @@ export default {
             symptomsStethalgia: 0,
             symptomsDyspnea: 0,
             symptomsDiuresis: 0,
-            symptomsDizziness: 0
+            symptomsDizziness: 0,
           })
           this.params.factors.symptom &&
             this.params.factors.symptom.length &&
@@ -245,9 +245,9 @@ export default {
         }
       })
     },
-    handleCancel () {
+    handleCancel() {
       this.visible = false
-    }
-  }
+    },
+  },
 }
 </script>

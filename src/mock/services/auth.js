@@ -33,14 +33,14 @@ const login = options => {
       createTime: 1497160610259,
       deleted: 0,
       roleId: 'admin',
-      lang: 'zh-CN'
+      lang: 'zh-CN',
     },
     '登录成功！',
     200,
     {},
     {
       token:
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTc5MDQzOTIsInVzZXJuYW1lIjoiY2VzaGkyIn0.9IlluiJvvuiFfwMmnRI9bTwsosslpmJCfpVPpJNexc8'
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTc5MDQzOTIsInVzZXJuYW1lIjoiY2VzaGkyIn0.9IlluiJvvuiFfwMmnRI9bTwsosslpmJCfpVPpJNexc8',
     }
   )
 }
@@ -52,7 +52,7 @@ const register = options => {
 
   return builder(
     {
-      doctorId: 'eb4e443f8cde4ecdb5a7687928f6e5ee'
+      doctorId: 'eb4e443f8cde4ecdb5a7687928f6e5ee',
     },
     '医生已注册，请尽快通知管理员审核账号！',
     200

@@ -42,7 +42,7 @@ export default {
     VueCropper
   },
   */
-  data () {
+  data() {
     return {
       visible: false,
       id: null,
@@ -53,25 +53,25 @@ export default {
         autoCrop: true,
         autoCropWidth: 200,
         autoCropHeight: 200,
-        fixedBox: true
+        fixedBox: true,
       },
-      previews: {}
+      previews: {},
     }
   },
   methods: {
-    edit (id) {
+    edit(id) {
       this.visible = true
       this.id = id
       /* 获取原始头像 */
     },
-    close () {
+    close() {
       this.id = null
       this.visible = false
     },
-    cancelHandel () {
+    cancelHandel() {
       this.close()
     },
-    okHandel () {
+    okHandel() {
       const vm = this
 
       vm.confirmLoading = true
@@ -82,10 +82,10 @@ export default {
       }, 2000)
     },
 
-    realTime (data) {
+    realTime(data) {
       this.previews = data
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -50,14 +50,14 @@
 <script>
 export default {
   name: 'HeaderNotice',
-  data () {
+  data() {
     return {
       loadding: false,
-      visible: false
+      visible: false,
     }
   },
   methods: {
-    fetchNotice () {
+    fetchNotice() {
       if (!this.visible) {
         this.loadding = true
         setTimeout(() => {
@@ -67,8 +67,8 @@ export default {
         this.loadding = false
       }
       this.visible = !this.visible
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -10,7 +10,7 @@ const statsAll = options => {
     diabetesAndHypertensionPatients: 0,
     diabetesPatients: 3,
     strokePatients: 0,
-    hypertensionPatients: 1
+    hypertensionPatients: 1,
   }
   return builder(data, '请求成功', 200)
 }
@@ -20,28 +20,28 @@ const statsPatients = options => {
   const data = {
     diabetesAndHypertension: {
       patients: 0,
-      danger: 7
+      danger: 7,
     },
     ascvd: {
       patients: 2,
-      danger: 2
+      danger: 2,
     },
     diabetes: {
       patients: 3,
-      danger: 1
+      danger: 1,
     },
     hypertension: {
       patients: 1,
-      danger: 1
+      danger: 1,
     },
     stroke: {
       patients: 0,
-      danger: 4
+      danger: 4,
     },
     copd: {
       patients: 0,
-      danger: 2
-    }
+      danger: 2,
+    },
   }
   return builder(data, '请求成功', 200)
 }
@@ -50,28 +50,28 @@ const statsPlans = options => {
   const data = {
     diabetesAndHypertension: {
       patients: 0,
-      danger: 4
+      danger: 4,
     },
     ascvd: {
       patients: 6,
-      danger: 0
+      danger: 0,
     },
     diabetes: {
       patients: 3,
-      danger: 4
+      danger: 4,
     },
     hypertension: {
       patients: 4,
-      danger: 13
+      danger: 13,
     },
     stroke: {
       patients: 0,
-      danger: 7
+      danger: 7,
     },
     copd: {
       patients: 0,
-      danger: 0
-    }
+      danger: 0,
+    },
   }
   return builder(data, '请求成功', 200)
 }

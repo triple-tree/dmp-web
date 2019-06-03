@@ -70,7 +70,7 @@ const plainOptions = [
   { label: '糖尿病', value: 1 },
   { label: '脑卒中', value: 2 },
   { label: '冠心病', value: 3 },
-  { label: '慢阻肺', value: 4 }
+  { label: '慢阻肺', value: 4 },
 ]
 
 export default {
@@ -79,7 +79,7 @@ export default {
     STable,
     CreateForm,
     StepByStepModal,
-    IconFont
+    IconFont,
   },
   data() {
     return {
@@ -91,57 +91,57 @@ export default {
       columns: [
         {
           title: '编号',
-          dataIndex: 'id'
+          dataIndex: 'id',
         },
         {
           title: '日期',
           dataIndex: 'createDate',
-          sorter: true
+          sorter: true,
         },
         {
           title: '姓名',
-          dataIndex: 'name'
+          dataIndex: 'name',
         },
         {
           title: '性别',
-          dataIndex: 'gender'
+          dataIndex: 'gender',
         },
         {
           title: '医生',
-          dataIndex: 'doctorId'
+          dataIndex: 'doctorId',
         },
         {
           title: '高血压',
           dataIndex: 'hasHypertension',
           customRender: has =>
-            has ? <icon-font type="icon_hypertension_red" /> : <icon-font type="icon_hypertension" />
+            has ? <icon-font type="icon_hypertension_red" /> : <icon-font type="icon_hypertension" />,
         },
         {
           title: '糖尿病',
           dataIndex: 'hasDiabetes',
-          customRender: has => (has ? <icon-font type="icon_diabetes_red" /> : <icon-font type="icon_diabetes" />)
+          customRender: has => (has ? <icon-font type="icon_diabetes_red" /> : <icon-font type="icon_diabetes" />),
         },
         {
           title: '脑卒中',
           dataIndex: 'hasStroke',
-          customRender: has => (has ? <icon-font type="icon_stroke_red" /> : <icon-font type="icon_stroke" />)
+          customRender: has => (has ? <icon-font type="icon_stroke_red" /> : <icon-font type="icon_stroke" />),
         },
         {
           title: '冠心病',
           dataIndex: 'hasAscvd',
-          customRender: has => (has ? <icon-font type="icon_ascvd_red" /> : <icon-font type="icon_ascvd" />)
+          customRender: has => (has ? <icon-font type="icon_ascvd_red" /> : <icon-font type="icon_ascvd" />),
         },
         {
           title: '慢阻肺',
           dataIndex: 'hasCopd',
-          customRender: has => (has ? <icon-font type="icon_copd_red" /> : <icon-font type="icon_copd" />)
+          customRender: has => (has ? <icon-font type="icon_copd_red" /> : <icon-font type="icon_copd" />),
         },
         {
           title: '操作',
           dataIndex: 'action',
           width: '150px',
-          scopedSlots: { customRender: 'action' }
-        }
+          scopedSlots: { customRender: 'action' },
+        },
       ],
       // 加载数据方法 必须为 Promise 对象
       loadData: async parameter => {
@@ -153,7 +153,7 @@ export default {
           pageNo: parseInt(res.data.page),
           totalCount: parseInt(res.data.total),
           totalPage: parseInt(res.data.total) / parseInt(parameter.pageSize),
-          data: res.data.patients
+          data: res.data.patients,
         }
       },
       selectedRowKeys: [],
@@ -161,9 +161,9 @@ export default {
 
       options: {
         alert: false,
-        rowSelection: null
+        rowSelection: null,
       },
-      optionAlertShow: false
+      optionAlertShow: false,
     }
   },
   filters: {},
@@ -181,9 +181,9 @@ export default {
     },
     resetSearchForm() {
       this.queryParam = {
-        date: moment(new Date())
+        date: moment(new Date()),
       }
-    }
-  }
+    },
+  },
 }
 </script>

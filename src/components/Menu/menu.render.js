@@ -8,29 +8,29 @@ export default {
   props: {
     menu: {
       type: Array,
-      required: true
+      required: true,
     },
     theme: {
       type: String,
       required: false,
-      default: 'dark'
+      default: 'dark',
     },
     mode: {
       type: String,
       required: false,
-      default: 'inline'
+      default: 'inline',
     },
     collapsed: {
       type: Boolean,
       required: false,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     return {
       openKeys: [],
       selectedKeys: [],
-      cachedOpenKeys: []
+      cachedOpenKeys: [],
     }
   },
   computed: {
@@ -38,13 +38,13 @@ export default {
       const keys = []
       vm.menu.forEach(item => keys.push(item.path))
       return keys
-    }
+    },
   },
-  created () {
+  created() {
     this.updateMenu()
   },
   watch: {
-    collapsed (val) {
+    collapsed(val) {
       if (val) {
         this.cachedOpenKeys = this.openKeys.concat()
         this.openKeys = []
@@ -54,7 +54,7 @@ export default {
     },
     $route: function () {
       this.updateMenu()
-    }
+    },
   },
   methods: {
     renderIcon: function (h, icon) {
@@ -70,8 +70,8 @@ export default {
       return h(Item, { key: menu.path ? menu.path : 'item_' + pIndex + '_' + index }, [
         h('router-link', { attrs: { to: { name: menu.name }, target: target } }, [
           this.renderIcon(h, menu.meta.icon),
-          h('span', [menu.meta.title])
-        ])
+          h('span', [menu.meta.title]),
+        ]),
       ])
     },
     renderSubMenu: function (h, menu, pIndex, index) {
@@ -104,7 +104,7 @@ export default {
       })
       return menuArr
     },
-    onOpenChange (openKeys) {
+    onOpenChange(openKeys) {
       const latestOpenKey = openKeys.find(key => !this.openKeys.includes(key))
       if (!this.rootSubmenuKeys.includes(latestOpenKey)) {
         this.openKeys = openKeys
@@ -112,7 +112,7 @@ export default {
         this.openKeys = latestOpenKey ? [latestOpenKey] : []
       }
     },
-    updateMenu () {
+    updateMenu() {
       const routes = this.$route.matched.concat()
 
       if (routes.length >= 4 && this.$route.meta.hidden) {
@@ -130,9 +130,9 @@ export default {
       }
 
       this.collapsed ? (this.cachedOpenKeys = openKeys) : (this.openKeys = openKeys)
-    }
+    },
   },
-  render (h) {
+  render(h) {
     return h(
       Menu,
       {
@@ -140,17 +140,17 @@ export default {
           theme: this.$props.theme,
           mode: this.$props.mode,
           openKeys: this.openKeys,
-          selectedKeys: this.selectedKeys
+          selectedKeys: this.selectedKeys,
         },
         on: {
           openChange: this.onOpenChange,
           select: obj => {
             this.selectedKeys = obj.selectedKeys
             this.$emit('select', obj)
-          }
-        }
+          },
+        },
       },
       this.renderMenu(h, this.menu)
     )
-  }
+  },
 }

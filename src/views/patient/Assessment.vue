@@ -277,47 +277,47 @@ const previousHistoryDiseasesOptions = {
     label: '短暂性脑缺血发作(TIA)或缺血性卒中(脑梗死)',
     iconType0: 'icon_stroke',
     iconType1: 'icon_stroke_red',
-    value: 0
+    value: 0,
   },
   hasAscvd: { label: '急性冠脉综合征ACS', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 1 },
   hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 },
-  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_dyslipidemiad', iconType1: 'icon_dyslipidemiad_red', value: 0 }
+  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_dyslipidemiad', iconType1: 'icon_dyslipidemiad_red', value: 0 },
 }
 
 @Component({
   components: {
-    IconFont
+    IconFont,
   },
   props: {
-    id: String
-  }
+    id: String,
+  },
 })
 export default class extends Vue {
-  data () {
+  data() {
     return {
       previousHistoryDiseasesOptions,
       formItemLayout: {
         labelCol: {
           xs: { span: 24 },
-          sm: { span: 24 }
+          sm: { span: 24 },
         },
         wrapperCol: {
           xs: { span: 24, offset: 0 },
-          sm: { span: 24, offset: 0 }
+          sm: { span: 24, offset: 0 },
         },
         checkboxLabelCol: {
           xs: { span: 0 },
-          sm: { span: 0 }
+          sm: { span: 0 },
         },
         checkboxWrapperCol: {
           xs: { span: 24 },
-          sm: { span: 24 }
-        }
-      }
+          sm: { span: 24 },
+        },
+      },
     }
   }
-  async created () {}
-  selectPreviousHistoryDiseases (item) {
+  async created() {}
+  selectPreviousHistoryDiseases(item) {
     item.value = item.value === 1 ? 0 : 1
   }
 }

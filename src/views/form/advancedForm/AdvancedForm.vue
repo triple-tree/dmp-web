@@ -92,7 +92,7 @@ const fieldLabels = {
   owner2: '执行人',
   approver2: '责任人',
   dateRange2: '生效日期',
-  type2: '任务类型'
+  type2: '任务类型',
 }
 
 export default {
@@ -101,9 +101,9 @@ export default {
   components: {
     FooterToolBar,
     RepositoryForm,
-    TaskForm
+    TaskForm,
   },
-  data () {
+  data() {
     return {
       description: '高级表单常见于一次性输入和提交大批量数据的场景。',
       loading: false,
@@ -116,27 +116,27 @@ export default {
           dataIndex: 'name',
           key: 'name',
           width: '20%',
-          scopedSlots: { customRender: 'name' }
+          scopedSlots: { customRender: 'name' },
         },
         {
           title: '工号',
           dataIndex: 'workId',
           key: 'workId',
           width: '20%',
-          scopedSlots: { customRender: 'workId' }
+          scopedSlots: { customRender: 'workId' },
         },
         {
           title: '所属部门',
           dataIndex: 'department',
           key: 'department',
           width: '40%',
-          scopedSlots: { customRender: 'department' }
+          scopedSlots: { customRender: 'department' },
         },
         {
           title: '操作',
           key: 'action',
-          scopedSlots: { customRender: 'operation' }
-        }
+          scopedSlots: { customRender: 'operation' },
+        },
       ],
       data: [
         {
@@ -144,32 +144,32 @@ export default {
           name: '小明',
           workId: '001',
           editable: false,
-          department: '行政部'
+          department: '行政部',
         },
         {
           key: '2',
           name: '李莉',
           workId: '002',
           editable: false,
-          department: 'IT部'
+          department: 'IT部',
         },
         {
           key: '3',
           name: '王小帅',
           workId: '003',
           editable: false,
-          department: '财务部'
-        }
+          department: '财务部',
+        },
       ],
 
-      errors: []
+      errors: [],
     }
   },
   methods: {
-    handleSubmit (e) {
+    handleSubmit(e) {
       e.preventDefault()
     },
-    newMember () {
+    newMember() {
       const length = this.data.length
       this.data.push({
         key: length === 0 ? '1' : (parseInt(this.data[length - 1].key) + 1).toString(),
@@ -177,14 +177,14 @@ export default {
         workId: '',
         department: '',
         editable: true,
-        isNew: true
+        isNew: true,
       })
     },
-    remove (key) {
+    remove(key) {
       const newData = this.data.filter(item => item.key !== key)
       this.data = newData
     },
-    saveRow (record) {
+    saveRow(record) {
       this.memberLoading = true
       const { key, name, workId, department } = record
       if (!name || !workId || !department) {
@@ -204,19 +204,19 @@ export default {
         this.memberLoading = false
       })
     },
-    toggle (key) {
+    toggle(key) {
       const target = this.data.filter(item => item.key === key)[0]
       target.editable = !target.editable
     },
-    getRowByKey (key, newData) {
+    getRowByKey(key, newData) {
       const data = this.data
       return (newData || data).filter(item => item.key === key)[0]
     },
-    cancel (key) {
+    cancel(key) {
       const target = this.data.filter(item => item.key === key)[0]
       target.editable = false
     },
-    handleChange (value, key, column) {
+    handleChange(value, key, column) {
       const newData = [...this.data]
       const target = newData.filter(item => key === item.key)[0]
       if (target) {
@@ -226,7 +226,7 @@ export default {
     },
 
     // 最终全页面提交
-    validate () {
+    validate() {
       const { $refs: { repository, task }, $notification } = this
       const repositoryForm = new Promise((resolve, reject) => {
         repository.form.validateFields((err, values) => {
@@ -252,7 +252,7 @@ export default {
       Promise.all([repositoryForm, taskForm]).then(values => {
         $notification['error']({
           message: 'Received values of form:',
-          description: JSON.stringify(values)
+          description: JSON.stringify(values),
         })
       }).catch(() => {
         const errors = Object.assign({}, repository.form.getFieldsError(), task.form.getFieldsError())
@@ -261,7 +261,7 @@ export default {
         console.log(tmp)
       })
     },
-    errorList (errors) {
+    errorList(errors) {
       if (!errors || errors.length === 0) {
         return null
       }
@@ -273,17 +273,17 @@ export default {
         return {
           key: key,
           message: errors[key][0],
-          fieldLabel: fieldLabels[key]
+          fieldLabel: fieldLabels[key],
         }
       })
     },
-    scrollToField (fieldKey) {
+    scrollToField(fieldKey) {
       const labelNode = document.querySelector(`label[for="${fieldKey}"]`)
       if (labelNode) {
         labelNode.scrollIntoView(true)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

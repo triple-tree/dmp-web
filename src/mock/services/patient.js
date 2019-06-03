@@ -27,9 +27,9 @@ const patientAll = options => {
         city: () => Random.city(),
         county: () => Random.county(),
         detailAddress: '天桥大街1号',
-        createDate: () => Random.date('yyyy-MM-dd')
-      }
-    ]
+        createDate: () => Random.date('yyyy-MM-dd'),
+      },
+    ],
   }).patients
   const queryParameters = getQueryParameters(options) || {}
   if (queryParameters && !queryParameters.pageNo) {
@@ -44,7 +44,7 @@ const patientAll = options => {
       (queryParameters.pageNo - 1) * queryParameters.pageSize,
       queryParameters.pageNo * queryParameters.pageSize
     ),
-    page: queryParameters.pageNo
+    page: queryParameters.pageNo,
   }
   return builder(data, '查询成功', 200)
 }
@@ -109,7 +109,7 @@ const patientQuery = options => {
   const data = {
     total: filteredPatients.length,
     patients: filteredPatients.slice((body['page'] - 1) * body['size'], body['page'] * body['size']),
-    page: body['page']
+    page: body['page'],
   }
   return builder(data, '查询成功', 200)
 }
@@ -201,59 +201,59 @@ const patientGetPatientReport = options => {
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'dbp',
-          factorValue: '0'
+          factorValue: '0',
         },
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'familyHistoryAscvd',
-          factorValue: '0'
+          factorValue: '0',
         },
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'familyHistoryDiabetes',
-          factorValue: '0'
+          factorValue: '0',
         },
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'familyHistoryHypertension',
-          factorValue: '0'
+          factorValue: '0',
         },
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'familyHistoryStroke',
-          factorValue: '0'
+          factorValue: '0',
         },
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'previousHistoryAscvd',
-          factorValue: '0'
+          factorValue: '0',
         },
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'previousHistoryCopd',
-          factorValue: '0'
+          factorValue: '0',
         },
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'previousHistoryDiabetes',
-          factorValue: '0'
+          factorValue: '0',
         },
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'previousHistoryDyslipidemia',
-          factorValue: '0'
+          factorValue: '0',
         },
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'previousHistoryHypertension',
-          factorValue: '0'
+          factorValue: '0',
         },
         {
           patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
           factorName: 'previousHistoryStroke',
-          factorValue: '0'
-        }
-      ]
+          factorValue: '0',
+        },
+      ],
     },
     planDetail: {
       doctorId: 'c5a7ac3958554e0da76d6db850611fff',
@@ -265,15 +265,15 @@ const patientGetPatientReport = options => {
           healthPlanId: 'ef50c0f9db934fd3af948723c8b88072',
           adviceType: 'food',
           adviceValue: '少盐，戒烟酒',
-          reason: '高血压'
+          reason: '高血压',
         },
         {
           id: 'aa7a95d6e7e546fc9dedd1b8d7da1c5d',
           healthPlanId: 'ef50c0f9db934fd3af948723c8b88072',
           adviceType: 'exercise',
           adviceValue: '多户外运动',
-          reason: '高血压'
-        }
+          reason: '高血压',
+        },
       ],
       clinicRemind: {
         id: 'cbb42157d805482ba4688268b208d881',
@@ -284,8 +284,8 @@ const patientGetPatientReport = options => {
         reason: '脑卒中极高危',
         status: 0,
         targetHospital: '卫生所',
-        currentHospital: null
-      }
+        currentHospital: null,
+      },
     },
     chronicDiseaseAssessment: {
       id: '749f0cc463784528944b2bdf1490f626',
@@ -297,8 +297,8 @@ const patientGetPatientReport = options => {
       hypertensionRisk: '高危',
       strokeRisk: '一般',
       ascvdRisk: '一般',
-      copdRisk: '不详'
-    }
+      copdRisk: '不详',
+    },
   }
   return builder(data, '新建患者成功！', 200)
 }

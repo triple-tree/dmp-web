@@ -57,13 +57,13 @@ import Component from 'vue-class-component'
 
 @Component
 export default class extends Vue {
-  async created () {
+  async created() {
     await this.loadStatsPatientsData()
     await this.loadStatsPlansData()
     await this.loadStatsAllData()
   }
 
-  async loadStatsPatientsData () {
+  async loadStatsPatientsData() {
     const res = await statsPatients()
     const data = res.data
     /* construct sourceData like this
@@ -99,13 +99,13 @@ export default class extends Vue {
       type: 'fold',
       fields: ['diabetesAndHypertension', 'ascvd', 'diabetes', 'hypertension', 'stroke', 'copd'],
       key: '类别',
-      value: '人数'
+      value: '人数',
     })
     // console.info(`dv transform: ${JSON.stringify(dv, null, 2)}`)
     this.statusPatients = dv.rows
   }
 
-  async loadStatsPlansData () {
+  async loadStatsPlansData() {
     const res = await statsPlans()
     const data = res.data
     const sourceData = [{ name: '患者健康处方' }, { name: '高危人群健康处方' }]
@@ -118,17 +118,17 @@ export default class extends Vue {
       type: 'fold',
       fields: ['diabetesAndHypertension', 'ascvd', 'diabetes', 'hypertension', 'stroke', 'copd'],
       key: '类别',
-      value: '处方数'
+      value: '处方数',
     })
     this.statusPlans = dv.rows
   }
 
-  async loadStatsAllData () {
+  async loadStatsAllData() {
     const res = await statsAll()
     const data = res.data
     this.statusAll = data
   }
-  data () {
+  data() {
     return {
       statusAll: {
         all: 0,
@@ -137,7 +137,7 @@ export default class extends Vue {
         diabetesAndHypertensionPatients: 0,
         diabetesPatients: 0,
         strokePatients: 0,
-        hypertensionPatients: 0
+        hypertensionPatients: 0,
       },
 
       statusPatients: [],
@@ -145,9 +145,9 @@ export default class extends Vue {
       height: 400,
       adjust: [
         {
-          type: 'dodge'
-        }
-      ]
+          type: 'dodge',
+        },
+      ],
     }
   }
 }

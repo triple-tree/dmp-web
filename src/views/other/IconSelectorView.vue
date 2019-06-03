@@ -10,18 +10,18 @@ import IconSelector from '@/components/IconSelector'
 export default {
   name: 'IconSelectorView',
   components: {
-    IconSelector
+    IconSelector,
   },
-  data () {
+  data() {
     return {
 
     }
   },
   methods: {
-    handleIconChange (icon) {
+    handleIconChange(icon) {
       console.log('change Icon', icon)
       this.$message.info(<span>选中图标 <code>{icon}</code></span>)
-    }
-  }
+    },
+  },
 }
 </script>

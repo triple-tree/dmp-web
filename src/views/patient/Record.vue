@@ -298,38 +298,38 @@ const previousHistoryDiseasesOptions = {
     name: 'previousHistoryHypertension',
     label: '高血压',
     iconTypeName: 'hypertension',
-    value: 0
+    value: 0,
   },
   previousHistoryDiabetes: {
     name: 'previousHistoryDiabetes',
     label: '糖尿病',
     iconTypeName: 'diabetes',
-    value: 0
+    value: 0,
   },
   previousHistoryStroke: {
     name: 'previousHistoryStroke',
     label: '短暂性脑缺血发作(TIA)或缺血性卒中(脑梗死)',
     iconTypeName: 'stroke',
-    value: 0
+    value: 0,
   },
   previousHistoryAscvd: {
     name: 'previousHistoryAscvd',
     label: '急性冠脉综合征ACS',
     iconTypeName: 'ascvd',
-    value: 0
+    value: 0,
   },
   previousHistoryCopd: {
     name: 'previousHistoryCopd',
     label: '慢阻肺',
     iconTypeName: 'copd',
-    value: 0
+    value: 0,
   },
   previousHistoryDyslipidemia: {
     name: 'previousHistoryDyslipidemia',
     label: '血脂异常',
     iconTypeName: 'dyslipidemiad',
-    value: 0
-  }
+    value: 0,
+  },
 }
 
 const familyHistoryDiseasesOptions = {
@@ -337,52 +337,52 @@ const familyHistoryDiseasesOptions = {
     name: 'familyHistoryHypertension',
     label: '高血压',
     iconTypeName: 'hypertension',
-    value: 0
+    value: 0,
   },
   familyHistoryDiabetes: {
     name: 'familyHistoryDiabetes',
     label: '糖尿病',
     iconTypeName: 'diabetes',
-    value: 0
+    value: 0,
   },
   familyHistoryStroke: {
     name: 'familyHistoryStroke',
     label: '脑卒中',
     iconTypeName: 'stroke',
-    value: 0
+    value: 0,
   },
   familyHistoryAscvd: {
     name: 'familyHistoryAscvd',
     label: '冠心病',
     iconTypeName: 'ascvd',
-    value: 0
+    value: 0,
   },
   familyHistoryCopd: {
     name: 'familyHistoryCopd',
     label: '慢阻肺',
     iconTypeName: 'copd',
-    value: 0
-  }
+    value: 0,
+  },
 }
 
 @Component({
   components: {
     IconFont,
     ImageCheckbox,
-    RecordHistoryModal
+    RecordHistoryModal,
   },
   props: {
-    id: String
+    id: String,
   },
   watch: {
     id: [
       {
         handler: 'idChanged',
         immediate: false,
-        deep: false
-      }
-    ]
-  }
+        deep: false,
+      },
+    ],
+  },
 })
 export default class extends Vue {
   async created() {
@@ -461,12 +461,12 @@ export default class extends Vue {
         patientId: this.id,
         // TODO need to update the current id here
         doctorId: 'b80c338df2974b58aaf9b51c351169e5',
-        patientRecordFactors: []
+        patientRecordFactors: [],
       }
       for (const key in values) {
         data.patientRecordFactors.push({
           factorName: key,
-          factorValue: values[key]
+          factorValue: values[key],
         })
       }
       recordAdd({ body: data })
@@ -491,21 +491,21 @@ export default class extends Vue {
       formItemLayout: {
         labelCol: {
           md: { span: 24 },
-          sm: { span: 24 }
+          sm: { span: 24 },
         },
         wrapperCol: {
           md: { span: 24 },
-          sm: { span: 24 }
+          sm: { span: 24 },
         },
         horizontalLabelCol: {
           md: { span: 8 },
-          sm: { span: 8 }
+          sm: { span: 8 },
         },
         horizontalWrapperCol: {
           md: { span: 16 },
-          sm: { span: 16 }
-        }
-      }
+          sm: { span: 16 },
+        },
+      },
     }
   }
 }

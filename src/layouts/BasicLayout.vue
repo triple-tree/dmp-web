@@ -81,21 +81,21 @@ export default {
     SideMenu,
     GlobalHeader,
     GlobalFooter,
-    SettingDrawer
+    SettingDrawer,
   },
-  data () {
+  data() {
     return {
       production: config.production,
       collapsed: false,
-      menus: []
+      menus: [],
     }
   },
   computed: {
     ...mapState({
       // 动态主路由
-      mainMenu: state => state.permission.addRouters
+      mainMenu: state => state.permission.addRouters,
     }),
-    contentPaddingLeft () {
+    contentPaddingLeft() {
       if (!this.fixSidebar || this.isMobile()) {
         return '0'
       }
@@ -103,18 +103,18 @@ export default {
         return '256px'
       }
       return '80px'
-    }
+    },
   },
   watch: {
-    sidebarOpened (val) {
+    sidebarOpened(val) {
       this.collapsed = !val
-    }
+    },
   },
-  created () {
+  created() {
     this.menus = this.mainMenu.find(item => item.path === '/').children
     this.collapsed = !this.sidebarOpened
   },
-  mounted () {
+  mounted() {
     const userAgent = navigator.userAgent
     if (userAgent.indexOf('Edge') > -1) {
       this.$nextTick(() => {
@@ -127,12 +127,12 @@ export default {
   },
   methods: {
     ...mapActions(['setSidebar']),
-    toggle () {
+    toggle() {
       this.collapsed = !this.collapsed
       this.setSidebar(!this.collapsed)
       triggerWindowResizeEvent()
     },
-    paddingCalc () {
+    paddingCalc() {
       let left = ''
       if (this.sidebarOpened) {
         left = this.isDesktop() ? '256px' : '80px'
@@ -141,15 +141,15 @@ export default {
       }
       return left
     },
-    menuSelect () {
+    menuSelect() {
       if (!this.isDesktop()) {
         this.collapsed = false
       }
     },
-    drawerClose () {
+    drawerClose() {
       this.collapsed = false
-    }
-  }
+    },
+  },
 }
 </script>
 
