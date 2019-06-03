@@ -150,7 +150,7 @@ export default {
           params.and.push({
             columnName: 'id',
             method: 'eq',
-            value: +this.queryParam.id,
+            value: this.queryParam.id,
           })
         this.queryParam.type &&
           this.queryParam.type.length &&
