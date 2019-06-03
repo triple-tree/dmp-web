@@ -22,6 +22,6 @@ export function planAdd(data, search) {
   return axios({
     url: `${api.planAdd}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'post',
-    data: data,
+    data,
   })
 }

@@ -2,7 +2,31 @@ import Mock, { Random } from 'mockjs2'
 import { builder, getQueryParameters, getBody } from '../util'
 
 const total = Random.integer(100, 200)
-let patients = []
+let patients = Mock.mock({
+  [`patients|${total}`]: [
+    {
+      id: () => Random.id(),
+      identityNumber: () => Random.id(),
+      name: () => Random.cname(),
+      gender: () => Random.integer(0, 1),
+      dateOfBirth: () => Random.date('yyyy-MM-dd'),
+      phoneNumber: () => Mock.mock({ regexp: /152\d{9}/ }).regexp,
+      doctorId: () => Random.id(),
+      hospitalId: () => Random.id(),
+      hasDiabetes: () => Random.integer(0, 1),
+      hasHypertension: () => Random.integer(0, 1),
+      hasStroke: () => Random.integer(0, 1),
+      hasAscvd: () => Random.integer(0, 1),
+      hasCopd: () => Random.integer(0, 1),
+      hasDyslipidemia: () => Random.integer(0, 1),
+      province: () => Random.province(),
+      city: () => Random.city(),
+      county: () => Random.county(),
+      detailAddress: '天桥大街1号',
+      createDate: () => Random.date('yyyy-MM-dd'),
+    },
+  ],
+}).patients
 
 // 3.1.1.	全部患者
 const patientAll = options => {
@@ -59,6 +83,13 @@ const patientQueryById = options => {
 
 // 3.2.2.	复合条件查询
 const patientQuery = options => {
+  const queryParameters = getQueryParameters(options) || {}
+  if (queryParameters && !queryParameters.pageNo) {
+    queryParameters.pageNo = 1
+  }
+  if (queryParameters && !queryParameters.pageSize) {
+    queryParameters.pageSize = 10
+  }
   /**
    * The data structure passed in
   {
@@ -78,31 +109,7 @@ const patientQuery = options => {
     "size": 2
   }
    */
-  patients = Mock.mock({
-    [`patients|${total}`]: [
-      {
-        id: () => Random.id(),
-        identityNumber: () => Random.id(),
-        name: () => Random.cname(),
-        gender: () => Random.integer(0, 1),
-        dateOfBirth: () => Random.date('yyyy-MM-dd'),
-        phoneNumber: () => Mock.mock({ regexp: /152\d{9}/ }).regexp,
-        doctorId: () => Random.id(),
-        hospitalId: () => Random.id(),
-        hasDiabetes: () => Random.integer(0, 1),
-        hasHypertension: () => Random.integer(0, 1),
-        hasStroke: () => Random.integer(0, 1),
-        hasAscvd: () => Random.integer(0, 1),
-        hasCopd: () => Random.integer(0, 1),
-        hasDyslipidemia: () => Random.integer(0, 1),
-        province: () => Random.province(),
-        city: () => Random.city(),
-        county: () => Random.county(),
-        detailAddress: '天桥大街1号',
-        createDate: () => Random.date('yyyy-MM-dd'),
-      },
-    ],
-  }).patients
+  console.info(`here`)
   const body = getBody(options) || {}
   const filteredPatients = patients.filter(patient => {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
@@ -133,8 +140,11 @@ const patientQuery = options => {
   })
   const data = {
     total: filteredPatients.length,
-    patients: filteredPatients.slice((body['page'] - 1) * body['size'], body['page'] * body['size']),
-    page: body['page'],
+    patients: filteredPatients.slice(
+      (queryParameters.pageNo - 1) * queryParameters.pageSize,
+      queryParameters.pageNo * queryParameters.pageSize
+    ),
+    page: queryParameters.pageNo,
   }
   return builder(data, '查询成功', 200)
 }

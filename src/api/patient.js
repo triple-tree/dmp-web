@@ -20,10 +20,11 @@ export function patientQueryById(data, search) {
 }
 
 export function patientQuery(data, search) {
+  console.info(`api.patientQuery`)
   return axios({
     url: `${api.patientQuery}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'post',
-    params: data,
+    data,
   })
 }
 
@@ -31,7 +32,7 @@ export function patientAdd(data, search) {
   return axios({
     url: `${api.patientAdd}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'post',
-    params: data,
+    data,
   })
 }
 
