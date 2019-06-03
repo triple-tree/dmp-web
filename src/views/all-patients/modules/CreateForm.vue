@@ -63,7 +63,7 @@
                   <image-checkbox
                     :iconTypeName="item.iconTypeName"
                     v-decorator="['patient.'+item.name,
-                      {initialValue: item.value}]"
+                                  {initialValue: item.value}]"
                   ></image-checkbox>
                 </a-col>
               </a-row>
@@ -145,69 +145,69 @@
 import ImageCheckbox from '@/components/ImageCheckbox'
 import City from '@/api/city'
 
-console.log(City);
+console.log(City)
 
-let symptomOptions = [
+const symptomOptions = [
   { label: '头晕、头疼症状', value: 0, name: 'symptomsHeadache' },
   { label: '体力劳动、精神紧张或激动时出现胸痛症状，休息后逐渐缓解', value: 1, name: 'symptomsStethalgia' },
   { label: '呼吸困难或慢性咳嗽', value: 2, name: 'symptomsDyspnea' },
   { label: '多饮、多尿、多食、不明原因体重下降', value: 3, name: 'symptomsDiuresis' },
-  { label: '一过性黑蒙、眩晕', value: 4, name: 'symptomsDizziness' }
+  { label: '一过性黑蒙、眩晕', value: 4, name: 'symptomsDizziness' },
 ]
 
-let familyOptions = [
+const familyOptions = [
   { label: '糖尿病', value: 0, name: 'familyHistoryDiabetes' },
   { label: '高血压', value: 1, name: 'familyHistoryHypertension' },
   { label: '冠心病', value: 2, name: 'familyHistoryAscvd' },
   { label: '缺血性卒中（脑更死）', value: 3, name: 'familyHistoryStroke' },
-  { label: '慢阻肺（COPD）', value: 4, name: 'familyHistoryCopd' }
+  { label: '慢阻肺（COPD）', value: 4, name: 'familyHistoryCopd' },
 ]
-let diseaseOptions = {
-  hasHypertension: { 
-    label: '高血压', 
+const diseaseOptions = {
+  hasHypertension: {
+    label: '高血压',
     name: 'hasHypertension',
     iconTypeName: 'hypertension',
     value: 0 },
-  hasDiabetes: { 
-    label: '糖尿病', 
+  hasDiabetes: {
+    label: '糖尿病',
     name: 'hasDiabetes',
     iconTypeName: 'diabetes',
     value: 0 },
-  hasStroke: { 
-    label: '脑卒中', 
+  hasStroke: {
+    label: '脑卒中',
     name: 'hasStroke',
     iconTypeName: 'stroke',
     value: 0 },
-  hasAscvd: { 
+  hasAscvd: {
     label: '冠心病',
     name: 'hasAscvd',
     iconTypeName: 'ascvd',
     value: 0 },
-  hasCopd: { 
-    label: '慢阻肺', 
+  hasCopd: {
+    label: '慢阻肺',
     name: 'hasCopd',
     iconTypeName: 'copd',
     value: 0 },
-  hasDyslipidemia: { 
+  hasDyslipidemia: {
     label: '血脂异常',
     name: 'hasDyslipidemia',
     iconTypeName: 'dyslipidemiad',
-    value: 0 }
+    value: 0 },
 }
 
 export default {
   components: {
-    ImageCheckbox
+    ImageCheckbox,
   },
-  data () {
+  data() {
     return {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 9 }
+        sm: { span: 9 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 15 }
+        sm: { span: 15 },
       },
       visible: false,
       confirmLoading: false,
@@ -216,53 +216,53 @@ export default {
       diseaseOptions,
       symptomCheck: [],
       form: this.$form.createForm(this),
-      city: City
+      city: City,
     }
   },
   methods: {
-    add () {
+    add() {
       this.form.resetFields()
       this.form.setFieldsValue({
         'temp.family': [],
-        'temp.symptom': []
+        'temp.symptom': [],
       })
       this.visible = true
     },
-    selectDisease (item) {
+    selectDisease(item) {
       item.value = item.value === 1 ? 0 : 1
     },
-    handleSubmit () {
+    handleSubmit() {
       const { form: { validateFields } } = this
       this.confirmLoading = true
       const self = this
       validateFields((errors, values) => {
-        if (!errors) {          
+        if (!errors) {
           values.temp.add = []
           Object.assign(values.patient, {
-            province: ( values.temp.add.length && values.temp.add[0] ) || '',
-            city: ( values.temp.add.length && values.temp.add[1] ) || '',
-            county: ( values.temp.add.length && values.temp.add[2] ) || ''
+            province: (values.temp.add.length && values.temp.add[0]) || '',
+            city: (values.temp.add.length && values.temp.add[1]) || '',
+            county: (values.temp.add.length && values.temp.add[2]) || '',
           })
           Object.assign(values.factors, {
-            "familyHistoryDiabetes": 0,
-            "familyHistoryHypertension": 0,
-            "familyHistoryStroke": 0,
-            "familyHistoryAscvd": 0,
-            "familyHistoryCopd": 0,
+            'familyHistoryDiabetes': 0,
+            'familyHistoryHypertension': 0,
+            'familyHistoryStroke': 0,
+            'familyHistoryAscvd': 0,
+            'familyHistoryCopd': 0,
             symptomsHeadache: 0,
             symptomsStethalgia: 0,
             symptomsDyspnea: 0,
             symptomsDiuresis: 0,
-            symptomsDizziness: 0
+            symptomsDizziness: 0,
           })
-          values.temp.symptom 
-          && values.temp.symptom.length 
-          && values.temp.symptom.forEach(function (el) {
+          values.temp.symptom &&
+          values.temp.symptom.length &&
+          values.temp.symptom.forEach(function (el) {
             values.factors[self.symptomOptions[el].name] = 1
           })
-          values.temp.family 
-          && values.temp.family.length 
-          && values.temp.family.forEach(function (el) {
+          values.temp.family &&
+          values.temp.family.length &&
+          values.temp.family.forEach(function (el) {
             values.factors[self.familyOptions[el].name] = 1
           })
           // delete values.temp
@@ -277,9 +277,9 @@ export default {
         }
       })
     },
-    handleCancel () {
+    handleCancel() {
       this.visible = false
-    }
-  }
+    },
+  },
 }
 </script>
