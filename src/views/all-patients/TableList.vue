@@ -14,8 +14,14 @@
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
-            <a-button type="primary" icon="search" @click="$refs.table.refresh()">查询</a-button>
-            <a-button icon="plus" style="margin-left: 8px" @click="$refs.createModal.add()">添加患者</a-button>
+            <a-row>
+              <a-col :md="10" :sm="10">
+                <a-button type="primary" icon="search" @click="$refs.table.refresh()">查询</a-button>
+              </a-col>
+              <a-col :md="10" :sm="10">
+                <a-button icon="plus" style="margin-left: 8px" @click="$refs.createModal.add()">添加患者</a-button>
+              </a-col>
+            </a-row>
           </a-col>
         </a-row>
       </a-form>
