@@ -8,7 +8,7 @@
     @cancel="handleCancel"
   >
     <a-spin :spinning="confirmLoading">
-      <a-form :form="form" :layout="vertical">
+      <a-form :form="form" layout="vertical">
         <a-row :gutter="12" type="flex" align="top">
           <a-col :md="8" :sm="24">
             <a-form-item

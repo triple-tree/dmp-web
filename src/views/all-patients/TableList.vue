@@ -52,19 +52,17 @@
 </style>
 
 <script>
-import moment from 'moment'
 import { STable } from '@/components'
 import CreateForm from './modules/CreateForm'
-import { patientAll, patientAdd, patientQuery } from '@/api/patient'
+import { patientAdd, patientQuery } from '@/api/patient'
 import IconFont from '@/components/Icon/index.js'
-import { setTimeout } from 'timers';
 
 const typeOptions = [
   { label: '高血压', value: 'hasHypertension' },
   { label: '糖尿病', value: 'hasDiabetes' },
   { label: '脑卒中', value: 'hasStroke' },
   { label: '冠心病', value: 'hasAscvd' },
-  { label: '慢阻肺', value: 'hasCopd' }
+  { label: '慢阻肺', value: 'hasCopd' },
 ]
 
 export default {
@@ -74,7 +72,7 @@ export default {
     CreateForm,
     IconFont,
   },
-  data () {
+  data() {
     return {
       mdl: {},
       // 查询参数
@@ -139,27 +137,27 @@ export default {
       // 加载数据方法 必须为 Promise 对象
       loadData: async parameter => {
         console.log('loadData.parameter', parameter)
-        console.log('this.queryParam',this.queryParam)
-        let params = {};
+        console.log('this.queryParam', this.queryParam)
+        const params = {}
         params.and = []
         !!this.queryParam.id && params.and.push({
-          "columnName": "id", 
-          "method": "eq", 
-          "value": +this.queryParam.id
+          'columnName': 'id',
+          'method': 'eq',
+          'value': +this.queryParam.id,
         })
         this.queryParam.type &&
         this.queryParam.type.length &&
-        this.queryParam.type.forEach( function (e) {
+        this.queryParam.type.forEach(function (e) {
           params.and.push({
-            "columnName": e, 
-            "method": "eq", 
-            "value": 1
+            'columnName': e,
+            'method': 'eq',
+            'value': 1,
           })
         })
-        let pageParam = {
+        const pageParam = {
           page: parameter.pageNo,
-          size: parameter.pageSize
-        } 
+          size: parameter.pageSize,
+        }
         console.log({ ...pageParam, ...params })
         const res = await patientQuery({ ...pageParam, ...params })
         console.info(`res: ${JSON.stringify(res)}`)
@@ -179,14 +177,14 @@ export default {
     }
   },
   filters: {},
-  created () {},
+  created() {},
   methods: {
     handleEdit(record) {
       this.$router.push({ path: `/patient/${record.id}` })
     },
-    handleOk (parameter) {
+    handleOk(parameter) {
       const self = this
-      async function addPatient (parameter) {
+      async function addPatient(parameter) {
         console.log('handleOk.parameter', parameter)
         const res = await patientAdd(parameter)
         if (res.code === 200) {
@@ -196,7 +194,7 @@ export default {
         console.info(`handleOk res: ${JSON.stringify(res)}`)
       }
       addPatient()
-    }
-  }
+    },
+  },
 }
 </script>
