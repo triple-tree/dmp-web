@@ -42,7 +42,6 @@
       </span>
     </s-table>
     <create-form ref="createModal" @ok="handleOk"/>
-    <step-by-step-modal ref="modal" @ok="handleOk"/>
   </a-card>
 </template>
 
@@ -55,7 +54,6 @@
 <script>
 import moment from 'moment'
 import { STable } from '@/components'
-import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
 import { patientAll, patientAdd, patientQuery } from '@/api/patient'
 import IconFont from '@/components/Icon/index.js'
@@ -74,7 +72,6 @@ export default {
   components: {
     STable,
     CreateForm,
-    StepByStepModal,
     IconFont,
   },
   data () {

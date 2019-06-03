@@ -78,6 +78,31 @@ const patientQuery = options => {
     "size": 2
   }
    */
+  patients = Mock.mock({
+    [`patients|${total}`]: [
+      {
+        id: () => Random.id(),
+        identityNumber: () => Random.id(),
+        name: () => Random.cname(),
+        gender: () => Random.integer(0, 1),
+        dateOfBirth: () => Random.date('yyyy-MM-dd'),
+        phoneNumber: () => Mock.mock({ regexp: /152\d{9}/ }).regexp,
+        doctorId: () => Random.id(),
+        hospitalId: () => Random.id(),
+        hasDiabetes: () => Random.integer(0, 1),
+        hasHypertension: () => Random.integer(0, 1),
+        hasStroke: () => Random.integer(0, 1),
+        hasAscvd: () => Random.integer(0, 1),
+        hasCopd: () => Random.integer(0, 1),
+        hasDyslipidemia: () => Random.integer(0, 1),
+        province: () => Random.province(),
+        city: () => Random.city(),
+        county: () => Random.county(),
+        detailAddress: '天桥大街1号',
+        createDate: () => Random.date('yyyy-MM-dd'),
+      },
+    ],
+  }).patients
   const body = getBody(options) || {}
   const filteredPatients = patients.filter(patient => {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
