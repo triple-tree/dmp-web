@@ -37,7 +37,6 @@
       :rowSelection="options.rowSelection"
       :customRow="clickRow"
     >
-      <span slot="gender" slot-scope="text">{{ text ? '女' : '男' }}</span>
       <span slot="serial" slot-scope="text, record, index">{{ index + 1 }}</span>
       <span slot="status" slot-scope="text">
         <a-badge :status="text | statusTypeFilter" :text="text | statusFilter"/>
@@ -115,7 +114,7 @@ export default {
         {
           title: '性别',
           dataIndex: 'gender',
-          scopedSlots: { customRender: 'gender' },
+          customRender: gender => (gender ? <span>女</span> : <span>男</span>),
         },
         {
           title: '医生',
