@@ -110,10 +110,11 @@ export default class extends Vue {
         }
         const res = await doctorAll(null, paginationParam)
         let doctors = res.data.doctors
-        doctors.map(doctor => ({
-          ...doctors,
-          address: `${doctor.province}${doctor.city}${doctor.county}${doctor.town}`,
+        doctors = doctors.map(doctor => ({
+          ...doctor,
+          address: `${doctor.province}${doctor.city}${doctor.county}`,
         }))
+        console.info(`doctors: ${JSON.stringify(doctors, null, 2)}`)
         return {
           pageSize: parseInt(parameter.pageSize),
           pageNo: parseInt(res.data.page),
@@ -137,7 +138,7 @@ export default class extends Vue {
     if (res.code === 200) {
       this.$message.success('通过审核成功')
     }
-    self.$refs.table.refresh()
+    this.$refs.table.refresh()
   }
 
   async reject(id) {

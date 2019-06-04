@@ -9,7 +9,7 @@ for (const doctorId of doctorIds) {
   doctors.push({
     id: doctorId,
     name: Random.cname(),
-    hospitalId: Random.id(),
+    hospital: Random.cword(5, 10),
     role: Mock.mock({
       'data|1': ['医生', '管理员'],
     }).data,
@@ -17,6 +17,10 @@ for (const doctorId of doctorIds) {
     username: Random.name(),
     password: Random.word(5),
     phoneNumber: Mock.mock({ regexp: /152\d{9}/ }).regexp,
+    province: Random.province(),
+    city: Random.city(),
+    county: Random.county(),
+    detailAddress: '天桥大街1号',
     status: Random.integer(0, 1),
     createDate: Random.date('yyyy-MM-dd'),
     salt: Random.word(),
@@ -26,7 +30,6 @@ for (const doctorId of doctorIds) {
 // 5.1.1.	所有医生
 const doctorAll = options => {
   const queryParameters = getQueryParameters(options) || {}
-  const filteddoctors = doctors
   if (queryParameters && !queryParameters.pageNo) {
     queryParameters.pageNo = 1
   }
@@ -35,8 +38,8 @@ const doctorAll = options => {
   }
 
   const data = {
-    total: filteddoctors.length,
-    doctors: filteddoctors.slice(
+    total: doctors.length,
+    doctors: doctors.slice(
       (queryParameters.pageNo - 1) * queryParameters.pageSize,
       queryParameters.pageNo * queryParameters.pageSize
     ),
