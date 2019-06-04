@@ -24,6 +24,12 @@ const api = {
   planAll: '/plan/all',
   planDetail: '/plan/detail',
   planAdd: '/plan/add',
+  // 医生管理
+  doctorAll: '/doctor/all/',
+  doctorDetail: '/doctor/detail/',
+  doctorAudit: '/doctor/audit/',
+  doctorAdd: '/doctor/add/',
+  doctorSelectDoctorByName: '/doctor/selectDoctorByName/',
   // 其他
   ForgePassword: '/auth/forge-password',
   Register: '/register',

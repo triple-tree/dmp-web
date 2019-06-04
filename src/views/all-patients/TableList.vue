@@ -29,7 +29,7 @@
 
     <s-table
       ref="table"
-      size="default"      
+      size="default"
       rowKey="key"
       :columns="columns"
       :data="loadData"
@@ -155,7 +155,7 @@ export default {
           })
         this.queryParam.type &&
           this.queryParam.type.length &&
-          this.queryParam.type.forEach(function(e) {
+          this.queryParam.type.forEach(function (e) {
             params.and.push({
               columnName: e,
               method: 'eq',
