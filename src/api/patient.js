@@ -7,7 +7,7 @@ export function patientAll(data, search) {
   return axios({
     url: `${api.patientAll}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    params: data,
+    data,
   })
 }
 
@@ -15,7 +15,7 @@ export function patientQueryById(data, search) {
   return axios({
     url: `${api.patientQueryById}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    params: data,
+    data,
   })
 }
 
@@ -40,6 +40,6 @@ export function patientGetPatientReport(data, search) {
   return axios({
     url: `${api.patientGetPatientReport}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
-    params: data,
+    data,
   })
 }

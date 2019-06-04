@@ -38,79 +38,34 @@
           <div class="hint" :style="{ marginBottom:'10px'}">（以下为最新评估结果展示）</div>
           <div :style="{ marginBottom:'10px'}">
             <span class="ill-status">慢病综合风险：</span>
-            <span class="ill-value">{{ 'null' }}</span>
+            <span class="ill-value">{{ model.chronicDiseaseRisk }}</span>
           </div>
           <div class="chronic-disease-status">
-            <div class="item">
-              <div class="title">
-                <div class="disease-icon">
-                  <a-icon type="meh"/>
-                </div>
-                <div class="name">高血压</div>
-              </div>
-              <div class="status">
-                <span class="active">患者</span>
-                <span v-if="!collapsed">高危</span>
-                <span v-if="!collapsed">一般群众</span>
-                <span v-if="!collapsed">不详</span>
-              </div>
-            </div>
-            <div class="item">
-              <div class="title">
-                <div class="disease-icon">
-                  <a-icon type="meh"/>
-                </div>
-                <div class="name">糖尿病</div>
-              </div>
-              <div class="status">
-                <span v-if="!collapsed">患者</span>
-                <span class="active">高危</span>
-                <span v-if="!collapsed">一般群众</span>
-                <span v-if="!collapsed">不详</span>
-              </div>
-            </div>
-            <div class="item">
-              <div class="title">
-                <div class="disease-icon">
-                  <a-icon type="meh"/>
-                </div>
-                <div class="name">脑卒中</div>
-              </div>
-              <div class="status">
-                <span v-if="!collapsed">患者</span>
-                <span v-if="!collapsed">高危</span>
-                <span class="active">一般群众</span>
-                <span v-if="!collapsed">不详</span>
-              </div>
-            </div>
-            <div class="item">
-              <div class="title">
-                <div class="disease-icon">
-                  <a-icon type="meh"/>
-                </div>
-                <div class="name">冠心病</div>
-              </div>
-              <div class="status">
-                <span v-if="!collapsed">患者</span>
-                <span v-if="!collapsed">高危</span>
-                <span v-if="!collapsed">一般群众</span>
-                <span class="active">不详</span>
-              </div>
-            </div>
-            <div class="item">
-              <div class="title">
-                <div class="disease-icon">
-                  <a-icon type="meh"/>
-                </div>
-                <div class="name">慢阻肺</div>
-              </div>
-              <div class="status">
-                <span class="active">患者</span>
-                <span v-if="!collapsed">高危</span>
-                <span v-if="!collapsed">一般群众</span>
-                <span v-if="!collapsed">不详</span>
-              </div>
-            </div>
+            <chronic-disease-status
+              iconTypeName="hypertension"
+              :status="model.hypertensionRisk"
+              :collapsed="collapsed"
+            ></chronic-disease-status>
+            <chronic-disease-status
+              iconTypeName="diabetes"
+              :status="model.diabetesRisk"
+              :collapsed="collapsed"
+            ></chronic-disease-status>
+            <chronic-disease-status
+              iconTypeName="stroke"
+              :status="model.strokeRisk"
+              :collapsed="collapsed"
+            ></chronic-disease-status>
+            <chronic-disease-status
+              iconTypeName="ascvd"
+              :status="model.ascvdRisk"
+              :collapsed="collapsed"
+            ></chronic-disease-status>
+            <chronic-disease-status
+              iconTypeName="copd"
+              :status="model.copdRisk"
+              :collapsed="collapsed"
+            ></chronic-disease-status>
           </div>
         </div>
       </a-layout-sider>
@@ -151,14 +106,17 @@ import Record from './Record'
 import Assessment from './Assessment'
 // 健康方案
 import Plan from './Plan'
+import ChronicDiseaseStatus from '@/components/ChronicDiseaseStatus'
 
 import { patientQueryById } from '@/api/patient'
+import { assessmentLatest } from '@/api/assessment'
 
 @Component({
   components: {
     Record,
     Assessment,
     Plan,
+    ChronicDiseaseStatus,
   },
   props: {
     id: String,
@@ -174,8 +132,11 @@ export default class extends Vue {
   async setData() {
     console.info(`setData`)
     const patientId = this.id
-    const patient = await patientQueryById({ patientId })
-    this.model = { ...this.model, ...patient.data }
+    const patient = await patientQueryById(null, { patientId })
+    console.info(`patient: ${JSON.stringify(patient)}`)
+    const latestAssessment = await assessmentLatest(null, { patientId })
+    this.model = { ...this.model, ...patient.data, ...latestAssessment.data }
+    console.info(`model: ${JSON.stringify(this.model)}`)
     console.info(this.model)
   }
   async beforeRouteEnter(to, from, next) {
