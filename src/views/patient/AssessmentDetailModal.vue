@@ -15,23 +15,11 @@
           <span class="ill-value">{{ model.chronicDiseaseRisk }}</span>
         </div>
         <div class="chronic-disease-status">
-          <chronic-disease-status
-            iconTypeName="hypertension"
-            :status="model.hypertensionRisk"
-            :collapsed="false"
-          ></chronic-disease-status>
-          <chronic-disease-status
-            iconTypeName="diabetes"
-            :status="model.diabetesRisk"
-            :collapsed="false"
-          ></chronic-disease-status>
-          <chronic-disease-status
-            iconTypeName="stroke"
-            :status="model.strokeRisk"
-            :collapsed="false"
-          ></chronic-disease-status>
-          <chronic-disease-status iconTypeName="ascvd" :status="model.ascvdRisk" :collapsed="false"></chronic-disease-status>
-          <chronic-disease-status iconTypeName="copd" :status="model.copdRisk" :collapsed="false"></chronic-disease-status>
+          <chronic-disease-status iconTypeName="hypertension" :status="model.hypertensionRisk"></chronic-disease-status>
+          <chronic-disease-status iconTypeName="diabetes" :status="model.diabetesRisk"></chronic-disease-status>
+          <chronic-disease-status iconTypeName="stroke" :status="model.strokeRisk"></chronic-disease-status>
+          <chronic-disease-status iconTypeName="ascvd" :status="model.ascvdRisk"></chronic-disease-status>
+          <chronic-disease-status iconTypeName="copd" :status="model.copdRisk"></chronic-disease-status>
         </div>
       </a-form>
     </a-spin>
