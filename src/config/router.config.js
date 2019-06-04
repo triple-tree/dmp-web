@@ -41,6 +41,23 @@ export const asyncRouterMap = [
         props: true,
         meta: { title: '患者详情', keepAlive: true, icon: bxAnaalyse, permission: ['form'] },
       },
+      // all-doctors
+      {
+        path: '/all-doctors',
+        name: 'all-doctors',
+        hideChildrenInMenu: true,
+        component: PageView,
+        redirect: '/all-doctors/index',
+        meta: { title: '全部医生', icon: 'table', permission: ['table'] },
+        children: [
+          {
+            path: '/all-doctors/index',
+            name: 'all-doctors-list',
+            component: () => import('@/views/all-doctors/Index'),
+            meta: { title: '全部医生', keepAlive: true, permission: ['table'] },
+          },
+        ],
+      },
       // dashboard
       {
         path: '/dashboard',
