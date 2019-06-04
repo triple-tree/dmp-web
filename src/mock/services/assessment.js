@@ -43,7 +43,7 @@ const assessments = [
 const assessmentLatest = options => {
   const queryParameters = getQueryParameters(options) || {}
   const patientId = queryParameters.patientId
-  const assessment = assessments[0]
+  const assessment = assessments[Random.natural(0, total - 1)]
   return builder(assessment, '请求成功', 200)
 }
 

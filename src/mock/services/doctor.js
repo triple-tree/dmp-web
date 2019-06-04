@@ -1,27 +1,27 @@
 import Mock, { Random } from 'mockjs2'
 import { builder, getQueryParameters, getBody } from '../util'
+import { patients } from './patient'
 
-const total = Random.integer(100, 200)
-const doctors = Mock.mock({
-  [`doctors|${total}`]: [
-    {
-      id: () => Random.id(),
-      name: () => Random.cname(),
-      hospitalId: () => Random.id(),
-      role: () =>
-        Mock.mock({
-          'data|1': ['医生', '管理员'],
-        }).data,
-      department: '心脑血管科',
-      username: () => Random.name(),
-      password: () => Random.word(5),
-      phoneNumber: () => Mock.mock({ regexp: /152\d{9}/ }).regexp,
-      status: () => Random.integer(0, 1),
-      createDate: () => Random.date('yyyy-MM-dd'),
-      salt: () => Random.word(),
-    },
-  ],
-}).doctors
+const doctorIds = patients.map(patient => patient.doctorId)
+const total = doctorIds.length
+const doctors = []
+for (const doctorId of doctorIds) {
+  doctors.push({
+    id: doctorId,
+    name: Random.cname(),
+    hospitalId: Random.id(),
+    role: Mock.mock({
+      'data|1': ['医生', '管理员'],
+    }).data,
+    department: '心脑血管科',
+    username: Random.name(),
+    password: Random.word(5),
+    phoneNumber: Mock.mock({ regexp: /152\d{9}/ }).regexp,
+    status: Random.integer(0, 1),
+    createDate: Random.date('yyyy-MM-dd'),
+    salt: Random.word(),
+  })
+}
 
 // 5.1.1.	所有医生
 const doctorAll = options => {
@@ -50,7 +50,7 @@ const doctorDetail = options => {
   const queryParameters = getQueryParameters(options) || {}
   const id = queryParameters.id
   // const doctor = doctors.filter(doctor => doctor.id === id)[0]
-  const doctor = doctors(Random.natural(0, total - 1))
+  const doctor = doctors[Random.natural(0, total - 1)]
   return builder(doctor, '请求成功', 200)
 }
 

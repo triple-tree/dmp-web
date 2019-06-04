@@ -28,6 +28,8 @@ const patients = Mock.mock({
   ],
 }).patients
 
+export { patients }
+
 // 3.1.1.	全部患者
 const patientAll = options => {
   const queryParameters = getQueryParameters(options) || {}

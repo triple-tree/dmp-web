@@ -46,7 +46,7 @@
         <template>
           <a @click="handleEdit(record)">查看详情</a>
         </template>
-      </span> -->
+      </span>-->
     </s-table>
     <create-form ref="createModal" @ok="handleOk"/>
   </a-card>
@@ -62,6 +62,7 @@
 import { STable } from '@/components'
 import CreateForm from './modules/CreateForm'
 import { patientAdd, patientQuery } from '@/api/patient'
+import { doctorAll } from '@/api/doctor'
 import IconFont from '@/components/Icon/index.js'
 
 const typeOptions = [
@@ -71,6 +72,16 @@ const typeOptions = [
   { label: '冠心病', value: 'hasAscvd' },
   { label: '慢阻肺', value: 'hasCopd' },
 ]
+
+let doctors = null
+
+const findDoctorName = (doctors, doctorId) => {
+  const doctor = doctors.filter(doctor => doctor.id === doctorId)[0]
+  if (doctor) {
+    return doctor.name
+  }
+  return ''
+}
 
 export default {
   name: 'TableList',
@@ -106,7 +117,7 @@ export default {
         },
         {
           title: '医生',
-          dataIndex: 'doctorId',
+          dataIndex: 'doctorName',
         },
         {
           title: '高血压',
@@ -155,7 +166,7 @@ export default {
           })
         this.queryParam.type &&
           this.queryParam.type.length &&
-          this.queryParam.type.forEach(function (e) {
+          this.queryParam.type.forEach(function(e) {
             params.and.push({
               columnName: e,
               method: 'eq',
@@ -167,13 +178,17 @@ export default {
           pageSize: parameter.pageSize,
         }
         const res = await patientQuery(params, paginationParam)
-        console.info(`res: ${JSON.stringify(res)}`)
+        let patients = res.data.patients
+        if (!doctors) {
+          doctors = (await doctorAll(null, { pageNo: 1, pageSize: 10000000 })).data.doctors
+        }
+        patients = patients.map(patient => ({ ...patient, doctorName: findDoctorName(doctors, patient.doctorId) }))
         return {
           pageSize: parseInt(parameter.pageSize),
           pageNo: parseInt(res.data.page),
           totalCount: parseInt(res.data.total),
           totalPage: parseInt(res.data.total) / parseInt(parameter.pageSize),
-          data: res.data.patients,
+          data: patients,
         }
       },
       clickRow: record => {
@@ -181,8 +196,8 @@ export default {
           on: {
             click: () => {
               this.$router.push({ path: `/patient/${record.id}` })
-            }
-          }
+            },
+          },
         }
       },
       options: {
@@ -193,7 +208,9 @@ export default {
     }
   },
   filters: {},
-  created() {},
+  async created() {
+    doctors = (await doctorAll(null, { pageNo: 1, pageSize: 10000000 })).data.doctors
+  },
   methods: {
     // handleEdit(record) {
     //   this.$router.push({ path: `/patient/${record.id}` })
