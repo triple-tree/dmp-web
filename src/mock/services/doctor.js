@@ -57,17 +57,18 @@ const doctorDetail = options => {
 // 5.1.2.	审核医生账户
 const doctorAudit = options => {
   const body = getBody(options) || {}
-  const { doctorId } = body
+  const { doctorId, accept } = body
   const doctor = doctors.filter(doctor => doctor.id === doctorId)[0]
-  doctor.status = 1
+  doctor.status = accept
   return builder({}, '请求成功', 200)
 }
 
 // 5.1.4.	添加医生账户
 const doctorAdd = options => {
   const body = getBody(options) || {}
-  const doctor = { ...body, id: () => Random.id() }
-  doctors.push(doctor)
+  const doctor = { ...body, id: Random.id() }
+  doctors.unshift(doctor)
+  console.info(`doctorAdd: ${JSON.stringify(doctor)}`)
   return builder({ id: doctor.id }, '新建医生成功！', 200)
 }
 
@@ -81,6 +82,6 @@ const doctorSelectDoctorByName = options => {
 
 Mock.mock(/\/doctor\/all/, 'get', doctorAll)
 Mock.mock(/\/doctor\/detail/, 'get', doctorDetail)
-Mock.mock(/\/doctor\/audit/, 'get', doctorAudit)
+Mock.mock(/\/doctor\/audit/, 'post', doctorAudit)
 Mock.mock(/\/doctor\/add/, 'post', doctorAdd)
 Mock.mock(/\/doctor\/selectDoctorByName/, 'post', doctorSelectDoctorByName)

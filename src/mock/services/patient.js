@@ -193,8 +193,8 @@ const patientAdd = options => {
   }
    */
   const body = getBody(options) || {}
-  const patient = { ...body.patient, id: () => Random.id() }
-  patients.push(patient)
+  const patient = { ...body.patient, id: Random.id() }
+  patients.unshift(patient)
   return builder({ id: patient.id }, '新建患者成功！', 200)
 }
 

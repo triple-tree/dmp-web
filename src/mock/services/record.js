@@ -182,8 +182,8 @@ const recordDetail = options => {
 // 更新健康档案
 const recordAdd = options => {
   const body = getBody(options) || {}
-  const record = { ...body, id: () => Random.id() }
-  records.push(record)
+  const record = { ...body, id: Random.id() }
+  records.unshift(record)
   return builder({ id: record.id }, '新建患者成功！', 200)
 }
 

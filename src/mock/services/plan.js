@@ -78,8 +78,8 @@ const planAll = options => {
 // 健康方案制定
 const planAdd = options => {
   const body = getBody(options) || {}
-  const healthPlan = { ...body, id: () => Random.id() }
-  healthPlans.push(healthPlans)
+  const healthPlan = { ...body, id: Random.id() }
+  healthPlans.unshift(healthPlans)
   return builder({ id: healthPlan.id }, '新建患者成功！', 200)
 }
 
