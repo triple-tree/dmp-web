@@ -35,17 +35,18 @@
       :data="loadData"
       :alert="options.alert"
       :rowSelection="options.rowSelection"
+      :customRow="clickRow"
     >
       <span slot="serial" slot-scope="text, record, index">{{ index + 1 }}</span>
       <span slot="status" slot-scope="text">
         <a-badge :status="text | statusTypeFilter" :text="text | statusFilter"/>
       </span>
 
-      <span slot="action" slot-scope="text, record">
+      <!-- <span slot="action" slot-scope="text, record">
         <template>
           <a @click="handleEdit(record)">查看详情</a>
         </template>
-      </span>
+      </span> -->
     </s-table>
     <create-form ref="createModal" @ok="handleOk"/>
   </a-card>
@@ -133,12 +134,12 @@ export default {
           dataIndex: 'hasCopd',
           customRender: has => (has ? <icon-font type="icon_copd_red" /> : <icon-font type="icon_copd" />),
         },
-        {
-          title: '操作',
-          dataIndex: 'action',
-          width: '150px',
-          scopedSlots: { customRender: 'action' },
-        },
+        // {
+        //   title: '操作',
+        //   dataIndex: 'action',
+        //   width: '150px',
+        //   scopedSlots: { customRender: 'action' },
+        // },
       ],
       // 加载数据方法 必须为 Promise 对象
       loadData: async parameter => {
@@ -175,6 +176,15 @@ export default {
           data: res.data.patients,
         }
       },
+      clickRow: record => {
+        return {
+          on: {
+            click: () => {
+              this.$router.push({ path: `/patient/${record.id}` })
+            }
+          }
+        }
+      },
       options: {
         alert: false,
         rowSelection: null,
@@ -185,9 +195,9 @@ export default {
   filters: {},
   created() {},
   methods: {
-    handleEdit(record) {
-      this.$router.push({ path: `/patient/${record.id}` })
-    },
+    // handleEdit(record) {
+    //   this.$router.push({ path: `/patient/${record.id}` })
+    // },
     handleOk(parameter) {
       const self = this
       async function addPatient(parameter) {
