@@ -20,6 +20,14 @@ export function assessmentAll(data, search) {
   })
 }
 
+export function assessmentDetail(data, search) {
+  return axios({
+    url: `${api.assessmentDetail}${search ? '?' + searchParasToString(search) : ''}`,
+    method: 'get',
+    data: data,
+  })
+}
+
 export function assessmentAssess(data, search) {
   return axios({
     url: `${api.assessmentAssess}${search ? '?' + searchParasToString(search) : ''}`,

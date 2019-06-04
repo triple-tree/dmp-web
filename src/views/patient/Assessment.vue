@@ -255,11 +255,12 @@
         </a-col>
         <a-col :span="8">
           <a-form-item>
-            <a-button type="default" html-type="submit">历史评估记录</a-button>
+            <a-button type="default" @click="showHistoryAssessments">历史评估记录</a-button>
           </a-form-item>
         </a-col>
       </a-row>
     </a-form>
+    <assessment-history-modal ref="modalForm"></assessment-history-modal>
   </div>
 </template>
 
@@ -269,6 +270,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
 import IconFont from '@/components/Icon/index.js'
+import AssessmentHistoryModal from './AssessmentHistoryModal'
 
 const previousHistoryDiseasesOptions = {
   hasHypertension: { label: '高血压', iconType0: 'icon_hypertension', iconType1: 'icon_hypertension_red', value: 0 },
@@ -281,12 +283,18 @@ const previousHistoryDiseasesOptions = {
   },
   hasAscvd: { label: '急性冠脉综合征ACS', iconType0: 'icon_ascvd', iconType1: 'icon_ascvd_red', value: 1 },
   hasCopd: { label: '慢阻肺', iconType0: 'icon_copd', iconType1: 'icon_copd_red', value: 0 },
-  hasDyslipidemia: { label: '血脂异常', iconType0: 'icon_dyslipidemiad', iconType1: 'icon_dyslipidemiad_red', value: 0 },
+  hasDyslipidemia: {
+    label: '血脂异常',
+    iconType0: 'icon_dyslipidemiad',
+    iconType1: 'icon_dyslipidemiad_red',
+    value: 0,
+  },
 }
 
 @Component({
   components: {
     IconFont,
+    AssessmentHistoryModal,
   },
   props: {
     id: String,
@@ -319,6 +327,10 @@ export default class extends Vue {
   async created() {}
   selectPreviousHistoryDiseases(item) {
     item.value = item.value === 1 ? 0 : 1
+  }
+
+  showHistoryAssessments() {
+    this.$refs.modalForm.show(this.id)
   }
 }
 </script>

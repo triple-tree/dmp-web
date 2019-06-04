@@ -19,6 +19,7 @@ const api = {
   // 评估筛选
   assessmentLatest: '/assessment/latest',
   assessmentAll: '/assessment/all',
+  assessmentDetail: '/assessment/detail',
   assessmentAssess: '/assessment/assess',
   // 健康管理方案
   planAll: '/plan/all',
