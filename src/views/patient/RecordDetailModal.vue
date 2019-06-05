@@ -149,7 +149,7 @@
                   align="center"
                 >
                   <image-checkbox
-                    disabled="true"
+                    :disabled="true"
                     :iconTypeName="item.iconTypeName"
                     v-decorator="[
                       item.name,
@@ -175,7 +175,7 @@
                 >
                   <image-checkbox
                     :label="item.label"
-                    disabled="true"
+                    :disabled="true"
                     :iconTypeName="item.iconTypeName"
                     v-decorator="[
                       item.name,

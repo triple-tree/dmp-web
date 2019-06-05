@@ -1,146 +1,152 @@
 import Mock, { Random } from 'mockjs2'
 import { builder, getQueryParameters, getBody } from '../util'
+import { patients } from './patient'
 
-const total = Random.integer(100, 200)
+const patientIds = patients.map(patient => patient.id)
+const doctorIds = patients.map(patient => patient.doctorId)
+
+const total = patientIds.length * 5
 const records = []
 for (let i = 0; i < total; i++) {
-  const id = Random.id()
-  records.push({
-    id: `${id}`,
-    patientId: `${Random.id()}`,
-    doctorId: `${Random.id()}`,
-    createDate: `${Random.date('yyyy-MM-dd')}`,
-    patientRecordFactors: [
-      {
-        patientRecordId: `${id}`,
-        factorName: 'previousHistoryDiabetes',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'previousHistoryHypertension',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'previousHistoryStroke',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'previousHistoryAscvd',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'previousHistoryCopd',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'previousHistoryDyslipidemia',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'familyHistoryDiabetes',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'familyHistoryHypertension',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'familyHistoryStroke',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'familyHistoryAscvd',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'familyHistoryCopd',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'symptomsHeadache',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'symptomsStethalgia',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'symptomsDyspnea',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'symptomsDiuresis',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'symptomsDizziness',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'smoke',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'sbp',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'dbp',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'fbg',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'serumTc',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'weight',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'height',
-        factorValue: Random.natural(0, 1),
-      },
-      {
-        patientRecordId: `${id}`,
-        factorName: 'waistline',
-        factorValue: Random.natural(0, 1),
-      },
-    ],
-  })
+  for (let j = 0; j < 5; j++) {
+    const id = Random.id()
+    records.push({
+      id: `${id}`,
+      patientId: patientIds[Random.natural(0, patientIds.length - 1)],
+      doctorId: doctorIds[Random.natural(0, doctorIds.length - 1)],
+      createDate: `${Random.date('yyyy-MM-dd')}`,
+      patientRecordFactors: [
+        {
+          patientRecordId: `${id}`,
+          factorName: 'previousHistoryDiabetes',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'previousHistoryHypertension',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'previousHistoryStroke',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'previousHistoryAscvd',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'previousHistoryCopd',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'previousHistoryDyslipidemia',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'familyHistoryDiabetes',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'familyHistoryHypertension',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'familyHistoryStroke',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'familyHistoryAscvd',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'familyHistoryCopd',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'symptomsHeadache',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'symptomsStethalgia',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'symptomsDyspnea',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'symptomsDiuresis',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'symptomsDizziness',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'smoke',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'sbp',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'dbp',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'fbg',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'serumTc',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'weight',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'height',
+          factorValue: Random.natural(0, 1),
+        },
+        {
+          patientRecordId: `${id}`,
+          factorName: 'waistline',
+          factorValue: Random.natural(0, 1),
+        },
+      ],
+    })
+  }
 }
 
 // 最新健康档案
 const recordLatest = options => {
+  console.info(`recordLatest`)
   const queryParameters = getQueryParameters(options) || {}
   const { patientId } = queryParameters
-  // const filtedRecords = records.filter(record => record.patientId === patientId)
-  const filtedRecords = records
+  const filtedRecords = records.filter(record => record.patientId === patientId)
   const record = filtedRecords.sort((record1, record2) => {
     return new Date(record2.createDate).getTime() - new Date(record1.createDate).getTime()
   })[0]
@@ -149,15 +155,15 @@ const recordLatest = options => {
 
 // 历史健康档案
 const recordAll = options => {
+  console.info(`recordAll`)
   const queryParameters = getQueryParameters(options) || {}
   const { patientId } = queryParameters
-  // const filtedRecords = records.filter(record => record.patientId === patientId)
-  const filtedRecords = records
+  const filtedRecords = records.filter(record => record.patientId === patientId)
   if (queryParameters && !queryParameters.pageNo) {
     queryParameters.pageNo = 1
   }
   if (queryParameters && !queryParameters.pageSize) {
-    queryParameters.pageSize = 5
+    queryParameters.pageSize = 10
   }
 
   const data = {

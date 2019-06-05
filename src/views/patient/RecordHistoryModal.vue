@@ -21,6 +21,7 @@ import Component from 'vue-class-component'
 import { recordAll } from '@/api/record'
 import { STable } from '@/components'
 import RecordDetailModal from './RecordDetailModal'
+import { setTimeout } from 'timers'
 
 const columns = [
   {
@@ -41,34 +42,53 @@ const columns = [
   },
 ]
 
+const setData = patientId => async parameter => {
+  console.info(`setData(${patientId}) calling`)
+  const res = await recordAll(null, { ...parameter, patientId })
+  return {
+    pageSize: parseInt(parameter.pageSize),
+    pageNo: parseInt(res.data.page),
+    totalCount: parseInt(res.data.total),
+    totalPage: parseInt(res.data.total) / parseInt(parameter.pageSize),
+    data: res.data.records,
+  }
+}
+
 @Component({
   components: { STable, RecordDetailModal },
   props: {},
 })
 export default class RecordHistoryModal extends Vue {
-  async setData(parameter) {
-    const res = await recordAll(null, { ...parameter })
-    // console.info(`res: ${JSON.stringify(res)}`)
-    return {
-      pageSize: parseInt(parameter.pageSize),
-      pageNo: parseInt(res.data.page),
-      totalCount: parseInt(res.data.total),
-      totalPage: parseInt(res.data.total) / parseInt(parameter.pageSize),
-      data: res.data.records,
-    }
-  }
   data() {
     return {
       visible: false,
       confirmLoading: false,
-      data: () => ({}),
+      data: parameter => ({ pageSize: 10, pageNo: 1, totalCount: 0, totalPage: 0, data: [] }),
       columns,
     }
   }
   async show(patientId) {
     this.visible = true
-    this.data = this.setData
-    // this.$refs.dataTable.refresh()
+    const dataFunc = setData(patientId)
+    this.data = dataFunc
+    if (this.$refs.dataTable) {
+      this.$refs.dataTable.refresh()
+    }
+
+    // this.data = parameter => ({ pageSize: 10, pageNo: 1, totalCount: 0, totalPage: 0, data: [] })
+    // setTimeout(() => {
+    //   console.info(`setData after some timeout`)
+    // }, 1000)
+
+    // const res = await recordAll(null, { patientId })
+    // this.$refs.dataTable.localDataSource = res.data.records
+    // this.$refs.dataTable.localPagination = {
+    //   pageSize: parseInt(parameter.pageSize),
+    //   current: parseInt(res.data.page),
+    //   totalCount: parseInt(res.data.total),
+    //   totalPage: parseInt(res.data.total) / parseInt(parameter.pageSize),
+    // }
+    // this.$refs.dataTable.loading = false
   }
   handleOk() {
     this.visible = false

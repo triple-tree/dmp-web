@@ -400,53 +400,56 @@ export default class extends Vue {
     console.info(`setData`)
     console.info(`id: ${this.id}`)
     const patientId = this.id
-    const latestRecord = await recordLatest(null, { patientId }).data
+    const latestRecord = (await recordLatest(null, { patientId })).data
     const factors = {}
-    if (latestRecord) {
-      latestRecord.patientRecordFactors.forEach(factor => {
-        factors[factor.factorName] = factor.factorValue
-      })
-      this.model = { ...this.model, ...factors }
-      console.info(this.model)
-      this.$nextTick(() => {
-        this.form.setFieldsValue(
-          pick(
-            this.model,
-            'weight',
-            'height',
-            'waistline',
-            'sbp',
-            'dbp',
-            'fbg',
-            'serumTc',
-            'serumTcLower',
-            'serumTcUpper',
-            'previousHistoryHypertension',
-            'previousHistoryDiabetes',
-            'previousHistoryStroke',
-            'previousHistoryAscvd',
-            'previousHistoryCopd',
-            'previousHistoryDyslipidemia',
-            'familyHistoryHypertension',
-            'familyHistoryDiabetes',
-            'familyHistoryStroke',
-            'familyHistoryAscvd',
-            'familyHistoryCopd',
-            'symptomsHeadache',
-            'symptomsStethalgia',
-            'symptomsDyspnea',
-            'symptomsDiuresis',
-            'symptomsDizziness',
-            'smoke',
-            'sport',
-            'drink',
-            'salt',
-            'br',
-            'ur'
-          )
-        )
-      })
+    if (!latestRecord) {
+      console.info(`not found latestRecord for patientId: ${JSON.stringify(patientId)}`)
+      return
     }
+    console.info(`found latestRecord: ${JSON.stringify(latestRecord)}`)
+    latestRecord.patientRecordFactors.forEach(factor => {
+      factors[factor.factorName] = factor.factorValue
+    })
+    this.model = { ...this.model, ...factors }
+    console.info(this.model)
+    this.$nextTick(() => {
+      this.form.setFieldsValue(
+        pick(
+          this.model,
+          'weight',
+          'height',
+          'waistline',
+          'sbp',
+          'dbp',
+          'fbg',
+          'serumTc',
+          'serumTcLower',
+          'serumTcUpper',
+          'previousHistoryHypertension',
+          'previousHistoryDiabetes',
+          'previousHistoryStroke',
+          'previousHistoryAscvd',
+          'previousHistoryCopd',
+          'previousHistoryDyslipidemia',
+          'familyHistoryHypertension',
+          'familyHistoryDiabetes',
+          'familyHistoryStroke',
+          'familyHistoryAscvd',
+          'familyHistoryCopd',
+          'symptomsHeadache',
+          'symptomsStethalgia',
+          'symptomsDyspnea',
+          'symptomsDiuresis',
+          'symptomsDizziness',
+          'smoke',
+          'sport',
+          'drink',
+          'salt',
+          'br',
+          'ur'
+        )
+      )
+    })
   }
 
   async handleSubmit(e) {
