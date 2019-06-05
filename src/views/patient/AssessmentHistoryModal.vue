@@ -4,6 +4,7 @@
     :width="950"
     :visible="visible"
     :confirmLoading="confirmLoading"
+    :destroyOnClose="true"
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭"

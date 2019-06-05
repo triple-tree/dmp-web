@@ -4,6 +4,7 @@
     :width="950"
     :visible="visible"
     :confirmLoading="confirmLoading"
+    :destroyOnClose="true"
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭"
@@ -63,32 +64,13 @@ export default class RecordHistoryModal extends Vue {
     return {
       visible: false,
       confirmLoading: false,
-      data: parameter => ({ pageSize: 10, pageNo: 1, totalCount: 0, totalPage: 0, data: [] }),
+      data: parameter => () => ({}),
       columns,
     }
   }
   async show(patientId) {
     this.visible = true
-    const dataFunc = setData(patientId)
-    this.data = dataFunc
-    if (this.$refs.dataTable) {
-      this.$refs.dataTable.refresh()
-    }
-
-    // this.data = parameter => ({ pageSize: 10, pageNo: 1, totalCount: 0, totalPage: 0, data: [] })
-    // setTimeout(() => {
-    //   console.info(`setData after some timeout`)
-    // }, 1000)
-
-    // const res = await recordAll(null, { patientId })
-    // this.$refs.dataTable.localDataSource = res.data.records
-    // this.$refs.dataTable.localPagination = {
-    //   pageSize: parseInt(parameter.pageSize),
-    //   current: parseInt(res.data.page),
-    //   totalCount: parseInt(res.data.total),
-    //   totalPage: parseInt(res.data.total) / parseInt(parameter.pageSize),
-    // }
-    // this.$refs.dataTable.loading = false
+    this.data = setData(patientId)
   }
   handleOk() {
     this.visible = false
