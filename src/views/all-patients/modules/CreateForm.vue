@@ -13,13 +13,14 @@
           <a-col :md="8" :sm="24">
             <a-form-item
               label="姓名">
-              <a-input v-decorator="['patient.name', {rules: [{required: true, min: 2, message: '请输入姓名！'}]}]" />
+              <a-input v-decorator="['patient.name', {rules: [{required: true, min: 2, message: '请输入姓名！'}]}]" 
+                placeholder="请输入姓名"/>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item
               label="性别">
-              <a-select v-decorator="['patient.gender', {rules: [{required: true, message: '请选择性别！'}]}]" >
+              <a-select v-decorator="['patient.gender', {rules: [{required: true, message: '请选择性别！'}]}]" placeholder="请选择性别">
                 <a-select-option value="0">男</a-select-option>
                 <a-select-option value="1">女</a-select-option>
               </a-select>
@@ -28,13 +29,17 @@
           <a-col :md="8" :sm="24">
             <a-form-item
               label="手机号">
-              <a-input v-decorator="['patient.phoneNumber', {rules: [{required: true, len: 11, message: '请输入手机号码！'}]}]" />
+              <a-input 
+                v-decorator="['patient.phoneNumber', {rules: [{required: true, len: 11, message: '请输入手机号码！'}]}]" 
+                placeholder="请输入手机号"/>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item
               label="身份证">
-              <a-input v-decorator="['patient.identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]" />
+              <a-input 
+                v-decorator="['patient.identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]" 
+                placeholder="请输入正确的身份证号"/>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
