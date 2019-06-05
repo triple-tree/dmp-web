@@ -9,7 +9,7 @@
     cancelText="关闭"
   >
     <a-spin :spinning="confirmLoading">
-      <a-form :form="form" layout="horizontal">
+      <a-form :form="form" layout="horizontal" id="root-container">
         <h3>基本信息</h3>
         <a-row :gutter="8">
           <a-col :span="8">
@@ -138,7 +138,7 @@
         </a-row>
 
         <h3>既往史</h3>
-        <a-row :gutter="8">
+        <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :md="24" :sm="24">
             <a-form-item>
               <a-row type="flex">
@@ -163,7 +163,7 @@
         </a-row>
 
         <h3>家族史</h3>
-        <a-row :gutter="8">
+        <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :md="24" :sm="24">
             <a-form-item>
               <a-row type="flex">
@@ -189,7 +189,7 @@
         </a-row>
 
         <h3>症状</h3>
-        <a-row :gutter="8">
+        <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :span="7">
             <a-form-item>
               <a-checkbox v-decorator="['symptomsHeadache']">头晕、头疼症状</a-checkbox>
@@ -201,7 +201,7 @@
             </a-form-item>
           </a-col>
         </a-row>
-        <a-row :gutter="8">
+        <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :span="7">
             <a-form-item>
               <a-checkbox v-decorator="['symptomsDyspnea']">呼吸困难或慢性咳嗽</a-checkbox>
@@ -220,7 +220,7 @@
         </a-row>
 
         <h3>生活方式</h3>
-        <a-row :gutter="8">
+        <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :span="8">
             <a-form-item>
               <a-checkbox v-decorator="['smoke']">是否吸烟</a-checkbox>
@@ -232,7 +232,7 @@
             </a-form-item>
           </a-col>
         </a-row>
-        <a-row :gutter="8">
+        <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :span="8">
             <a-form-item>
               <a-checkbox v-decorator="['drink']">是否饮酒</a-checkbox>
@@ -461,5 +461,30 @@ export default class RecordDetailModal extends Vue {
 }
 </script>
 
+
 <style lang="less" scoped>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0;
+}
+
+#root-container /deep/ .ant-form-item {
+  padding-bottom: 0px;
+}
+
+#root-container .checkbox-wrapper /deep/ .ant-form-item {
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+#root-container /deep/ .ant-form-item-label,
+#root-container /deep/ .ant-form-item label {
+  padding-bottom: 3px;
+  line-height: 20px;
+  text-align: left;
+}
 </style>

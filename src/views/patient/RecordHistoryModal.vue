@@ -8,7 +8,7 @@
     @cancel="handleCancel"
     cancelText="关闭"
   >
-    <s-table :columns="columns" :data="data" ref="dataTable">
+    <s-table id="root-container" :columns="columns" :data="data" ref="dataTable">
       <a slot="name" slot-scope="text" @click="viewDetail(text)" href="javascript:;">{{ text }}</a>
     </s-table>
     <record-detail-modal ref="modalForm"></record-detail-modal>
@@ -84,4 +84,8 @@ export default class RecordHistoryModal extends Vue {
 </script>
 
 <style lang="less" scoped>
+#root-container /deep/ .ant-table-thead > tr > th,
+#root-container /deep/ .ant-table-tbody > tr > td {
+  padding: 6px;
+}
 </style>
