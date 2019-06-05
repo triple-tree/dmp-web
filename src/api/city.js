@@ -293,6 +293,131 @@ const city = [{
       children: [{ value: '桃城区', label: '桃城区' }, { value: '冀州市', label: '冀州市' }, { value: '深州市', label: '深州市' }, { value: '枣强县', label: '枣强县' }, { value: '武邑县', label: '武邑县' }, { value: '武强县', label: '武强县' }, { value: '饶阳县', label: '饶阳县' }, { value: '安平县', label: '安平县' }, { value: '故城县', label: '故城县' }, { value: '景县', label: '景县' }, { value: '阜城县', label: '阜城县' }, { value: '其他', label: '其他' }],
     },
     { value: '其他', label: '其他' }],
-}]
+},{
+  value: "山西",
+  label: "山西",
+  children: [
+    {
+      value: "太原",
+      label: "太原",
+      children: [{value: "杏花岭区", label: "杏花岭区", label: "杏花岭区"}, {value: "小店区", label: "小店区"}, {value: "迎泽区", label: "迎泽区"}, {value: "尖草坪区", label: "尖草坪区", label: "尖草坪区"}, {value: "万柏林区", label: "万柏林区", label: "万柏林区"}, {value: "晋源区", label: "晋源区"}, {value: "古交市", label: "古交市"}, {value: "阳曲县", label: "阳曲县"}, {value: "清徐县", label: "清徐县"}, {value: "娄烦县", label: "娄烦县"}, {value: "其他", label:"其他"}]
+    },
+    {
+      value: "大同",
+      label: "大同",
+      children: [{value: "城区", label: "城区"}, {value: "矿区", label: "矿区"}, {value: "南郊区", label: "南郊区"}, {value: "新荣区", label: "新荣区"}, {value: "大同县", label: "大同县"}, {value: "天镇县", label: "天镇县"}, {value: "灵丘县", label: "灵丘县"}, {value: "阳高县", label: "阳高县"}, {value: "左云县", label: "左云县"}, {value: "广灵县", label: "广灵县"}, {value: "浑源县", label: "浑源县"}, {value: "其他", label:"其他"}]
+    },
+    {
+      value: "阳泉",
+      label: "阳泉",
+      children: [{value: "城区", label: "城区"}, {value: "矿区", label: "矿区"}, {value: "郊区", label: "郊区"}, {value: "平定县", label: "平定县"}, {value: "盂县", label: "盂县"}, {value: "其他", label:"其他"}]
+    },
+    {
+      value: "长治",
+      label: "长治",
+      children: [{value: "城区", label: "城区"}, {value: "郊区", label: "郊区"}, {value: "潞城市", label: "潞城市"}, {value: "长治县", label: "长治县"}, {value: "长子县", label: "长子县"}, {value: "平顺县", label: "平顺县"}, {value: "襄垣县", label: "襄垣县"}, {value: "沁源县", label: "沁源县"}, {value: "屯留县", label: "屯留县"}, {value: "黎城县", label: "黎城县"}, {value: "武乡县", label: "武乡县"}, {value: "沁县", label: "沁县"}, {value: "壶关县", label: "壶关县"}, {value: "其他", label:"其他"}]
+    },
+    {
+      value: "晋城",
+      label: "晋城",
+      children: [{value: "城区", label: "城区"}, {value: "高平市", label: "高平市"}, {value: "泽州县", label: "泽州县"}, {value: "陵川县", label: "陵川县"}, {value: "阳城县", label: "阳城县"}, {value: "沁水县", label: "沁水县"}, {value: "其他", label:"其他"}]
+    },
+    {
+      value: "朔州",
+      label: "朔州",
+      children: [{value: "朔城区", label: "朔城区"}, {value: "平鲁区", label: "平鲁区"}, {value: "山阴县", label: "山阴县"}, {value: "右玉县", label: "右玉县"}, {value: "应县", label: "应县"}, {value: "怀仁县", label: "怀仁县"}, {value: "其他", label:"其他"}]
+    },
+    {
+      value: "晋中",
+      label: "晋中",
+      children: [{value: "榆次区", label: "榆次区"}, {value: "介休市", label: "介休市"}, {value: "昔阳县", label: "昔阳县"}, {value: "灵石县", label: "灵石县"}, {value: "祁县", label: "祁县"}, {value: "左权县", label: "左权县"}, {value: "寿阳县", label: "寿阳县"}, {value: "太谷县", label: "太谷县"}, {value: "和顺县", label: "和顺县"}, {value: "平遥县", label: "平遥县"}, {value: "榆社县", label: "榆社县"}, {value: "其他", label:"其他"}]
+    },
+    {
+      value: "运城",
+      label: "运城",
+      children: [{value: "盐湖区", label: "盐湖区"}, {value: "河津市", label: "河津市"}, {value: "永济市", label: "永济市"}, {value: "闻喜县", label: "闻喜县"}, {value: "新绛县", label: "新绛县"}, {value: "平陆县", label: "平陆县"}, {value: "垣曲县", label: "垣曲县"}, {value: "绛县", label: "绛县"}, {value: "稷山县", label: "稷山县"}, {value: "芮城县", label: "芮城县"}, {value: "夏县", label: "夏县"}, {value: "万荣县", label: "万荣县"}, {value: "临猗县", label: "临猗县"}, {value: "其他", label:"其他"}]
+    },
+    {
+      value: "忻州",
+      label: "忻州",
+      children: [{value: "忻府区", label: "忻府区"}, {value: "原平市", label: "原平市"}, {value: "代县", label: "代县"}, {value: "神池县", label: "神池县"}, {value: "五寨县", label: "五寨县"}, {value: "五台县", label: "五台县"}, {value: "偏关县", label: "偏关县"}, {value: "宁武县", label: "宁武县"}, {value: "静乐县", label: "静乐县"}, {value: "繁峙县", label: "繁峙县"}, {value: "河曲县", label: "河曲县"}, {value: "保德县", label: "保德县"}, {value: "定襄县", label: "定襄县"}, {value: "岢岚县", label: "岢岚县"}, {value: "其他", label:"其他"}]
+    },
+    {
+      value: "临汾",
+      label: "临汾",
+      children: [{value: "尧都区", label: "尧都区"}, {value: "侯马市", label: "侯马市"}, {value: "霍州市", label: "霍州市"}, {value: "汾西县", label: "汾西县"}, {value: "吉县", label: "吉县"}, {value: "安泽县", label: "安泽县"}, {value: "大宁县", label: "大宁县"}, {value: "浮山县", label: "浮山县"}, {value: "古县", label: "古县"}, {value: "隰县", label: "隰县"}, {value: "襄汾县", label: "襄汾县"}, {value: "翼城县", label: "翼城县"}, {value: "永和县", label: "永和县"}, {value: "乡宁县", label: "乡宁县"}, {value: "曲沃县", label: "曲沃县"}, {value: "洪洞县", label: "洪洞县"}, {value: "蒲县", label: "蒲县"}, {value: "其他", label:"其他"}]
+    },
+    {
+      value: "吕梁",
+      label: "吕梁",
+      children: [{value: "离石区", label: "离石区"}, {value: "孝义市", label: "孝义市"}, {value: "汾阳市", label: "汾阳市"}, {value: "文水县", label: "文水县"}, {value: "中阳县", label: "中阳县"}, {value: "兴县", label: "兴县"}, {value: "临县", label: "临县"}, {value: "方山县", label: "方山县"}, {value: "柳林县", label: "柳林县"}, {value: "岚县", label: "岚县"}, {value: "交口县", label: "交口县"}, {value: "交城县", label: "交城县"}, {value: "石楼县", label: "石楼县"}, {value: "其他", label:"其他"}]
+    },
+    {value: "其他", label:"其他"}]
+},{
+  value: "内蒙古",
+  label: "内蒙古",
+  children: [
+    {
+      value: "呼和浩特", label: "呼和浩特",
+      label: "呼和浩特",
+      children: [{value: "回民区", label: "回民区"}, {value: "玉泉区", label: "玉泉区"}, {value: "新城区", label: "新城区"}, {value: "赛罕区", label: "赛罕区"}, {value: "托克托县", label: "托克托县"}, {value: "清水河县", label: "清水河县"}, {value: "武川县", label: "武川县"}, {value: "和林格尔县", label: "和林格尔县"}, {value: "土默特左旗", label: "土默特左旗"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "包头",
+      label: "包头",
+      children: [{value: "昆都仑区", label: "昆都仑区"}, {value: "青山区", label: "青山区"}, {value: "东河区", label: "东河区"}, {value: "九原区", label: "九原区"}, {value: "石拐区", label: "石拐区"}, {value: "白云矿区", label: "白云矿区"}, {value: "固阳县", label: "固阳县"}, {value: "土默特右旗", label: "土默特右旗"}, {value: "达尔罕茂明安联合旗", label: "达尔罕茂明安联合旗"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "乌海",
+      label: "乌海",
+      children: [{value: "海勃湾区", label: "海勃湾区"}, {value: "乌达区", label: "乌达区"}, {value: "海南区", label: "海南区"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "赤峰",
+      label: "赤峰",
+      children: [{value: "红山区", label: "红山区"}, {value: "元宝山区", label: "元宝山区", label: "元宝山区"}, {value: "松山区", label: "松山区"}, {value: "宁城县", label: "宁城县"}, {value: "林西县", label: "林西县"}, {value: "喀喇沁旗", label: "喀喇沁旗"}, {value: "巴林左旗", label: "巴林左旗"}, {value: "敖汉旗", label: "敖汉旗"}, {value: "阿鲁科尔沁旗"}, {value: "翁牛特旗", label: "翁牛特旗"}, {value: "克什克腾旗", label: "克什克腾旗"}, {value: "巴林右旗", label: "巴林右旗"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "通辽",
+      label: "通辽",
+      children: [{value: "科尔沁区", label: "科尔沁区", label: "科尔沁区"}, {value: "霍林郭勒市", label: "霍林郭勒市"}, {value: "开鲁县", label: "开鲁县"}, {value: "科尔沁左翼中旗", label: "科尔沁左翼中旗"}, {value: "科尔沁左翼后旗", label: "科尔沁左翼后旗"}, {value: "库伦旗", label: "库伦旗"}, {value: "奈曼旗", label: "奈曼旗"}, {value: "扎鲁特旗", label: "扎鲁特旗"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "鄂尔多斯", label: "鄂尔多斯",
+      label: "鄂尔多斯",
+      children: [{value: "东胜区", label: "东胜区"}, {value: "准格尔旗", label: "准格尔旗"}, {value: "乌审旗", label: "乌审旗"}, {value: "伊金霍洛旗", label: "伊金霍洛旗"}, {value: "鄂托克旗", label: "鄂托克旗"}, {value: "鄂托克前旗", label: "鄂托克前旗"}, {value: "杭锦旗", label: "杭锦旗"}, {value: "达拉特旗", label: "达拉特旗"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "呼伦贝尔", label: "呼伦贝尔",
+      label: "呼伦贝尔",
+      children: [{value: "海拉尔区", label: "海拉尔区"}, {value: "满洲里市", label: "满洲里市"}, {value: "牙克石市", label: "牙克石市"}, {value: "扎兰屯市", label: "扎兰屯市"}, {value: "根河市", label: "根河市"}, {value: "额尔古纳市", label: "额尔古纳市"}, {value: "陈巴尔虎旗", label: "陈巴尔虎旗"}, {value: "阿荣旗", label: "阿荣旗"}, {value: "新巴尔虎左旗"}, {value: "新巴尔虎右旗"}, {value: "鄂伦春自治旗"}, {value: "莫力达瓦达斡尔族自治旗"}, {value: "鄂温克族自治旗", label: "鄂温克族自治旗"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "巴彦淖尔", label: "巴彦淖尔",
+      label: "巴彦淖尔",
+      children: [{value: "临河区", label: "临河区"}, {value: "五原县", label: "五原县"}, {value: "磴口县", label: "磴口县"}, {value: "杭锦后旗", label: "杭锦后旗"}, {value: "乌拉特中旗", label: "乌拉特中旗"}, {value: "乌拉特前旗", label: "乌拉特前旗"}, {value: "乌拉特后旗", label: "乌拉特后旗"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "乌兰察布", label: "乌兰察布",
+      label: "乌兰察布",
+      children: [{value: "集宁区", label: "集宁区"}, {value: "丰镇市", label: "丰镇市"}, {value: "兴和县", label: "兴和县"}, {value: "卓资县", label: "卓资县"}, {value: "商都县", label: "商都县"}, {value: "凉城县", label: "凉城县"}, {value: "化德县", label: "化德县"}, {value: "四子王旗", label: "四子王旗"}, {value: "察哈尔右翼前旗", label: "察哈尔右翼前旗"}, {value: "察哈尔右翼中旗", label: "察哈尔右翼中旗"}, {value: "察哈尔右翼后旗", label: "察哈尔右翼后旗"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "锡林郭勒盟",
+      label: "锡林郭勒盟",
+      children: [{value: "锡林浩特市", label: "锡林浩特市"}, {value: "二连浩特市", label: "二连浩特市"}, {value: "多伦县", label: "多伦县"}, {value: "阿巴嘎旗", label: "阿巴嘎旗"}, {value: "西乌珠穆沁旗"}, {value: "东乌珠穆沁旗"}, {value: "苏尼特左旗", label: "苏尼特左旗"}, {value: "苏尼特右旗", label: "苏尼特右旗"}, {value: "太仆寺旗", label: "太仆寺旗"}, {value: "正镶白旗", label: "正镶白旗"}, {value: "正蓝旗", label: "正蓝旗"}, {value: "镶黄旗", label: "镶黄旗"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "兴安盟",
+      label: "兴安盟",
+      children: [{value: "乌兰浩特市", label: "乌兰浩特市"}, {value: "阿尔山市", label: "阿尔山市"}, {value: "突泉县", label: "突泉县"}, {value: "扎赉特旗", label: "扎赉特旗"}, {value: "科尔沁右翼前旗", label: "科尔沁右翼前旗"}, {value: "科尔沁右翼中旗", label: "科尔沁右翼中旗"}, {value: "其他", label: "其他"}]
+    },
+    {
+      value: "阿拉善盟", label: "阿拉善盟",
+      label: "阿拉善盟",
+      children: [{value: "阿拉善左旗", label: "阿拉善左旗"}, {value: "阿拉善右旗", label: "阿拉善右旗"}, {value: "额济纳旗", label: "额济纳旗"}, {value: "其他", label: "其他"}]
+    }
+  ]
+},]
 
 export default city
