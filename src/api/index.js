@@ -33,7 +33,7 @@ const api = {
   doctorSelectDoctorByName: '/doctor/selectDoctorByName/',
   // 其他
   ForgePassword: '/auth/forge-password',
-  Register: '/register',
+  Register: '/doctor/register',
   twoStepCode: '/auth/2step-code',
   SendSms: '/account/sms',
   SendSmsErr: '/account/sms_err',
