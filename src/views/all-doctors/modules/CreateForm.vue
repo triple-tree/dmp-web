@@ -94,6 +94,7 @@
                 <a-input
                   size="large"
                   type="password"
+                  @blur="handlePasswordInputBlur"
                   @click="handlePasswordInputClick"
                   autocomplete="false"
                   placeholder="至少6位密码，区分大小写"
@@ -257,6 +258,10 @@ export default class extends mixins(mixinDevice) {
       this.state.passwordLevelChecked = true
       return
     }
+    this.state.passwordLevelChecked = false
+  }
+
+  handlePasswordInputBlur() {
     this.state.passwordLevelChecked = false
   }
 
