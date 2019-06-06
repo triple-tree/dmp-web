@@ -1,7 +1,7 @@
 <template>
   <div class="root-container">
     <a-form layout="inline">
-      <h3>评估</h3>
+      <!-- <h3>评估</h3>
       <a-row :gutter="8" v-for="(k) in form.getFieldValue('assessments')" :key="k">
         <a-col :span="11">
           <a-form-item
@@ -50,8 +50,24 @@
         <a-button type="dashed" block @click="add('assessments')">
           <a-icon type="plus"/>添加评估
         </a-button>
+      </a-row> -->
+      <h3>该患者主要健康状况如下</h3>
+      <a-row :gutter="8" class="ass-item">
+          <a-col :span="6">
+            慢病综合风险 — <em>高危</em>
+          </a-col>
+          <a-col :span="6">
+            高血压风险 — <em>高危</em>
+          </a-col>
+          <a-col :span="6">
+            焦虑评估 — <em>高危</em>
+          </a-col>
       </a-row>
-
+      <a-row :gutter="8"  class="ass-item">
+          <a-col :span="6">
+            主要危险因子：<em>吸烟</em>
+          </a-col>
+      </a-row>
       <h3>处方</h3>
       <a-row :gutter="8" v-for="(k, index) in form.getFieldValue('prescriptions')" :key="k">
         <a-col :span="7">
@@ -544,5 +560,14 @@ h3 {
 .root-container /deep/ .ant-form-item {
   margin-right: 10px;
   width: 100%;
+}
+.ass-item{
+  font-size: 14px;
+  color: #000;
+  opacity: 0.85;
+}
+.ass-item em{
+  font-style:normal;
+  color: #f00;
 }
 </style>
