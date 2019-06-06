@@ -121,7 +121,7 @@ export default class extends Vue {
 
 .ass-list > li{
   padding: 15px 0;
-  border-bottom: 1px solid #b3b3b3;
+  border-bottom: 1px solid #ddd;
 }
 .ass-list > li:last-child{
   border:0;
