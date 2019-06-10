@@ -223,19 +223,19 @@
         <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :span="8">
             <a-form-item>
-              <a-checkbox v-decorator="['smoke']">是否吸烟</a-checkbox>
+              <a-checkbox v-decorator="['smoke']">吸烟</a-checkbox>
             </a-form-item>
           </a-col>
           <a-col :span="8">
             <a-form-item>
-              <a-checkbox v-decorator="['sport']">是否运动</a-checkbox>
+              <a-checkbox v-decorator="['sport']">运动（＜3次/周且＜30min/次)</a-checkbox>
             </a-form-item>
           </a-col>
         </a-row>
         <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :span="8">
             <a-form-item>
-              <a-checkbox v-decorator="['drink']">是否饮酒</a-checkbox>
+              <a-checkbox v-decorator="['drink']">饮酒</a-checkbox>
             </a-form-item>
           </a-col>
 
