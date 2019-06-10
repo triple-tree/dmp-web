@@ -18,7 +18,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: '卫生院慢病管理中心',
+      default: '国卫健康慢病管理',
       required: false,
     },
     showTitle: {

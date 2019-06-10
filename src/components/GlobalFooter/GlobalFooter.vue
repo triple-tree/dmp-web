@@ -15,7 +15,7 @@
       <a href="https://vue.ant.design/">Vue Antd</a>
     </div> -->
     <div class="copyright">
-      <span>卫生院慢病管理中心</span>
+      <span>国卫健康大数据（中关村）研究院</span>
     </div>
   </div>
 </template>

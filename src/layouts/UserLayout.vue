@@ -5,7 +5,7 @@
         <div class="header">
           <a href="/">
             <img src="~@/assets/logo.svg" class="logo" alt="logo">
-            <span class="title">卫生院慢病管理中心</span>
+            <span class="title">国卫健康慢病管理平台</span>
           </a>
         </div>
         <div class="desc">为您提供更加专业化、个性化和科学化的服务工作</div>
@@ -19,7 +19,7 @@
           <a href="_self">隐私</a>
           <a href="_self">条款</a>
         </div>-->
-        <div class="copyright">卫生院慢病管理中心</div>
+        <div class="copyright">国卫健康大数据（中关村研究院）</div>
       </div>
     </div>
   </div>

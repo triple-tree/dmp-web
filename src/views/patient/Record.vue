@@ -243,7 +243,7 @@
         </a-col>
       </a-row>
 
-      <h3>检验检测</h3>
+      <!-- <h3>检验检测</h3>
       <a-row :gutter="8">
         <a-col :span="8">
           <a-form-item
@@ -263,7 +263,7 @@
             <a-input v-decorator="['ur', {rules: [{ message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
           </a-form-item>
         </a-col>
-      </a-row>
+      </a-row> -->
 
       <a-row :gutter="8">
         <a-col :span="8">
@@ -444,9 +444,10 @@ export default class extends Vue {
           'smoke',
           'sport',
           'drink',
-          'salt',
-          'br',
-          'ur'
+          'salt'
+          // ,
+          // 'br',
+          // 'ur'
         )
       )
     })
