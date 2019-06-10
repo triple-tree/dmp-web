@@ -68,6 +68,7 @@
             </a-col>
           </a-row>
         </a-tab-pane>
+
       </a-tabs>
 
       <a-form-item>
@@ -91,7 +92,7 @@
       </a-form-item>
 
       <div class="user-login-other">
-        <span>其他登录方式</span>
+        <!-- <span>其他登录方式</span>
         <a>
           <a-icon class="item-icon" type="alipay-circle"></a-icon>
         </a>
@@ -100,7 +101,7 @@
         </a>
         <a>
           <a-icon class="item-icon" type="weibo-circle"></a-icon>
-        </a>
+        </a> -->
         <router-link class="register" :to="{ name: 'register' }">注册账户</router-link>
       </div>
     </a-form>

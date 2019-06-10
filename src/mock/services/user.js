@@ -5,7 +5,7 @@ const info = options => {
   console.log('options', options)
   const userInfo = {
     id: '4291d7da9005377ec9aec4a71ea837f',
-    name: '黄玮鹏',
+    name: '陈医生',
     username: 'admin',
     password: '',
     avatar: '/avatar2.jpg',

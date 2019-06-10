@@ -107,7 +107,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'serumTc', {rules: [{ message: '请输入高密度蛋白质胆固醇' }]} ]"
+              v-decorator="[ 'hdl_c', {rules: [{ message: '请输入高密度蛋白质胆固醇' }]} ]"
               placeholder="输入高密度蛋白质胆固醇"
               addonAfter="mmol/L"
             />
@@ -120,7 +120,7 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
-              v-decorator="[ 'serumTc', {rules: [{ message: '请输入低密度蛋白质胆固醇' }]} ]"
+              v-decorator="[ 'ldl_c', {rules: [{ message: '请输入低密度蛋白质胆固醇' }]} ]"
               placeholder="输入低密度蛋白质胆固醇"
               addonAfter="mmol/L"
             />
@@ -212,19 +212,19 @@
       <a-row :gutter="8">
         <a-col :span="8">
           <a-form-item>
-            <a-checkbox v-decorator="['smoke']">是否吸烟</a-checkbox>
+            <a-checkbox v-decorator="['smoke']">吸烟</a-checkbox>
           </a-form-item>
         </a-col>
         <a-col :span="8">
           <a-form-item>
-            <a-checkbox v-decorator="['sport']">是否运动</a-checkbox>
+            <a-checkbox v-decorator="['sport']">运动（＜3次/周且＜30min/次)</a-checkbox>
           </a-form-item>
         </a-col>
       </a-row>
       <a-row :gutter="8">
         <a-col :span="8">
           <a-form-item>
-            <a-checkbox v-decorator="['drink']">是否饮酒</a-checkbox>
+            <a-checkbox v-decorator="['drink']">饮酒</a-checkbox>
           </a-form-item>
         </a-col>
 
@@ -237,13 +237,13 @@
             <a-input
               v-decorator="['salt', {rules: [{ message: '请输入每天盐的摄入量' }]} ]"
               placeholder="输入每天盐的摄入量"
-              addonAfter="mg"
+              addonAfter="g/day"
             />
           </a-form-item>
         </a-col>
       </a-row>
 
-      <h3>检验检测</h3>
+      <!-- <h3>检验检测</h3>
       <a-row :gutter="8">
         <a-col :span="8">
           <a-form-item
@@ -263,7 +263,7 @@
             <a-input v-decorator="['ur', {rules: [{ message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
           </a-form-item>
         </a-col>
-      </a-row>
+      </a-row> -->
 
       <a-row :gutter="8">
         <a-col :span="8">
@@ -423,8 +423,8 @@ export default class extends Vue {
           'dbp',
           'fbg',
           'serumTc',
-          'serumTcLower',
-          'serumTcUpper',
+          'ldl_c',
+          'hdl_c',
           'previousHistoryHypertension',
           'previousHistoryDiabetes',
           'previousHistoryStroke',
@@ -444,9 +444,10 @@ export default class extends Vue {
           'smoke',
           'sport',
           'drink',
-          'salt',
-          'br',
-          'ur'
+          'salt'
+          // ,
+          // 'br',
+          // 'ur'
         )
       )
     })

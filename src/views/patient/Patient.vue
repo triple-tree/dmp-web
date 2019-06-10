@@ -36,10 +36,10 @@
             >{{ model.province + model.city + model.county + model.detailAddress }}</span>
           </div>
           <div class="hint" :style="{ marginBottom:'10px'}">（以下为最新评估结果展示）</div>
-          <div :style="{ marginBottom:'10px'}">
+          <!-- <div :style="{ marginBottom:'10px'}">
             <span class="ill-status">慢病综合风险：</span>
             <span class="ill-value">{{ model.chronicDiseaseRisk }}</span>
-          </div>
+          </div> -->
           <div class="chronic-disease-status">
             <chronic-disease-status
               iconTypeName="hypertension"
