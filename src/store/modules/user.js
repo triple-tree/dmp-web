@@ -2,6 +2,8 @@ import Vue from 'vue'
 import { login, getInfo, logout } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
+import router from '../../router'
+import notification from 'ant-design-vue/es/notification'
 
 const user = {
   state: {
@@ -34,13 +36,47 @@ const user = {
 
   actions: {
     // 登录
-    Login({ commit }, userInfo) {
+    Login({ dispatch, commit, getters }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo)
           .then(response => {
             const token = response.token
             Vue.ls.set(ACCESS_TOKEN, token, 7 * 24 * 60 * 60 * 1000)
             commit('SET_TOKEN', token)
+
+            const result = response.data
+            if (result.role && result.role.permissions.length > 0) {
+              const role = result.role
+              role.permissions = result.role.permissions
+              role.permissions.map(per => {
+                if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
+                  const action = per.actionEntitySet.map(action => {
+                    return action.action
+                  })
+                  per.actionList = action
+                }
+              })
+              role.permissionList = role.permissions.map(permission => {
+                return permission.permissionId
+              })
+              commit('SET_ROLES', result.role)
+              commit('SET_INFO', result)
+
+              dispatch('permission/GenerateRoutes', { roles: role }, { root: true })
+                .then(() => {
+                  router.addRoutes(getters.addRouters)
+                })
+                .catch(() => {
+                  notification.error({
+                    message: '错误',
+                    description: '请求用户信息失败，请重试',
+                  })
+                  dispatch('Logout').then(() => {
+                    // next({ path: '/user/login', query: { redirect: to.fullPath } })
+                    router.push({ path: '/user/login', query: { redirect: to.fullPath } })
+                  })
+                })
+            }
             resolve()
           })
           .catch(error => {

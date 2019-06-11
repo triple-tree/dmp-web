@@ -15,7 +15,7 @@ export const asyncRouterMap = [
         path: '/stats',
         name: 'stats',
         component: () => import('@/views/stats/chronicDiseaseStatistics'),
-        meta: { title: '患者报表', keepAlive: true, icon: bxAnaalyse, permission: ['dashboard'] },
+        meta: { title: '患者报表', keepAlive: true, icon: bxAnaalyse, permission: ['stat'] },
       },
       // all-patients
       {
@@ -24,13 +24,13 @@ export const asyncRouterMap = [
         hideChildrenInMenu: true,
         component: PageView,
         redirect: '/all-patients/',
-        meta: { title: '全部患者', icon: 'table', permission: ['table'] },
+        meta: { title: '全部患者', icon: 'table', permission: ['patients'] },
         children: [
           {
             path: '/all-patients/:pageNo([1-9]\\d*)?',
             name: 'all-patients-list',
             component: () => import('@/views/all-patients/TableList'),
-            meta: { title: '全部患者', keepAlive: true, permission: ['table'] },
+            meta: { title: '全部患者', keepAlive: true, permission: ['patients'] },
           },
         ],
       },
@@ -40,7 +40,7 @@ export const asyncRouterMap = [
         component: () => import('@/views/patient/Patient'),
         props: true,
         hidden: true,
-        meta: { title: '患者详情', keepAlive: true, icon: bxAnaalyse, permission: ['form'] },
+        meta: { title: '患者详情', keepAlive: true, icon: bxAnaalyse, permission: ['patient'] },
       },
       // all-doctors
       {
@@ -49,13 +49,13 @@ export const asyncRouterMap = [
         hideChildrenInMenu: true,
         component: PageView,
         redirect: '/all-doctors/',
-        meta: { title: '全部医生', icon: 'table', permission: ['table'] },
+        meta: { title: '全部医生', icon: 'table', permission: ['doctors'] },
         children: [
           {
             path: '/all-doctors/',
             name: 'all-doctors-list',
             component: () => import('@/views/all-doctors/Index'),
-            meta: { title: '全部医生', keepAlive: true, permission: ['table'] },
+            meta: { title: '全部医生', keepAlive: true, permission: ['doctors'] },
           },
         ],
       },
