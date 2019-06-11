@@ -83,8 +83,8 @@ const doctorSelectDoctorByName = options => {
   return builder(filteredDoctors, '新建医生成功！', 200)
 }
 
-Mock.mock(/\/doctor\/all/, 'get', doctorAll)
-Mock.mock(/\/doctor\/detail/, 'get', doctorDetail)
-Mock.mock(/\/doctor\/audit/, 'post', doctorAudit)
-Mock.mock(/\/doctor\/add/, 'post', doctorAdd)
-Mock.mock(/\/doctor\/selectDoctorByName/, 'post', doctorSelectDoctorByName)
+Mock.mock(/\/api\/doctor\/all/, 'get', doctorAll)
+Mock.mock(/\/api\/doctor\/detail/, 'get', doctorDetail)
+Mock.mock(/\/api\/doctor\/audit/, 'post', doctorAudit)
+Mock.mock(/\/api\/doctor\/add/, 'post', doctorAdd)
+Mock.mock(/\/api\/doctor\/selectDoctorByName/, 'post', doctorSelectDoctorByName)

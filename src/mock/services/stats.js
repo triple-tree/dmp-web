@@ -76,6 +76,6 @@ const statsPlans = options => {
   return builder(data, '请求成功', 200)
 }
 
-Mock.mock(/\/stats\/all/, 'get', statsAll)
-Mock.mock(/\/stats\/patients/, 'get', statsPatients)
-Mock.mock(/\/stats\/plans/, 'get', statsPlans)
+Mock.mock(/\/api\/stats\/all/, 'get', statsAll)
+Mock.mock(/\/api\/stats\/patients/, 'get', statsPatients)
+Mock.mock(/\/api\/stats\/plans/, 'get', statsPlans)

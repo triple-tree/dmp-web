@@ -105,7 +105,7 @@ const assessmentAssess = options => {
   return builder(data, '请求成功', 200)
 }
 
-Mock.mock(/\/assessment\/latest/, 'get', assessmentLatest)
-Mock.mock(/\/assessment\/detail/, 'get', assessmentDetail)
-Mock.mock(/\/assessment\/all/, 'get', assessmentAll)
-Mock.mock(/\/assessment\/assess/, 'get', assessmentAssess)
+Mock.mock(/\/api\/assessment\/latest/, 'get', assessmentLatest)
+Mock.mock(/\/api\/assessment\/detail/, 'get', assessmentDetail)
+Mock.mock(/\/api\/assessment\/all/, 'get', assessmentAll)
+Mock.mock(/\/api\/assessment\/assess/, 'get', assessmentAssess)

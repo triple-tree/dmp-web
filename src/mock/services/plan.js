@@ -83,6 +83,6 @@ const planAdd = options => {
   return builder({ id: healthPlan.id }, '新建患者成功！', 200)
 }
 
-Mock.mock(/\/plan\/detail/, 'get', planDetail)
-Mock.mock(/\/plan\/all/, 'get', planAll)
-Mock.mock(/\/plan\/add/, 'post', planAdd)
+Mock.mock(/\/api\/plan\/detail/, 'get', planDetail)
+Mock.mock(/\/api\/plan\/all/, 'get', planAll)
+Mock.mock(/\/api\/plan\/add/, 'post', planAdd)

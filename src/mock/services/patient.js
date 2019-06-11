@@ -315,8 +315,8 @@ const patientGetPatientReport = options => {
   return builder(data, '新建患者成功！', 200)
 }
 
-Mock.mock(/\/patient\/all/, 'get', patientAll)
-Mock.mock(/\/patient\/queryById/, 'get', patientQueryById)
-Mock.mock(/\/patient\/query/, 'post', patientQuery)
-Mock.mock(/\/patient\/add/, 'post', patientAdd)
-Mock.mock(/\/patient\/getPatientReport/, 'get', patientGetPatientReport)
+Mock.mock(/\/api\/patient\/all/, 'get', patientAll)
+Mock.mock(/\/api\/patient\/queryById/, 'get', patientQueryById)
+Mock.mock(/\/api\/patient\/query/, 'post', patientQuery)
+Mock.mock(/\/api\/patient\/add/, 'post', patientAdd)
+Mock.mock(/\/api\/patient\/getPatientReport/, 'get', patientGetPatientReport)
