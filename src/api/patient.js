@@ -22,9 +22,9 @@ export function patientQueryById(data, search) {
 export function patientQuery(data, search) {
   console.info(`api.patientQuery`)
   return axios({
-    url: `${api.patientQuery}${search ? '?' + searchParasToString(search) : ''}`,
+    url: `${api.patientQuery}`,
     method: 'post',
-    data,
+    data: { ...data, ...search },
   })
 }
 

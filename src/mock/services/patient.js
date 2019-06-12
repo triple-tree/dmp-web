@@ -60,13 +60,13 @@ const patientQueryById = options => {
 
 // 3.2.2.	复合条件查询
 const patientQuery = options => {
-  const queryParameters = getQueryParameters(options) || {}
-  if (queryParameters && !queryParameters.page) {
-    queryParameters.page = 1
-  }
-  if (queryParameters && !queryParameters.size) {
-    queryParameters.size = 10
-  }
+  // const queryParameters = getQueryParameters(options) || {}
+  // if (queryParameters && !queryParameters.page) {
+  //   queryParameters.page = 1
+  // }
+  // if (queryParameters && !queryParameters.size) {
+  //   queryParameters.size = 10
+  // }
   /**
    * The data structure passed in
   {
@@ -117,11 +117,8 @@ const patientQuery = options => {
   })
   const data = {
     total: filteredPatients.length,
-    patients: filteredPatients.slice(
-      (queryParameters.page - 1) * queryParameters.size,
-      queryParameters.page * queryParameters.size
-    ),
-    page: queryParameters.page,
+    patients: filteredPatients.slice((body['page'] - 1) * body['size'], body['page'] * body['size']),
+    page: body['page'],
   }
   return builder(data, '查询成功', 200)
 }
