@@ -11,9 +11,9 @@ export function patientAll(data, search) {
   })
 }
 
-export function patientQueryById(data, search) {
+export function patientGetById(data, search) {
   return axios({
-    url: `${api.patientQueryById}${search ? '?' + searchParasToString(search) : ''}`,
+    url: `${api.patientGetById}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
     data,
   })

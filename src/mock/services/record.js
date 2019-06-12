@@ -193,7 +193,7 @@ const recordAdd = options => {
   return builder({ id: record.id }, '新建患者成功！', 200)
 }
 
-Mock.mock(/\/api\/record\/latest/, 'get', recordLatest)
-Mock.mock(/\/api\/record\/all/, 'get', recordAll)
-Mock.mock(/\/api\/record\/detail/, 'get', recordDetail)
-Mock.mock(/\/api\/record\/add/, 'post', recordAdd)
+Mock.mock(/\/api\/patientRecord\/latest/, 'get', recordLatest)
+Mock.mock(/\/api\/patientRecord\/all/, 'get', recordAll)
+Mock.mock(/\/api\/patientRecord\/detail/, 'get', recordDetail)
+Mock.mock(/\/api\/patientRecord\/add/, 'post', recordAdd)

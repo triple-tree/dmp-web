@@ -39,7 +39,7 @@
           <!-- <div :style="{ marginBottom:'10px'}">
             <span class="ill-status">慢病综合风险：</span>
             <span class="ill-value">{{ model.chronicDiseaseRisk }}</span>
-          </div> -->
+          </div>-->
           <div class="chronic-disease-status">
             <chronic-disease-status
               iconTypeName="hypertension"
@@ -108,7 +108,7 @@ import Assessment from './Assessment'
 import Plan from './Plan'
 import ChronicDiseaseStatus from '@/components/ChronicDiseaseStatus'
 
-import { patientQueryById } from '@/api/patient'
+import { patientGetById } from '@/api/patient'
 import { assessmentLatest } from '@/api/assessment'
 
 @Component({
@@ -132,7 +132,7 @@ export default class extends Vue {
   async setData() {
     console.info(`setData`)
     const patientId = this.id
-    const patient = await patientQueryById(null, { patientId })
+    const patient = await patientGetById(null, { id: patientId })
     console.info(`patient: ${JSON.stringify(patient)}`)
     const latestAssessment = await assessmentLatest(null, { patientId })
     this.model = { ...this.model, ...patient.data, ...latestAssessment.data }

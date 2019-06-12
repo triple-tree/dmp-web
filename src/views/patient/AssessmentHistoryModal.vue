@@ -60,7 +60,11 @@ const findDoctorName = (doctors, doctorId) => {
 }
 
 const setData = patientId => async parameter => {
-  const res = await assessmentAll({ patientId }, { ...parameter })
+  const paginationParam = {
+    page: parameter.pageNo,
+    size: parameter.pageSize,
+  }
+  const res = await assessmentAll({ patientId }, { ...paginationParam })
   let assessments = res.data.assessments
   if (!doctors) {
     doctors = (await doctorAll(null, { page: 1, size: 10000000, adminId: Vue.ls.get(USER_INFO).data.id })).data.doctors

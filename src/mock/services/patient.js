@@ -51,10 +51,10 @@ const patientAll = options => {
 }
 
 // 3.2.1.	ID查询
-const patientQueryById = options => {
+const patientGetById = options => {
   const queryParameters = getQueryParameters(options) || {}
-  const patientId = queryParameters.patientId
-  const data = patients.filter(patient => patient.id === patientId)[0]
+  const id = queryParameters.id
+  const data = patients.filter(patient => patient.id === id)[0]
   return builder(data, '查询成功', 200)
 }
 
@@ -313,7 +313,7 @@ const patientGetPatientReport = options => {
 }
 
 Mock.mock(/\/api\/patient\/all/, 'get', patientAll)
-Mock.mock(/\/api\/patient\/queryById/, 'get', patientQueryById)
+Mock.mock(/\/api\/patient\/getById/, 'get', patientGetById)
 Mock.mock(/\/api\/patient\/query/, 'post', patientQuery)
 Mock.mock(/\/api\/patient\/add/, 'post', patientAdd)
 Mock.mock(/\/api\/patient\/getPatientReport/, 'get', patientGetPatientReport)

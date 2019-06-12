@@ -3,7 +3,7 @@ const api = {
   Logout: '/api/logout',
   // 全部病人
   patientAll: '/api/patient/all',
-  patientQueryById: '/api/patient/queryById',
+  patientGetById: '/api/patient/getById',
   patientQuery: '/api/patient/query',
   patientAdd: '/api/patient/add',
   patientGetPatientReport: '/api/patient/getPatientReport',
@@ -12,10 +12,10 @@ const api = {
   statsPatients: '/api/stats/patients',
   statsPlans: '/api/stats/plans',
   // 健康档案
-  recordLatest: '/api/record/latest',
-  recordAll: '/api/record/all',
-  recordDetail: '/api/record/detail',
-  recordAdd: '/api/record/add',
+  recordLatest: '/api/patientRecord/latest',
+  recordAll: '/api/patientRecord/all',
+  recordDetail: '/api/patientRecord/detail',
+  recordAdd: '/api/patientRecord/add',
   // 评估筛选
   assessmentLatest: '/api/assessment/latest',
   assessmentAll: '/api/assessment/all',

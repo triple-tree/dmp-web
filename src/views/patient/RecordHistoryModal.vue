@@ -45,13 +45,17 @@ const columns = [
 
 const setData = patientId => async parameter => {
   console.info(`setData(${patientId}) calling`)
-  const res = await recordAll(null, { ...parameter, patientId })
+  const paginationParam = {
+    page: parameter.pageNo,
+    size: parameter.pageSize,
+  }
+  const res = await recordAll(null, { ...paginationParam, patientId })
   return {
     pageSize: parseInt(parameter.pageSize),
     pageNo: parseInt(res.data.page),
     totalCount: parseInt(res.data.total),
     totalPage: parseInt(res.data.total) / parseInt(parameter.pageSize),
-    data: res.data.records,
+    data: res.data.records || res.data.plans,
   }
 }
 
