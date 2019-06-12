@@ -86,7 +86,7 @@ const findDoctorName = (doctors, doctorId) => {
 }
 
 export default {
-  name: 'TableList',
+  name: 'Index',
   components: {
     STable,
     CreateForm,
@@ -199,6 +199,7 @@ export default {
         return {
           on: {
             click: () => {
+              console.info(`clicked id: ${record.id}`)
               this.$router.push({ path: `/patient/${record.id}` })
             },
           },

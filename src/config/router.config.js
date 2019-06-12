@@ -29,7 +29,7 @@ export const asyncRouterMap = [
           {
             path: '/all-patients/:pageNo([1-9]\\d*)?',
             name: 'all-patients-list',
-            component: () => import('@/views/all-patients/TableList'),
+            component: () => import('@/views/all-patients/Index'),
             meta: { title: '全部患者', keepAlive: true, permission: ['patients'] },
           },
         ],
