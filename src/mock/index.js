@@ -1,10 +1,10 @@
 import Mock from 'mockjs2'
 
 // 判断环境不是 prod 或者 preview 是 true 时，加载 mock 服务
-console.info(
-  `process.env.NODE_ENV: ${process.env.NODE_ENV}, process.env.VUE_APP_PREVIEW: ${process.env.VUE_APP_PREVIEW}`
-)
-if (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'true') {
+if (
+  process.env.VUE_APP_NO_MOCK !== 'true' &&
+  (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'true')
+) {
   // 使用同步加载依赖
   // 防止 vuex 中的 GetInfo 早于 mock 运行，导致无法 mock 请求返回结果
   console.log('mock mounting')
