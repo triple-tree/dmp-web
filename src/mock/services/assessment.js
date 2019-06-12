@@ -1,7 +1,8 @@
 import Mock, { Random } from 'mockjs2'
 import { builder, getQueryParameters } from '../util'
 import { patients } from './patient'
-
+import { assessmentList } from './assessmentList'
+ 
 const doctorIds = patients.map(patient => patient.doctorId)
 const total = doctorIds.length
 const assessments = []
@@ -32,6 +33,8 @@ for (const doctorId of doctorIds) {
   })
 }
 
+
+
 // 获取最新筛查评估
 const assessmentLatest = options => {
   const queryParameters = getQueryParameters(options) || {}
@@ -45,6 +48,14 @@ const assessmentDetail = options => {
   const queryParameters = getQueryParameters(options) || {}
   const id = queryParameters.id
   const assessment = assessments.filter(assessment => assessment.id === id)[0]
+  return builder(assessment, '请求成功', 200)
+}
+
+// 获得各种评估问卷
+const assessmentForm = options => {
+  const queryParameters = getQueryParameters(options) || {}
+  const id = queryParameters.id
+  const assessment = assessmentList
   return builder(assessment, '请求成功', 200)
 }
 
@@ -107,5 +118,6 @@ const assessmentAssess = options => {
 
 Mock.mock(/\/api\/assessment\/latest/, 'get', assessmentLatest)
 Mock.mock(/\/api\/assessment\/detail/, 'get', assessmentDetail)
+Mock.mock(/\/api\/patient\/getAssessmentForm/, 'post', assessmentForm)
 Mock.mock(/\/api\/assessment\/all/, 'get', assessmentAll)
 Mock.mock(/\/api\/assessment\/assess/, 'get', assessmentAssess)

@@ -28,6 +28,14 @@ export function assessmentDetail(data, search) {
   })
 }
 
+export function assessmentForm(data, search) {
+  return axios({
+    url: `${api.assessmentForm}${search ? '?' + searchParasToString(search) : ''}`,
+    method: 'post',
+    data: data,
+  })
+}
+
 export function assessmentAssess(data, search) {
   return axios({
     url: `${api.assessmentAssess}${search ? '?' + searchParasToString(search) : ''}`,

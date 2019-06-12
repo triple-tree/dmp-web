@@ -20,6 +20,7 @@ const api = {
   assessmentLatest: '/api/assessment/latest',
   assessmentAll: '/api/assessment/all',
   assessmentDetail: '/api/assessment/detail',
+  assessmentForm: '/api/patient/getAssessmentForm',
   assessmentAssess: '/api/assessment/assess',
   // 健康管理方案
   planAll: '/api/plan/all',
