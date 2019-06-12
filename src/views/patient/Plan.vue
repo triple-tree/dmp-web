@@ -53,20 +53,20 @@
       </a-row> -->
       <h3>该患者主要健康状况如下</h3>
       <a-row :gutter="8" class="ass-item">
-          <a-col :span="6">
-            慢病综合风险 — <em>高危</em>
-          </a-col>
-          <a-col :span="6">
-            高血压风险 — <em>高危</em>
-          </a-col>
-          <a-col :span="6">
-            焦虑评估 — <em>高危</em>
-          </a-col>
+        <a-col :span="6">
+          慢病综合风险 — <em>高危</em>
+        </a-col>
+        <a-col :span="6">
+          高血压风险 — <em>高危</em>
+        </a-col>
+        <a-col :span="6">
+          焦虑评估 — <em>高危</em>
+        </a-col>
       </a-row>
-      <a-row :gutter="8"  class="ass-item">
-          <a-col :span="6">
-            主要危险因子：<em>吸烟</em>
-          </a-col>
+      <a-row :gutter="8" class="ass-item">
+        <a-col :span="6">
+          主要危险因子：<em>吸烟</em>
+        </a-col>
       </a-row>
       <h3>处方</h3>
       <a-row :gutter="8" v-for="(k, index) in form.getFieldValue('prescriptions')" :key="k">

@@ -1,3 +1,5 @@
+import Vue from 'vue'
+import { ROUTERS } from '@/store/mutation-types'
 import { asyncRouterMap, constantRouterMap } from '@/config/router.config'
 
 /**
@@ -51,12 +53,14 @@ function filterAsyncRouter(routerMap, roles) {
 }
 
 const permission = {
+  // namespaced: true,
   state: {
     routers: constantRouterMap,
     addRouters: [],
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
+      console.info(`SET_ROUTERS`)
       state.addRouters = routers
       state.routers = constantRouterMap.concat(routers)
     },
@@ -67,6 +71,7 @@ const permission = {
         const { roles } = data
         const accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         commit('SET_ROUTERS', accessedRouters)
+        Vue.ls.set(ROUTERS, accessedRouters, 7 * 24 * 60 * 60 * 1000)
         resolve()
       })
     },

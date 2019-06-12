@@ -182,7 +182,6 @@
   </div>
 </template>
 
-
 <script>
 import Vue from 'vue'
 import Component, { mixins } from 'vue-class-component'

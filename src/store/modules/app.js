@@ -13,6 +13,7 @@ import {
 } from '@/store/mutation-types'
 
 const app = {
+  // namespaced: true,
   state: {
     sidebar: true,
     device: 'desktop',
@@ -31,7 +32,7 @@ const app = {
       state.sidebar = type
       Vue.ls.set(SIDEBAR_TYPE, type)
     },
-    CLOSE_SIDEBAR: (state) => {
+    CLOSE_SIDEBAR: state => {
       Vue.ls.set(SIDEBAR_TYPE, true)
       state.sidebar = false
     },

@@ -42,11 +42,11 @@
             </a-input>
           </a-form-item>
 
-          <a-form-item label="用户类型">
+          <a-form-item label="用户类型" has-feedback>
             <a-select
               v-decorator="[
                 'usertype',
-                {initialValue: 'doctor', rules: [{ required: true, message: '请选择用户类型' }], validateTrigger: 'blur'}
+                {initialValue: 'doctor', rules: [{ required: true, message: '请选择用户类型' }]}
               ]"
             >
               <a-select-option value="doctor">医生</a-select-option>
@@ -136,7 +136,8 @@ export default {
 
       state.loginBtn = true
 
-      const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
+      const validateFieldsKey =
+        customActiveKey === 'tab1' ? ['username', 'password', 'usertype'] : ['mobile', 'captcha']
 
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
@@ -145,7 +146,7 @@ export default {
           delete loginParams.username
           loginParams[!state.loginType ? 'email' : 'username'] = values.username
           loginParams.password = md5(values.password)
-          loginParams.usertype = md5(values.usertype)
+          loginParams.usertype = values.usertype
           Login(loginParams)
             .then(res => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))
@@ -159,57 +160,9 @@ export default {
         }
       })
     },
-    getCaptcha(e) {
-      e.preventDefault()
-      const {
-        form: { validateFields },
-        state,
-      } = this
-
-      validateFields(['mobile'], { force: true }, (err, values) => {
-        if (!err) {
-          state.smsSendBtn = true
-
-          const interval = window.setInterval(() => {
-            if (state.time-- <= 0) {
-              state.time = 60
-              state.smsSendBtn = false
-              window.clearInterval(interval)
-            }
-          }, 1000)
-
-          const hide = this.$message.loading('验证码发送中..', 0)
-          getSmsCaptcha({ mobile: values.mobile })
-            .then(res => {
-              setTimeout(hide, 2500)
-              this.$notification['success']({
-                message: '提示',
-                description: '验证码获取成功，您的验证码为：' + res.data.captcha,
-                duration: 8,
-              })
-            })
-            .catch(err => {
-              setTimeout(hide, 1)
-              clearInterval(interval)
-              state.time = 60
-              state.smsSendBtn = false
-              this.requestFailed(err)
-            })
-        }
-      })
-    },
-    stepCaptchaSuccess() {
-      this.loginSuccess()
-    },
-    stepCaptchaCancel() {
-      this.Logout().then(() => {
-        this.loginBtn = false
-        this.stepCaptchaVisible = false
-      })
-    },
     loginSuccess(res) {
       console.log(res)
-      this.$router.push({ name: 'dashboard' })
+      this.$router.push({ name: 'stats' })
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {
         this.$notification.success({

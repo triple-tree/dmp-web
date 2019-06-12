@@ -68,7 +68,7 @@
           <a-col :md="24" :sm="24">
             <a-form-item label="用户名">
               <a-input
-                v-decorator="['doctor.username', {rules: [{required: true,  message: '请输入用户名！'}], validateTrigger: ['change', 'blur']}]"
+                v-decorator="['doctor.username', {rules: [{required: true, message: '请输入用户名！'}], validateTrigger: ['change', 'blur']}]"
               />
             </a-form-item>
           </a-col>

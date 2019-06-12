@@ -4,7 +4,7 @@
       <div class="disease-icon">
         <icon-font class="icon-size" :type="iconType"/>
       </div>
-      <div class="name">{{label}}</div>
+      <div class="name">{{ label }}</div>
     </div>
     <div class="status">
       <span :class="{active: isActive('患者')}" v-if="isVisiable(this.collapsed, '患者')">患者</span>
