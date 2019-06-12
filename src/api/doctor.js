@@ -3,6 +3,7 @@ import { axios } from '@/utils/request'
 import { searchParasToString } from '@/utils/helper/url'
 
 export function doctorAll(data, search) {
+  console.info(`doctorAll: data: ${JSON.stringify(data)}, search: ${JSON.stringify(search)}`)
   return axios({
     url: `${api.doctorAll}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',

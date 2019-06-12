@@ -28,7 +28,7 @@ module.exports = {
     ],
   },
 
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     config.resolve.alias
       .set('@$', resolve('src'))
       .set('@api', resolve('src/api'))
@@ -73,7 +73,6 @@ module.exports = {
       less: {
         modifyVars: {
           /* less 变量覆盖，用于自定义 ant design 主题 */
-
           /*
           'primary-color': '#F5222D',
           'link-color': '#F5222D',
@@ -88,14 +87,13 @@ module.exports = {
   devServer: {
     // development server port 8000
     port: 8000,
-    // proxy: {
-    //   '/api': {
-    //     // target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-    //     target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-    //     ws: false,
-    //     changeOrigin: true
-    //   }
-    // }
+    proxy: {
+      '^/api': {
+        target: 'http://222.92.193.134:8080',
+        ws: false,
+        changeOrigin: true,
+      },
+    },
   },
 
   // disable source map in production

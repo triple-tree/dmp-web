@@ -30,20 +30,20 @@ for (const doctorId of doctorIds) {
 // 5.1.1.	所有医生
 const doctorAll = options => {
   const queryParameters = getQueryParameters(options) || {}
-  if (queryParameters && !queryParameters.pageNo) {
-    queryParameters.pageNo = 1
+  if (queryParameters && !queryParameters.page) {
+    queryParameters.page = 1
   }
-  if (queryParameters && !queryParameters.pageSize) {
-    queryParameters.pageSize = 5
+  if (queryParameters && !queryParameters.size) {
+    queryParameters.size = 5
   }
 
   const data = {
     total: doctors.length,
     doctors: doctors.slice(
-      (queryParameters.pageNo - 1) * queryParameters.pageSize,
-      queryParameters.pageNo * queryParameters.pageSize
+      (queryParameters.page - 1) * queryParameters.size,
+      queryParameters.page * queryParameters.size
     ),
-    page: queryParameters.pageNo,
+    page: queryParameters.page,
   }
   return builder(data, '请求成功', 200)
 }

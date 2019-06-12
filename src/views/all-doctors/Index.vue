@@ -59,6 +59,7 @@ import { STable } from '@/components'
 import CreateForm from './modules/CreateForm'
 import { doctorAdd, doctorAll, doctorAudit } from '@/api/doctor'
 import IconFont from '@/components/Icon/index.js'
+import { USER_INFO } from '@/store/mutation-types'
 
 @Component({
   components: {
@@ -105,9 +106,11 @@ export default class extends Vue {
       ],
       loadData: async parameter => {
         const paginationParam = {
-          pageNo: parameter.pageNo,
-          pageSize: parameter.pageSize,
+          page: parameter.pageNo,
+          size: parameter.pageSize,
+          adminId: Vue.ls.get(USER_INFO).data.id,
         }
+        console.info(`doctorAll: paginationParam: ${JSON.stringify(paginationParam)}`)
         const res = await doctorAll(null, paginationParam)
         let doctors = res.data.doctors
         doctors = doctors.map(doctor => ({

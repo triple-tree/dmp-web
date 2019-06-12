@@ -159,20 +159,20 @@ const recordAll = options => {
   const queryParameters = getQueryParameters(options) || {}
   const { patientId } = queryParameters
   const filtedRecords = records.filter(record => record.patientId === patientId)
-  if (queryParameters && !queryParameters.pageNo) {
-    queryParameters.pageNo = 1
+  if (queryParameters && !queryParameters.page) {
+    queryParameters.page = 1
   }
-  if (queryParameters && !queryParameters.pageSize) {
-    queryParameters.pageSize = 10
+  if (queryParameters && !queryParameters.size) {
+    queryParameters.size = 10
   }
 
   const data = {
     total: filtedRecords.length,
     records: filtedRecords.slice(
-      (queryParameters.pageNo - 1) * queryParameters.pageSize,
-      queryParameters.pageNo * queryParameters.pageSize
+      (queryParameters.page - 1) * queryParameters.size,
+      queryParameters.page * queryParameters.size
     ),
-    page: queryParameters.pageNo,
+    page: queryParameters.page,
   }
   return builder(data, '请求成功', 200)
 }

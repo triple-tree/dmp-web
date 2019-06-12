@@ -33,19 +33,19 @@ export { patients }
 // 3.1.1.	全部患者
 const patientAll = options => {
   const queryParameters = getQueryParameters(options) || {}
-  if (queryParameters && !queryParameters.pageNo) {
-    queryParameters.pageNo = 1
+  if (queryParameters && !queryParameters.page) {
+    queryParameters.page = 1
   }
-  if (queryParameters && !queryParameters.pageSize) {
-    queryParameters.pageSize = 5
+  if (queryParameters && !queryParameters.size) {
+    queryParameters.size = 5
   }
   const data = {
     total: patients.length,
     patients: patients.slice(
-      (queryParameters.pageNo - 1) * queryParameters.pageSize,
-      queryParameters.pageNo * queryParameters.pageSize
+      (queryParameters.page - 1) * queryParameters.size,
+      queryParameters.page * queryParameters.size
     ),
-    page: queryParameters.pageNo,
+    page: queryParameters.page,
   }
   return builder(data, '查询成功', 200)
 }
@@ -61,11 +61,11 @@ const patientQueryById = options => {
 // 3.2.2.	复合条件查询
 const patientQuery = options => {
   const queryParameters = getQueryParameters(options) || {}
-  if (queryParameters && !queryParameters.pageNo) {
-    queryParameters.pageNo = 1
+  if (queryParameters && !queryParameters.page) {
+    queryParameters.page = 1
   }
-  if (queryParameters && !queryParameters.pageSize) {
-    queryParameters.pageSize = 10
+  if (queryParameters && !queryParameters.size) {
+    queryParameters.size = 10
   }
   /**
    * The data structure passed in
@@ -118,10 +118,10 @@ const patientQuery = options => {
   const data = {
     total: filteredPatients.length,
     patients: filteredPatients.slice(
-      (queryParameters.pageNo - 1) * queryParameters.pageSize,
-      queryParameters.pageNo * queryParameters.pageSize
+      (queryParameters.page - 1) * queryParameters.size,
+      queryParameters.page * queryParameters.size
     ),
-    page: queryParameters.pageNo,
+    page: queryParameters.page,
   }
   return builder(data, '查询成功', 200)
 }

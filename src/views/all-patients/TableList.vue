@@ -59,11 +59,13 @@
 </style>
 
 <script>
+import Vue from 'vue'
 import { STable } from '@/components'
 import CreateForm from './modules/CreateForm'
 import { patientAdd, patientQuery } from '@/api/patient'
 import { doctorAll } from '@/api/doctor'
 import IconFont from '@/components/Icon/index.js'
+import { USER_INFO } from '@/store/mutation-types'
 
 const typeOptions = [
   { label: '高血压', value: 'hasHypertension' },
@@ -167,7 +169,7 @@ export default {
           })
         this.queryParam.type &&
           this.queryParam.type.length &&
-          this.queryParam.type.forEach(function (e) {
+          this.queryParam.type.forEach(function(e) {
             params.and.push({
               columnName: e,
               method: 'eq',
@@ -175,13 +177,14 @@ export default {
             })
           })
         const paginationParam = {
-          pageNo: parameter.pageNo,
-          pageSize: parameter.pageSize,
+          page: parameter.pageNo,
+          size: parameter.pageSize,
         }
         const res = await patientQuery(params, paginationParam)
         let patients = res.data.patients
         if (!doctors) {
-          doctors = (await doctorAll(null, { pageNo: 1, pageSize: 10000000 })).data.doctors
+          doctors = (await doctorAll(null, { page: 1, size: 10000000, adminId: Vue.ls.get(USER_INFO).data.id })).data
+            .doctors
         }
         patients = patients.map(patient => ({ ...patient, doctorName: findDoctorName(doctors, patient.doctorId) }))
         return {
@@ -210,7 +213,7 @@ export default {
   },
   filters: {},
   async created() {
-    doctors = (await doctorAll(null, { pageNo: 1, pageSize: 10000000 })).data.doctors
+    doctors = (await doctorAll(null, { page: 1, size: 10000000, adminId: Vue.ls.get(USER_INFO).data.id })).data.doctors
   },
   methods: {
     // handleEdit(record) {

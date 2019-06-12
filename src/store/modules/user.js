@@ -92,6 +92,10 @@ const user = {
         login(userInfo)
           .then(response => {
             const token = response.token
+            console.info(`actions: Login token ${JSON.stringify(token, null, 2)}`)
+            if (!token) {
+              return reject(response.message)
+            }
             Vue.ls.set(ACCESS_TOKEN, token, 7 * 24 * 60 * 60 * 1000)
             commit('SET_TOKEN', token)
             console.info(`actions: Login with ${JSON.stringify(response, null, 2)}`)

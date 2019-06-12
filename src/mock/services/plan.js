@@ -52,17 +52,17 @@ const planDetail = options => {
 // 历史健康方案列表
 const planAll = options => {
   const queryParameters = getQueryParameters(options) || {}
-  if (queryParameters && !queryParameters.pageNo) {
-    queryParameters.pageNo = 1
+  if (queryParameters && !queryParameters.page) {
+    queryParameters.page = 1
   }
-  if (queryParameters && !queryParameters.pageSize) {
-    queryParameters.pageSize = 5
+  if (queryParameters && !queryParameters.size) {
+    queryParameters.size = 5
   }
 
   const data = {
     total: healthPlans.length,
     healthPlans: healthPlans
-      .slice((queryParameters.pageNo - 1) * queryParameters.pageSize, queryParameters.pageNo * queryParameters.pageSize)
+      .slice((queryParameters.page - 1) * queryParameters.size, queryParameters.page * queryParameters.size)
       .map(item => ({
         id: item.id,
         patientId: item.patientId,
@@ -70,7 +70,7 @@ const planAll = options => {
         createDate: item.createDate,
         status: item.createDate,
       })),
-    page: queryParameters.pageNo,
+    page: queryParameters.page,
   }
   return builder(data, '请求成功', 200)
 }

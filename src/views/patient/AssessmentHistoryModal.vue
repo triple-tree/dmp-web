@@ -23,6 +23,7 @@ import { assessmentAll } from '@/api/assessment'
 import { STable } from '@/components'
 import AssessmentDetailModal from './AssessmentDetailModal'
 import { doctorAll } from '@/api/doctor'
+import { USER_INFO } from '@/store/mutation-types'
 
 const columns = [
   {
@@ -62,7 +63,7 @@ const setData = patientId => async parameter => {
   const res = await assessmentAll({ patientId }, { ...parameter })
   let assessments = res.data.assessments
   if (!doctors) {
-    doctors = (await doctorAll(null, { pageNo: 1, pageSize: 10000000 })).data.doctors
+    doctors = (await doctorAll(null, { page: 1, size: 10000000, adminId: Vue.ls.get(USER_INFO).data.id })).data.doctors
   }
   console.info(`assessments: ${JSON.stringify(assessments)}`)
   assessments = assessments.map(assessment => ({
