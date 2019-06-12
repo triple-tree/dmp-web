@@ -35,7 +35,7 @@ export const asyncRouterMap = [
         ],
       },
       {
-        path: '/patient/:id([1-9]\\d*)?',
+        path: '/patient/:id(\\w*)?',
         name: 'patient',
         component: () => import('@/views/patient/Patient'),
         props: true,
