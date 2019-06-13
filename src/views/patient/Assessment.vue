@@ -31,6 +31,7 @@
       </li>
     </ul>
     <assessment-form ref="assessmentForm"></assessment-form>
+    <assessment-five-form ref="assessmentFiveForm"></assessment-five-form>
   </div>
 </template>
 
@@ -39,10 +40,12 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
 import AssessmentForm from './AssessmentForm'
+import AssessmentFiveForm from './AssessmentFiveForm'
 
 const assessmentList = [{
   icon: require('../../assets/assessment/img_11.png'),
   title: '五病综合筛查',
+  type: 'getFive',
   content: '采用指标法判定是否为五病的高危人群，并通过专病症状评估患者的五病风险分层，我们将根据评估的结果给您制定个性化的健康管理方案',
 },
 {
@@ -90,6 +93,7 @@ const assessmentList = [{
 @Component({
   components: {
     AssessmentForm,
+    AssessmentFiveForm
   },
   props: {
   },
@@ -102,7 +106,12 @@ export default class extends Vue {
   }
   async created() {}
   showDetailAssessments(type,id) {
-    this.$refs.assessmentForm.show(type,id)
+    // 五病筛查
+    if(type === 'getFive'){
+      this.$refs.assessmentFiveForm.show()
+    }else{
+      this.$refs.assessmentForm.show(type,id)
+    }
   }
 }
 </script>
