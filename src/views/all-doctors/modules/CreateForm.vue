@@ -11,9 +11,33 @@
       <a-form :form="form" layout="vertical" id="root-container">
         <a-row :gutter="12" type="flex" align="top">
           <a-col :md="24" :sm="24">
+            <a-form-item label="姓名">
+              <a-input
+                v-decorator="['doctor.name', {rules: [{required: true, min: 2, message: '请输入姓名！'}], validateTrigger: ['change', 'blur']}]"
+              />
+            </a-form-item>
+          </a-col>
+          <a-col :md="24" :sm="24">
             <a-form-item label="医院名称">
               <a-input
                 v-decorator="['doctor.hospital', {rules: [{required: true, min: 2, message: '请输入医院名称！'}], validateTrigger: ['change', 'blur']}]"
+              />
+            </a-form-item>
+          </a-col>
+          <a-col :md="24" :sm="24">
+            <a-form-item label="角色">
+              <a-select
+                v-decorator="['doctor.role', {initialValue: 'doctor', rules: [{required: true, message: '请选择性别！'}], validateTrigger: ['change']}]"
+              >
+                <a-select-option value="doctor">医生</a-select-option>
+                <a-select-option value="admin">管理员</a-select-option>
+              </a-select>
+            </a-form-item>
+          </a-col>
+          <a-col :md="24" :sm="24">
+            <a-form-item label="科室">
+              <a-input
+                v-decorator="['doctor.department', {rules: [{required: true, min: 2, message: '请输入科室！'}], validateTrigger: ['change', 'blur']}]"
               />
             </a-form-item>
           </a-col>
@@ -27,31 +51,10 @@
               <a-input v-decorator="['doctor.detailAddress']" placeholder="请输入街道、门牌号等信息"/>
             </a-form-item>
           </a-col>
-          <a-col :md="24" :sm="24">
-            <a-form-item label="姓名">
-              <a-input
-                v-decorator="['doctor.name', {rules: [{required: true, min: 2, message: '请输入姓名！'}], validateTrigger: ['change', 'blur']}]"
-              />
-            </a-form-item>
-          </a-col>
-          <a-col :md="24" :sm="24">
-            <a-form-item label="科室">
-              <a-input
-                v-decorator="['doctor.department', {rules: [{required: true, min: 2, message: '请输入科室！'}], validateTrigger: ['change', 'blur']}]"
-              />
-            </a-form-item>
-          </a-col>
-          <a-col :md="24" :sm="24">
-            <a-form-item label="职务">
-              <a-input
-                v-decorator="['doctor.role', {rules: [{required: true, min: 2, message: '请输入职务！'}], validateTrigger: ['change', 'blur']}]"
-              />
-            </a-form-item>
-          </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item label="性别">
               <a-select
-                v-decorator="['doctor.gender', {rules: [{required: true, message: '请选择性别！'}], validateTrigger: ['change', 'blur']}]"
+                v-decorator="['doctor.gender', {initialValue: '0', rules: [{required: true, message: '请选择性别！'}], validateTrigger: ['change']}]"
               >
                 <a-select-option value="0">男</a-select-option>
                 <a-select-option value="1">女</a-select-option>

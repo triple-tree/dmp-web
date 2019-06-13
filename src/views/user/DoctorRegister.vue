@@ -1,82 +1,70 @@
 <template>
-  <div class="main user-layout-register">
-    <!-- <h2>
-      <span>医生注册页面</span>
-    </h2>-->
-    <a-form ref="formRegister" :form="form" id="formRegister">
-      <a-col class="gutter-row" :span="10">
-        <a-col :md="24" :sm="24">
-          <a-form-item label="医院名称">
-            <a-input
-              size="large"
-              type="text"
-              placeholder="请输入医院名称"
-              v-decorator="['doctor.hospital', {rules: [{required: true, min: 2, message: '请输入医院名称！'}], validateTrigger: ['change', 'blur']}]"
-            />
-          </a-form-item>
-        </a-col>
-        <a-col :md="16" :sm="16">
-          <a-form-item label="患者地址">
-            <a-input
-              size="large"
-              type="text"
-              placeholder="请输入街道、门牌号等信息"
-              v-decorator="['doctor.detailAddress']"
-            />
-          </a-form-item>
-        </a-col>
-        <a-col class="gutter-row" :md="2" :sm="2"></a-col>
-        <a-col :md="6" :sm="6">
-          <a-form-item label="详细地址">
-            <a-input
-              size="large"
-              type="text"
-              placeholder="请输入街道、门牌号等信息"
-              v-decorator="['doctor.detailAddress']"
-            />
-          </a-form-item>
-        </a-col>
+  <div class="main">
+    <a-form :form="form" class="user-layout-login" layout="vertical" id="root-container">
+      <a-row :gutter="12" type="flex" align="top">
         <a-col :md="24" :sm="24">
           <a-form-item label="姓名">
             <a-input
-              size="large"
-              type="text"
-              placeholder="请输入姓名"
               v-decorator="['doctor.name', {rules: [{required: true, min: 2, message: '请输入姓名！'}], validateTrigger: ['change', 'blur']}]"
             />
           </a-form-item>
         </a-col>
         <a-col :md="24" :sm="24">
+          <a-form-item label="医院名称">
+            <a-input
+              v-decorator="['doctor.hospital', {rules: [{required: true, min: 2, message: '请输入医院名称！'}], validateTrigger: ['change', 'blur']}]"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :md="24" :sm="24">
+          <a-form-item label="角色">
+            <a-select
+              v-decorator="['doctor.role', {initialValue: 'doctor', rules: [{required: true, message: '请选择性别！'}], validateTrigger: ['change']}]"
+            >
+              <a-select-option value="doctor">医生</a-select-option>
+              <a-select-option value="admin">管理员</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+        <a-col :md="24" :sm="24">
           <a-form-item label="科室">
             <a-input
-              size="large"
-              type="text"
-              placeholder="请输入科室"
               v-decorator="['doctor.department', {rules: [{required: true, min: 2, message: '请输入科室！'}], validateTrigger: ['change', 'blur']}]"
             />
           </a-form-item>
         </a-col>
+        <a-col :md="16" :sm="24">
+          <a-form-item label="患者地址">
+            <a-cascader :options="city" v-decorator="['temp.add']" placeholder="请选择省-市-区"/>
+          </a-form-item>
+        </a-col>
+        <a-col :md="8" :sm="24">
+          <a-form-item label="详细地址">
+            <a-input v-decorator="['doctor.detailAddress']" placeholder="请输入街道、门牌号等信息"/>
+          </a-form-item>
+        </a-col>
         <a-col :md="24" :sm="24">
-          <a-form-item label="职务">
+          <a-form-item label="性别">
+            <a-select
+              v-decorator="['doctor.gender', {initialValue: '0', rules: [{required: true, message: '请选择性别！'}], validateTrigger: ['change']}]"
+            >
+              <a-select-option value="0">男</a-select-option>
+              <a-select-option value="1">女</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-col>
+        <a-col :md="24" :sm="24">
+          <a-form-item label="手机号">
             <a-input
-              size="large"
-              type="text"
-              placeholder="请输入职务"
-              v-decorator="['doctor.role', {rules: [{required: true, min: 2, message: '请输入职务！'}], validateTrigger: ['change', 'blur']}]"
+              v-decorator="['doctor.phoneNumber', {rules: [{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入正确的手机号' }], validateTrigger: 'change'}]"
             />
           </a-form-item>
         </a-col>
-      </a-col>
-      <a-col class="gutter-row" :span="2"></a-col>
-      <a-col class="gutter-row" :span="10">
         <a-col :md="24" :sm="24">
-          <a-form-item label="邮箱">
+          <a-form-item label="用户名">
             <a-input
-              size="large"
-              type="text"
-              placeholder="请输入邮箱"
-              v-decorator="['email', {rules: [{ required: true, type: 'email', message: '请输入邮箱地址' }], validateTrigger: ['change', 'blur']}]"
-            ></a-input>
+              v-decorator="['doctor.username', {rules: [{required: true, message: '请输入用户名！'}], validateTrigger: ['change', 'blur']}]"
+            />
           </a-form-item>
         </a-col>
         <a-col :md="24" :sm="24">
@@ -101,83 +89,23 @@
               <a-input
                 size="large"
                 type="password"
+                @blur="handlePasswordInputBlur"
                 @click="handlePasswordInputClick"
                 autocomplete="false"
                 placeholder="至少6位密码，区分大小写"
-                v-decorator="['password', {rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }], validateTrigger: ['change', 'blur']}]"
+                v-decorator="['doctor.password', {rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }], validateTrigger: ['change', 'blur']}]"
               ></a-input>
             </a-form-item>
           </a-popover>
         </a-col>
-        <a-col :md="24" :sm="24">
-          <a-form-item label="确认密码">
-            <a-input
-              size="large"
-              type="password"
-              autocomplete="false"
-              placeholder="请确认密码"
-              v-decorator="['password2', {rules: [{ required: true, message: '至少6位密码，区分大小写' }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}]"
-            ></a-input>
-          </a-form-item>
+        <a-col :md="24" :sm="24" style="text-align:center">
+          <a-button class="register-button" type="primary" size="large" @click="handleSubmit">确定</a-button>
         </a-col>
-        <a-col :md="24" :sm="24">
-          <a-form-item label="手机号码">
-            <a-input
-              size="large"
-              placeholder="请输入11位手机号"
-              v-decorator="['mobile', {rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }]"
-            >
-              <a-select slot="addonBefore" size="large" defaultValue="+86">
-                <a-select-option value="+86">+86</a-select-option>
-                <a-select-option value="+87">+87</a-select-option>
-              </a-select>
-            </a-input>
-          </a-form-item>
-        </a-col>
+      </a-row>
 
-        <a-col class="gutter-row" :md="16" :sm="16">
-          <a-form-item label="验证码">
-            <a-input
-              size="large"
-              type="text"
-              placeholder="请输入验证码"
-              v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]"
-            >
-              <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-            </a-input>
-          </a-form-item>
-        </a-col>
-        <a-col class="gutter-row" :md="2" :sm="2"></a-col>
-        <a-col class="gutter-row" :md="6" :sm="6">
-          <a-button
-            class="getCaptcha margin-top-38"
-            size="large"
-            :disabled="state.smsSendBtn"
-            @click.stop.prevent="getCaptcha"
-            v-text="!state.smsSendBtn && '获取验证码'||(state.time+' s')"
-          ></a-button>
-        </a-col>
-      </a-col>
-      <a-col class="gutter-row" :md="24" :sm="24">
-        <a-form-item>
-          <a-col class="gutter-row" :md="4" :sm="4"></a-col>
-          <a-col class="gutter-row" :md="4" :sm="4">
-            <a-button
-              size="large"
-              type="primary"
-              htmlType="submit"
-              class="register-button"
-              :loading="registerBtn"
-              @click.stop.prevent="handleSubmit"
-              :disabled="registerBtn"
-            >注册</a-button>
-          </a-col>
-          <a-col class="gutter-row" :md="4" :sm="4"></a-col>
-          <a-col class="gutter-row" :md="12" :sm="12">
-            <router-link class="login" :to="{ name: 'login' }">使用已有账户登录</router-link>
-          </a-col>
-        </a-form-item>
-      </a-col>
+      <div class="user-register-other">
+        <router-link class="login" :to="{ name: 'login' }">登陆账户</router-link>
+      </div>
     </a-form>
   </div>
 </template>
@@ -188,6 +116,7 @@ import Component, { mixins } from 'vue-class-component'
 import ImageCheckbox from '@/components/ImageCheckbox'
 import City from '@/api/city'
 import { mixinDevice } from '@/utils/mixin.js'
+import { register } from '@/api/login'
 
 const levelNames = {
   0: '低',
@@ -233,8 +162,6 @@ export default class extends mixins(mixinDevice) {
         xs: { span: 24 },
         sm: { span: 15 },
       },
-      visible: false,
-      confirmLoading: false,
       symptomCheck: [],
       form: this.$form.createForm(this),
       city: City,
@@ -248,9 +175,8 @@ export default class extends mixins(mixinDevice) {
     const {
       form: { validateFields },
     } = this
-    this.confirmLoading = true
     const self = this
-    validateFields((errors, values) => {
+    validateFields(async (errors, values) => {
       if (!errors) {
         const doctor = {
           ...values.doctor,
@@ -258,19 +184,16 @@ export default class extends mixins(mixinDevice) {
           city: (values.temp.add.length && values.temp.add[1]) || '',
           county: (values.temp.add.length && values.temp.add[2]) || '',
         }
-        setTimeout(() => {
-          this.visible = false
-          this.confirmLoading = false
-          console.info(`add doctor data is ${JSON.stringify(doctor)}`)
-          this.$emit('ok', doctor)
-        }, 1500)
-      } else {
-        this.confirmLoading = false
+        // register doctor
+        const res = await register(doctor)
+        if (res.code === 200) {
+          this.$message.success(res.message)
+          this.$router.push({ path: `/user/login` })
+        } else {
+          this.$message.error('注册发生错误！')
+        }
       }
     })
-  }
-  handleCancel() {
-    this.visible = false
   }
 
   handlePasswordLevel(rule, value, callback) {
@@ -349,7 +272,6 @@ export default class extends mixins(mixinDevice) {
 
 <style lang="less" scoped>
 .main {
-  width: 1200px !important;
   #root-container /deep/ .ant-form-item {
     padding-bottom: 0px;
   }
@@ -360,6 +282,19 @@ export default class extends mixins(mixinDevice) {
 
   .margin-top-38 {
     margin-top: 38px;
+  }
+
+  .register-button {
+    padding: 0 15px;
+    font-size: 16px;
+    height: 40px;
+    width: 100%;
+  }
+
+  .user-register-other {
+    text-align: right;
+    margin-top: 24px;
+    line-height: 22px;
   }
 }
 </style>

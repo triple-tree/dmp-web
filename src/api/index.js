@@ -1,5 +1,6 @@
 const api = {
   Login: '/api/login',
+  Register: '/api/register',
   Logout: '/api/logout',
   // 全部病人
   patientAll: '/api/patient/all',
@@ -34,7 +35,6 @@ const api = {
   doctorSelectDoctorByName: '/api/doctor/selectDoctorByName/',
   // 其他
   ForgePassword: '/auth/forge-password',
-  Register: '/doctor/register',
   twoStepCode: '/auth/2step-code',
   SendSms: '/account/sms',
   SendSmsErr: '/account/sms_err',

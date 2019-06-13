@@ -28,6 +28,7 @@
               icon="check"
               type="primary"
               style="margin-left: 8px"
+              :disabled="record.status === 1"
               @click="accept(record.id)"
             >通过审核</a-button>
           </a-col>
@@ -36,6 +37,7 @@
               icon="close"
               type="danger"
               style="margin-left: 8px"
+              :disabled="record.status === 0"
               @click="reject(record.id)"
             >拒接审核</a-button>
           </a-col>
