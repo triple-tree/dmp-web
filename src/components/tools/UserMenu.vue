@@ -11,7 +11,8 @@
       -->
       <a-dropdown>
         <span class="action ant-dropdown-link user-dropdown-menu">
-          <a-avatar class="avatar" size="small" :src="avatar()"/>
+          <!-- <a-avatar class="avatar" size="small" :src="avatar()"/> -->
+          <icon-font type="icon_doctor" :style="{fontSize: '28px'}" />
           <span>{{ nickname() }}</span>
         </span>
         <a-menu slot="overlay" class="user-dropdown-menu-wrapper">
@@ -49,11 +50,13 @@
 <script>
 import NoticeIcon from '@/components/NoticeIcon'
 import { mapActions, mapGetters } from 'vuex'
+import IconFont from '@/components/Icon/index'
 
 export default {
   name: 'UserMenu',
   components: {
     NoticeIcon,
+    IconFont
   },
   methods: {
     ...mapActions(['Logout']),

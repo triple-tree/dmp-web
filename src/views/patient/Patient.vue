@@ -16,7 +16,7 @@
           />
         </a-layout-header>
         <div class="patient-basic-info">
-          <h1>{{ model.name }}</h1>
+          <h1><icon-font type="icon_patient" :style="{fontSize: '28px', marginRight: '10px'}" />{{ model.name }}</h1>
           <div :style="{ marginBottom:'30px'}">
             <span class="gender">{{ model.gender ? '女': '男' }}</span>
             <span class="age">{{ model.age }}</span>
@@ -110,6 +110,7 @@ import ChronicDiseaseStatus from '@/components/ChronicDiseaseStatus'
 
 import { patientGetById } from '@/api/patient'
 import { assessmentLatest } from '@/api/assessment'
+import IconFont from '@/components/Icon/index'
 
 @Component({
   components: {
@@ -117,6 +118,7 @@ import { assessmentLatest } from '@/api/assessment'
     Assessment,
     Plan,
     ChronicDiseaseStatus,
+    IconFont
   },
   props: {
     id: String,
