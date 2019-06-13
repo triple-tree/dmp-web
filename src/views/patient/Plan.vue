@@ -51,7 +51,7 @@
           <a-icon type="plus"/>添加评估
         </a-button>
       </a-row> -->
-      <h3>该患者主要健康状况如下</h3>
+      <h3>该患者主要健康状况评估结果如下：</h3>
       <a-row :gutter="8" class="ass-item">
         <a-col :span="6">
           慢病综合风险 — <em>高危</em>
@@ -63,12 +63,11 @@
           焦虑评估 — <em>高危</em>
         </a-col>
       </a-row>
+      <h3>主要危险因子：</h3>
       <a-row :gutter="8" class="ass-item">
-        <a-col :span="6">
-          主要危险因子：<em>吸烟</em>
-        </a-col>
+        <em>吸烟</em>
       </a-row>
-      <h3>处方</h3>
+      <h3>处方建议</h3>
       <a-row :gutter="8" v-for="(k, index) in form.getFieldValue('prescriptions')" :key="k">
         <a-col :span="7">
           <a-form-item
@@ -147,15 +146,15 @@
       </a-row>
       <a-row :gutter="8">
         <a-button type="dashed" block @click="add('prescriptions')">
-          <a-icon type="plus"/>添加处方
+          <a-icon type="plus"/>添加处方建议
         </a-button>
       </a-row>
 
-      <h3>运动</h3>
+      <h3>运动建议</h3>
       <a-row :gutter="8" v-for="(k) in form.getFieldValue('sports')" :key="k">
         <a-col :span="7">
           <a-form-item
-            label="运动"
+            label="运动类型"
             :label-col="formItemLayout.labelCol"
             :wrapper-col="formItemLayout.wrapperCol"
           >
@@ -170,31 +169,31 @@
         </a-col>
         <a-col :span="5">
           <a-form-item
-            label="频次"
+            label="运动频次"
             :label-col="formItemLayout.labelCol"
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
               v-decorator="[
                 's-frequency',
-                {rules: [{ initialValue: '', required: true, message: '请输入频次' }]}
+                {rules: [{ initialValue: '', required: true, message: '请输入运动频次' }]}
               ]"
-              placeholder="输入频次"
+              placeholder="输入运动频次"
             />
           </a-form-item>
         </a-col>
         <a-col :span="5">
           <a-form-item
-            label="剂量"
+            label="运动强度"
             :label-col="formItemLayout.labelCol"
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
               v-decorator="[
                 's-dosage',
-                {rules: [{ initialValue: '', required: true, message: '请输入剂量' }]}
+                {rules: [{ initialValue: '', required: true, message: '请输入运动强度' }]}
               ]"
-              placeholder="输入剂量"
+              placeholder="输入运动强度"
             />
           </a-form-item>
         </a-col>
@@ -230,7 +229,7 @@
       </a-row>
       <a-row :gutter="8">
         <a-button type="dashed" block @click="add('sports')">
-          <a-icon type="plus"/>添加运动
+          <a-icon type="plus"/>添加运动建议
         </a-button>
       </a-row>
 

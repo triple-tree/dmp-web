@@ -8,7 +8,7 @@
             <span class="title">国卫健康慢病管理平台</span>
           </a>
         </div>
-        <div class="desc">为您提供更加专业化、个性化和科学化的服务工作</div>
+        <div class="desc">为您提供更加专业化、个性化的慢病管理服务</div>
       </div>
 
       <route-view></route-view>
@@ -19,7 +19,7 @@
           <a href="_self">隐私</a>
           <a href="_self">条款</a>
         </div>-->
-        <div class="copyright">国卫健康大数据（中关村研究院）</div>
+        <div class="copyright">国卫健康大数据（中关村）研究院</div>
       </div>
     </div>
   </div>
