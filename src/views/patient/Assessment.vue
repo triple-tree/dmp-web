@@ -109,7 +109,6 @@ export default class extends Vue {
   }
   async created() {}
   showDetailAssessments(type,assessmentId) {
-    console.log("------",this.id)
     // 五病筛查
     if(type === 'getFive'){
       this.$refs.assessmentFiveForm.show(this.id)
@@ -129,7 +128,7 @@ export default class extends Vue {
 .ass-list,
 .item-list{
   margin: 0;
-  padding: 0;
+  padding: 0; 
 }
 .ass-list li,
 .item-list li{
