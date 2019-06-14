@@ -31,7 +31,7 @@
       </li>
     </ul>
     <assessment-form ref="assessmentForm"></assessment-form>
-    <assessment-five-form ref="assessmentFiveForm"></assessment-five-form>
+    <assessment-five-form ref="assessmentFiveForm" @back="handleFeedback"></assessment-five-form>
   </div>
 </template>
 
@@ -47,6 +47,8 @@ const assessmentList = [{
   title: '五病综合筛查',
   type: 'getFive',
   content: '采用指标法判定是否为五病的高危人群，并通过专病症状评估患者的五病风险分层，我们将根据评估的结果给您制定个性化的健康管理方案',
+  result: '',
+  date: ''
 },
 {
   icon: require('../../assets/assessment/img_1.png'),
@@ -114,6 +116,11 @@ export default class extends Vue {
     }else{
       this.$refs.assessmentForm.show(type,assessmentId)
     }
+  }
+  handleFeedback(risk,date){
+    //五病综合筛查
+    this.assessmentList[0].result = risk
+    this.assessmentList[0].date = date
   }
 }
 </script>

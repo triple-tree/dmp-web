@@ -214,7 +214,7 @@
         </a-collapse>
       </a-form>
     </a-spin>
-    <assessment-detail-modal ref="resultForm"></assessment-detail-modal>
+    <assessment-detail-modal ref="resultForm" @back="handleFeedback"></assessment-detail-modal>
   </a-modal>
 </template>
 
@@ -294,6 +294,9 @@ export default class AssessmentFiveForm extends Vue {
   handleCancel() {
     this.form.resetFields()
     this.visible = false
+  }
+  handleFeedback(risk,date){
+    this.$emit('back',risk,date)
   }
 }
 </script>
