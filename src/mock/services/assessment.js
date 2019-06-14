@@ -13,22 +13,22 @@ for (const doctorId of doctorIds) {
     doctorId: doctorId,
     assessmentDate: Random.date('yyyy-MM-dd'),
     chronicDiseaseRisk: Mock.mock({
-      'status|1': ['患者', '一般群众', '高危', '不详'],
+      'status|1': ['患者', '一般群众', '低危',  '高危', '不详'],
     }).status,
     diabetesRisk: Mock.mock({
-      'status|1': ['患者', '一般群众', '高危', '不详'],
+      'status|1': ['患者', '一般群众', '低危',  '高危', '不详'],
     }).status,
     hypertensionRisk: Mock.mock({
-      'status|1': ['患者', '一般群众', '高危', '不详'],
+      'status|1': ['患者', '一般群众', '低危',  '高危', '不详'],
     }).status,
     strokeRisk: Mock.mock({
-      'status|1': ['患者', '一般群众', '高危', '不详'],
+      'status|1': ['患者', '一般群众', '低危',  '高危', '不详'],
     }).status,
     ascvdRisk: Mock.mock({
-      'status|1': ['患者', '一般群众', '高危', '不详'],
+      'status|1': ['患者', '一般群众', '低危',  '高危', '不详'],
     }).status,
     copdRisk: Mock.mock({
-      'status|1': ['患者', '一般群众', '高危', '不详'],
+      'status|1': ['患者', '一般群众', '低危',  '高危', '不详'],
     }).status,
   })
 }

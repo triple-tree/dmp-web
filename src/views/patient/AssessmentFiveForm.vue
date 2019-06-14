@@ -19,6 +19,7 @@
               :wrapper-col="formItemLayout.wrapperCol">
               <a-input
                 v-decorator="['factors.height', {rules: [{required: true, message: '请输入身高！'}]}]"
+                type="number"
                 placeholder="请输入身高"
                 addonAfter="CM"/>
             </a-form-item>
@@ -29,6 +30,7 @@
               <a-input
                 v-decorator="['factors.weight', {rules: [{required: true, message: '请输入体重'}]}]"
                 placeholder="请输入体重"
+                type="number"
                 addonAfter="KG"/>
             </a-form-item>
             <a-form-item
@@ -38,6 +40,7 @@
               <a-input
                 v-decorator="['factors.waistline', {rules: [{required: true, message: '请输入腰围'}]}]"
                 placeholder="请输入腰围"
+                type="number"
                 addonAfter="CM"/>
             </a-form-item>
             <a-form-item label="是否吸烟">
@@ -56,6 +59,7 @@
               <a-input
                 v-decorator="['factors.sbp', {rules: [{required: true, message: '请输入收缩压！'}]}]"
                 placeholder="请输入收缩压"
+                type="number"
                 addonAfter="mmHg"/>
             </a-form-item>
             <a-form-item
@@ -65,6 +69,7 @@
               <a-input
                 v-decorator="['factors.dbp', {rules: [{required: true, message: '请输入舒张压'}]}]"
                 placeholder="请输入舒张压"
+                type="number"
                 addonAfter="mmHg"/>
             </a-form-item>
             <a-form-item
@@ -74,6 +79,7 @@
               <a-input
                 v-decorator="['factors.fbg', {rules: [{required: true, message: '请输入空腹血糖'}]}]"
                 placeholder="请输入空腹血糖"
+                type="number"
                 addonAfter="mmol/L"/>
             </a-form-item>
             <a-form-item
@@ -83,6 +89,7 @@
               <a-input
                 v-decorator="['factors.serumTc', {rules: [{required: true, message: '请输入血清总胆固醇'}]}]"
                 placeholder="请输入血清总胆固醇"
+                type="number"
                 addonAfter="mmol/L"/>
             </a-form-item>
           </a-collapse-panel>
@@ -217,6 +224,7 @@ import Component from 'vue-class-component'
 import { statsAll, statsPatients, statsPlans } from '@/api/stats'
 import pick from 'lodash.pick'
 import AssessmentDetailModal from './AssessmentDetailModal'
+import { USER_INFO } from '@/store/mutation-types'
 
 @Component({
   components: {
@@ -231,7 +239,7 @@ export default class AssessmentFiveForm extends Vue {
       confirmLoading: false,
       model: {},
       patientId:'',
-      doctorId: 'b80c338df2974b58aaf9b51c351169e5',
+      doctorId: '',
       form: this.$form.createForm(this),
       customStyle: 'fontSize:18px',
       activeKey: ['1','2','3','4','5'],
@@ -254,6 +262,7 @@ export default class AssessmentFiveForm extends Vue {
     this.form.resetFields()
     this.visible = true
     this.patientId = id
+    this.doctorId = Vue.ls.get(USER_INFO).data.id
   }
   handleOk() {
     const { form: { validateFields } } = this
@@ -262,8 +271,15 @@ export default class AssessmentFiveForm extends Vue {
     validateFields((errors, values) => {
       if (!errors) {
         // delete values.temp
-        values.patientId= this.patientId;
-        values.doctorId= this.doctorId;
+        values.patientId= this.patientId
+        values.doctorId= this.doctorId
+        values.weight = +values.weight
+        values.height = +values.height
+        values.waistline = +values.waistline
+        values.fbg = +values.fbg
+        values.sbp = +values.sbp
+        values.dbp = +values.dbp
+        values.serumTc = +values.serumTc
         console.log('values', values)
         setTimeout(() => {
           this.visible = false

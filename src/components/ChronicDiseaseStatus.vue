@@ -8,6 +8,7 @@
     </div>
     <div class="status">
       <span :class="{active: isActive('患者')}" v-if="isVisiable(this.collapsed, '患者')">患者</span>
+      <span :class="{active: isActive('低危')}" v-if="isVisiable(this.collapsed, '低危')">低危</span>
       <span :class="{active: isActive('高危')}" v-if="isVisiable(this.collapsed, '高危')">高危</span>
       <span :class="{active: isActive('一般群众')}" v-if="isVisiable(this.collapsed, '一般群众')">一般群众</span>
       <span :class="{active: isActive('不详')}" v-if="isVisiable(this.collapsed, '不详')">不详</span>
