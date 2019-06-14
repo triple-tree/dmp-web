@@ -51,7 +51,7 @@ const assessmentList = [{
   icon: require('../../assets/assessment/img_2.png'),
   title: '生活质量评估',
   content: '旨在通过询问您对自己健康状况的看法、您的感觉如何以及您进行日常生活的能力如何来评估您的生活质量综合状况，我们将根据您的评分情况对您进行个体化的中西医指导',
-  result: '高危',
+  result: '您的得分为71分，低于平均值',
   date: '2019-06-03',
 }, {
   icon: require('../../assets/assessment/img_3.png'),

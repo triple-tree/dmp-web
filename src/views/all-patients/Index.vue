@@ -33,7 +33,7 @@
               @change="handleUploadChange"
             >
               <a-button>
-                <a-icon type="upload"/>上传患者CSV数据文件
+                <a-icon type="upload"/>患者批量导入
               </a-button>
             </a-upload>
           </a-col>
