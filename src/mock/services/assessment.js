@@ -33,8 +33,6 @@ for (const doctorId of doctorIds) {
   })
 }
 
-
-
 // 获取最新筛查评估
 const assessmentLatest = options => {
   const queryParameters = getQueryParameters(options) || {}
@@ -82,42 +80,42 @@ const assessmentAll = options => {
 
 // 筛查评估
 const assessmentAssess = options => {
-  const data = {
-    id: Random.id(),
-    patientId: Random.id(),
-    doctorId: Random.id(),
-    assessmentDate: Random.date('yyyy-MM-dd'),
-    chronicDiseaseRisk: () =>
-      Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详'],
-      }).status,
-    diabetesRisk: () =>
-      Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详'],
-      }).status,
-    hypertensionRisk: () =>
-      Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详'],
-      }).status,
-    strokeRisk: () =>
-      Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详'],
-      }).status,
-    ascvdRisk: () =>
-      Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详'],
-      }).status,
-    copdRisk: () =>
-      Mock.mock({
-        'status|1': ['患者', '一般群众', '高危', '不详'],
-      }).status,
-  }
-
-  return builder(data, '请求成功', 200)
+  // const data = {
+  //   id: Random.id(),
+  //   patientId: Random.id(),
+  //   doctorId: Random.id(),
+  //   assessmentDate: Random.date('yyyy-MM-dd'),
+  //   chronicDiseaseRisk: () =>
+  //     Mock.mock({
+  //       'status|1': ['患者', '一般群众', '高危', '不详'],
+  //     }).status,
+  //   diabetesRisk: () =>
+  //     Mock.mock({
+  //       'status|1': ['患者', '一般群众', '高危', '不详'],
+  //     }).status,
+  //   hypertensionRisk: () =>
+  //     Mock.mock({
+  //       'status|1': ['患者', '一般群众', '高危', '不详'],
+  //     }).status,
+  //   strokeRisk: () =>
+  //     Mock.mock({
+  //       'status|1': ['患者', '一般群众', '高危', '不详'],
+  //     }).status,
+  //   ascvdRisk: () =>
+  //     Mock.mock({
+  //       'status|1': ['患者', '一般群众', '高危', '不详'],
+  //     }).status,
+  //   copdRisk: () =>
+  //     Mock.mock({
+  //       'status|1': ['患者', '一般群众', '高危', '不详'],
+  //     }).status,
+  // }
+  const assessment = assessments[Random.natural(0, total - 1)]
+  return builder(assessment, '请求成功', 200)
 }
 
 Mock.mock(/\/api\/assessment\/latest/, 'get', assessmentLatest)
 Mock.mock(/\/api\/assessment\/detail/, 'get', assessmentDetail)
 Mock.mock(/\/api\/patient\/getAssessmentForm/, 'post', assessmentForm)
 Mock.mock(/\/api\/assessment\/all/, 'get', assessmentAll)
-Mock.mock(/\/api\/assessment\/assess/, 'get', assessmentAssess)
+Mock.mock(/\/api\/assessment\/assess/, 'post', assessmentAssess)

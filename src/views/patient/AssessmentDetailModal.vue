@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    title="评估筛查详情"
+    title="五病综合筛查详情"
     :width="450"
     :visible="visible"
     :confirmLoading="confirmLoading"
@@ -31,8 +31,9 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { statsAll, statsPatients, statsPlans } from '@/api/stats'
 import pick from 'lodash.pick'
-import { assessmentDetail } from '../../api/assessment'
+import { assessmentAssess } from '../../api/assessment'
 import ChronicDiseaseStatus from '@/components/ChronicDiseaseStatus'
+import { constants } from 'crypto';
 
 @Component({
   components: {
@@ -68,16 +69,16 @@ export default class AssessmentDetailModal extends Vue {
     }
   }
 
-  async setData(id) {
-    const assessment = (await assessmentDetail(null, { id })).data
+  async setData(values) {
+    const assessment = (await assessmentAssess(values)).data
     this.model = { ...this.model, ...assessment }
     console.info(`assessment: ${JSON.stringify(assessment)}, this.model: ${JSON.stringify(this.model)}`)
   }
 
-  async show(id) {
-    console.info(`show assessment: ${id}`)
+  async show(values) {
+    console.info(`show assessment: ${values}`)
     this.visible = true
-    this.setData(id)
+    this.setData(values)
   }
   handleOk() {
     this.visible = false

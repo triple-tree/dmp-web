@@ -96,21 +96,23 @@ const assessmentList = [{
     AssessmentFiveForm
   },
   props: {
+    id: String,
   },
 })
 export default class extends Vue {
   data() {
     return {
-      assessmentList,
+      assessmentList
     }
   }
   async created() {}
-  showDetailAssessments(type,id) {
+  showDetailAssessments(type,assessmentId) {
+    console.log("------",this.id)
     // 五病筛查
     if(type === 'getFive'){
-      this.$refs.assessmentFiveForm.show()
+      this.$refs.assessmentFiveForm.show(this.id)
     }else{
-      this.$refs.assessmentForm.show(type,id)
+      this.$refs.assessmentForm.show(type,assessmentId)
     }
   }
 }
