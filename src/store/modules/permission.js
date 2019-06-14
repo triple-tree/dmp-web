@@ -71,7 +71,7 @@ const permission = {
         const { roles } = data
         const accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         commit('SET_ROUTERS', accessedRouters)
-        Vue.ls.set(ROUTERS, accessedRouters, 7 * 24 * 60 * 60 * 1000)
+        Vue.ls.set(ROUTERS, accessedRouters, 30 * 60 * 1000)
         resolve()
       })
     },
