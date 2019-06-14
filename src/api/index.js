@@ -7,7 +7,9 @@ const api = {
   patientGetById: '/api/patient/getById',
   patientQuery: '/api/patient/query',
   patientAdd: '/api/patient/add',
+  patientUpload: '/api/patient/upload',
   patientGetPatientReport: '/api/patient/getPatientReport',
+  patientSendPlan: '/api/patient/sendPlan',
   // 统计报表
   statsAll: '/api/stats/all',
   statsPatients: '/api/stats/patients',

@@ -24,6 +24,20 @@
             </a-row>
           </a-col>
         </a-row>
+        <a-row>
+          <a-col :md="10" :sm="10">
+            <a-upload
+              name="file"
+              :multiple="true"
+              :customRequest="uploadFile"
+              @change="handleUploadChange"
+            >
+              <a-button>
+                <a-icon type="upload"/>Click to Upload
+              </a-button>
+            </a-upload>
+          </a-col>
+        </a-row>
       </a-form>
     </div>
 
@@ -62,7 +76,7 @@
 import Vue from 'vue'
 import { STable } from '@/components'
 import CreateForm from './modules/CreateForm'
-import { patientAdd, patientQuery } from '@/api/patient'
+import { patientAdd, patientQuery, patientUpload } from '@/api/patient'
 import { doctorAll } from '@/api/doctor'
 import IconFont from '@/components/Icon/index.js'
 import { USER_INFO } from '@/store/mutation-types'
@@ -94,6 +108,7 @@ export default {
   },
   data() {
     return {
+      file: '',
       mdl: {},
       // 查询参数
       queryParam: {},
@@ -217,6 +232,35 @@ export default {
     doctors = (await doctorAll(null, { page: 1, size: 10000000, adminId: Vue.ls.get(USER_INFO).data.id })).data.doctors
   },
   methods: {
+    // handleFileUpload() {
+    //   this.file = this.$refs.file.files[0]
+    //   console.info(`upload file changed with ${this.file}`)
+    // },
+
+    handleUploadChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList)
+      }
+      if (info.file.status === 'done') {
+        this.$refs.table.refresh()
+        this.$message.success(`${info.file.name} 文件上传成功`)
+      } else if (info.file.status === 'error') {
+        this.$message.error(`${info.file.name} 文件上传失败`)
+      }
+    },
+
+    async uploadFile({ filename, file, data, onProgress, onSuccess, onError }) {
+      console.info(`uploadFile ${file}`)
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('doctorId', Vue.ls.get(USER_INFO).data.id)
+      try {
+        const res = await patientUpload(formData)
+        onSuccess(res)
+      } catch (error) {
+        onError(error)
+      }
+    },
     // handleEdit(record) {
     //   this.$router.push({ path: `/patient/${record.id}` })
     // },

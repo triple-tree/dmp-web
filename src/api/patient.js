@@ -36,10 +36,29 @@ export function patientAdd(data, search) {
   })
 }
 
+export function patientUpload(data, search) {
+  return axios({
+    url: `${api.patientUpload}${search ? '?' + searchParasToString(search) : ''}`,
+    method: 'post',
+    data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+}
+
 export function patientGetPatientReport(data, search) {
   return axios({
     url: `${api.patientGetPatientReport}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'get',
+    data,
+  })
+}
+
+export function patientSendPlan(data, search) {
+  return axios({
+    url: `${api.patientSendPlan}${search ? '?' + searchParasToString(search) : ''}`,
+    method: 'post',
     data,
   })
 }
