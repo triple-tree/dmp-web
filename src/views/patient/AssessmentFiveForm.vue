@@ -154,7 +154,7 @@
             </a-form-item>
             <a-form-item label="冠心病">
               <a-radio-group 
-                v-decorator="['factors.familyHistoryAscvd', {rules: [{required: true, message: '请选择！'}]}]">>
+                v-decorator="['factors.familyHistoryAscvd', {rules: [{required: true, message: '请选择！'}]}]">
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
