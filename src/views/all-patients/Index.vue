@@ -10,7 +10,7 @@
           </a-col>
           <a-col :md="6" :sm="24">
             <a-form-item label>
-              <a-input placeholder="id" v-model="queryParam.id"/>
+              <a-input placeholder="请输入待搜索的姓名" v-model="queryParam.name"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
@@ -159,11 +159,11 @@ export default class extends Vue {
         console.log('this.queryParam', this.queryParam)
         const params = {}
         params.and = []
-        !!this.queryParam.id &&
+        !!this.queryParam.name &&
           params.and.push({
-            columnName: 'id',
+            columnName: 'name',
             method: 'eq',
-            value: this.queryParam.id,
+            value: this.queryParam.name,
           })
         this.queryParam.type &&
           this.queryParam.type.length &&
