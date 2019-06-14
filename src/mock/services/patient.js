@@ -123,78 +123,23 @@ const patientQuery = options => {
   return builder(data, '查询成功', 200)
 }
 
-// simple test
-// const data = patientQuery({
-//   body: JSON.stringify({
-//     and: [
-//       {
-//         columnName: 'hasDiabetes',
-//         method: 'eq',
-//         value: 1
-//       },
-//       {
-//         columnName: 'hasAscvd',
-//         method: 'eq',
-//         value: 1
-//       }
-//     ],
-//     page: 1,
-//     size: 2
-//   })
-// })
-// console.info(`data: ${JSON.stringify(data, null, 2)}`)
-
 // 3.3.1.	新建患者
 const patientAdd = options => {
-  /**
-   * The data structure passed in
-  {
-    "patient": {
-        "identityNumber": "411526195904111056",
-        "name": "测试",
-        "gender": "1",
-        "phoneNumber": "13771070311",
-        "doctorId": "b80c338df2974b58aaf9b51c351169e5",
-        "hasDiabetes": 1,
-        "hasHypertension": 0,
-        "hasStroke": 0,
-        "hasAscvd": 0,
-        "hasCopd": 0,
-        "hasDyslipidemia": 0,
-        "province": "河南",
-        "city": "信阳市",
-        "county": "潢川县",
-        "town": "天河街道",
-        "detailAddress": "航空路2号"
-    },
-    "factors": {
-        "familyHistoryDiabetes": 0,
-        "familyHistoryHypertension": 0,
-        "familyHistoryStroke": 0,
-        "familyHistoryAscvd": 0,
-        "familyHistoryCopd": 0,
-        "symptomsHeadache": 0,
-        "symptomsStethalgia": 0,
-        "symptomsDyspnea": 0,
-        "symptomsDiuresis": 0,
-        "symptomsDizziness": 0,
-        "smoke": 0,
-        "sbp": 67,
-        "dbp": 128,
-        "fbg": 4.8,
-        "serumTc": 4.3,
-        "weight": 60.5,
-        "height": 172.1,
-        "waistline": 0
-    }
-  }
-   */
   const body = getBody(options) || {}
   const patient = { ...body.patient, id: Random.id() }
   patients.unshift(patient)
   return builder({ id: patient.id }, '新建患者成功！', 200)
 }
 
+// 3.1.5.	批量导入患者
+const patientUpload = options => {
+  // const queryParameters = getQueryParameters(options) || {}
+  // const doctorId = queryParameters.doctorId
+  // console.info(`patientUpload for doctorId: ${doctorId}`)
+  return builder({}, '导入成功。', 200)
+}
+
+// 3.2.1.	获取患者慢病管理报告
 const patientGetPatientReport = options => {
   const queryParameters = getQueryParameters(options) || {}
   const patientId = queryParameters.patientId
@@ -312,8 +257,18 @@ const patientGetPatientReport = options => {
   return builder(data, '新建患者成功！', 200)
 }
 
+// 3.2.2.	推送患者健康方案
+const patientSendPlan = options => {
+  const queryParameters = getQueryParameters(options) || {}
+  const patientId = queryParameters.patientId
+  console.info(`patientSendPlan for patientId: ${patientId}`)
+  return builder({}, 'SUCCESS', 200)
+}
+
 Mock.mock(/\/api\/patient\/all/, 'get', patientAll)
 Mock.mock(/\/api\/patient\/getById/, 'get', patientGetById)
 Mock.mock(/\/api\/patient\/query/, 'post', patientQuery)
 Mock.mock(/\/api\/patient\/add/, 'post', patientAdd)
+Mock.mock(/\/api\/patient\/upload/, 'post', patientUpload)
 Mock.mock(/\/api\/patient\/getPatientReport/, 'get', patientGetPatientReport)
+Mock.mock(/\/api\/patient\/sendPlan/, 'post', patientSendPlan)
