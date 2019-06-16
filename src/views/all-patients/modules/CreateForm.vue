@@ -45,7 +45,7 @@
           </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item
-              label="患者地址">
+              label="地址">
               <a-cascader :options="city" v-decorator="['temp.add']" placeholder="请选择省-市-区" />
             </a-form-item>
           </a-col>

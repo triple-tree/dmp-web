@@ -10,7 +10,7 @@
           </a-col>
           <a-col :md="6" :sm="24">
             <a-form-item label>
-              <a-input placeholder="id" v-model="queryParam.id"/>
+              <a-input placeholder="请输入待搜索的姓名" v-model="queryParam.name"/>
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
@@ -22,6 +22,20 @@
                 <a-button icon="plus" style="margin-left: 8px" @click="$refs.createModal.add()">添加患者</a-button>
               </a-col>
             </a-row>
+          </a-col>
+        </a-row>
+        <a-row>
+          <a-col :md="10" :sm="10">
+            <a-upload
+              name="file"
+              :multiple="true"
+              :customRequest="uploadFile"
+              @change="handleUploadChange"
+            >
+              <a-button>
+                <a-icon type="upload"/>患者批量导入
+              </a-button>
+            </a-upload>
           </a-col>
         </a-row>
       </a-form>
@@ -41,28 +55,17 @@
       <span slot="status" slot-scope="text">
         <a-badge :status="text | statusTypeFilter" :text="text | statusFilter"/>
       </span>
-
-      <!-- <span slot="action" slot-scope="text, record">
-        <template>
-          <a @click="handleEdit(record)">查看详情</a>
-        </template>
-      </span>-->
     </s-table>
     <create-form ref="createModal" @ok="handleOk"/>
   </a-card>
 </template>
 
-<style scoped>
-.ant-table-body .anticon {
-  font-size: 24px;
-}
-</style>
-
 <script>
 import Vue from 'vue'
+import Component from 'vue-class-component'
 import { STable } from '@/components'
 import CreateForm from './modules/CreateForm'
-import { patientAdd, patientQuery } from '@/api/patient'
+import { patientAdd, patientQuery, patientUpload } from '@/api/patient'
 import { doctorAll } from '@/api/doctor'
 import IconFont from '@/components/Icon/index.js'
 import { USER_INFO } from '@/store/mutation-types'
@@ -85,15 +88,17 @@ const findDoctorName = (doctors, doctorId) => {
   return ''
 }
 
-export default {
-  name: 'Index',
+@Component({
   components: {
     STable,
     CreateForm,
     IconFont,
   },
+})
+export default class extends Vue {
   data() {
     return {
+      file: '',
       mdl: {},
       // 查询参数
       queryParam: {},
@@ -148,24 +153,17 @@ export default {
           dataIndex: 'hasCopd',
           customRender: has => (has ? <icon-font type="icon_copd_red" /> : <icon-font type="icon_copd" />),
         },
-        // {
-        //   title: '操作',
-        //   dataIndex: 'action',
-        //   width: '150px',
-        //   scopedSlots: { customRender: 'action' },
-        // },
       ],
-      // 加载数据方法 必须为 Promise 对象
       loadData: async parameter => {
         console.log('loadData.parameter', parameter)
         console.log('this.queryParam', this.queryParam)
         const params = {}
         params.and = []
-        !!this.queryParam.id &&
+        !!this.queryParam.name &&
           params.and.push({
-            columnName: 'id',
+            columnName: 'name',
             method: 'eq',
-            value: this.queryParam.id,
+            value: this.queryParam.name,
           })
         this.queryParam.type &&
           this.queryParam.type.length &&
@@ -211,28 +209,51 @@ export default {
       },
       optionAlertShow: false,
     }
-  },
-  filters: {},
+  }
+
   async created() {
     doctors = (await doctorAll(null, { page: 1, size: 10000000, adminId: Vue.ls.get(USER_INFO).data.id })).data.doctors
-  },
-  methods: {
-    // handleEdit(record) {
-    //   this.$router.push({ path: `/patient/${record.id}` })
-    // },
-    handleOk(parameter) {
-      const self = this
-      async function addPatient(parameter) {
-        console.log('handleOk.parameter', parameter)
-        const res = await patientAdd(parameter)
-        if (res.code === 200) {
-          self.$message.success('患者创建成功')
-        }
-        self.$refs.table.refresh()
-        console.info(`handleOk res: ${JSON.stringify(res)}`)
-      }
-      addPatient()
-    },
-  },
+  }
+
+  handleUploadChange(info) {
+    if (info.file.status !== 'uploading') {
+      console.log(info.file, info.fileList)
+    }
+    if (info.file.status === 'done') {
+      this.$refs.table.refresh()
+      this.$message.success(`${info.file.name} 文件上传成功`)
+    } else if (info.file.status === 'error') {
+      this.$message.error(`${info.file.name} 文件上传失败`)
+    }
+  }
+
+  async uploadFile({ filename, file, data, onProgress, onSuccess, onError }) {
+    console.info(`uploadFile ${file}`)
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('doctorId', Vue.ls.get(USER_INFO).data.id)
+    try {
+      const res = await patientUpload(formData)
+      onSuccess(res)
+    } catch (error) {
+      onError(error)
+    }
+  }
+
+  async handleOk(parameter) {
+    console.log('handleOk.parameter', parameter)
+    const res = await patientAdd(parameter)
+    if (res.code === 200) {
+      this.$message.success('患者创建成功')
+    }
+    this.$refs.table.refresh()
+    console.info(`handleOk res: ${JSON.stringify(res)}`)
+  }
 }
 </script>
+
+<style scoped>
+.ant-table-body .anticon {
+  font-size: 24px;
+}
+</style>

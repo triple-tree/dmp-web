@@ -96,14 +96,14 @@ const user = {
             if (!token) {
               return reject(response.message)
             }
-            Vue.ls.set(ACCESS_TOKEN, token, 7 * 24 * 60 * 60 * 1000)
+            Vue.ls.set(ACCESS_TOKEN, token, 30 * 60 * 1000)
             commit('SET_TOKEN', token)
             console.info(`actions: Login with ${JSON.stringify(response, null, 2)}`)
             const result = response.data
             // 调整内部数据结构，role、roleId
             result.roleId = result.role
             result.roleId === 'admin' ? (result.role = adminRoleObj) : (result.role = doctorRoleObj)
-            Vue.ls.set(USER_INFO, response, 7 * 24 * 60 * 60 * 1000)
+            Vue.ls.set(USER_INFO, response, 30 * 60 * 1000)
             resolve()
             // if (result.role && result.role.permissions.length > 0) {
             //   const role = result.role

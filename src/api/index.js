@@ -7,7 +7,9 @@ const api = {
   patientGetById: '/api/patient/getById',
   patientQuery: '/api/patient/query',
   patientAdd: '/api/patient/add',
+  patientUpload: '/api/patient/upload',
   patientGetPatientReport: '/api/patient/getPatientReport',
+  patientSendPlan: '/api/patient/sendPlan',
   // 统计报表
   statsAll: '/api/stats/all',
   statsPatients: '/api/stats/patients',
@@ -21,6 +23,7 @@ const api = {
   assessmentLatest: '/api/assessment/latest',
   assessmentAll: '/api/assessment/all',
   assessmentDetail: '/api/assessment/detail',
+  assessmentForm: '/api/patient/getAssessmentForm',
   assessmentAssess: '/api/assessment/assess',
   // 健康管理方案
   planAll: '/api/plan/all',
