@@ -10,41 +10,76 @@
   >
     <a-spin :spinning="confirmLoading">
       <a-form :form="form" layout="vertical">
-        <a-list
-          itemLayout="vertical"
-          :dataSource="listData.questionList"
-        >
-          
-          <a-list-item slot="renderItem" slot-scope="item">
-            <template v-if='type === "getSSY"'>
+        <template v-if='type === "getSSY"'>
+          <a-list
+            itemLayout="vertical"
+            :dataSource="listData.questionList"
+          >
+            <a-list-item slot="renderItem" slot-scope="item">
               <h3>{{item.text}}</h3>
               <a-radio-group 
                 v-if='item.scoringType === "CHOICE_SUM"'>
                 <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id">{{m.text}}</a-radio>
               </a-radio-group>
-            </template>
-            <template v-if='type === "getAscvd"'>
-              <a-form-item
-                :label="item.text"
-                :label-col="formItemLayout.labelCol"
-                :wrapper-col="formItemLayout.wrapperCol">
-                  <a-input v-if='item.type === "TEXT"'/>
-                  <a-input
-                    v-if='item.type === "NUMERIC"'
-                    type="number"/>
-                  <!-- <a-radio-group :options="item.choiceList" /> -->
-                  <a-radio-group 
-                    v-if='item.type === "SINGLE_CHOICE"'>
-                    <a-radio :value="m.value" v-for="m in item.choice" :key="m.id">{{m.text}}</a-radio>
-                  </a-radio-group>
-                  <a-checkbox-group 
-                    v-if='item.scoringType === "MULTIPLE_CHOICE"'>
-                      <a-checkbox :value="m.value" v-for="m in item.choice" :key="m.id">{{m.text}}</a-checkbox>
-                  </a-checkbox-group>
-              </a-form-item>
-            </template>
-          </a-list-item>
-        </a-list>
+            </a-list-item>
+          </a-list>
+        </template>
+        <template v-if='type === "getAscvd"'>
+          <a-collapse v-model="activeKey" :bordered="false">
+            <a-collapse-panel :header="g" :style="customStyle" v-for="g in this.groupName" :key="g.index">
+              <div v-for="item in listData.questionList" :key="item.id">
+                <a-form-item
+                  v-if='item.groupName == g'
+                  :label="item.text+item.munit"
+                  :label-col="formItemLayout.labelCol"
+                  :wrapper-col="formItemLayout.wrapperCol">
+                    <a-input 
+                      v-if='item.type === "TEXT"'
+                      v-decorator="['kvList.'+item.name, {rules: [{required: item.isRequired, message: '请输入'+item.text}]}]"
+                      :placeholder="'请输入'+item.text"/>
+                    <!-- <a-input
+                      v-if='item.type === "NUMERIC"'
+                      type="number"
+                      addonAfter="item.munit"/> -->
+                    <a-row v-if='item.type === "NUMERIC"'>
+                      <a-col :span="20">
+                        <a-slider 
+                          :min="item.range.lbound"
+                          :max="item.range.rbound" 
+                          v-decorator="['kvList.'+item.name, {rules: [{required: item.isRequired, message: '请选择'+item.text}]}]"/>
+                      </a-col>
+                      <a-col :span="4">
+                        <a-input-number
+                          :min="item.range.lbound"
+                          :max="item.range.rbound"
+                          v-decorator="['kvList.'+item.name, {rules: [{required: item.isRequired, message: '请输入'+item.text}]}]"
+                          style="marginLeft: 5px"
+                        />
+                      </a-col>
+                    </a-row>
+                    <a-radio-group 
+                      v-if='item.type === "SINGLE_CHOICE"'
+                      v-decorator="['kvList.'+item.name, {rules: [{required: item.isRequired, message: '请选择'+item.text}]}]">
+                      <a-radio 
+                        v-for="m in item.choice" 
+                        :value="m.value"
+                        :key="m.id"
+                      >{{m.text}}</a-radio>
+                    </a-radio-group>
+                    <a-checkbox-group 
+                      v-if='item.type === "MULTIPLE_CHOICE"'
+                      v-decorator="['kvList.'+item.name, {rules: [{required: item.isRequired, message: '请选择'+item.text}]}]">
+                      <a-checkbox 
+                        v-for="m in item.choice"
+                        :value="m.value"
+                        :key="m.id"
+                      >{{m.text}}</a-checkbox>
+                    </a-checkbox-group>
+                </a-form-item>
+              </div>
+            </a-collapse-panel>
+          </a-collapse>
+        </template>
       </a-form>
     </a-spin>
   </a-modal>
@@ -55,9 +90,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { statsAll, statsPatients, statsPlans } from '@/api/stats'
 import pick from 'lodash.pick'
-import { assessmentForm } from '../../api/assessment'
-import ChronicDiseaseStatus from '@/components/ChronicDiseaseStatus'
-
+import { assessmentForm, ascvdAssessment } from '../../api/assessment'
 
 const listData2 = {
   "name": "糖尿病自我效能评估",
@@ -211,9 +244,7 @@ const listData2 = {
   ]
 }
 @Component({
-  components: {
-    ChronicDiseaseStatus,
-  },
+  components: {},
   props: {},
 })
 export default class AssessmentDetailModal extends Vue {
@@ -221,8 +252,11 @@ export default class AssessmentDetailModal extends Vue {
     return {
       visible: false,
       confirmLoading: false,
+      customStyle: 'fontSize:18px',
       type:'',
       formName: '',
+      groupName: [],
+      activeKey: [],
       //model: {},
       form: this.$form.createForm(this),
       // radioStyle: {
@@ -243,14 +277,40 @@ export default class AssessmentDetailModal extends Vue {
   }
 
   async setData(type,id) {
+    const self = this
+    let j=0
     const assessment = (await assessmentForm({ type, id })).data
     this.type = type
 
     this.listData = { ...this.listData, ...assessment }
     this.listData.questionList = assessment.questionList || assessment.question
-    console.log("this.listData.name---",this.listData.name)
     this.formName = this.type === 'getAscvd' ? this.listData.description : this.listData.name
-    console.info(`assessment: ${JSON.stringify(assessment)}, this.listData: ${JSON.stringify(this.listData)}`)
+    this.listData.questionList.forEach(function(e,i){
+      if(self.type !== 'getAscvd') return
+      if(e.text.indexOf('*') === 0 ){
+        e.text = e.text.substring(1)
+        e.isRequired = true
+      }else{
+        e.isRequired = false
+      }
+      if(e.groupName !='' &&
+         self.groupName.indexOf(e.groupName) === -1
+        ){
+          self.groupName.push(e.groupName)
+          self.activeKey.push(j+'')
+          j++
+      }
+    })
+    console.log("groupName---",this.groupName)
+    console.log("activeKey---",this.activeKey)
+    
+    console.info(`this.listData: ${JSON.stringify(this.listData)}`)
+  }
+  
+  async postData(values) {
+    const res = (await ascvdAssessment(values)).data
+    //this.$emit('back',this.model.chronicDiseaseRisk,this.model.assessmentDate)
+    console.info(`res: ${JSON.stringify(res)}`)
   }
 
   async show(type,id) {
@@ -260,7 +320,29 @@ export default class AssessmentDetailModal extends Vue {
     this.setData(type,id)
   }
   handleOk() {
-    this.visible = false
+    const { form: { validateFields } } = this
+    this.confirmLoading = true
+    const self = this
+    validateFields((errors, values) => {
+      if (!errors) {
+        const initASCVD = [0,0,0,0,0,0,0];
+        // delete values.temp
+        values.age = values.kvList.age
+        values.gender = values.kvList.gender === 1 ? '男' : '女'
+        values.kvList.ASCVD.forEach(function(e){
+          initASCVD[e-1] = 1
+        })
+        values.kvList.ASCVD = initASCVD.join('')
+        console.log('values', values)
+        setTimeout(() => {
+          this.visible = false
+          this.confirmLoading = false
+          this.postData(values)
+        }, 1500)
+      } else {
+        this.confirmLoading = false
+      }
+    })
   }
 
   handleCancel() {
@@ -273,5 +355,8 @@ export default class AssessmentDetailModal extends Vue {
 <style lang="less" scoped>
 .ant-radio-wrapper{
   display: block;
+}
+.ant-checkbox-wrapper + .ant-checkbox-wrapper{
+  margin-left: 0
 }
 </style>
