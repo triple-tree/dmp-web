@@ -11,18 +11,26 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form" layout="vertical">
         <template v-if='type === "getSSY"'>
-          <a-list
+          <!-- <a-list
             itemLayout="vertical"
             :dataSource="listData.questionList"
           >
-            <a-list-item slot="renderItem" slot-scope="item">
+            <a-list-item slot="renderItem" slot-scope="item"> -->
+            <div v-for="item in listData.questionList" :key="item.id">
               <h3>{{item.text}}</h3>
-              <a-radio-group 
-                v-if='item.scoringType === "CHOICE_SUM"'>
-                <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id">{{m.text}}</a-radio>
-              </a-radio-group>
-            </a-list-item>
-          </a-list>
+              <!-- <input type="hidden" v-decorator="['jsonStr.id']"/>
+              <input type="hidden" v-decorator="['jsonStr.name']"/> -->
+              <a-form-item>
+                <a-radio-group 
+                  v-if='item.scoringType === "CHOICE_SUM"'
+                  v-decorator="['aa'+item.id,{rules: [{required: true, message: '请选择'}]}]"
+                >
+                  <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id">{{m.text}}</a-radio>
+                </a-radio-group>
+              </a-form-item>
+            <!-- </a-list-item>
+          </a-list> -->
+          </div>
         </template>
         <template v-if='type === "getAscvd"'>
           <a-collapse v-model="activeKey" :bordered="false">
@@ -252,6 +260,7 @@ export default class AssessmentDetailModal extends Vue {
     return {
       visible: false,
       confirmLoading: false,
+      patientId: '',
       customStyle: 'fontSize:18px',
       type:'',
       formName: '',
@@ -276,12 +285,12 @@ export default class AssessmentDetailModal extends Vue {
     }
   }
 
-  async setData(type,id) {
+  async setData(patientId,type,id) {
     const self = this
     let j=0
     const assessment = (await assessmentForm({ type, id })).data
     this.type = type
-
+    this.patientId = patientId
     this.listData = { ...this.listData, ...assessment }
     this.listData.questionList = assessment.questionList || assessment.question
     this.formName = this.type === 'getAscvd' ? this.listData.description : this.listData.name
@@ -309,15 +318,15 @@ export default class AssessmentDetailModal extends Vue {
   
   async postData(values) {
     const res = (await ascvdAssessment(values)).data
-    //this.$emit('back',this.model.chronicDiseaseRisk,this.model.assessmentDate)
+    this.$emit('back','ascvd',res)
     console.info(`res: ${JSON.stringify(res)}`)
   }
 
-  async show(type,id) {
+  async show(patientId,type,id) {
     console.info(`show assessment: ${type} ${id}`)
     this.form.resetFields()
     this.visible = true
-    this.setData(type,id)
+    this.setData(patientId,type,id)
   }
   handleOk() {
     const { form: { validateFields } } = this
@@ -325,20 +334,30 @@ export default class AssessmentDetailModal extends Vue {
     const self = this
     validateFields((errors, values) => {
       if (!errors) {
-        const initASCVD = [0,0,0,0,0,0,0];
-        // delete values.temp
-        values.age = values.kvList.age
-        values.gender = values.kvList.gender === 1 ? '男' : '女'
-        values.kvList.ASCVD.forEach(function(e){
-          initASCVD[e-1] = 1
-        })
-        values.kvList.ASCVD = initASCVD.join('')
-        console.log('values', values)
-        setTimeout(() => {
-          this.visible = false
-          this.confirmLoading = false
-          this.postData(values)
-        }, 1500)
+        if(this.type === 'getAscvd'){
+          const initASCVD = [0,0,0,0,0,0,0];
+          values.age = values.kvList.age
+          values.gender = values.kvList.gender === 1 ? '男' : '女'
+          values.kvList.ASCVD.forEach(function(e){
+            initASCVD[e-1] = 1
+          })
+          values.kvList.ASCVD = initASCVD.join('')
+          console.log('values', values)
+          setTimeout(() => {
+            this.visible = false
+            this.confirmLoading = false
+            this.postData(values)
+          }, 1500)
+        }else{
+          values.patientId= this.patientId
+         
+          console.log('values', values)
+          // setTimeout(() => {
+          //   this.visible = false
+          //   this.confirmLoading = false
+          //   this.postData(values)
+          // }, 1500)
+        }
       } else {
         this.confirmLoading = false
       }

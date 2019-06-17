@@ -16,10 +16,13 @@
                 <p class="content">{{ item.content }}</p>
                 <p class="result">
                   <a-row type="flex">
-                    <a-col :span="12" v-if="item.result">
+                    <a-col :span="18" v-if="item.result && item.date">
                       评估结果：{{ item.result }}
                     </a-col>
-                    <a-col :span="12" align="right" pull="1" v-if="item.date">
+                    <a-col :span="24" v-if="item.result && !item.date">
+                      评估结果：<span v-html="item.result"></span>
+                    </a-col>
+                    <a-col :span="6" align="right" pull="1" v-if="item.date">
                       {{ item.date }}
                     </a-col>
                   </a-row>
@@ -30,7 +33,7 @@
         </a-row>
       </li>
     </ul>
-    <assessment-form ref="assessmentForm"></assessment-form>
+    <assessment-form ref="assessmentForm" @back="handleFeedback"></assessment-form>
     <assessment-five-form ref="assessmentFiveForm" @back="handleFeedback"></assessment-five-form>
   </div>
 </template>
@@ -56,6 +59,7 @@ const assessmentList = [{
   type: 'getAscvd',
   id: '',
   content: '旨在对您的心脑血管疾病进行评估，已明确您的心脑血管属于高危、中危或低危。可根据您的不同心脑血管疾病风险分层来采取不同的防控措施',
+  result: ''
 }, {
   icon: require('../../assets/assessment/img_2.png'),
   title: '生活质量评估',
@@ -113,13 +117,19 @@ export default class extends Vue {
     if(type === 'getFive'){
       this.$refs.assessmentFiveForm.show(this.id)
     }else{
-      this.$refs.assessmentForm.show(type,assessmentId)
+      this.$refs.assessmentForm.show(this.id,type,assessmentId)
     }
   }
-  handleFeedback(risk,date){
-    //五病综合筛查
-    this.assessmentList[0].result = risk
-    this.assessmentList[0].date = date
+  handleFeedback(type,data){
+    if(type === "five"){
+      //五病综合筛查
+      this.assessmentList[0].result = data.risk
+      this.assessmentList[0].date = data.date
+    }else if(type === "ascvd"){
+      //心脑血管评估
+      this.assessmentList[1].result = data.join('<br>')
+    }
+    
   }
 }
 </script>

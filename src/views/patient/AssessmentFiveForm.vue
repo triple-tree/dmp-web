@@ -295,8 +295,8 @@ export default class AssessmentFiveForm extends Vue {
     this.form.resetFields()
     this.visible = false
   }
-  handleFeedback(risk,date){
-    this.$emit('back',risk,date)
+  handleFeedback(type,data){
+    this.$emit('back',type,data)
   }
 }
 </script>

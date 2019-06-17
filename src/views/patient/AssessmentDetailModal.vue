@@ -72,7 +72,11 @@ export default class AssessmentDetailModal extends Vue {
   async setData(values) {
     const assessment = (await assessmentAssess(values)).data
     this.model = { ...this.model, ...assessment }
-    this.$emit('back',this.model.chronicDiseaseRisk,this.model.assessmentDate)
+    const data = {
+      risk: this.model.chronicDiseaseRisk,
+      date: this.model.assessmentDate
+    }
+    this.$emit('back','five',data)
     console.info(`assessment: ${JSON.stringify(assessment)}, this.model: ${JSON.stringify(this.model)}`)
   }
 
