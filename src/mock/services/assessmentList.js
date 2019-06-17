@@ -1,4 +1,4 @@
-const assessmentList = {
+const ssyAssessmentList = {
   "name": "糖尿病自我效能评估",
   "id": 11,
   "title": {
@@ -1220,4 +1220,398 @@ const assessmentList = {
   ]
 }
 
-export { assessmentList }
+
+const ascvdAssessmentList = {
+  "question": [
+    {
+      "unit": "",
+      "groupName": "基本信息",
+      "munit": "",
+      "groupId": 1,
+      "name": "name",
+      "text": "*姓名",
+      "id": 1111,
+      "category": "DEMOGRAPHIC",
+      "type": "TEXT"
+    },
+    {
+      "unit": "",
+      "groupName": "基本信息",
+      "munit": "",
+      "groupId": 1,
+      "name": "gender",
+      "text": "*性别",
+      "id": 1112,
+      "category": "DEMOGRAPHIC",
+      "choice": [
+        {
+          "text": "男",
+          "id": 1434,
+          "value": 1
+        },
+        {
+          "text": "女",
+          "id": 1435,
+          "value": 0
+        }
+      ],
+      "type": "SINGLE_CHOICE",
+      "value": "1"
+    },
+    {
+      "unit": "",
+      "groupName": "基本信息",
+      "munit": "",
+      "groupId": 1,
+      "name": "age",
+      "range": {
+        "lbound": 20,
+        "rbound": 79
+      },
+      "text": "*年龄",
+      "id": 1113,
+      "category": "DEMOGRAPHIC",
+      "type": "NUMERIC",
+      "value": "20"
+    },
+    {
+      "unit": "cm",
+      "groupName": "基本信息",
+      "munit": "cm",
+      "groupId": 1,
+      "name": "height",
+      "range": {
+        "lbound": 50,
+        "rbound": 250
+      },
+      "text": "*身高",
+      "id": 1114,
+      "category": "LABTEST",
+      "type": "NUMERIC",
+      "value": "175"
+    },
+    {
+      "unit": "kg",
+      "groupName": "基本信息",
+      "munit": "kg",
+      "groupId": 1,
+      "name": "weight",
+      "range": {
+        "lbound": 30,
+        "rbound": 150
+      },
+      "text": "*体重",
+      "id": 1115,
+      "category": "LABTEST",
+      "type": "NUMERIC",
+      "value": "70"
+    },
+    {
+      "unit": "mmHg",
+      "groupName": "基本信息",
+      "munit": "mmHg",
+      "groupId": 1,
+      "name": "sbp",
+      "range": {
+        "lbound": 90,
+        "rbound": 200
+      },
+      "text": "*收缩压",
+      "id": 1116,
+      "category": "LABTEST",
+      "type": "NUMERIC",
+      "value": "90"
+    },
+    {
+      "unit": "mmHg",
+      "groupName": "基本信息",
+      "munit": "mmHg",
+      "groupId": 1,
+      "name": "dbp",
+      "range": {
+        "lbound": 40,
+        "rbound": 120
+      },
+      "text": "*舒张压",
+      "id": 1117,
+      "category": "LABTEST",
+      "type": "NUMERIC",
+      "value": "40"
+    },
+    {
+      "unit": "",
+      "groupName": "基本信息",
+      "munit": "",
+      "groupId": 1,
+      "name": "smoker",
+      "text": "*吸烟",
+      "id": 1118,
+      "category": "STATE",
+      "choice": [
+        {
+          "text": "正在吸烟",
+          "id": 1436,
+          "value": 1
+        },
+        {
+          "text": "曾经吸烟",
+          "id": 1437,
+          "value": 2
+        },
+        {
+          "text": "不吸烟",
+          "id": 1438,
+          "value": 0
+        }
+      ],
+      "type": "SINGLE_CHOICE",
+      "value": "0"
+    },
+    {
+      "unit": "mmol/L",
+      "groupName": "实验室检查",
+      "munit": "mmol/L",
+      "groupId": 2,
+      "name": "serum_tc",
+      "range": {
+        "lbound": 3.37,
+        "rbound": 8.29
+      },
+      "text": "*总胆固醇",
+      "id": 1119,
+      "category": "LABTEST",
+      "type": "NUMERIC",
+      "value": "3.37"
+    },
+    {
+      "unit": "mmol/L",
+      "groupName": "实验室检查",
+      "munit": "mmol/L",
+      "groupId": 2,
+      "name": "ldl_c",
+      "range": {
+        "lbound": 0.52,
+        "rbound": 2.59
+      },
+      "text": "*低密度脂蛋白胆固醇",
+      "id": 1120,
+      "category": "LABTEST",
+      "type": "NUMERIC",
+      "value": "0.52"
+    },
+    {
+      "unit": "mmol/L",
+      "groupName": "实验室检查",
+      "munit": "mmol/L",
+      "groupId": 2,
+      "name": "hdl_c",
+      "range": {
+        "lbound": 0.52,
+        "rbound": 2.59
+      },
+      "text": "*高密度脂蛋白胆固醇",
+      "id": 1121,
+      "category": "LABTEST",
+      "type": "NUMERIC",
+      "value": "0.52"
+    },
+    {
+      "unit": "mmol/L",
+      "groupName": "实验室检查",
+      "munit": "mmol/L",
+      "groupId": 2,
+      "name": "tg",
+      "range": {
+        "lbound": 1,
+        "rbound": 10
+      },
+      "text": "甘油三酯",
+      "id": 1122,
+      "category": "LABTEST",
+      "type": "NUMERIC",
+      "value": "1.0"
+    },
+    {
+      "unit": "mmol/L",
+      "groupName": "实验室检查",
+      "munit": "mmol/L",
+      "groupId": 2,
+      "name": "fbg",
+      "range": {
+        "lbound": 3,
+        "rbound": 20
+      },
+      "text": "空腹血糖",
+      "id": 1123,
+      "category": "LABTEST",
+      "type": "NUMERIC",
+      "value": "3"
+    },
+    {
+      "unit": "%",
+      "groupName": "实验室检查",
+      "munit": "%",
+      "groupId": 2,
+      "name": "HbA1c",
+      "range": {
+        "lbound": 3,
+        "rbound": 20
+      },
+      "text": "糖化血红蛋白",
+      "id": 1124,
+      "category": "LABTEST",
+      "type": "NUMERIC",
+      "value": "3"
+    },
+    {
+      "unit": "",
+      "groupName": "既往病史",
+      "munit": "",
+      "groupId": 3,
+      "name": "ASCVD",
+      "text": "*动脉粥样硬化性心脑血管疾病（多选）",
+      "id": 1125,
+      "category": "STATE",
+      "choice": [
+        {
+          "text": "急性冠脉综合征",
+          "id": 1439,
+          "value": 1
+        },
+        {
+          "text": "稳定性冠心病",
+          "id": 1440,
+          "value": 2
+        },
+        {
+          "text": "血运重建术后",
+          "id": 1441,
+          "value": 3
+        },
+        {
+          "text": "缺血性心肌病",
+          "id": 1442,
+          "value": 4
+        },
+        {
+          "text": "缺血性卒中",
+          "id": 1443,
+          "value": 5
+        },
+        {
+          "text": "短暂性脑缺血发作",
+          "id": 1444,
+          "value": 6
+        },
+        {
+          "text": "外周动脉粥样硬化病",
+          "id": 1445,
+          "value": 7
+        }
+      ],
+      "type": "MULTIPLE_CHOICE",
+      "value": "0"
+    },
+    {
+      "unit": "",
+      "groupName": "既往病史",
+      "munit": "",
+      "groupId": 3,
+      "name": "previousHistoryDiabetes",
+      "text": "*糖尿病",
+      "id": 1126,
+      "category": "STATE",
+      "choice": [
+        {
+          "text": "是",
+          "id": 1446,
+          "value": 1
+        },
+        {
+          "text": "否",
+          "id": 1447,
+          "value": 0
+        }
+      ],
+      "type": "SINGLE_CHOICE",
+      "value": "0"
+    },
+    {
+      "unit": "",
+      "groupName": "既往病史",
+      "munit": "",
+      "groupId": 3,
+      "name": "previousHistoryHypertension",
+      "text": "*高血压病",
+      "id": 1127,
+      "category": "STATE",
+      "choice": [
+        {
+          "text": "是",
+          "id": 1448,
+          "value": 1
+        },
+        {
+          "text": "否",
+          "id": 1449,
+          "value": 0
+        }
+      ],
+      "type": "SINGLE_CHOICE",
+      "value": "0"
+    },
+    {
+      "unit": "",
+      "groupName": "既往病史",
+      "munit": "",
+      "groupId": 3,
+      "name": "treatment",
+      "text": "*接受降压治疗",
+      "id": 1128,
+      "category": "STATE",
+      "choice": [
+        {
+          "text": "是",
+          "id": 1450,
+          "value": 1
+        },
+        {
+          "text": "否",
+          "id": 1451,
+          "value": 0
+        }
+      ],
+      "type": "SINGLE_CHOICE",
+      "value": "0"
+    },
+    {
+      "unit": "",
+      "groupName": "既往病史",
+      "munit": "",
+      "groupId": 3,
+      "name": "lipitreate",
+      "text": "目前正在服用降脂药物",
+      "id": 1129,
+      "category": "STATE",
+      "choice": [
+        {
+          "text": "是",
+          "id": 1452,
+          "value": 1
+        },
+        {
+          "text": "否",
+          "id": 1453,
+          "value": 0
+        }
+      ],
+      "type": "SINGLE_CHOICE",
+      "value": "0"
+    }
+  ],
+  "name": "IPT",
+  "description": "动脉粥样硬化风险评估",
+  "id": 92
+}
+
+export { ssyAssessmentList, ascvdAssessmentList }

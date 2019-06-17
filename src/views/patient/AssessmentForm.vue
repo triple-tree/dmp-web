@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    title="糖尿病自我效能评估"
+    :title="formName"
     :width="450"
     :visible="visible"
     :confirmLoading="confirmLoading"
@@ -9,17 +9,40 @@
     cancelText="关闭"
   >
     <a-spin :spinning="confirmLoading">
-      <a-form :form="form" layout="horizontal">
+      <a-form :form="form" layout="vertical">
         <a-list
           itemLayout="vertical"
           :dataSource="listData.questionList"
         >
+          
           <a-list-item slot="renderItem" slot-scope="item">
-            <h3>{{item.text}}</h3>
-            <a-radio-group :options="item.choiceList" />
-            <!-- <a-radio-group>
-              <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.index">{{m.label}}</a-radio>
-            </a-radio-group> -->
+            <template v-if='type === "getSSY"'>
+              <h3>{{item.text}}</h3>
+              <a-radio-group 
+                v-if='item.scoringType === "CHOICE_SUM"'>
+                <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id">{{m.text}}</a-radio>
+              </a-radio-group>
+            </template>
+            <template v-if='type === "getAscvd"'>
+              <a-form-item
+                :label="item.text"
+                :label-col="formItemLayout.labelCol"
+                :wrapper-col="formItemLayout.wrapperCol">
+                  <a-input v-if='item.type === "TEXT"'/>
+                  <a-input
+                    v-if='item.type === "NUMERIC"'
+                    type="number"/>
+                  <!-- <a-radio-group :options="item.choiceList" /> -->
+                  <a-radio-group 
+                    v-if='item.type === "SINGLE_CHOICE"'>
+                    <a-radio :value="m.value" v-for="m in item.choice" :key="m.id">{{m.text}}</a-radio>
+                  </a-radio-group>
+                  <a-checkbox-group 
+                    v-if='item.scoringType === "MULTIPLE_CHOICE"'>
+                      <a-checkbox :value="m.value" v-for="m in item.choice" :key="m.id">{{m.text}}</a-checkbox>
+                  </a-checkbox-group>
+              </a-form-item>
+            </template>
           </a-list-item>
         </a-list>
       </a-form>
@@ -36,7 +59,7 @@ import { assessmentForm } from '../../api/assessment'
 import ChronicDiseaseStatus from '@/components/ChronicDiseaseStatus'
 
 
-const listData = {
+const listData2 = {
   "name": "糖尿病自我效能评估",
   "id": 11,
   "title": {
@@ -198,49 +221,50 @@ export default class AssessmentDetailModal extends Vue {
     return {
       visible: false,
       confirmLoading: false,
-      model: {},
+      type:'',
+      formName: '',
+      //model: {},
       form: this.$form.createForm(this),
-      radioStyle: {
-        display: 'block'
-      },
+      // radioStyle: {
+      //   display: 'block'
+      // },
       formItemLayout: {
         labelCol: {
           md: { span: 24 },
           sm: { span: 24 },
         },
         wrapperCol: {
-          md: { span: 24 },
+          md: { span: 12 },
           sm: { span: 24 },
         },
-        horizontalLabelCol: {
-          md: { span: 8 },
-          sm: { span: 8 },
-        },
-        horizontalWrapperCol: {
-          md: { span: 16 },
-          sm: { span: 16 },
-        },
       },
-      listData: listData
+      listData: {}
     }
   }
 
   async setData(type,id) {
     const assessment = (await assessmentForm({ type, id })).data
-    this.model = { ...this.model, ...assessment }
-    console.info(`assessment: ${JSON.stringify(assessment)}, this.model: ${JSON.stringify(this.model)}`)
+    this.type = type
+
+    this.listData = { ...this.listData, ...assessment }
+    this.listData.questionList = assessment.questionList || assessment.question
+    console.log("this.listData.name---",this.listData.name)
+    this.formName = this.type === 'getAscvd' ? this.listData.description : this.listData.name
+    console.info(`assessment: ${JSON.stringify(assessment)}, this.listData: ${JSON.stringify(this.listData)}`)
   }
 
   async show(type,id) {
     console.info(`show assessment: ${type} ${id}`)
+    this.form.resetFields()
     this.visible = true
-    //this.setData(type,id)
+    this.setData(type,id)
   }
   handleOk() {
     this.visible = false
   }
 
   handleCancel() {
+    this.form.resetFields()
     this.visible = false
   }
 }
@@ -249,6 +273,5 @@ export default class AssessmentDetailModal extends Vue {
 <style lang="less" scoped>
 .ant-radio-wrapper{
   display: block;
-  border:1px solid #f00
 }
 </style>

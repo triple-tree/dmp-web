@@ -1,7 +1,7 @@
 import Mock, { Random } from 'mockjs2'
-import { builder, getQueryParameters } from '../util'
+import { builder, getQueryParameters, getBody } from '../util'
 import { patients } from './patient'
-import { assessmentList } from './assessmentList'
+import { ssyAssessmentList, ascvdAssessmentList} from './assessmentList'
  
 const doctorIds = patients.map(patient => patient.doctorId)
 const total = doctorIds.length
@@ -53,7 +53,8 @@ const assessmentDetail = options => {
 const assessmentForm = options => {
   const queryParameters = getQueryParameters(options) || {}
   const id = queryParameters.id
-  const assessment = assessmentList
+  const body = getBody(options) || {}
+  const assessment = body.type === "getSSY" ? ssyAssessmentList : ascvdAssessmentList
   return builder(assessment, '请求成功', 200)
 }
 
