@@ -12,6 +12,7 @@ const service = axios.create({
 })
 
 const err = error => {
+  console.info(`error: ${JSON.stringify(error, null, 2)}`)
   if (error.response) {
     const data = error.response.data
     const token = Vue.ls.get(ACCESS_TOKEN)
@@ -35,7 +36,7 @@ const err = error => {
     } else if (error.response.status === 500) {
       notification.error({
         message: 'Error',
-        description: error.response.message,
+        description: data.message,
       })
       if (token) {
         store.dispatch('Logout').then(() => {
