@@ -23,9 +23,9 @@
               <a-form-item>
                 <a-radio-group 
                   v-if='item.scoringType === "CHOICE_SUM"'
-                  v-decorator="['aa'+item.id,{rules: [{required: true, message: '请选择'}]}]"
+                  v-decorator="['choice'+item.id, {rules: [{required: false}]}]"
                 >
-                  <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id">{{m.text}}</a-radio>
+                  <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id" @focus="setChoice(m.id,item.id)">{{m.text}}</a-radio>
                 </a-radio-group>
               </a-form-item>
             <!-- </a-list-item>
@@ -98,7 +98,8 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import { statsAll, statsPatients, statsPlans } from '@/api/stats'
 import pick from 'lodash.pick'
-import { assessmentForm, ascvdAssessment } from '../../api/assessment'
+import { assessmentForm, ascvdAssessment, ssyAssessment } from '../../api/assessment'
+import { debug } from 'util';
 
 const listData2 = {
   "name": "糖尿病自我效能评估",
@@ -266,6 +267,10 @@ export default class AssessmentDetailModal extends Vue {
       formName: '',
       groupName: [],
       activeKey: [],
+      choiceList: [],
+      choiceObject: {},
+      ssyId: '',
+      ssyName: '',
       //model: {},
       form: this.$form.createForm(this),
       // radioStyle: {
@@ -292,6 +297,8 @@ export default class AssessmentDetailModal extends Vue {
     this.type = type
     this.patientId = patientId
     this.listData = { ...this.listData, ...assessment }
+    this.ssyId = this.listData.id
+    this.ssyName = this.listData.name
     this.listData.questionList = assessment.questionList || assessment.question
     this.formName = this.type === 'getAscvd' ? this.listData.description : this.listData.name
     this.listData.questionList.forEach(function(e,i){
@@ -310,15 +317,18 @@ export default class AssessmentDetailModal extends Vue {
           j++
       }
     })
-    console.log("groupName---",this.groupName)
-    console.log("activeKey---",this.activeKey)
-    
     console.info(`this.listData: ${JSON.stringify(this.listData)}`)
   }
   
-  async postData(values) {
+  async postAscvdData(values) {
     const res = (await ascvdAssessment(values)).data
     this.$emit('back','ascvd',res)
+    console.info(`res: ${JSON.stringify(res)}`)
+  }
+
+  async postSSYData(values) {
+    const res = (await ssyAssessment(values)).data
+    this.$emit('back','ssy',res, this.ssyId)
     console.info(`res: ${JSON.stringify(res)}`)
   }
 
@@ -327,6 +337,9 @@ export default class AssessmentDetailModal extends Vue {
     this.form.resetFields()
     this.visible = true
     this.setData(patientId,type,id)
+  }
+  setChoice(choiceId,itemId) {
+    this.choiceObject[itemId] = choiceId
   }
   handleOk() {
     const { form: { validateFields } } = this
@@ -346,17 +359,31 @@ export default class AssessmentDetailModal extends Vue {
           setTimeout(() => {
             this.visible = false
             this.confirmLoading = false
-            this.postData(values)
+            this.postAscvdData(values)
           }, 1500)
         }else{
+          values = {}
           values.patientId= this.patientId
-         
+          for(var o in this.choiceObject){
+            this.choiceList.push({
+              id: this.choiceObject[o]+''
+            })
+          }
+          if(this.choiceList.length === 0){
+            alert('您还没有完成所有的问答')
+            this.confirmLoading = false
+            return false
+          }
+          values.jsonStr = {}
+          values.jsonStr.id = this.ssyId
+          values.jsonStr.name = this.ssyName
+          values.jsonStr.choiceList = this.choiceList
           console.log('values', values)
-          // setTimeout(() => {
-          //   this.visible = false
-          //   this.confirmLoading = false
-          //   this.postData(values)
-          // }, 1500)
+          setTimeout(() => {
+            this.visible = false
+            this.confirmLoading = false
+            this.postSSYData(values)
+          }, 1500)
         }
       } else {
         this.confirmLoading = false

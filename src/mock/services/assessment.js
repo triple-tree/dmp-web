@@ -67,6 +67,15 @@ const ascvdAssessment = options => {
   return builder(data, '提交成功', 200)
 }
 
+// 提交SSY评估问卷
+const ssyAssessment = options => {
+  const data = { 
+    "level": "中度", 
+    "suggestion": "您有中度抑郁症状，建议寻找医生进行诊疗"
+}
+  return builder(data, '提交成功', 200)
+}
+
 // 获取筛查评估
 const assessmentAll = options => {
   const queryParameters = getQueryParameters(options) || {}
@@ -128,5 +137,6 @@ Mock.mock(/\/api\/assessment\/latest/, 'get', assessmentLatest)
 Mock.mock(/\/api\/assessment\/detail/, 'get', assessmentDetail)
 Mock.mock(/\/api\/patient\/getAssessmentForm/, 'post', assessmentForm)
 Mock.mock(/\/api\/patient\/ascvdAssessment/, 'post', ascvdAssessment)
+Mock.mock(/\/api\/patient\/SSYAssessment/, 'post', ssyAssessment)
 Mock.mock(/\/api\/assessment\/all/, 'get', assessmentAll)
 Mock.mock(/\/api\/assessment\/assess/, 'post', assessmentAssess)
