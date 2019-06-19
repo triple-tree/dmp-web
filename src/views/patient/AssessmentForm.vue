@@ -20,14 +20,30 @@
               <h3>{{item.text}}</h3>
               <!-- <input type="hidden" v-decorator="['jsonStr.id']"/>
               <input type="hidden" v-decorator="['jsonStr.name']"/> -->
-              <a-form-item>
-                <a-radio-group 
-                  v-if='item.scoringType === "CHOICE_SUM"'
-                  v-decorator="['choice'+item.id, {rules: [{required: false}]}]"
+              <template  v-if="item.choiceList.length > 0">
+                <a-form-item>
+                  <a-radio-group 
+                    v-if='item.scoringType === "CHOICE_SUM"'
+                    v-decorator="['choice'+item.id, {rules: [{required: false}]}]"
+                  >
+                    <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id" @focus="setChoice(m.id,item.id)">{{m.text}}</a-radio>
+                  </a-radio-group>
+                </a-form-item>
+              </template>
+              <template  v-if="item.choiceList.length == 0">
+                <a-form-item
+                  v-for="m in item.labelList"
+                  :key="m.id"
+                  :label="m.text"
                 >
-                  <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id" @focus="setChoice(m.id,item.id)">{{m.text}}</a-radio>
-                </a-radio-group>
-              </a-form-item>
+                  <a-radio-group 
+                    v-if='item.scoringType === "CHOICE_SUM" && m.choiceList.length > 1'
+                    v-decorator="['choice'+item.id, {rules: [{required: false}]}]"
+                  >
+                    <a-radio :value="n.value" v-for="n in m.choiceList" :key="n.id" @focus="setChoice(n.id,m.id)">{{n.text}}</a-radio>
+                  </a-radio-group>
+                </a-form-item>
+              </template>
             <!-- </a-list-item>
           </a-list> -->
           </div>
@@ -302,21 +318,54 @@ export default class AssessmentDetailModal extends Vue {
     this.listData.questionList = assessment.questionList || assessment.question
     this.formName = this.type === 'getAscvd' ? this.listData.description : this.listData.name
     this.listData.questionList.forEach(function(e,i){
-      if(self.type !== 'getAscvd') return
-      if(e.text.indexOf('*') === 0 ){
-        e.text = e.text.substring(1)
-        e.isRequired = true
-      }else{
-        e.isRequired = false
+      if(self.type === 'getAscvd') {
+        if(e.text.indexOf('*') === 0 ){
+          e.text = e.text.substring(1)
+          e.isRequired = true
+        }else{
+          e.isRequired = false
+        }
+        if(e.groupName !='' &&
+          self.groupName.indexOf(e.groupName) === -1
+          ){
+            self.groupName.push(e.groupName)
+            self.activeKey.push(j+'')
+            j++
+        }
       }
-      if(e.groupName !='' &&
-         self.groupName.indexOf(e.groupName) === -1
-        ){
-          self.groupName.push(e.groupName)
-          self.activeKey.push(j+'')
-          j++
+      // 抑郁症评估
+      if(self.ssyId === 4){
+        if(e.choiceList.length === 4 && e.choiceList[0].text === ''){
+          for(var m=0; m< 4;m++){
+            if(e.choiceList[m].value === "0"){
+              e.choiceList[m].text = '无'
+            }
+            if(e.choiceList[m].value === "1"){
+              e.choiceList[m].text = '几天'
+            }
+            if(e.choiceList[m].value === "2"){
+              e.choiceList[m].text = '一半以上'
+            }
+            if(e.choiceList[m].value === "3"){
+              e.choiceList[m].text = '几乎每天ß'
+            }
+          }
+        }
+      }
+      // 营养评估
+      if(self.ssyId === 3){
+        if(e.choiceList.length === 2 && e.choiceList[0].text === ''){
+          for(var m=0; m< 2;m++){
+            if(e.choiceList[m].value === "0"){
+              e.choiceList[m].text = '否'
+            }else{
+              e.choiceList[m].text = '是'
+            }
+          }
+        }
       }
     })
+
     console.info(`this.listData: ${JSON.stringify(this.listData)}`)
   }
   
@@ -354,7 +403,9 @@ export default class AssessmentDetailModal extends Vue {
           values.kvList.ASCVD.forEach(function(e){
             initASCVD[e-1] = 1
           })
-          values.kvList.ASCVD = initASCVD.join('')
+          //values.kvList.ASCVD = initASCVD.join('')
+          values.kvList.ASCVD = '0000000'
+          values.kvList.dmtreate = 0  
           console.log('values', values)
           setTimeout(() => {
             this.visible = false
@@ -377,6 +428,7 @@ export default class AssessmentDetailModal extends Vue {
           values.jsonStr = {}
           values.jsonStr.id = this.ssyId
           values.jsonStr.name = this.ssyName
+          values.jsonStr.score = 10
           values.jsonStr.choiceList = this.choiceList
           console.log('values', values)
           setTimeout(() => {
