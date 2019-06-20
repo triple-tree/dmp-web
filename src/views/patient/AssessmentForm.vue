@@ -11,22 +11,15 @@
     <a-spin :spinning="confirmLoading">
       <a-form :form="form" layout="vertical">
         <template v-if='type === "getSSY"'>
-          <!-- <a-list
-            itemLayout="vertical"
-            :dataSource="listData.questionList"
-          >
-            <a-list-item slot="renderItem" slot-scope="item"> -->
             <div v-for="item in listData.questionList" :key="item.id">
               <h3>{{item.text}}</h3>
-              <!-- <input type="hidden" v-decorator="['jsonStr.id']"/>
-              <input type="hidden" v-decorator="['jsonStr.name']"/> -->
               <template  v-if="item.labelList.length === 0">
                 <a-form-item>
                   <a-radio-group 
                     v-if='item.scoringType === "CHOICE_SUM"'
-                    v-decorator="['choice'+item.id, {rules: [{required: false}]}]"
+                    v-decorator="['choice.option'+item.id, {rules: [{required: false}]}]"
                   >
-                    <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id" @focus="setChoice(m.id,m.value,item.id)">{{m.text}}</a-radio>
+                    <a-radio :value="m.id+'_'+m.value" v-for="m in item.choiceList" :key="m.id">{{m.text}}</a-radio>
                   </a-radio-group>
                 </a-form-item>
               </template>
@@ -44,22 +37,20 @@
                           <a-slider 
                             :min=0
                             :max="n.text.indexOf('小时') >= 0 ? 24 : 100"
-                            v-decorator="['choice.'+n.id, {initialValue: 0, rules: [{required: false, message: '请选择'}]}]"/>
+                            v-decorator="['textList.'+n.id, {initialValue: 0, rules: [{required: false, message: '请选择'}]}]"/>
                         </a-col>
                       </a-row>
                     </div>
                     <div v-else>
                       <a-radio-group 
-                        v-decorator="['choice'+m.id, {rules: [{required: false}]}]"
+                        v-decorator="['choice.option'+m.id, {rules: [{required: false}]}]"
                       >
-                        <a-radio :value="n.value"  @focus="setChoice(n.id,n.value,m.id)">{{n.text}}</a-radio>
+                        <a-radio :value="n.id+'_'+n.value" >{{n.text}}</a-radio>
                       </a-radio-group>
                     </div>
                   </div>
                 </a-form-item>
               </template>
-            <!-- </a-list-item>
-          </a-list> -->
           </div>
         </template>
         <template v-if='type === "getAscvd"'>
@@ -149,7 +140,6 @@ export default class AssessmentDetailModal extends Vue {
       groupName: [],
       activeKey: [],
       choiceList: [],
-      choiceObject: {},
       ssyId: '',
       ssyName: '',
       //model: {},
@@ -243,11 +233,7 @@ export default class AssessmentDetailModal extends Vue {
     this.visible = true
     this.setData(patientId,type,id)
   }
-  setChoice(choiceId,choiceValue,itemId) {
-    this.choiceObject[itemId] ={}
-    this.choiceObject[itemId].id = choiceId
-    this.choiceObject[itemId].value = choiceValue
-  }
+  
   handleOk() {
     const { form: { validateFields } } = this
     this.confirmLoading = true
@@ -272,31 +258,64 @@ export default class AssessmentDetailModal extends Vue {
             this.postAscvdData(values)
           }, 1500)
         }else{
-          //values = {}
+          let score1 = 0
+          let score2 = 0
           values.jsonStr = {}
           values.jsonStr.id = this.ssyId
           values.jsonStr.name = this.ssyName
           values.jsonStr.score = 0
           values.patientId= this.patientId
-          for(var key in values.choice){
+          for(var key in values.textList){
             this.choiceList.push({
               "id": key,
-              "value": values.choice[key]
+              "value": values.textList[key]
             })
-            values.jsonStr.score+=+values.choice[key]
+            values.jsonStr.score+=+values.textList[key]
           }
-          for(var key in this.choiceObject){
+          for(var key in values.choice){
+            const val = values.choice[key]
+            const n = val.indexOf('_')
+            const groupId = key.substring(6)
+            const optId = val.substring(0,n)
+            const optVal = val.substring(n+1)
+            
             this.choiceList.push({
-              id: this.choiceObject[key].id
+              "id": optId
             })
-            values.jsonStr.score+=+this.choiceObject[key].value
+            //生活质量评估（SF-12）
+            if(this.ssyId === 10){
+              if( groupId === "603" || 
+                groupId === "610" || 
+                groupId === "615" || 
+                groupId === "620" ||
+                groupId === "627" ||
+                groupId === "648"
+              ){
+                score1 +=+optVal
+              }
+              if( groupId === "634" || 
+                groupId === "641" || 
+                groupId === "655" ||
+                groupId === "662" ||
+                groupId === "669" ||
+                groupId === "676"
+              ){
+                score2 +=+optVal
+              }
+            }else{
+               values.jsonStr.score+=+optVal
+            }
           }
-          if(this.choiceList.length === 0){
-            alert('您还没有完成所有的问答')
-            this.confirmLoading = false
-            return false
+          if(this.ssyId === 10){
+            score1 = score1/600
+            score2 = score2/600
+            values.jsonStr.score="'"+score1 +','+ score2+"'"
           }
-          //values.jsonStr.score = 10
+          // if(this.choiceList.length === 0){
+          //   alert('您还没有完成所有的问答')
+          //   this.confirmLoading = false
+          //   return false
+          // }
           values.jsonStr.choiceList = this.choiceList
           console.log('values', values)
           setTimeout(() => {
