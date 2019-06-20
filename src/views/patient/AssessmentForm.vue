@@ -20,28 +20,42 @@
               <h3>{{item.text}}</h3>
               <!-- <input type="hidden" v-decorator="['jsonStr.id']"/>
               <input type="hidden" v-decorator="['jsonStr.name']"/> -->
-              <template  v-if="item.choiceList.length > 0">
+              <template  v-if="item.labelList.length === 0">
                 <a-form-item>
                   <a-radio-group 
                     v-if='item.scoringType === "CHOICE_SUM"'
                     v-decorator="['choice'+item.id, {rules: [{required: false}]}]"
                   >
-                    <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id" @focus="setChoice(m.id,item.id)">{{m.text}}</a-radio>
+                    <a-radio :value="m.value" v-for="m in item.choiceList" :key="m.id" @focus="setChoice(m.id,m.value,item.id)">{{m.text}}</a-radio>
                   </a-radio-group>
                 </a-form-item>
               </template>
-              <template  v-if="item.choiceList.length == 0">
+              <template  v-if="item.labelList.length > 0">
                 <a-form-item
                   v-for="m in item.labelList"
                   :key="m.id"
                   :label="m.text"
                 >
-                  <a-radio-group 
-                    v-if='item.scoringType === "CHOICE_SUM" && m.choiceList.length > 1'
-                    v-decorator="['choice'+item.id, {rules: [{required: false}]}]"
-                  >
-                    <a-radio :value="n.value" v-for="n in m.choiceList" :key="n.id" @focus="setChoice(n.id,m.id)">{{n.text}}</a-radio>
-                  </a-radio-group>
+                  <div v-for="n in m.choiceList" :key="n.id">
+                    <div v-if="n.text.indexOf('#') === 0"> 
+                      <a-row type="flex" :gutter="12" align="middle">
+                        <a-col :span="4" style="text-align:right">{{n.text.substring(1)}}</a-col>
+                        <a-col :span="20">
+                          <a-slider 
+                            :min=0
+                            :max="n.text.indexOf('小时') >= 0 ? 24 : 100"
+                            v-decorator="['choice.'+n.id, {initialValue: 0, rules: [{required: false, message: '请选择'}]}]"/>
+                        </a-col>
+                      </a-row>
+                    </div>
+                    <div v-else>
+                      <a-radio-group 
+                        v-decorator="['choice'+m.id, {rules: [{required: false}]}]"
+                      >
+                        <a-radio :value="n.value"  @focus="setChoice(n.id,n.value,m.id)">{{n.text}}</a-radio>
+                      </a-radio-group>
+                    </div>
+                  </div>
                 </a-form-item>
               </template>
             <!-- </a-list-item>
@@ -54,7 +68,7 @@
               <div v-for="item in listData.questionList" :key="item.id">
                 <a-form-item
                   v-if='item.groupName == g'
-                  :label="item.text+item.munit"
+                  :label="item.text+item.unit"
                   :label-col="formItemLayout.labelCol"
                   :wrapper-col="formItemLayout.wrapperCol">
                     <a-input 
@@ -70,20 +84,22 @@
                         <a-slider 
                           :min="item.range.lbound"
                           :max="item.range.rbound" 
-                          v-decorator="['kvList.'+item.name, {rules: [{required: item.isRequired, message: '请选择'+item.text}]}]"/>
+                          :step="item.step"
+                          v-decorator="['kvList.'+item.name, {initialValue: +item.value, rules: [{required: item.isRequired, message: '请选择'+item.text}]}]"/>
                       </a-col>
                       <a-col :span="4">
                         <a-input-number
                           :min="item.range.lbound"
                           :max="item.range.rbound"
-                          v-decorator="['kvList.'+item.name, {rules: [{required: item.isRequired, message: '请输入'+item.text}]}]"
+                          :step="item.step"
+                          v-decorator="['kvList.'+item.name, {initialValue: +item.value, rules: [{required: item.isRequired, message: '请输入'+item.text}]}]"
                           style="marginLeft: 5px"
                         />
                       </a-col>
                     </a-row>
-                    <a-radio-group 
+                    <a-radio-group
                       v-if='item.type === "SINGLE_CHOICE"'
-                      v-decorator="['kvList.'+item.name, {rules: [{required: item.isRequired, message: '请选择'+item.text}]}]">
+                      v-decorator="['kvList.'+item.name, {initialValue: +item.value, rules: [{required: item.isRequired, message: '请选择'+item.text}]}]">
                       <a-radio 
                         v-for="m in item.choice" 
                         :value="m.value"
@@ -117,157 +133,6 @@ import pick from 'lodash.pick'
 import { assessmentForm, ascvdAssessment, ssyAssessment } from '../../api/assessment'
 import { debug } from 'util';
 
-const listData2 = {
-  "name": "糖尿病自我效能评估",
-  "id": 11,
-  "title": {
-    "editable": "0",
-    "name": "question",
-    "choiceList": [
-      {
-        "editAble": "1",
-        "name": "option1",
-        "text": "毫无自信",
-        "type": "YES_NO",
-        "footNote": ""
-      },
-      {
-        "editAble": "1",
-        "name": "option2",
-        "text": "比较无自信",
-        "type": "YES_NO",
-        "footNote": ""
-      },
-      {
-        "editAble": "1",
-        "name": "option3",
-        "text": "一般",
-        "type": "YES_NO",
-        "footNote": ""
-      },
-      {
-        "editAble": "1",
-        "name": "option4",
-        "text": "比较自信",
-        "type": "YES_NO",
-        "footNote": ""
-      },
-      {
-        "editAble": "1",
-        "name": "option5",
-        "text": "完全自信",
-        "type": "YES_NO",
-        "footNote": ""
-      }
-    ],
-    "id": 82,
-    "text": "我平时用餐都能够遵守糖尿病的饮食原则",
-    "type": ""
-  },
-  "footNote": "",
-  "questionList": [
-    {
-      "labelList": [],
-      "scoringType": "CHOICE_SUM",
-      "disable": "0",
-      "choiceList": [
-        {
-          "editAble": "0",
-          "id": 685,
-          "text": "毫无自信",
-          "label": "毫无自信",
-          "value": "1",
-          "footNote": ""
-        },
-        {
-          "editAble": "0",
-          "id": 686,
-          "text": "比较无自信",
-          "label": "比较无自信",
-          "value": "2",
-          "footNote": ""
-        },
-        {
-          "editAble": "0",
-          "id": 687,
-          "text": "一般",
-          "label": "一般",
-          "value": "3",
-          "footNote": ""
-        },
-        {
-          "editAble": "0",
-          "id": 688,
-          "text": "比较自信",
-          "label": "比较自信",
-          "value": "4",
-          "footNote": ""
-        },
-        {
-          "editAble": "0",
-          "id": 689,
-          "text": "完全自信",
-          "label": "完全自信",
-          "value": "5",
-          "footNote": ""
-        }
-      ],
-      "id": 684,
-      "text": "1.我平时用餐都能够遵守糖尿病的饮食原则",
-      "footNote": ""
-    },
-    {
-      "labelList": [],
-      "scoringType": "CHOICE_SUM",
-      "disable": "0",
-      "choiceList": [
-        {
-          "editAble": "0",
-          "id": 692,
-          "text": "毫无自信",
-          "label": "毫无自信",
-          "value": "1",
-          "footNote": ""
-        },
-        {
-          "editAble": "0",
-          "id": 693,
-          "text": "比较无自信",
-          "label": "比较无自信",
-          "value": "2",
-          "footNote": ""
-        },
-        {
-          "editAble": "0",
-          "id": 694,
-          "text": "一般",
-          "label": "一般",
-          "value": "3",
-          "footNote": ""
-        },
-        {
-          "editAble": "0",
-          "id": 695,
-          "text": "比较自信",
-          "label": "比较自信",
-          "value": "4",
-          "footNote": ""
-        },
-        {
-          "editAble": "0",
-          "id": 696,
-          "text": "完全自信",
-          "label": "完全自信",
-          "value": "5",
-          "footNote": ""
-        }
-      ],
-      "id": 691,
-      "text": "2.当我出门到熟悉的地方用餐时（如朋友家里），我能够遵守糖尿病的饮食原则 ",
-      "footNote": ""
-    }
-  ]
-}
 @Component({
   components: {},
   props: {},
@@ -325,6 +190,11 @@ export default class AssessmentDetailModal extends Vue {
         }else{
           e.isRequired = false
         }
+        if(e.type === "NUMERIC" && e.value.indexOf('.') >= 0){
+          e.step = 0.01
+        }else{
+          e.step = 1
+        }
         if(e.groupName !='' &&
           self.groupName.indexOf(e.groupName) === -1
           ){
@@ -333,33 +203,18 @@ export default class AssessmentDetailModal extends Vue {
             j++
         }
       }
-      // 抑郁症评估
-      if(self.ssyId === 4){
-        if(e.choiceList.length === 4 && e.choiceList[0].text === ''){
-          for(var m=0; m< 4;m++){
-            if(e.choiceList[m].value === "0"){
-              e.choiceList[m].text = '无'
-            }
-            if(e.choiceList[m].value === "1"){
-              e.choiceList[m].text = '几天'
-            }
-            if(e.choiceList[m].value === "2"){
-              e.choiceList[m].text = '一半以上'
-            }
-            if(e.choiceList[m].value === "3"){
-              e.choiceList[m].text = '几乎每天ß'
-            }
-          }
+      // 抑郁症评估 & 营养评估
+      if(self.ssyId === 4 || self.ssyId === 3){
+        for(var m=0; m< e.choiceList.length;m++){
+          e.choiceList[m].text = self.listData.title.choiceList[m].text
         }
       }
-      // 营养评估
-      if(self.ssyId === 3){
-        if(e.choiceList.length === 2 && e.choiceList[0].text === ''){
-          for(var m=0; m< 2;m++){
-            if(e.choiceList[m].value === "0"){
-              e.choiceList[m].text = '否'
-            }else{
-              e.choiceList[m].text = '是'
+      // 睡眠评估 题目5
+      if(self.ssyId === 8){
+        for(var m=0; m< e.labelList.length;m++){
+          for(var n=0; n< e.labelList[m].choiceList.length;n++){
+            if(e.labelList[m].choiceList[n].text === ""){
+              e.labelList[m].choiceList[n].text = e.choiceList[n].text
             }
           }
         }
@@ -384,11 +239,14 @@ export default class AssessmentDetailModal extends Vue {
   async show(patientId,type,id) {
     console.info(`show assessment: ${type} ${id}`)
     this.form.resetFields()
+    this.choiceList = []
     this.visible = true
     this.setData(patientId,type,id)
   }
-  setChoice(choiceId,itemId) {
-    this.choiceObject[itemId] = choiceId
+  setChoice(choiceId,choiceValue,itemId) {
+    this.choiceObject[itemId] ={}
+    this.choiceObject[itemId].id = choiceId
+    this.choiceObject[itemId].value = choiceValue
   }
   handleOk() {
     const { form: { validateFields } } = this
@@ -397,15 +255,16 @@ export default class AssessmentDetailModal extends Vue {
     validateFields((errors, values) => {
       if (!errors) {
         if(this.type === 'getAscvd'){
-          const initASCVD = [0,0,0,0,0,0,0];
+          //const initASCVD = [0,0,0,0,0,0,0];
+          values.patientId= this.patientId
           values.age = values.kvList.age
           values.gender = values.kvList.gender === 1 ? '男' : '女'
-          values.kvList.ASCVD.forEach(function(e){
-            initASCVD[e-1] = 1
-          })
-          //values.kvList.ASCVD = initASCVD.join('')
-          values.kvList.ASCVD = '0000000'
-          values.kvList.dmtreate = 0  
+          // values.kvList.ASCVD.forEach(function(e){
+          //   initASCVD[e-1] = 1
+          // })
+          // //values.kvList.ASCVD = initASCVD.join('')
+          // values.kvList.ASCVD = '0000000'
+          // values.kvList.dmtreate = 0  
           console.log('values', values)
           setTimeout(() => {
             this.visible = false
@@ -413,22 +272,31 @@ export default class AssessmentDetailModal extends Vue {
             this.postAscvdData(values)
           }, 1500)
         }else{
-          values = {}
+          //values = {}
+          values.jsonStr = {}
+          values.jsonStr.id = this.ssyId
+          values.jsonStr.name = this.ssyName
+          values.jsonStr.score = 0
           values.patientId= this.patientId
-          for(var o in this.choiceObject){
+          for(var key in values.choice){
             this.choiceList.push({
-              id: this.choiceObject[o]+''
+              "id": key,
+              "value": values.choice[key]
             })
+            values.jsonStr.score+=+values.choice[key]
+          }
+          for(var key in this.choiceObject){
+            this.choiceList.push({
+              id: this.choiceObject[key].id
+            })
+            values.jsonStr.score+=+this.choiceObject[key].value
           }
           if(this.choiceList.length === 0){
             alert('您还没有完成所有的问答')
             this.confirmLoading = false
             return false
           }
-          values.jsonStr = {}
-          values.jsonStr.id = this.ssyId
-          values.jsonStr.name = this.ssyName
-          values.jsonStr.score = 10
+          //values.jsonStr.score = 10
           values.jsonStr.choiceList = this.choiceList
           console.log('values', values)
           setTimeout(() => {

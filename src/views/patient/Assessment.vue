@@ -2,7 +2,7 @@
   <div>
     <ul class="ass-list">
       <li v-for="item in assessmentList" :key="item.index">
-        <a-row type="flex" gutter="12">
+        <a-row type="flex" :gutter="12">
           <a-col :span="5" align="center">
             <div class="item-img">
               <img :src="item.icon" :alt="item.title">
