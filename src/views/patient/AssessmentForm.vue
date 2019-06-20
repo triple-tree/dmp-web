@@ -113,6 +113,7 @@
         </template>
       </a-form>
     </a-spin>
+    <assessment-result ref="assessmentResult"></assessment-result>
   </a-modal>
 </template>
 
@@ -122,10 +123,13 @@ import Component from 'vue-class-component'
 import { statsAll, statsPatients, statsPlans } from '@/api/stats'
 import pick from 'lodash.pick'
 import { assessmentForm, ascvdAssessment, ssyAssessment } from '../../api/assessment'
+import AssessmentResult from './AssessmentResult'
 import { debug } from 'util';
 
 @Component({
-  components: {},
+  components: {
+    AssessmentResult
+  },
   props: {},
 })
 export default class AssessmentDetailModal extends Vue {
@@ -216,13 +220,15 @@ export default class AssessmentDetailModal extends Vue {
   
   async postAscvdData(values) {
     const res = (await ascvdAssessment(values)).data
-    this.$emit('back','ascvd',res)
+    this.$refs.assessmentResult.show(this.formName,res)
+    //this.$emit('back','ascvd',res)
     console.info(`res: ${JSON.stringify(res)}`)
   }
 
   async postSSYData(values) {
     const res = (await ssyAssessment(values)).data
-    this.$emit('back','ssy',res, this.ssyId)
+    this.$refs.assessmentResult.show(values.jsonStr.name,res)
+    //this.$emit('back','ssy',res, this.ssyId)
     console.info(`res: ${JSON.stringify(res)}`)
   }
 
@@ -307,8 +313,8 @@ export default class AssessmentDetailModal extends Vue {
             }
           }
           if(this.ssyId === 10){
-            score1 = score1/600
-            score2 = score2/600
+            score1 = (score1/600).toFixed(2)
+            score2 = (score2/600).toFixed(2)
             values.jsonStr.score="'"+score1 +','+ score2+"'"
           }
           // if(this.choiceList.length === 0){
