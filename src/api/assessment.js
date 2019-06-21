@@ -36,6 +36,22 @@ export function assessmentForm(data, search) {
   })
 }
 
+export function ascvdAssessment(data, search) {
+  return axios({
+    url: `${api.ascvdAssessment}${search ? '?' + searchParasToString(search) : ''}`,
+    method: 'post',
+    data: data,
+  })
+}
+
+export function ssyAssessment(data, search) {
+  return axios({
+    url: `${api.ssyAssessment}${search ? '?' + searchParasToString(search) : ''}`,
+    method: 'post',
+    data: data,
+  })
+}
+
 export function assessmentAssess(data, search) {
   return axios({
     url: `${api.assessmentAssess}${search ? '?' + searchParasToString(search) : ''}`,

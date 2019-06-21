@@ -1,7 +1,7 @@
 import Mock, { Random } from 'mockjs2'
-import { builder, getQueryParameters } from '../util'
+import { builder, getQueryParameters, getBody } from '../util'
 import { patients } from './patient'
-import { assessmentList } from './assessmentList'
+import { ssyAssessmentList, ascvdAssessmentList} from './assessmentList'
  
 const doctorIds = patients.map(patient => patient.doctorId)
 const total = doctorIds.length
@@ -53,8 +53,27 @@ const assessmentDetail = options => {
 const assessmentForm = options => {
   const queryParameters = getQueryParameters(options) || {}
   const id = queryParameters.id
-  const assessment = assessmentList
+  const body = getBody(options) || {}
+  const assessment = body.type === "getSSY" ? ssyAssessmentList : ascvdAssessmentList
   return builder(assessment, '请求成功', 200)
+}
+
+// 提交Ascvd评估问卷
+const ascvdAssessment = options => {
+  const data =  [ 
+    "• 您10年内患心脑血管病（冠心病、脑梗死等）的风险是<i class=\"level_01\">22.6%</i>（同龄人理想值是13%），为同龄人理想值的<i class=\"level_01\">1.7</i>倍", 
+    "• 您目前属于冠心病、脑梗死等动脉粥样硬化疾病的<i class=\"level_01\">高危人群</i>"
+  ];
+  return builder(data, '提交成功', 200)
+}
+
+// 提交SSY评估问卷
+const ssyAssessment = options => {
+  const data = { 
+    "level": "中度", 
+    "suggestion": "您有中度抑郁症状，建议寻找医生进行诊疗"
+}
+  return builder(data, '提交成功', 200)
 }
 
 // 获取筛查评估
@@ -117,5 +136,7 @@ const assessmentAssess = options => {
 Mock.mock(/\/api\/assessment\/latest/, 'get', assessmentLatest)
 Mock.mock(/\/api\/assessment\/detail/, 'get', assessmentDetail)
 Mock.mock(/\/api\/patient\/getAssessmentForm/, 'post', assessmentForm)
+Mock.mock(/\/api\/patient\/ascvdAssessment/, 'post', ascvdAssessment)
+Mock.mock(/\/api\/patient\/SSYAssessment/, 'post', ssyAssessment)
 Mock.mock(/\/api\/assessment\/all/, 'get', assessmentAll)
 Mock.mock(/\/api\/assessment\/assess/, 'post', assessmentAssess)

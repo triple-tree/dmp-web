@@ -23,6 +23,7 @@
         </div>
       </a-form>
     </a-spin>
+    <assessment-result ref="assessmentResult"></assessment-result>
   </a-modal>
 </template>
 
@@ -33,11 +34,13 @@ import { statsAll, statsPatients, statsPlans } from '@/api/stats'
 import pick from 'lodash.pick'
 import { assessmentAssess } from '../../api/assessment'
 import ChronicDiseaseStatus from '@/components/ChronicDiseaseStatus'
+import AssessmentResult from './AssessmentResult'
 import { constants } from 'crypto';
 
 @Component({
   components: {
     ChronicDiseaseStatus,
+    AssessmentResult
   },
   props: {},
 })
@@ -72,7 +75,13 @@ export default class AssessmentDetailModal extends Vue {
   async setData(values) {
     const assessment = (await assessmentAssess(values)).data
     this.model = { ...this.model, ...assessment }
-    this.$emit('back',this.model.chronicDiseaseRisk,this.model.assessmentDate)
+    const data = {
+      risk: this.model.chronicDiseaseRisk,
+      date: this.model.assessmentDate
+    }
+    // this.visible = false
+    // this.$refs.assessmentResult.show('五病综合筛查',data)
+    //this.$emit('back','five',data)
     console.info(`assessment: ${JSON.stringify(assessment)}, this.model: ${JSON.stringify(this.model)}`)
   }
 
