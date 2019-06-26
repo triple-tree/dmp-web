@@ -82,7 +82,7 @@
               <span slot="tab">
                 <a-icon type="apple"/>评估筛选
               </span>
-              <assessment :id="id"></assessment>
+              <assessment ref="assessment" :id="id"></assessment>
             </a-tab-pane>
             <a-tab-pane key="3">
               <span slot="tab">
@@ -143,7 +143,10 @@ export default class extends Vue {
   }
   async beforeRouteEnter(to, from, next) {
     console.info(`beforeRouteEnter`)
-    next(async vm => vm.setData())
+    next(async vm => {
+      vm.setData()
+      vm.$refs.assessment.getLatestAll()
+    })
   }
   data() {
     return {

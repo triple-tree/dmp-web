@@ -27,6 +27,7 @@ const api = {
   ascvdAssessment: '/api/patient/ascvdAssessment',
   ssyAssessment: '/api/patient/ssyAssessment',
   assessmentAssess: '/api/assessment/assess',
+  otherLatest: '/api/assessment/other/latest',
   // 健康管理方案
   planAll: '/api/plan/all',
   planDetail: '/api/plan/detail',

@@ -16,13 +16,10 @@
                 <p class="content">{{ item.content }}</p>
                 <p class="result">
                   <a-row type="flex">
-                    <a-col :span="18" v-if="item.result && item.date">
-                      评估结果：{{ item.result }}
+                    <a-col :span="18" v-if="item.result">
+                      评估结果：<span v-if="item.level">{{item.level}},</span> <span v-html="item.result"></span>
                     </a-col>
-                    <a-col :span="24" v-if="item.result && !item.date">
-                      评估结果：<span v-html="item.result"></span>
-                    </a-col>
-                    <a-col :span="6" align="right" pull="1" v-if="item.date">
+                    <a-col :span="6" align="right" pull="1" v-if="item.date && item.result">
                       {{ item.date }}
                     </a-col>
                   </a-row>
@@ -42,6 +39,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
+import { assessmentLatest, otherLatest } from '../../api/assessment'
 import AssessmentForm from './AssessmentForm'
 import AssessmentFiveForm from './AssessmentFiveForm'
 
@@ -50,6 +48,7 @@ const assessmentList = [{
   title: '五病综合筛查',
   type: 'getFive',
   content: '采用指标法判定是否为五病的高危人群，并通过专病症状评估患者的五病风险分层，我们将根据评估的结果给您制定个性化的健康管理方案',
+  level: '',
   result: '',
   date: ''
 },
@@ -59,13 +58,16 @@ const assessmentList = [{
   type: 'getAscvd',
   id: '',
   content: '旨在对您的心脑血管疾病进行评估，已明确您的心脑血管属于高危、中危或低危。可根据您的不同心脑血管疾病风险分层来采取不同的防控措施',
-  result: ''
+  level: '',
+  result: '',
+  date: ''
 }, {
   icon: require('../../assets/assessment/img_2.png'),
   title: '生活质量评估',
   type: 'getSSY',
   id: 10,
   content: '旨在通过询问您对自己健康状况的看法、您的感觉如何以及您进行日常生活的能力如何来评估您的生活质量综合状况，我们将根据您的评分情况对您进行个体化的中西医指导',
+  level: '',
   result: '',
   date: ''
 }, {
@@ -74,6 +76,7 @@ const assessmentList = [{
   type: 'getSSY',
   id: 11,
   content: '旨在通过糖尿病患者自我管理的评分表来评估您对糖尿病的认知情况，我们将根据评估结果对您制定个性化的健康管理方案',
+  level: '',
   result: '',
   date: ''
 }, {
@@ -82,6 +85,7 @@ const assessmentList = [{
   type: 'getSSY',
   id: 3,
   content: '旨在通过问询您过去一个月的膳食情况来评估您的营养水平，我们将根据评估结果对您进行个性化的营养膳食指导',
+  level: '',
   result: '',
   date: ''
 }, {
@@ -90,6 +94,7 @@ const assessmentList = [{
   type: 'getSSY',
   id: 4,
   content: '本量表为56岁以上者的专用抑郁筛查量表，而非抑郁症的诊断工具，每次检查需15分钟左右。临床主要评价56岁以上者以下症状：情绪低落、活动减少易激惹、退缩，以及对过去、现在和站起来的消极评价。但56岁以上主食欲下降、睡眠障碍等症状属于正常现象，使用该量表有时易误评为抑郁症。因此分数超过11分者应做进一步检查 ',
+  level: '',
   result: '',
   date: ''
 }, {
@@ -98,6 +103,7 @@ const assessmentList = [{
   type: 'getSSY',
   id: 8,
   content: '该量表适用于睡眠障碍患者、精神障碍患者评价睡眠质量，同时也适用于一般人睡眠质量的评估。请选择填写最符合您近期实际情况的答案',
+  level: '',
   result: '',
   date: ''
 }]
@@ -142,6 +148,61 @@ export default class extends Vue {
         }
       })
     }
+  }
+
+  getLatestAll(){
+    console.log("getlatestall")
+    const type = ['Ascvd','生活质量SF-12量表','糖尿病自我效能评估','Determine营养风险检测',
+      '快速抑郁评估PHQ-9','匹兹堡睡眠评估量表']
+    const self = this
+    type.forEach(function(key){
+      self.getLatest(key)
+    })
+  }
+  //获取ssy,Ascvd最新评估结果
+  async getLatest(type){
+    const params = {
+      patientId: this.id,
+      type: type
+    }
+    const assessmentResult = (await otherLatest(null,params)).data
+    console.log('assessmentResult----',assessmentResult)
+    console.log('typeof----',typeof assessmentResult)
+    console.log('assessmentResult type----',assessmentResult.type)
+    if(!assessmentResult) return
+    assessmentResult.result = JSON.parse(assessmentResult.result)
+    switch(assessmentResult.type){
+      case 'Ascvd':
+        this.assessmentList[1].level = assessmentResult.result.level || ''
+        this.assessmentList[1].result = assessmentResult.result.join('<br>')
+        this.assessmentList[1].date = assessmentResult.createDate || ''
+        break;
+      case '生活质量SF-12量表':
+        this.assessmentList[2].level = assessmentResult.result.level || ''
+        this.assessmentList[2].result = assessmentResult.result.suggestion || ''
+        this.assessmentList[2].date = assessmentResult.createDate || ''
+      case '糖尿病自我效能评估':
+        this.assessmentList[3].level = assessmentResult.result.level || ''
+        this.assessmentList[3].result = assessmentResult.result.suggestion || ''
+        this.assessmentList[3].date = assessmentResult.createDate || ''
+        break;
+      case 'Determine营养风险检测':
+        this.assessmentList[4].level = assessmentResult.result.level || ''
+        this.assessmentList[4].result = assessmentResult.result.suggestion || ''
+        this.assessmentList[4].date = assessmentResult.createDate || ''
+        break;
+      case '快速抑郁评估PHQ-9':
+        this.assessmentList[5].level = assessmentResult.result.level || ''
+        this.assessmentList[5].result = assessmentResult.result.suggestion || ''
+        this.assessmentList[5].date = assessmentResult.createDate || ''
+        break;
+      case '匹兹堡睡眠评估量表':
+        this.assessmentList[6].level = assessmentResult.result.level || ''
+        this.assessmentList[6].result = assessmentResult.result.suggestion || ''
+        this.assessmentList[6].date = assessmentResult.createDate || ''
+        break;
+    }
+    console.log('otherLatest assessment ----',assessmentResult)
   }
 }
 </script>

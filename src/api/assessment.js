@@ -59,3 +59,11 @@ export function assessmentAssess(data, search) {
     data: data,
   })
 }
+
+export function otherLatest(data, search) {
+  return axios({
+    url: `${api.otherLatest}${search ? '?' + searchParasToString(search) : ''}`,
+    method: 'get',
+    data: data,
+  })
+}
