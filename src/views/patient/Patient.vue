@@ -80,7 +80,7 @@
             </a-tab-pane>
             <a-tab-pane key="2" forceRender>
               <span slot="tab">
-                <a-icon type="apple"/>评估筛选
+                <a-icon type="apple"/>评估筛查
               </span>
               <assessment ref="assessment" :id="id" @back="handleFeedback"></assessment>
             </a-tab-pane>
@@ -102,7 +102,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 // 健康档案
 import Record from './Record'
-// 评估筛选
+// 评估筛查
 import Assessment from './Assessment'
 // 健康方案
 import Plan from './Plan'
