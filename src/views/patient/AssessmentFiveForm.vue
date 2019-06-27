@@ -287,6 +287,7 @@ export default class AssessmentFiveForm extends Vue {
           this.$refs.resultForm.show(values)
         }, 1500)
       } else {
+        alert("您还有题目没做完")
         this.confirmLoading = false
       }
     })
@@ -295,8 +296,8 @@ export default class AssessmentFiveForm extends Vue {
     this.form.resetFields()
     this.visible = false
   }
-  handleFeedback(type,data){
-    this.$emit('back',type,data)
+  handleFeedback(name,data){
+    this.$emit('back',name,data)
   }
 }
 </script>

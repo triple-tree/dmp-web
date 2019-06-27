@@ -17,7 +17,9 @@
                 <p class="result">
                   <a-row type="flex">
                     <a-col :span="18" v-if="item.result">
-                      评估结果：<span v-if="item.level">{{item.level}},</span> <span v-html="item.result"></span>
+                      <span v-if="item.title=='五病综合筛查'">慢病综合风险：</span>
+                      <span v-else>评估结果：</span>
+                      <span v-if="item.level">{{item.level}},</span> <span v-html="item.result"></span>
                     </a-col>
                     <a-col :span="6" align="right" pull="1" v-if="item.date && item.result">
                       {{ item.date }}
@@ -132,29 +134,28 @@ export default class extends Vue {
       this.$refs.assessmentForm.show(this.id,type,assessmentId)
     }
   }
-  handleFeedback(type,data,ssyId){
-    if(type === 'five'){
-      //五病综合筛查
-      this.assessmentList[0].result = data.risk
-      this.assessmentList[0].date = data.date
-    }else if(type === 'ascvd'){
-      //心脑血管评估
-      this.assessmentList[1].result = data.join('<br>')
-    }else if(type === 'ssy'){
-      //ssy评估
-      this.assessmentList.forEach(function(e){
-        if(e.id === ssyId){
-          e.result = data.level +','+ data.suggestion
-        }
-      })
+  handleFeedback(name){
+    if(name === 'five'){
+      this.$emit('back','five')
+    }else{
+      this.getLatest(name)
     }
   }
-
+  getLatestFive(risk,date){
+    this.assessmentList[0].level = ''
+    this.assessmentList[0].result = risk || ''
+    this.assessmentList[0].date = date || ''
+  }
   getLatestAll(){
     console.log("getlatestall")
     const type = ['Ascvd','生活质量SF-12量表','糖尿病自我效能评估','Determine营养风险检测',
       '快速抑郁评估PHQ-9','匹兹堡睡眠评估量表']
     const self = this
+    this.assessmentList.forEach(function(el){
+      el.level = ''
+      el.result = ''
+      el.date = ''
+    })
     type.forEach(function(key){
       self.getLatest(key)
     })
@@ -164,13 +165,44 @@ export default class extends Vue {
     const params = {
       patientId: this.id,
       type: type
-    }
+    }  
     const assessmentResult = (await otherLatest(null,params)).data
-    console.log('assessmentResult----',assessmentResult)
-    console.log('typeof----',typeof assessmentResult)
-    console.log('assessmentResult type----',assessmentResult.type)
-    if(!assessmentResult) return
-    assessmentResult.result = JSON.parse(assessmentResult.result)
+    if(!assessmentResult){
+      switch(type){
+        case 'Ascvd':
+          this.assessmentList[1].level = ''
+          this.assessmentList[1].result = ''
+          this.assessmentList[1].date = ''
+          break;
+        case '生活质量SF-12量表':
+          this.assessmentList[2].level = ''
+          this.assessmentList[2].result = ''
+          this.assessmentList[2].date = ''
+          break;
+        case '糖尿病自我效能评估':
+          this.assessmentList[3].level = ''
+          this.assessmentList[3].result = ''
+          this.assessmentList[3].date = ''
+          break;
+        case 'Determine营养风险检测':
+          this.assessmentList[4].level = ''
+          this.assessmentList[4].result = ''
+          this.assessmentList[4].date = ''
+          break;
+        case '快速抑郁评估PHQ-9':
+          this.assessmentList[5].level = ''
+          this.assessmentList[5].result = ''
+          this.assessmentList[5].date = ''
+          break;
+        case '匹兹堡睡眠评估量表':
+          this.assessmentList[6].level = ''
+          this.assessmentList[6].result = ''
+          this.assessmentList[6].date = ''
+          break;
+      }
+      return
+    } 
+    assessmentResult.result = assessmentResult.result && JSON.parse(assessmentResult.result)
     switch(assessmentResult.type){
       case 'Ascvd':
         this.assessmentList[1].level = assessmentResult.result.level || ''
@@ -202,7 +234,6 @@ export default class extends Vue {
         this.assessmentList[6].date = assessmentResult.createDate || ''
         break;
     }
-    console.log('otherLatest assessment ----',assessmentResult)
   }
 }
 </script>

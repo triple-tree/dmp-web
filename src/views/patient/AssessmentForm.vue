@@ -17,7 +17,7 @@
                 <a-form-item>
                   <a-radio-group 
                     v-if='item.scoringType === "CHOICE_SUM"'
-                    v-decorator="['choice.option'+item.id, {rules: [{required: false}]}]"
+                    v-decorator="['choice.option'+item.id, {rules: [{required: true, message: '请选择'}]}]"
                   >
                     <a-radio :value="m.id+'_'+m.value" v-for="m in item.choiceList" :key="m.id">{{m.text}}</a-radio>
                   </a-radio-group>
@@ -37,13 +37,13 @@
                           <a-slider 
                             :min=0
                             :max="n.text.indexOf('小时') >= 0 ? 24 : 100"
-                            v-decorator="['textList.'+n.id, {initialValue: 0, rules: [{required: false, message: '请选择'}]}]"/>
+                            v-decorator="['textList.'+n.id, {initialValue: 0, rules: [{required: true, message: '请选择'}]}]"/>
                         </a-col>
                       </a-row>
                     </div>
                     <div v-else>
                       <a-radio-group 
-                        v-decorator="['choice.option'+m.id, {rules: [{required: false}]}]"
+                        v-decorator="['choice.option'+m.id, {rules: [{required: true, message: '请选择'}]}]"
                       >
                         <a-radio :value="n.id+'_'+n.value" >{{n.text}}</a-radio>
                       </a-radio-group>
@@ -64,7 +64,7 @@
                   :wrapper-col="formItemLayout.wrapperCol">
                     <a-input 
                       v-if='item.type === "TEXT"'
-                      v-decorator="['kvList.'+item.name, {rules: [{required: item.isRequired, message: '请输入'+item.text}]}]"
+                      v-decorator="['kvList.'+item.name, {rules: [{required: true, message: '请输入'}]}]"
                       :placeholder="'请输入'+item.text"/>
                     <!-- <a-input
                       v-if='item.type === "NUMERIC"'
@@ -76,21 +76,21 @@
                           :min="item.range.lbound"
                           :max="item.range.rbound" 
                           :step="item.step"
-                          v-decorator="['kvList.'+item.name, {initialValue: +item.value, rules: [{required: item.isRequired, message: '请选择'+item.text}]}]"/>
+                          v-decorator="['kvList.'+item.name, {initialValue: +item.value, rules: [{required: true, message: '请选择'}]}]"/>
                       </a-col>
                       <a-col :span="4">
                         <a-input-number
                           :min="item.range.lbound"
                           :max="item.range.rbound"
                           :step="item.step"
-                          v-decorator="['kvList.'+item.name, {initialValue: +item.value, rules: [{required: item.isRequired, message: '请输入'+item.text}]}]"
+                          v-decorator="['kvList.'+item.name, {initialValue: +item.value, rules: [{required: true, message: '请输入'}]}]"
                           style="marginLeft: 5px"
                         />
                       </a-col>
                     </a-row>
                     <a-radio-group
                       v-if='item.type === "SINGLE_CHOICE"'
-                      v-decorator="['kvList.'+item.name, {initialValue: +item.value, rules: [{required: item.isRequired, message: '请选择'+item.text}]}]">
+                      v-decorator="['kvList.'+item.name, {initialValue: +item.value, rules: [{required: true, message: '请选择'}]}]">
                       <a-radio 
                         v-for="m in item.choice" 
                         :value="m.value"
@@ -99,7 +99,7 @@
                     </a-radio-group>
                     <a-checkbox-group 
                       v-if='item.type === "MULTIPLE_CHOICE"'
-                      v-decorator="['kvList.'+item.name, {rules: [{required: item.isRequired, message: '请选择'+item.text}]}]">
+                      v-decorator="['kvList.'+item.name, {rules: [{required: true, message: '请选择'}]}]">
                       <a-checkbox 
                         v-for="m in item.choice"
                         :value="m.value"
@@ -221,14 +221,14 @@ export default class AssessmentDetailModal extends Vue {
   async postAscvdData(values) {
     const res = (await ascvdAssessment(values)).data
     this.$refs.assessmentResult.show(this.formName,res)
-    //this.$emit('back','ascvd',res)
+    this.$emit('back','Ascvd')
     console.info(`res: ${JSON.stringify(res)}`)
   }
 
   async postSSYData(values) {
     const res = (await ssyAssessment(values)).data
     this.$refs.assessmentResult.show(values.jsonStr.name,res)
-    //this.$emit('back','ssy',res, this.ssyId)
+    this.$emit('back', values.jsonStr.name)
     console.info(`res: ${JSON.stringify(res)}`)
   }
 
@@ -317,11 +317,6 @@ export default class AssessmentDetailModal extends Vue {
             score2 = (score2/600).toFixed(2)
             values.jsonStr.score="'"+score1 +','+ score2+"'"
           }
-          // if(this.choiceList.length === 0){
-          //   alert('您还没有完成所有的问答')
-          //   this.confirmLoading = false
-          //   return false
-          // }
           values.jsonStr.choiceList = this.choiceList
           console.log('values', values)
           setTimeout(() => {
@@ -331,6 +326,7 @@ export default class AssessmentDetailModal extends Vue {
           }, 1500)
         }
       } else {
+        alert("您还有题目没做完")
         this.confirmLoading = false
       }
     })
