@@ -35,7 +35,6 @@ export default class AssessmentDetailModal extends Vue {
 
   async show(title,res) {
     this.assessmentTitle = title
-    debugger
     if(res.suggestion){
       this.suggestion = res.suggestion
     }else{

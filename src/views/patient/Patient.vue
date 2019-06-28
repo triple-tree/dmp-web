@@ -78,11 +78,11 @@
               </span>
               <record :id="id"></record>
             </a-tab-pane>
-            <a-tab-pane key="2">
+            <a-tab-pane key="2" forceRender>
               <span slot="tab">
                 <a-icon type="apple"/>评估筛查
               </span>
-              <assessment :id="id"></assessment>
+              <assessment ref="assessment" :id="id" @back="handleFeedback"></assessment>
             </a-tab-pane>
             <a-tab-pane key="3">
               <span slot="tab">
@@ -138,12 +138,21 @@ export default class extends Vue {
     console.info(`patient: ${JSON.stringify(patient)}`)
     const latestAssessment = await assessmentLatest(null, { patientId })
     this.model = { ...this.model, ...patient.data, ...latestAssessment.data }
+    this.$refs.assessment.getLatestFive(this.model.chronicDiseaseRisk,this.model.assessmentDate)
     console.info(`model: ${JSON.stringify(this.model)}`)
     console.info(this.model)
   }
   async beforeRouteEnter(to, from, next) {
     console.info(`beforeRouteEnter`)
-    next(async vm => vm.setData())
+    next(async vm => {
+      vm.setData()
+      vm.$refs.assessment.getLatestAll()
+    })
+  }
+  handleFeedback(name){
+    if(name === 'five'){
+      this.setData()
+    }
   }
   data() {
     return {

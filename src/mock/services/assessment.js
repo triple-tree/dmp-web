@@ -97,6 +97,19 @@ const assessmentAll = options => {
   return builder(data, '请求成功', 200)
 }
 
+// 获取ssy,Ascvd评估最新评估结果
+const otherLatest = options => {
+  const data = { 
+    "id": "5e6a7f98ba184a7890c6ac2e3cfcd603", 
+    "type": "Ascvd", 
+    "patientId": "00399d0800c94f508b3d906c44c08d8d", 
+    "createDate": "2019-06-17", 
+    "result": "[\"• 您10年内患心脑血管病（冠心病、脑梗死等）的风险是<i class=\\\"level_01\\\">22.6%</i>（同龄人理想值是13%），为同龄人理想值的<i class=\\\"level_01\\\">1.7</i>倍\",\"• 您目前属于冠心病、脑梗死等动脉粥样硬化疾病的<i class=\\\"level_01\\\">高危人群</i>\"]", 
+    "descriptions": null
+  }
+  return builder(data, '请求成功', 200)
+}
+
 // 筛查评估
 const assessmentAssess = options => {
   // const data = {
@@ -140,3 +153,4 @@ Mock.mock(/\/api\/patient\/ascvdAssessment/, 'post', ascvdAssessment)
 Mock.mock(/\/api\/patient\/SSYAssessment/, 'post', ssyAssessment)
 Mock.mock(/\/api\/assessment\/all/, 'get', assessmentAll)
 Mock.mock(/\/api\/assessment\/assess/, 'post', assessmentAssess)
+Mock.mock(/\/api\/assessment\/other\/latest/, 'get', otherLatest)

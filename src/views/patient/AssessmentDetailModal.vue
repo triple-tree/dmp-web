@@ -71,7 +71,6 @@ export default class AssessmentDetailModal extends Vue {
       },
     }
   }
-
   async setData(values) {
     const assessment = (await assessmentAssess(values)).data
     this.model = { ...this.model, ...assessment }
@@ -79,12 +78,9 @@ export default class AssessmentDetailModal extends Vue {
       risk: this.model.chronicDiseaseRisk,
       date: this.model.assessmentDate
     }
-    // this.visible = false
-    // this.$refs.assessmentResult.show('五病综合筛查',data)
-    //this.$emit('back','five',data)
+    this.$emit('back','five')
     console.info(`assessment: ${JSON.stringify(assessment)}, this.model: ${JSON.stringify(this.model)}`)
   }
-
   async show(values) {
     console.info(`show assessment: ${values}`)
     this.visible = true
@@ -93,7 +89,6 @@ export default class AssessmentDetailModal extends Vue {
   handleOk() {
     this.visible = false
   }
-
   handleCancel() {
     this.visible = false
   }
