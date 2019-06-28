@@ -50,26 +50,31 @@
         <a-button type="dashed" block @click="add('assessments')">
           <a-icon type="plus"/>添加评估
         </a-button>
-      </a-row> -->
+      </a-row>-->
       <h3>该患者主要健康状况评估结果如下：</h3>
       <a-row :gutter="8" class="ass-item">
         <a-col :span="6">
-          慢病综合风险 — <em>高危</em>
+          慢病综合风险 —
+          <em>高危</em>
         </a-col>
         <a-col :span="6">
-          高血压风险 — <em>高危</em>
+          高血压风险 —
+          <em>高危</em>
         </a-col>
         <a-col :span="6">
-          焦虑评估 — <em>高危</em>
+          焦虑评估 —
+          <em>高危</em>
         </a-col>
       </a-row>
       <h3>主要危险因子：</h3>
       <a-row :gutter="8" class="ass-item">
-        <em>吸烟</em>
+        <a-col :span="6">
+          <em>吸烟</em>
+        </a-col>
       </a-row>
       <h3>处方建议</h3>
       <a-row :gutter="8" v-for="(k, index) in form.getFieldValue('prescriptions')" :key="k">
-        <a-col :span="7">
+        <a-col :span="6">
           <a-form-item
             label="药名"
             :label-col="formItemLayout.labelCol"
@@ -84,7 +89,7 @@
             />
           </a-form-item>
         </a-col>
-        <a-col :span="5">
+        <a-col :span="4">
           <a-form-item
             label="频次"
             :label-col="formItemLayout.labelCol"
@@ -99,7 +104,7 @@
             />
           </a-form-item>
         </a-col>
-        <a-col :span="5">
+        <a-col :span="4">
           <a-form-item
             label="剂量"
             :label-col="formItemLayout.labelCol"
@@ -114,7 +119,22 @@
             />
           </a-form-item>
         </a-col>
-        <a-col :span="5">
+        <a-col :span="4">
+          <a-form-item
+            label="原因"
+            :label-col="formItemLayout.labelCol"
+            :wrapper-col="formItemLayout.wrapperCol"
+          >
+            <a-input
+              v-decorator="[
+                'reason',
+                {rules: [{ required: true, message: '请输入原因' }]}
+              ]"
+              placeholder="输入原因"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="4">
           <a-form-item
             label="备注"
             :label-col="formItemLayout.labelCol"
@@ -152,7 +172,7 @@
 
       <h3>运动建议</h3>
       <a-row :gutter="8" v-for="(k) in form.getFieldValue('sports')" :key="k">
-        <a-col :span="7">
+        <a-col :span="6">
           <a-form-item
             label="运动类型"
             :label-col="formItemLayout.labelCol"
@@ -167,7 +187,7 @@
             />
           </a-form-item>
         </a-col>
-        <a-col :span="5">
+        <a-col :span="4">
           <a-form-item
             label="运动频次"
             :label-col="formItemLayout.labelCol"
@@ -182,7 +202,7 @@
             />
           </a-form-item>
         </a-col>
-        <a-col :span="5">
+        <a-col :span="4">
           <a-form-item
             label="运动强度"
             :label-col="formItemLayout.labelCol"
@@ -197,7 +217,22 @@
             />
           </a-form-item>
         </a-col>
-        <a-col :span="5">
+        <a-col :span="4">
+          <a-form-item
+            label="原因"
+            :label-col="formItemLayout.labelCol"
+            :wrapper-col="formItemLayout.wrapperCol"
+          >
+            <a-input
+              v-decorator="[
+                'reason',
+                {rules: [{ required: true, message: '请输入原因' }]}
+              ]"
+              placeholder="输入原因"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="4">
           <a-form-item
             label="备注"
             :label-col="formItemLayout.labelCol"
@@ -235,7 +270,7 @@
 
       <h3>饮食建议</h3>
       <a-row :gutter="8" v-for="(k) in form.getFieldValue('diets')" :key="k">
-        <a-col :span="22">
+        <a-col :span="18">
           <a-form-item
             label="饮食建议"
             :label-col="formItemLayout.shortLabelCol"
@@ -247,6 +282,21 @@
                 {rules: [{ initialValue: '', required: true, message: '请输入饮食建议' }]}
               ]"
               placeholder="输入饮食建议"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="4">
+          <a-form-item
+            label="原因"
+            :label-col="formItemLayout.labelCol"
+            :wrapper-col="formItemLayout.wrapperCol"
+          >
+            <a-input
+              v-decorator="[
+                'reason',
+                {rules: [{ required: true, message: '请输入原因' }]}
+              ]"
+              placeholder="输入原因"
             />
           </a-form-item>
         </a-col>
@@ -273,7 +323,7 @@
 
       <h3>其他建议</h3>
       <a-row :gutter="8" v-for="(k) in form.getFieldValue('others')" :key="k">
-        <a-col :span="22">
+        <a-col :span="18">
           <a-form-item
             label="其他建议"
             :label-col="formItemLayout.shortLabelCol"
@@ -285,6 +335,21 @@
                 {rules: [{ initialValue: '', required: true, message: '请输入其他建议' }]}
               ]"
               placeholder="输入其他建议"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="4">
+          <a-form-item
+            label="原因"
+            :label-col="formItemLayout.labelCol"
+            :wrapper-col="formItemLayout.wrapperCol"
+          >
+            <a-input
+              v-decorator="[
+                'reason',
+                {rules: [{ required: true, message: '请输入原因' }]}
+              ]"
+              placeholder="输入原因"
             />
           </a-form-item>
         </a-col>
@@ -438,6 +503,10 @@ export default class extends Vue {
     })
   }
 
+  handleChange(value) {
+    console.log(`selected ${value}`)
+  }
+
   remove(type, k) {
     const { form } = this
     // can use data-binding to get
@@ -505,46 +574,6 @@ h3 {
   margin: 10px 0;
 }
 
-.width-10-percent {
-  width: 10%;
-}
-
-.width-20-percent {
-  width: 20%;
-}
-
-.width-30-percent {
-  width: 30%;
-}
-
-.width-40-percent {
-  width: 40%;
-}
-
-.width-50-percent {
-  width: 50%;
-}
-
-.width-60-percent {
-  width: 60%;
-}
-
-.width-70-percent {
-  width: 70%;
-}
-
-.width-80-percent {
-  width: 80%;
-}
-
-.width-90-percent {
-  width: 90%;
-}
-
-.width-100-percent {
-  width: 100%;
-}
-
 .symptom-image {
   width: 100px;
   height: 100px;
@@ -560,13 +589,13 @@ h3 {
   margin-right: 10px;
   width: 100%;
 }
-.ass-item{
+.ass-item {
   font-size: 14px;
   color: #000;
   opacity: 0.85;
 }
-.ass-item em{
-  font-style:normal;
+.ass-item em {
+  font-style: normal;
   color: #f00;
 }
 </style>
