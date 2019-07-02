@@ -225,7 +225,7 @@
 
       <h3>饮食建议</h3>
       <a-row :gutter="8" v-for="(item, index) in indexes['food']" :key="'food' + item">
-        <a-col :span="18">
+        <a-col :span="14">
           <a-form-item
             label="饮食建议"
             :label-col="formItemLayout.shortLabelCol"
@@ -255,6 +255,21 @@
             />
           </a-form-item>
         </a-col>
+        <a-col :span="4">
+          <a-form-item
+            label="备注"
+            :label-col="formItemLayout.labelCol"
+            :wrapper-col="formItemLayout.wrapperCol"
+          >
+            <a-input
+              v-decorator="[
+                `food[${index}].remark`,
+                {initialValue: food[index].remark, rules: [{ message: '请输入备注' }]}
+              ]"
+              placeholder="输入备注"
+            />
+          </a-form-item>
+        </a-col>
         <a-col :span="2">
           <a-form-item
             :label-col="formItemLayout.labelCol"
@@ -278,7 +293,7 @@
 
       <h3>其他建议</h3>
       <a-row :gutter="8" v-for="(item, index) in indexes['others']" :key="'others' + item">
-        <a-col :span="18">
+        <a-col :span="14">
           <a-form-item
             label="其他建议"
             :label-col="formItemLayout.shortLabelCol"
@@ -305,6 +320,21 @@
                 {initialValue: others[index].reason, rules: [{ message: '请输入原因' }]}
               ]"
               placeholder="输入原因"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="4">
+          <a-form-item
+            label="备注"
+            :label-col="formItemLayout.labelCol"
+            :wrapper-col="formItemLayout.wrapperCol"
+          >
+            <a-input
+              v-decorator="[
+                `others[${index}].remark`,
+                {initialValue: others[index].remark, rules: [{ message: '请输入备注' }]}
+              ]"
+              placeholder="输入备注"
             />
           </a-form-item>
         </a-col>
@@ -465,8 +495,8 @@ export default class extends Vue {
         { prescription: 'prescription', frequency: 'frequency', dosage: 'dosage', reason: 'reason', remark: 'remark' },
       ],
       exercise: [{ sport: 'sport', frequency: 'frequency', strength: 'strength', reason: 'reason', remark: 'remark' }],
-      food: [{ food: 'food', reason: 'reason' }],
-      others: [{ other: 'other', reason: 'reason' }],
+      food: [{ food: 'food', reason: 'reason', remark: 'remark' }],
+      others: [{ other: 'other', reason: 'reason', remark: 'remark' }],
       clinicRemind: {
         type: '转诊',
         suggestDate: '一个月内',
