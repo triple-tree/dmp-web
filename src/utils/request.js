@@ -38,13 +38,14 @@ const err = error => {
         message: 'Error',
         description: data.message,
       })
-      if (token) {
-        store.dispatch('Logout').then(() => {
-          setTimeout(() => {
-            window.location.reload()
-          }, 1500)
-        })
-      }
+      console.info(`error: ${JSON.stringify(error)}`)
+      // if (token) {
+      //   store.dispatch('Logout').then(() => {
+      //     setTimeout(() => {
+      //       window.location.reload()
+      //     }, 1500)
+      //   })
+      // }
     }
   }
   return Promise.reject(error)
