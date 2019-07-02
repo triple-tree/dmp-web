@@ -39,13 +39,13 @@ const err = error => {
         description: data.message,
       })
       console.info(`error: ${JSON.stringify(error)}`)
-      // if (token) {
-      //   store.dispatch('Logout').then(() => {
-      //     setTimeout(() => {
-      //       window.location.reload()
-      //     }, 1500)
-      //   })
-      // }
+      if (token && error.response.data.message === 'Token失效，请重新登录') {
+        store.dispatch('Logout').then(() => {
+          setTimeout(() => {
+            window.location.reload()
+          }, 1500)
+        })
+      }
     }
   }
   return Promise.reject(error)
