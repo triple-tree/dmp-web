@@ -30,7 +30,7 @@ const iconTypeDic = {
   },
   props: {
     value: {
-      type: Number,
+      type: String | Number,
       required: false,
       default: 0,
     },
