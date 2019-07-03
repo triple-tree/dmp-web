@@ -179,7 +179,7 @@
 </template>
 
 <script>
-import { patientGetPatientReport, patientSendPlan } from '@/api/patient'
+import { patientGetPatientReport, patientSendHealthPlan } from '@/api/patient'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
@@ -322,7 +322,7 @@ export default class AssessmentDetailModal extends Vue {
   async handleCancel() {
     this.visible = false
     this.confirmLoading = false
-    const res = (await patientSendPlan(null,{patientId: this.id}))
+    const res = (await patientSendHealthPlan({patientId: this.id}))
     if(res.code === 200){
       alert("推送成功")
     }

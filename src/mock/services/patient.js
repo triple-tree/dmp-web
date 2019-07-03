@@ -145,120 +145,129 @@ const patientGetPatientReport = options => {
   const patientId = queryParameters.patientId
   const patient = patients.filter(patient => patient.id === patientId)
   const data = {
-    patient,
-    patientRecord: {
-      id: 'ce8b28a37138485a81e727a95cd4a884',
-      patientId: 'a225901ef3794c558e51f1459ace47a8',
-      doctorId: 'b80c338df2974b58aaf9b51c351169e5',
-      createDate: '2019-05-15',
-      patientRecordFactors: [
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'dbp',
-          factorValue: '0',
-        },
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'familyHistoryAscvd',
-          factorValue: '0',
-        },
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'familyHistoryDiabetes',
-          factorValue: '0',
-        },
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'familyHistoryHypertension',
-          factorValue: '0',
-        },
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'familyHistoryStroke',
-          factorValue: '0',
-        },
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'previousHistoryAscvd',
-          factorValue: '0',
-        },
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'previousHistoryCopd',
-          factorValue: '0',
-        },
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'previousHistoryDiabetes',
-          factorValue: '0',
-        },
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'previousHistoryDyslipidemia',
-          factorValue: '0',
-        },
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'previousHistoryHypertension',
-          factorValue: '0',
-        },
-        {
-          patientRecordId: 'ce8b28a37138485a81e727a95cd4a884',
-          factorName: 'previousHistoryStroke',
-          factorValue: '0',
-        },
-      ],
-    },
-    planDetail: {
-      doctorId: 'c5a7ac3958554e0da76d6db850611fff',
-      patientId: 'a225901ef3794c558e51f1459ace47a8',
-      createDate: '2019-05-15',
-      healthAdvices: [
-        {
-          id: '556205a69c9a427ab4c00dcb215955e5',
-          healthPlanId: 'ef50c0f9db934fd3af948723c8b88072',
-          adviceType: 'food',
-          adviceValue: '少盐，戒烟酒',
-          reason: '高血压',
-        },
-        {
-          id: 'aa7a95d6e7e546fc9dedd1b8d7da1c5d',
-          healthPlanId: 'ef50c0f9db934fd3af948723c8b88072',
-          adviceType: 'exercise',
-          adviceValue: '多户外运动',
-          reason: '高血压',
-        },
-      ],
-      clinicRemind: {
-        id: 'cbb42157d805482ba4688268b208d881',
-        healthPlanId: 'ef50c0f9db934fd3af948723c8b88072',
-        type: '转诊',
-        suggestDate: '2个月内',
-        relatedDisease: '脑卒中',
-        reason: '脑卒中极高危',
-        status: 0,
-        targetHospital: '卫生所',
-        currentHospital: null,
+      "patientBaseInfo": {
+          "id": "a225901ef3794c558e51f1459ace47a8", 
+          "identityNumber": "411526196509093245", 
+          "phoneNumber": "13176351707", 
+          "name": "张七", 
+          "gender": 1, 
+          "age": "64", 
+          "weight": "60.5", 
+          "height": "172.3", 
+          "waistline": "90.0"
+      }, 
+      "doctor": {
+          "doctorId": "a225901ef3794c558e51f1459ace47a8", 
+          "doctorName": "陈医生", 
+          "hospitalName": "天桥医院"
+      }, 
+      "patientRecord": {
+          "id": "74b46b6ea20e4f5d8af3bdd1a801f150", 
+          "patientId": "a225901ef3794c558e51f1459ace47a8", 
+          "doctorId": "b80c338df2974b58aaf9b51c351169e5", 
+          "createDate": "2019-05-10", 
+          "patientRecordFactors": {
+              "sbp": "124", 
+              "dbp": "74", 
+              "fbg": "5.0", 
+              "serum_tc": "6.0", 
+              "ldl_c": "0.3", 
+              "hdl_c": "0.4", 
+              "previousHistoryDiabetes": "0", 
+              "previousHistoryHypertension": "0", 
+              "previousHistoryStroke": "1", 
+              "previousHistoryAscvd": "0", 
+              "previousHistoryCopd": "1", 
+              "previousHistoryDyslipidemia": "0", 
+              "familyHistoryDiabetes": "0", 
+              "familyHistoryHypertension": "1", 
+              "familyHistoryStroke": "0", 
+              "familyHistoryAscvd": "0", 
+              "familyHistoryCopd": "0", 
+              "symptomsHeadache": "0", 
+              "symptomsStethalgia": "1", 
+              "symptomsDyspnea": "0", 
+              "symptomsDiuresis": "0", 
+              "symptomsDizziness": "0", 
+              "smoke": "0", 
+              "salt": "0", 
+              "alcohol": "1"
+          }
+      }, 
+      "planDetail": {
+          "doctorId": "b80c338df2974b58aaf9b51c351169e5", 
+          "patientId": "a225901ef3794c558e51f1459ace47a8", 
+          "createDate": "2019-05-10", 
+          "healthAdvices": {
+              "prescriptions": [
+                  {
+                      "prescription": "1", 
+                      "frequency": "1", 
+                      "dosage": "1", 
+                      "reason": "1", 
+                      "remark": "1"
+                  }, 
+                  {
+                      "prescription": "2", 
+                      "frequency": "2", 
+                      "dosage": "2", 
+                      "reason": "2", 
+                      "remark": "2"
+                  }
+              ], 
+              "exercise": [
+                  {
+                      "type": "sport", 
+                      "frequency": "frequency", 
+                      "degree": "strength", 
+                      "reason": "reason", 
+                      "remark": "remark"
+                  }
+              ], 
+              "food": [
+                  {
+                      "food": "diet", 
+                      "reason": "reason", 
+                      "remark": "2"
+                  }
+              ], 
+              "others": [
+                  {
+                      "other": "other", 
+                      "reason": "reason", 
+                      "remark": "2"
+                  }
+              ], 
+              "clinicRemind": {
+                  "suggestDate": "两个月内", 
+                  "type": "转诊", 
+                  "targetHospital": "卫生所", 
+                  "relatedDisease": "脑卒中", 
+                  "reason": "脑卒中极高危"
+              }
+          }
+      }, 
+      "chronicDiseaseAssessment": {
+          "id": "749f0cc463784528944b2bdf1490f626", 
+          "patientId": "a225901ef3794c558e51f1459ace47a8", 
+          "doctorId": "b80c338df2974b58aaf9b51c351169e5", 
+          "assessmentDate": "2019-05-09", 
+          "chronicDiseaseRisk": "高危", 
+          "diabetesRisk": "一般", 
+          "hypertensionRisk": "高危", 
+          "strokeRisk": "一般", 
+          "ascvdRisk": "一般", 
+          "copdRisk": "不详"
       },
-    },
-    chronicDiseaseAssessment: {
-      id: '749f0cc463784528944b2bdf1490f626',
-      patientId: 'a225901ef3794c558e51f1459ace47a8',
-      doctorId: 'b80c338df2974b58aaf9b51c351169e5',
-      assessmentDate: '2019-05-09',
-      chronicDiseaseRisk: '高危',
-      diabetesRisk: '一般',
-      hypertensionRisk: '高危',
-      strokeRisk: '一般',
-      ascvdRisk: '一般',
-      copdRisk: '不详',
-    },
+      "otherAssessment": {
+          "睡眠评估": "睡眠评估结果"
+      },
   }
   return builder(data, '新建患者成功！', 200)
 }
 
 // 3.2.2.	推送患者健康方案
-const patientSendPlan = options => {
+const patientSendHealthPlan = options => {
   const queryParameters = getQueryParameters(options) || {}
   const patientId = queryParameters.patientId
   console.info(`patientSendPlan for patientId: ${patientId}`)
@@ -271,4 +280,4 @@ Mock.mock(/\/api\/patient\/query/, 'post', patientQuery)
 Mock.mock(/\/api\/patient\/add/, 'post', patientAdd)
 Mock.mock(/\/api\/patient\/upload/, 'post', patientUpload)
 Mock.mock(/\/api\/patient\/getPatientReport/, 'get', patientGetPatientReport)
-Mock.mock(/\/api\/patient\/sendPlan/, 'post', patientSendPlan)
+Mock.mock(/\/api\/patient\/sendHealthPlan/, 'post', patientSendHealthPlan)

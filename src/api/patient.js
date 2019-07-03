@@ -55,9 +55,9 @@ export function patientGetPatientReport(data, search) {
   })
 }
 
-export function patientSendPlan(data, search) {
+export function patientSendHealthPlan(data, search) {
   return axios({
-    url: `${api.patientSendPlan}${search ? '?' + searchParasToString(search) : ''}`,
+    url: `${api.patientSendHealthPlan}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'post',
     data,
   })

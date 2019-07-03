@@ -9,7 +9,7 @@ const api = {
   patientAdd: '/api/patient/add',
   patientUpload: '/api/patient/upload',
   patientGetPatientReport: '/api/patient/getPatientReport',
-  patientSendPlan: '/api/patient/sendPlan',
+  patientSendHealthPlan: '/api/patient/sendHealthPlan',
   // 统计报表
   statsAll: '/api/stats/all',
   statsPatients: '/api/stats/patients',
