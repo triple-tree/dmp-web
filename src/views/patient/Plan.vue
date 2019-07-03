@@ -463,11 +463,12 @@
         </a-col>
         <a-col :span="8">
           <a-form-item>
-            <a-button type="default" html-type="submit">历史记录</a-button>
+            <a-button type="default" @click="showHistoryRecords">历史健康方案</a-button>
           </a-form-item>
         </a-col>
       </a-row>
     </a-form>
+    <plan-history-modal ref="modalForm"></plan-history-modal>
   </div>
 </template>
 
@@ -479,9 +480,13 @@ import Mock, { Random } from 'mockjs2'
 import { USER_INFO } from '@/store/mutation-types'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
+import PlanHistoryModal from './PlanHistoryModal'
 moment.locale('zh-cn')
 
 @Component({
+  components: {
+    PlanHistoryModal,
+  },
   props: {
     id: String,
   },
@@ -588,6 +593,10 @@ export default class extends Vue {
       newValue.push({ other: '' })
     }
     this[type] = newValue
+  }
+
+  showHistoryRecords() {
+    this.$refs.modalForm.show(this.id)
   }
 }
 </script>
