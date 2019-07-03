@@ -432,7 +432,7 @@ export default class PlanDetailModal extends Vue {
   async setData(id) {
     const plan = await planDetail(null, { id })
     const factors = {}
-    const { prescriptions = [], exercise = [], food = [], others = [], clinicRemind = {} } = plan.data.planDetails
+    const { prescriptions = [], exercise = [], food = [], others = [], clinicRemind = {} } = plan.data.planDetail
     this.prescriptions = prescriptions || []
     this.exercise = exercise || []
     this.food = food || []
