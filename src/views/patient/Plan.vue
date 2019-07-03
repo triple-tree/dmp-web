@@ -455,7 +455,7 @@
         </a-col>
         <a-col :span="8">
           <a-form-item>
-            <a-button type="default" html-type="submit">生成患者的管理报告</a-button>
+            <a-button type="default" @click="showReport">生成患者的管理报告</a-button>
           </a-form-item>
         </a-col>
         <a-col :span="8">
@@ -465,6 +465,7 @@
         </a-col>
       </a-row>
     </a-form>
+    <Report ref="report"></Report>
   </div>
 </template>
 
@@ -473,8 +474,12 @@ import { statsAll, statsPatients, statsPlans } from '@/api/stats'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
+import Report from './Report'
 
 @Component({
+  components:{
+    Report
+  },
   props: {
     id: String,
   },
@@ -544,6 +549,9 @@ export default class extends Vue {
     return Random.image('100x100', Random.color(), '#000', 'png', text)
   }
 
+  showReport(){
+    this.$refs.report.show(this.id)
+  }
   data() {
     return {
       formItemLayout: {
