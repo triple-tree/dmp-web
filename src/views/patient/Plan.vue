@@ -1,56 +1,6 @@
 <template>
   <div class="root-container">
-    <a-form layout="inline">
-      <!-- <h3>评估</h3>
-      <a-row :gutter="8" v-for="(k) in form.getFieldValue('assessments')" :key="k">
-        <a-col :span="11">
-          <a-form-item
-            label="评估"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-select :defaultValue="k.assessment" style="width: 120px" @change="handleChange">
-              <a-select-option value="ASCVD评估1">ASCVD评估1</a-select-option>
-              <a-select-option value="ASCVD评估2">ASCVD评估2</a-select-option>
-              <a-select-option value="ASCVD评估3">ASCVD评估4</a-select-option>
-            </a-select>
-          </a-form-item>
-        </a-col>
-        <a-col :span="11">
-          <a-form-item
-            label="评估结果"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-input
-              v-decorator="[
-                'weight',
-                {rules: [{ initialValue: '', required: true, message: '请输入评估结果' }]}
-              ]"
-              placeholder="输入评估结果"
-            />
-          </a-form-item>
-        </a-col>
-        <a-col :span="2">
-          <a-form-item
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-icon
-              v-if="form.getFieldValue('assessments').length > 1"
-              class="dynamic-delete-button"
-              type="minus-circle-o"
-              :disabled="form.getFieldValue('assessments').length === 1"
-              @click="() => remove('assessments', k)"
-            />
-          </a-form-item>
-        </a-col>
-      </a-row>
-      <a-row :gutter="8">
-        <a-button type="dashed" block @click="add('assessments')">
-          <a-icon type="plus"/>添加评估
-        </a-button>
-      </a-row>-->
+    <a-form layout="inline" :form="form" @submit="handleSubmit">
       <h3>该患者主要健康状况评估结果如下：</h3>
       <a-row :gutter="8" class="ass-item">
         <a-col :span="6">
@@ -72,8 +22,13 @@
           <em>吸烟</em>
         </a-col>
       </a-row>
+
       <h3>处方建议</h3>
-      <a-row :gutter="8" v-for="(k, index) in form.getFieldValue('prescriptions')" :key="k">
+      <a-row
+        :gutter="8"
+        v-for="(item, index) in indexes['prescriptions']"
+        :key="'prescriptions_' + item"
+      >
         <a-col :span="6">
           <a-form-item
             label="药名"
@@ -82,8 +37,8 @@
           >
             <a-input
               v-decorator="[
-                'medicine',
-                {rules: [{ initialValue: '', required: true, message: '请输入药名' }]}
+                `prescriptions[${index}].prescription`,
+                {initialValue: prescriptions[index].prescription, rules: [{ message: '请输入药名' }]}
               ]"
               placeholder="输入药名"
             />
@@ -97,8 +52,8 @@
           >
             <a-input
               v-decorator="[
-                'frequency',
-                {rules: [{ initialValue: '', required: true, message: '请输入频次' }]}
+                `prescriptions[${index}].frequency`,
+                {initialValue: prescriptions[index].frequency, rules: [{ message: '请输入频次' }]}
               ]"
               placeholder="输入频次"
             />
@@ -112,8 +67,8 @@
           >
             <a-input
               v-decorator="[
-                'dosage',
-                {rules: [{ initialValue: '', required: true, message: '请输入剂量' }]}
+                `prescriptions[${index}].dosage`,
+                {initialValue: prescriptions[index].dosage, rules: [{ message: '请输入剂量' }]}
               ]"
               placeholder="输入剂量"
             />
@@ -127,8 +82,8 @@
           >
             <a-input
               v-decorator="[
-                'reason',
-                {rules: [{ required: true, message: '请输入原因' }]}
+                `prescriptions[${index}].reason`,
+                {initialValue: prescriptions[index].reason, rules: [{ message: '请输入原因' }]}
               ]"
               placeholder="输入原因"
             />
@@ -142,8 +97,8 @@
           >
             <a-input
               v-decorator="[
-                'remark',
-                {rules: [{ initialValue: '', required: true, message: '请输入备注' }]}
+                `prescriptions[${index}].remark`,
+                {initialValue: prescriptions[index].remark, rules: [{ message: '请输入备注' }]}
               ]"
               placeholder="输入备注"
             />
@@ -155,11 +110,11 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-icon
-              v-if="form.getFieldValue('prescriptions').length > 1"
+              v-if="indexes['prescriptions'].length > 1"
               class="dynamic-delete-button"
               type="minus-circle-o"
-              :disabled="form.getFieldValue('prescriptions').length === 1"
-              @click="() => remove('prescriptions', k)"
+              :disabled="indexes['prescriptions'].length === 1"
+              @click="() => remove('prescriptions', item)"
             />
           </a-form-item>
         </a-col>
@@ -171,7 +126,7 @@
       </a-row>
 
       <h3>运动建议</h3>
-      <a-row :gutter="8" v-for="(k) in form.getFieldValue('sports')" :key="k">
+      <a-row :gutter="8" v-for="(item, index) in indexes['exercise']" :key="'exercise' + item">
         <a-col :span="6">
           <a-form-item
             label="运动类型"
@@ -180,8 +135,8 @@
           >
             <a-input
               v-decorator="[
-                'sport',
-                {rules: [{ initialValue: '', required: true, message: '请输入运动' }]}
+                `exercise[${index}].sport`,
+                {initialValue: exercise[index].sport, rules: [{ message: '请输入运动' }]}
               ]"
               placeholder="输入运动"
             />
@@ -195,8 +150,8 @@
           >
             <a-input
               v-decorator="[
-                's-frequency',
-                {rules: [{ initialValue: '', required: true, message: '请输入运动频次' }]}
+                `exercise[${index}].frequency`,
+                {initialValue: exercise[index].frequency, rules: [{ message: '请输入运动频次' }]}
               ]"
               placeholder="输入运动频次"
             />
@@ -210,8 +165,8 @@
           >
             <a-input
               v-decorator="[
-                's-dosage',
-                {rules: [{ initialValue: '', required: true, message: '请输入运动强度' }]}
+                `exercise[${index}].strength`,
+                {initialValue: exercise[index].strength, rules: [{ message: '请输入运动强度' }]}
               ]"
               placeholder="输入运动强度"
             />
@@ -225,8 +180,8 @@
           >
             <a-input
               v-decorator="[
-                'reason',
-                {rules: [{ required: true, message: '请输入原因' }]}
+                `exercise[${index}].reason`,
+                {initialValue: exercise[index].reason, rules: [{ message: '请输入原因' }]}
               ]"
               placeholder="输入原因"
             />
@@ -240,8 +195,8 @@
           >
             <a-input
               v-decorator="[
-                's-remark',
-                {rules: [{ initialValue: '', required: true, message: '请输入备注' }]}
+                `exercise[${index}].remark`,
+                {initialValue: exercise[index].remark, rules: [{ message: '请输入备注' }]}
               ]"
               placeholder="输入备注"
             />
@@ -253,24 +208,24 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-icon
-              v-if="form.getFieldValue('sports').length > 1"
+              v-if="indexes['exercise'].length > 1"
               class="dynamic-delete-button"
               type="minus-circle-o"
-              :disabled="form.getFieldValue('sports').length === 1"
-              @click="() => remove('sports', k)"
+              :disabled="indexes['exercise'].length === 1"
+              @click="() => remove('exercise', item)"
             />
           </a-form-item>
         </a-col>
       </a-row>
       <a-row :gutter="8">
-        <a-button type="dashed" block @click="add('sports')">
+        <a-button type="dashed" block @click="add('exercise')">
           <a-icon type="plus"/>添加运动建议
         </a-button>
       </a-row>
 
       <h3>饮食建议</h3>
-      <a-row :gutter="8" v-for="(k) in form.getFieldValue('diets')" :key="k">
-        <a-col :span="18">
+      <a-row :gutter="8" v-for="(item, index) in indexes['food']" :key="'food' + item">
+        <a-col :span="14">
           <a-form-item
             label="饮食建议"
             :label-col="formItemLayout.shortLabelCol"
@@ -278,8 +233,8 @@
           >
             <a-input
               v-decorator="[
-                'diet',
-                {rules: [{ initialValue: '', required: true, message: '请输入饮食建议' }]}
+                `food[${index}].food`,
+                {initialValue: food[index].food, rules: [{ message: '请输入饮食建议' }]}
               ]"
               placeholder="输入饮食建议"
             />
@@ -293,10 +248,25 @@
           >
             <a-input
               v-decorator="[
-                'reason',
-                {rules: [{ required: true, message: '请输入原因' }]}
+                `food[${index}].reason`,
+                {initialValue: food[index].reason, rules: [{ message: '请输入原因' }]}
               ]"
               placeholder="输入原因"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="4">
+          <a-form-item
+            label="备注"
+            :label-col="formItemLayout.labelCol"
+            :wrapper-col="formItemLayout.wrapperCol"
+          >
+            <a-input
+              v-decorator="[
+                `food[${index}].remark`,
+                {initialValue: food[index].remark, rules: [{ message: '请输入备注' }]}
+              ]"
+              placeholder="输入备注"
             />
           </a-form-item>
         </a-col>
@@ -306,24 +276,24 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-icon
-              v-if="form.getFieldValue('diets').length > 1"
+              v-if="indexes['food'].length > 1"
               class="dynamic-delete-button"
               type="minus-circle-o"
-              :disabled="form.getFieldValue('diets').length === 1"
-              @click="() => remove('diets', k)"
+              :disabled="indexes['food'].length === 1"
+              @click="() => remove('food', item)"
             />
           </a-form-item>
         </a-col>
       </a-row>
       <a-row :gutter="8">
-        <a-button type="dashed" block @click="add('diets')">
+        <a-button type="dashed" block @click="add('food')">
           <a-icon type="plus"/>添加饮食建议
         </a-button>
       </a-row>
 
       <h3>其他建议</h3>
-      <a-row :gutter="8" v-for="(k) in form.getFieldValue('others')" :key="k">
-        <a-col :span="18">
+      <a-row :gutter="8" v-for="(item, index) in indexes['others']" :key="'others' + item">
+        <a-col :span="14">
           <a-form-item
             label="其他建议"
             :label-col="formItemLayout.shortLabelCol"
@@ -331,8 +301,8 @@
           >
             <a-input
               v-decorator="[
-                'other',
-                {rules: [{ initialValue: '', required: true, message: '请输入其他建议' }]}
+                `others[${index}].other`,
+                {initialValue: others[index].other, rules: [{ message: '请输入其他建议' }]}
               ]"
               placeholder="输入其他建议"
             />
@@ -346,10 +316,25 @@
           >
             <a-input
               v-decorator="[
-                'reason',
-                {rules: [{ required: true, message: '请输入原因' }]}
+                `others[${index}].reason`,
+                {initialValue: others[index].reason, rules: [{ message: '请输入原因' }]}
               ]"
               placeholder="输入原因"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="4">
+          <a-form-item
+            label="备注"
+            :label-col="formItemLayout.labelCol"
+            :wrapper-col="formItemLayout.wrapperCol"
+          >
+            <a-input
+              v-decorator="[
+                `others[${index}].remark`,
+                {initialValue: others[index].remark, rules: [{ message: '请输入备注' }]}
+              ]"
+              placeholder="输入备注"
             />
           </a-form-item>
         </a-col>
@@ -359,11 +344,11 @@
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-icon
-              v-if="form.getFieldValue('others').length > 1"
+              v-if="indexes['others'].length > 1"
               class="dynamic-delete-button"
               type="minus-circle-o"
-              :disabled="form.getFieldValue('others').length === 1"
-              @click="() => remove('others', k)"
+              :disabled="indexes['others'].length === 1"
+              @click="() => remove('others', item)"
             />
           </a-form-item>
         </a-col>
@@ -382,7 +367,20 @@
             :label-col="formItemLayout.labelCol"
             :wrapper-col="formItemLayout.wrapperCol"
           >
-            <a-date-picker/>
+            <a-select
+              v-decorator="[
+                'clinicRemind.suggestDate',
+                {initialValue: clinicRemind.suggestDate}
+              ]"
+              style="width: 120px"
+            >
+              <a-select-option value="两星期内">两星期内</a-select-option>
+              <a-select-option value="一个月内">一个月内</a-select-option>
+              <a-select-option value="两个月内">两个月内</a-select-option>
+              <a-select-option value="三个月内">三个月内</a-select-option>
+              <a-select-option value="六个月内">六个月内</a-select-option>
+              <a-select-option value="一年内">一年内</a-select-option>
+            </a-select>
           </a-form-item>
         </a-col>
         <a-col :span="8">
@@ -391,10 +389,15 @@
             :label-col="formItemLayout.labelCol"
             :wrapper-col="formItemLayout.wrapperCol"
           >
-            <a-select style="width: 120px" @change="handleChange">
-              <a-select-option value="ASCVD1">ASCVD1</a-select-option>
-              <a-select-option value="ASCVD2">ASCVD2</a-select-option>
-              <a-select-option value="ASCVD3">ASCVD4</a-select-option>
+            <a-select
+              v-decorator="[
+                'clinicRemind.type',
+                {initialValue: clinicRemind.type}
+              ]"
+              style="width: 120px"
+            >
+              <a-select-option value="转诊">转诊</a-select-option>
+              <a-select-option value="观察">观察</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
@@ -406,8 +409,8 @@
           >
             <a-input
               v-decorator="[
-                'height',
-                {rules: [{ required: true, message: '请输入就诊医院' }]}
+                'clinicRemind.targetHospital',
+                {initialValue: clinicRemind.targetHospital, rules: [{ message: '请输入就诊医院' }]}
               ]"
               placeholder="输入就诊医院"
             />
@@ -423,8 +426,8 @@
           >
             <a-input
               v-decorator="[
-                'weight',
-                {rules: [{ required: true, message: '请输入相关病' }]}
+                'clinicRemind.relatedDisease',
+                {initialValue: clinicRemind.relatedDisease, rules: [{ message: '请输入相关病' }]}
               ]"
               placeholder="输入相关病"
             />
@@ -438,8 +441,8 @@
           >
             <a-input
               v-decorator="[
-                'waistline',
-                {rules: [{ required: true, message: '请输入原因' }]}
+                'clinicRemind.reason',
+                {initialValue: clinicRemind.reason, rules: [{ message: '请输入原因' }]}
               ]"
               placeholder="输入原因"
             />
@@ -460,24 +463,31 @@
         </a-col>
         <a-col :span="8">
           <a-form-item>
-            <a-button type="default" html-type="submit">历史记录</a-button>
+            <a-button type="default" @click="showHistoryRecords">历史健康方案</a-button>
           </a-form-item>
         </a-col>
       </a-row>
     </a-form>
-    <Report ref="report" :id="id"></Report>
+    <plan-history-modal ref="modalForm"></plan-history-modal>
+    <report ref="report" :id="id"></report>
   </div>
 </template>
 
 <script>
-import { statsAll, statsPatients, statsPlans } from '@/api/stats'
+import { planAdd } from '@/api/plan'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
+import { USER_INFO } from '@/store/mutation-types'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+import PlanHistoryModal from './PlanHistoryModal'
 import Report from './Report'
+moment.locale('zh-cn')
 
 @Component({
-  components:{
+  components: {
+    PlanHistoryModal,
     Report
   },
   props: {
@@ -485,75 +495,23 @@ import Report from './Report'
   },
 })
 export default class extends Vue {
-  async created() {}
-
-  beforeCreate() {
-    this.form = this.$form.createForm(this)
-    this.form.getFieldDecorator('assessments', { initialValue: [{ assessment: '', value: '' }], preserve: true })
-    this.form.getFieldDecorator('prescriptions', {
-      initialValue: [{ medicine: '', frequency: '', dosage: '', remark: '' }],
-      preserve: true,
-    })
-    this.form.getFieldDecorator('sports', {
-      initialValue: [{ sport: '', 's-frequency': '', 's-dosage': '', 's-remark': '' }],
-      preserve: true,
-    })
-    this.form.getFieldDecorator('diets', {
-      initialValue: [{ diet: '' }],
-      preserve: true,
-    })
-    this.form.getFieldDecorator('others', {
-      initialValue: [{ other: '' }],
-      preserve: true,
-    })
-  }
-
-  handleChange(value) {
-    console.log(`selected ${value}`)
-  }
-
-  remove(type, k) {
-    const { form } = this
-    // can use data-binding to get
-    const value = form.getFieldValue(type)
-    // can use data-binding to set
-    form.setFieldsValue({
-      [type]: value.filter(key => key !== k),
-    })
-  }
-
-  add(type) {
-    const { form } = this
-    // can use data-binding to get
-    const value = form.getFieldValue(type)
-    const newValue = [...value]
-    if (type === 'assessments') {
-      newValue.push({ assessment: '', value: '' })
-    } else if (type === 'prescriptions') {
-      newValue.push({ medicine: '', frequency: '', dosage: '', remark: '' })
-    } else if (type === 'sports') {
-      newValue.push({ sport: '', 's-frequency': '', 's-dosage': '', 's-remark': '' })
-    } else if (type === 'diets') {
-      newValue.push({ diet: '' })
-    } else if (type === 'others') {
-      newValue.push({ other: '' })
-    }
-    // can use data-binding to set
-    // important! notify form to detect changes
-    form.setFieldsValue({
-      [type]: newValue,
-    })
-  }
-
-  MockImage(text) {
-    return Random.image('100x100', Random.color(), '#000', 'png', text)
-  }
-
-  showReport(){
-    this.$refs.report.show(this.id)
-  }
   data() {
     return {
+      indexes: { prescriptions: [0], exercise: [0], food: [0], others: [0] },
+      form: this.$form.createForm(this),
+      prescriptions: [
+        { prescription: 'prescription', frequency: 'frequency', dosage: 'dosage', reason: 'reason', remark: 'remark' },
+      ],
+      exercise: [{ sport: 'sport', frequency: 'frequency', strength: 'strength', reason: 'reason', remark: 'remark' }],
+      food: [{ food: 'food', reason: 'reason', remark: 'remark' }],
+      others: [{ other: 'other', reason: 'reason', remark: 'remark' }],
+      clinicRemind: {
+        type: '转诊',
+        suggestDate: '一个月内',
+        relatedDisease: '脑卒中',
+        reason: '脑卒中极高危',
+        targetHospital: '卫生所',
+      },
       formItemLayout: {
         labelCol: {
           xs: { span: 8 },
@@ -573,6 +531,79 @@ export default class extends Vue {
         },
       },
     }
+  }
+
+  async created() {
+    console.info(`created`)
+    // const { form, clinicRemind } = this
+    // form.setFieldsValue({
+    //   'clinicRemind.suggestDate': [moment(clinicRemind.suggestDate[0]), moment(clinicRemind.suggestDate[1])],
+    // })
+    // const value = form.getFieldValue('clinicRemind.suggestDate')
+    // console.info(`value: ${JSON.stringify(value)}`)
+  }
+
+  beforeCreate() {
+    console.info(`beforeCreate`)
+  }
+
+  async handleSubmit(e) {
+    e.preventDefault()
+    this.form.validateFields(async (err, values) => {
+      if (!err) {
+        // console.log(`Received values of form: ${JSON.stringify(values, null, 2)}`)
+        const data = { doctorId: Vue.ls.get(USER_INFO).data.id, patientId: this.id, ...values }
+        console.log(`planAdd data : ${JSON.stringify(data, null, 2)}`)
+        const res = await planAdd(data)
+        if (res.code === 200) {
+          this.$message.success('新建健康档案成功')
+        } else {
+          this.$message.error('新建健康档案失败')
+        }
+      }
+    })
+  }
+
+  remove(type, item) {
+    const { form } = this
+    const indexData = this.indexes[type]
+    const index = indexData.indexOf(item)
+    this.indexes[type].splice(index, 1)
+    // const value = this[type]
+    const value = form.getFieldValue(type)
+    console.info(`value: ${JSON.stringify(value)}`)
+    const newValue = [...value]
+    newValue.splice(index, 1)
+    this[type] = newValue
+  }
+
+  add(type) {
+    const { form } = this
+    const indexData = this.indexes[type]
+    indexData.push(indexData[indexData.length - 1] + 1)
+    // const value = this[type]
+    const value = form.getFieldValue(type)
+    const newValue = [...value]
+    if (type === 'assessments') {
+      newValue.push({ assessment: '', value: '' })
+    } else if (type === 'prescriptions') {
+      newValue.push({ prescription: '', frequency: '', dosage: '', reason: '', remark: '' })
+    } else if (type === 'exercise') {
+      newValue.push({ sport: '', frequency: '', strength: '', reason: '', remark: '' })
+    } else if (type === 'food') {
+      newValue.push({ food: '' })
+    } else if (type === 'others') {
+      newValue.push({ other: '' })
+    }
+    this[type] = newValue
+  }
+
+  showHistoryRecords() {
+    this.$refs.modalForm.show(this.id)
+  }
+
+  showReport(){
+    this.$refs.report.show(this.id)
   }
 }
 </script>

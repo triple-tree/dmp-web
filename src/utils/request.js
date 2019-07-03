@@ -38,7 +38,8 @@ const err = error => {
         message: 'Error',
         description: data.message,
       })
-      if (token) {
+      console.info(`error: ${JSON.stringify(error)}`)
+      if (token && error.response.data.message === 'Token失效，请重新登录') {
         store.dispatch('Logout').then(() => {
           setTimeout(() => {
             window.location.reload()
