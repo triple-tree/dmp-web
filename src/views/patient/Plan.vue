@@ -465,7 +465,7 @@
         </a-col>
       </a-row>
     </a-form>
-    <Report ref="report"></Report>
+    <Report ref="report" :id="id"></Report>
   </div>
 </template>
 

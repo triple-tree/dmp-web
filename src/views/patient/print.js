@@ -11,7 +11,8 @@ export function print(content, style, w = null, h = null) {
 
     const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
     const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-    w = +w === 0 ? width : w;
+    //w = +w === 0 ? width : w;
+    w = 750
     h = +h === 0 ? height : h;
     const left = ((width / 2) - (w / 2)) + dualScreenLeft;
     const top = ((height / 2) - (h / 2)) + dualScreenTop;
