@@ -179,17 +179,14 @@
 </template>
 
 <script>
-import { patientGetPatientReport } from '@/api/patient'
+import { patientGetPatientReport, patientSendPlan } from '@/api/patient'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
-import IconFont from '@/components/Icon/index.js'
-import { print } from './print.js';
+import { print } from  '../../api/print.js'
 
 @Component({
-  components: {
-    IconFont
-  },
+  components: {},
   props: {
     id: String,
   },
@@ -278,8 +275,8 @@ export default class AssessmentDetailModal extends Vue {
   }
 
   async setData() {
-    const assessment = (await patientGetPatientReport(null,{id: this.id})).data
-    this.model = { ...this.model, ...assessment }
+    const data = (await patientGetPatientReport(null,{id: this.id})).data
+    this.model = { ...this.model, ...data }
     //疾病史
     this.getPreviousHistory()
     //症状
@@ -321,10 +318,14 @@ export default class AssessmentDetailModal extends Vue {
     window.document.body.innerHTML=bdhtml;
     return false;
   }
-
-  handleCancel() {
+  //推送
+  async handleCancel() {
     this.visible = false
     this.confirmLoading = false
+    const res = (await patientSendPlan(null,{patientId: this.id}))
+    if(res.code === 200){
+      alert("推送成功")
+    }
   }
 }
 </script>
