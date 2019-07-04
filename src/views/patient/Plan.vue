@@ -121,7 +121,7 @@
       </a-row>
       <a-row :gutter="8">
         <a-button type="dashed" block @click="add('prescriptions')">
-          <a-icon type="plus"/>添加处方建议
+          <a-icon type="plus" />添加处方建议
         </a-button>
       </a-row>
 
@@ -219,7 +219,7 @@
       </a-row>
       <a-row :gutter="8">
         <a-button type="dashed" block @click="add('exercise')">
-          <a-icon type="plus"/>添加运动建议
+          <a-icon type="plus" />添加运动建议
         </a-button>
       </a-row>
 
@@ -287,7 +287,7 @@
       </a-row>
       <a-row :gutter="8">
         <a-button type="dashed" block @click="add('food')">
-          <a-icon type="plus"/>添加饮食建议
+          <a-icon type="plus" />添加饮食建议
         </a-button>
       </a-row>
 
@@ -355,7 +355,7 @@
       </a-row>
       <a-row :gutter="8">
         <a-button type="dashed" block @click="add('others')">
-          <a-icon type="plus"/>添加其他建议
+          <a-icon type="plus" />添加其他建议
         </a-button>
       </a-row>
 
@@ -488,7 +488,7 @@ moment.locale('zh-cn')
 @Component({
   components: {
     PlanHistoryModal,
-    Report
+    Report,
   },
   props: {
     id: String,
@@ -552,7 +552,7 @@ export default class extends Vue {
     this.form.validateFields(async (err, values) => {
       if (!err) {
         // console.log(`Received values of form: ${JSON.stringify(values, null, 2)}`)
-        const data = { doctorId: Vue.ls.get(USER_INFO).data.id, patientId: this.id, ...values }
+        const data = { doctorId: Vue.ls.get(USER_INFO).data.id, patientId: this.id, planDetail: { ...values } }
         console.log(`planAdd data : ${JSON.stringify(data, null, 2)}`)
         const res = await planAdd(data)
         if (res.code === 200) {
@@ -602,7 +602,7 @@ export default class extends Vue {
     this.$refs.modalForm.show(this.id)
   }
 
-  showReport(){
+  showReport() {
     this.$refs.report.show(this.id)
   }
 }
