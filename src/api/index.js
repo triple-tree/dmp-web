@@ -18,7 +18,7 @@ const api = {
   recordLatest: '/api/patientRecord/latest',
   recordAll: '/api/patientRecord/all',
   recordDetail: '/api/patientRecord/detail',
-  recordAdd: '/api/patientRecord/add',
+  recordUpdate: '/api/patientRecord/update',
   // 评估筛查
   assessmentLatest: '/api/assessment/latest',
   assessmentAll: '/api/assessment/all',

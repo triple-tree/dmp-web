@@ -5,7 +5,7 @@
     :class="{'image-checkbox': true, 'hide-checkbox': !showCheckbox}"
     :disabled="disabled"
   >
-    <icon-font class="icon-size" :type="type"/>
+    <icon-font class="icon-size" :type="type" />
     <div>{{ innerLabel }}</div>
   </a-checkbox>
 </template>
@@ -83,6 +83,7 @@ export default class ImageCheckbox extends Vue {
     if (!innerIconType || !innerLabel) {
       throw new Error(`innerIconType or innerLabel could not calculated, $attrs: ${JSON.stringify(this.$attrs)}`)
     }
+    console.info(`this.label: ${JSON.stringify(this.label)},  innerValue: ${innerValue}`)
     return {
       innerValue,
       innerIconType,
@@ -90,20 +91,20 @@ export default class ImageCheckbox extends Vue {
     }
   }
   valueChanged(val = 0) {
+    console.info(`valueChanged with ${val} for this.label: ${JSON.stringify(this.label)}`)
     this.innerValue = val
   }
 
   get checked() {
-    return this.innerValue === 1
+    return +this.innerValue === 1
   }
   get type() {
-    return this.innerValue ? this.innerIconType[1] : this.innerIconType[0]
+    return +this.innerValue ? this.innerIconType[1] : this.innerIconType[0]
   }
 
   onChange(e) {
     const checked = e.target.checked
     this.innerValue = checked ? 1 : 0
-    // Should provide an event to pass value to Form.
     this.$emit('change', this.innerValue)
   }
 }

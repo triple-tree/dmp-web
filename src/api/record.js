@@ -26,9 +26,9 @@ export function recordDetail(data, search) {
   })
 }
 
-export function recordAdd(data, search) {
+export function recordUpdate(data, search) {
   return axios({
-    url: `${api.recordAdd}${search ? '?' + searchParasToString(search) : ''}`,
+    url: `${api.recordUpdate}${search ? '?' + searchParasToString(search) : ''}`,
     method: 'post',
     data,
   })

@@ -22,6 +22,7 @@
                 v-decorator="['height', {rules: [{ message: '请输入身高' }]} ]"
                 placeholder="输入身高"
                 addonAfter="CM"
+                :disabled="true"
               />
             </a-form-item>
           </a-col>
@@ -35,6 +36,7 @@
                 v-decorator="['weight', {rules: [{ message: '请输入体重' }]} ]"
                 placeholder="输入体重"
                 addonAfter="KG"
+                :disabled="true"
               />
             </a-form-item>
           </a-col>
@@ -48,6 +50,7 @@
                 v-decorator="['waistline', {rules: [{ message: '请输入腰围' }]} ]"
                 placeholder="输入腰围"
                 addonAfter="CM"
+                :disabled="true"
               />
             </a-form-item>
           </a-col>
@@ -65,6 +68,7 @@
                 v-decorator="[ 'dbp', {rules: [{ message: '请输入舒张压' }]} ]"
                 placeholder="输入舒张压"
                 addonAfter="mmHg"
+                :disabled="true"
               />
             </a-form-item>
           </a-col>
@@ -78,6 +82,7 @@
                 v-decorator="[ 'sbp', {rules: [{ message: '请输入收缩压' }]} ]"
                 placeholder="输入收缩压"
                 addonAfter="mmHg"
+                :disabled="true"
               />
             </a-form-item>
           </a-col>
@@ -91,6 +96,7 @@
                 v-decorator="[ 'fbg', {rules: [{ message: '请输入空腹血糖' }]} ]"
                 placeholder="输入空腹血糖"
                 addonAfter="mmol/L"
+                :disabled="true"
               />
             </a-form-item>
           </a-col>
@@ -106,6 +112,7 @@
                 v-decorator="[ 'serumTc', {rules: [{ message: '请输入总胆固醇' }]} ]"
                 placeholder="输入总胆固醇"
                 addonAfter="mmol/L"
+                :disabled="true"
               />
             </a-form-item>
           </a-col>
@@ -119,6 +126,7 @@
                 v-decorator="[ 'hdl_c', {rules: [{ message: '请输入高密度蛋白质胆固醇' }]} ]"
                 placeholder="输入高密度蛋白质胆固醇"
                 addonAfter="mmol/L"
+                :disabled="true"
               />
             </a-form-item>
           </a-col>
@@ -132,6 +140,7 @@
                 v-decorator="[ 'ldl_c', {rules: [{ message: '请输入低密度蛋白质胆固醇' }]} ]"
                 placeholder="输入低密度蛋白质胆固醇"
                 addonAfter="mmol/L"
+                :disabled="true"
               />
             </a-form-item>
           </a-col>
@@ -192,29 +201,35 @@
         <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :span="7">
             <a-form-item>
-              <a-checkbox v-decorator="['symptomsHeadache']">头晕、头疼症状</a-checkbox>
+              <boolean-value-checkbox :disabled="true" v-decorator="['symptomsHeadache']">头晕、头疼症状</boolean-value-checkbox>
             </a-form-item>
           </a-col>
           <a-col :span="17">
             <a-form-item>
-              <a-checkbox v-decorator="['symptomsStethalgia']">体力劳动、精神紧张或激烈时出现胸痛症状、休息后逐渐缓解</a-checkbox>
+              <boolean-value-checkbox
+                :disabled="true"
+                v-decorator="['symptomsStethalgia']"
+              >体力劳动、精神紧张或激烈时出现胸痛症状、休息后逐渐缓解</boolean-value-checkbox>
             </a-form-item>
           </a-col>
         </a-row>
         <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :span="7">
             <a-form-item>
-              <a-checkbox v-decorator="['symptomsDyspnea']">呼吸困难或慢性咳嗽</a-checkbox>
+              <boolean-value-checkbox :disabled="true" v-decorator="['symptomsDyspnea']">呼吸困难或慢性咳嗽</boolean-value-checkbox>
             </a-form-item>
           </a-col>
           <a-col :span="17">
             <a-form-item>
-              <a-checkbox v-decorator="['symptomsDiuresis']">多饮、多尿、多食、不明原因体重下降</a-checkbox>
+              <boolean-value-checkbox
+                :disabled="true"
+                v-decorator="['symptomsDiuresis']"
+              >多饮、多尿、多食、不明原因体重下降</boolean-value-checkbox>
             </a-form-item>
           </a-col>
           <a-col :span="7">
             <a-form-item>
-              <a-checkbox v-decorator="['symptomsDizziness']">一般性黑蒙、眩晕</a-checkbox>
+              <boolean-value-checkbox :disabled="true" v-decorator="['symptomsDizziness']">一般性黑蒙、眩晕</boolean-value-checkbox>
             </a-form-item>
           </a-col>
         </a-row>
@@ -223,19 +238,19 @@
         <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :span="8">
             <a-form-item>
-              <a-checkbox v-decorator="['smoke']">吸烟</a-checkbox>
+              <boolean-value-checkbox :disabled="true" v-decorator="['smoke']">吸烟</boolean-value-checkbox>
             </a-form-item>
           </a-col>
           <a-col :span="8">
             <a-form-item>
-              <a-checkbox v-decorator="['sport']">运动（＜3次/周且＜30min/次)</a-checkbox>
+              <boolean-value-checkbox :disabled="true" v-decorator="['sport']">运动（＜3次/周且＜30min/次)</boolean-value-checkbox>
             </a-form-item>
           </a-col>
         </a-row>
         <a-row :gutter="8" class="checkbox-wrapper">
           <a-col :span="8">
             <a-form-item>
-              <a-checkbox v-decorator="['drink']">饮酒</a-checkbox>
+              <boolean-value-checkbox :disabled="true" v-decorator="['drink']">饮酒</boolean-value-checkbox>
             </a-form-item>
           </a-col>
 
@@ -249,6 +264,7 @@
                 v-decorator="['salt', {rules: [{ message: '请输入每天盐的摄入量' }]} ]"
                 placeholder="输入每天盐的摄入量"
                 addonAfter="mg"
+                :disabled="true"
               />
             </a-form-item>
           </a-col>
@@ -274,7 +290,7 @@
               <a-input v-decorator="['ur', {rules: [{ message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
             </a-form-item>
           </a-col>
-        </a-row> -->
+        </a-row>-->
       </a-form>
     </a-spin>
   </a-modal>
@@ -287,6 +303,7 @@ import { statsAll, statsPatients, statsPlans } from '@/api/stats'
 import IconFont from '@/components/Icon/index.js'
 import pick from 'lodash.pick'
 import ImageCheckbox from '@/components/ImageCheckbox'
+import BooleanValueCheckbox from '@/components/BooleanValueCheckbox'
 import { recordDetail } from '../../api/record'
 
 const previousHistoryDiseasesOptions = {
@@ -365,6 +382,7 @@ const familyHistoryDiseasesOptions = {
   components: {
     IconFont,
     ImageCheckbox,
+    BooleanValueCheckbox,
   },
   props: {},
 })

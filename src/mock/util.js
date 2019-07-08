@@ -39,5 +39,5 @@ export const getQueryParameters = options => {
 }
 
 export const getBody = options => {
-  return options.body && JSON.parse(options.body)
+  return options && JSON.parse(options)
 }

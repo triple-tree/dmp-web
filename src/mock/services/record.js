@@ -186,7 +186,7 @@ const recordDetail = options => {
 }
 
 // 更新健康档案
-const recordAdd = options => {
+const recordUpdate = options => {
   const body = getBody(options) || {}
   const record = { ...body, id: Random.id() }
   records.unshift(record)
@@ -196,4 +196,4 @@ const recordAdd = options => {
 Mock.mock(/\/api\/patientRecord\/latest/, 'get', recordLatest)
 Mock.mock(/\/api\/patientRecord\/all/, 'get', recordAll)
 Mock.mock(/\/api\/patientRecord\/detail/, 'get', recordDetail)
-Mock.mock(/\/api\/patientRecord\/add/, 'post', recordAdd)
+Mock.mock(/\/api\/patientRecord\/update/, 'post', recordUpdate)

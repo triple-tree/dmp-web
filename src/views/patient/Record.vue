@@ -181,29 +181,29 @@
       <a-row :gutter="8">
         <a-col :span="7">
           <a-form-item>
-            <a-checkbox v-decorator="['symptomsHeadache']">头晕、头疼症状</a-checkbox>
+            <boolean-value-checkbox v-decorator="['symptomsHeadache']">头晕、头疼症状</boolean-value-checkbox>
           </a-form-item>
         </a-col>
         <a-col :span="17">
           <a-form-item>
-            <a-checkbox v-decorator="['symptomsStethalgia']">体力劳动、精神紧张或激烈时出现胸痛症状、休息后逐渐缓解</a-checkbox>
+            <boolean-value-checkbox v-decorator="['symptomsStethalgia']">体力劳动、精神紧张或激烈时出现胸痛症状、休息后逐渐缓解</boolean-value-checkbox>
           </a-form-item>
         </a-col>
       </a-row>
       <a-row :gutter="8">
         <a-col :span="7">
           <a-form-item>
-            <a-checkbox v-decorator="['symptomsDyspnea']">呼吸困难或慢性咳嗽</a-checkbox>
+            <boolean-value-checkbox v-decorator="['symptomsDyspnea']">呼吸困难或慢性咳嗽</boolean-value-checkbox>
           </a-form-item>
         </a-col>
         <a-col :span="17">
           <a-form-item>
-            <a-checkbox v-decorator="['symptomsDiuresis']">多饮、多尿、多食、不明原因体重下降</a-checkbox>
+            <boolean-value-checkbox v-decorator="['symptomsDiuresis']">多饮、多尿、多食、不明原因体重下降</boolean-value-checkbox>
           </a-form-item>
         </a-col>
         <a-col :span="7">
           <a-form-item>
-            <a-checkbox v-decorator="['symptomsDizziness']">一般性黑蒙、眩晕</a-checkbox>
+            <boolean-value-checkbox v-decorator="['symptomsDizziness']">一般性黑蒙、眩晕</boolean-value-checkbox>
           </a-form-item>
         </a-col>
       </a-row>
@@ -212,19 +212,19 @@
       <a-row :gutter="8">
         <a-col :span="8">
           <a-form-item>
-            <a-checkbox v-decorator="['smoke']">吸烟</a-checkbox>
+            <boolean-value-checkbox v-decorator="['smoke']">吸烟</boolean-value-checkbox>
           </a-form-item>
         </a-col>
         <a-col :span="8">
           <a-form-item>
-            <a-checkbox v-decorator="['sport']">运动（＜3次/周且＜30min/次)</a-checkbox>
+            <boolean-value-checkbox v-decorator="['sport']">运动（＜3次/周且＜30min/次)</boolean-value-checkbox>
           </a-form-item>
         </a-col>
       </a-row>
       <a-row :gutter="8">
         <a-col :span="8">
           <a-form-item>
-            <a-checkbox v-decorator="['drink']">饮酒</a-checkbox>
+            <boolean-value-checkbox v-decorator="['drink']">饮酒</boolean-value-checkbox>
           </a-form-item>
         </a-col>
 
@@ -263,7 +263,7 @@
             <a-input v-decorator="['ur', {rules: [{ message: '请输入尿常规' }]} ]" placeholder="输入尿常规"/>
           </a-form-item>
         </a-col>
-      </a-row> -->
+      </a-row>-->
 
       <a-row :gutter="8">
         <a-col :span="8">
@@ -283,13 +283,14 @@
 </template>
 
 <script>
-import { recordLatest, recordDetail, recordAll, recordAdd } from '@/api/record'
+import { recordLatest, recordDetail, recordAll, recordUpdate } from '@/api/record'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
 import IconFont from '@/components/Icon/index.js'
 import pick from 'lodash.pick'
 import ImageCheckbox from '@/components/ImageCheckbox'
+import BooleanValueCheckbox from '@/components/BooleanValueCheckbox'
 import RecordHistoryModal from './RecordHistoryModal'
 import PriceInput from '@/components/PriceInput'
 
@@ -369,6 +370,7 @@ const familyHistoryDiseasesOptions = {
   components: {
     IconFont,
     ImageCheckbox,
+    BooleanValueCheckbox,
     RecordHistoryModal,
   },
   props: {
@@ -445,9 +447,6 @@ export default class extends Vue {
           'sport',
           'drink',
           'salt'
-          // ,
-          // 'br',
-          // 'ur'
         )
       )
     })
@@ -455,7 +454,8 @@ export default class extends Vue {
 
   async handleSubmit(e) {
     e.preventDefault()
-    this.form.validateFields((err, values) => {
+    const symptomsHeadache = this.form.getFieldValue('symptomsHeadache')
+    this.form.validateFields(async (err, values) => {
       if (err) {
         return console.error(err)
       }
@@ -463,8 +463,7 @@ export default class extends Vue {
       // 添加健康档案
       const data = {
         patientId: this.id,
-        // TODO need to update the current id here
-        doctorId: 'b80c338df2974b58aaf9b51c351169e5',
+        doctorId: Vue.ls.get(USER_INFO).data.id,
         patientRecordFactors: [],
       }
       for (const key in values) {
@@ -473,7 +472,12 @@ export default class extends Vue {
           factorValue: values[key],
         })
       }
-      recordAdd({ body: data })
+      const res = await recordUpdate(data)
+      if (res.code === 200) {
+        this.$message.success('更新健康档案成功')
+      } else {
+        this.$message.error('更新健康档案失败')
+      }
     })
   }
 
