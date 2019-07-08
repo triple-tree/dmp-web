@@ -287,6 +287,7 @@ import { recordLatest, recordDetail, recordAll, recordUpdate } from '@/api/recor
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Mock, { Random } from 'mockjs2'
+import { USER_INFO } from '@/store/mutation-types'
 import IconFont from '@/components/Icon/index.js'
 import pick from 'lodash.pick'
 import ImageCheckbox from '@/components/ImageCheckbox'
