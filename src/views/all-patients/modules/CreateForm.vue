@@ -8,7 +8,7 @@
     @cancel="handleCancel"
   >
     <a-spin :spinning="confirmLoading">
-      <a-form :form="form" layout="vertical">
+      <a-form :form="form"  @submit="handleSubmit"  layout="vertical">
         <a-row :gutter="12" type="flex" align="top">
           <a-col :md="8" :sm="24">
             <a-form-item
@@ -39,7 +39,7 @@
             <a-form-item
               label="身份证">
               <a-input
-                v-decorator="['patient.identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]"
+                v-decorator="['patient.identityNumber', {rules: [{required:true, message: '请输入身份证号'},{ validator: isIdNo}]}]"
                 placeholder="请输入正确的身份证号"/>
             </a-form-item>
           </a-col>
@@ -139,7 +139,7 @@
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24" style="text-align:center">
-            <a-button type="primary" size="large" @click="handleSubmit">确定</a-button>
+            <a-button type="primary" htmlType="submit" size="large" >确定</a-button>
           </a-col>
         </a-row>
       </a-form>
@@ -150,6 +150,8 @@
 <script>
 import ImageCheckbox from '@/components/ImageCheckbox'
 import City from '@/api/city'
+import checker from '@/utils/validator'
+import { callbackify } from 'util';
 
 console.log(City)
 
@@ -237,11 +239,18 @@ export default {
     selectDisease(item) {
       item.value = item.value === 1 ? 0 : 1
     },
-    handleSubmit() {
-      const { form: { validateFields } } = this
+    isIdNo(rule, value, callback) {
+      if(!checker(value)){
+        callback('身份证格式不正确')
+      }
+      callback()
+    },
+    handleSubmit(e) {
+      e.preventDefault()
+      //const { form: { validateFields } } = this
       this.confirmLoading = true
       const self = this
-      validateFields((errors, values) => {
+      this.form.validateFields((errors, values) => {
         if (!errors) {
           values.temp.add = []
           Object.assign(values.patient, {
