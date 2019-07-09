@@ -19,7 +19,12 @@
           {{item.date}}
         </a-col>
       </a-row>
+<<<<<<< HEAD
       <h3>处方建议</h3>
+=======
+
+      <h3>药品方案</h3>
+>>>>>>> origin/master
       <a-row
         :gutter="8"
         v-for="(item, index) in indexes['prescriptions']"
@@ -34,7 +39,7 @@
             <a-input
               v-decorator="[
                 `prescriptions[${index}].prescription`,
-                {initialValue: prescriptions[index].prescription, rules: [{ message: '请输入药名' }]}
+                <!-- {initialValue: prescriptions[index].prescription, rules: [{ message: '请输入药名' }]} -->
               ]"
               placeholder="输入药名"
             />
@@ -49,7 +54,7 @@
             <a-input
               v-decorator="[
                 `prescriptions[${index}].frequency`,
-                {initialValue: prescriptions[index].frequency, rules: [{ message: '请输入频次' }]}
+                <!-- {initialValue: prescriptions[index].frequency, rules: [{ message: '请输入频次' }]} -->
               ]"
               placeholder="输入频次"
             />
@@ -64,7 +69,7 @@
             <a-input
               v-decorator="[
                 `prescriptions[${index}].dosage`,
-                {initialValue: prescriptions[index].dosage, rules: [{ message: '请输入剂量' }]}
+                <!-- {initialValue: prescriptions[index].dosage, rules: [{ message: '请输入剂量' }]} -->
               ]"
               placeholder="输入剂量"
             />
@@ -79,7 +84,7 @@
             <a-input
               v-decorator="[
                 `prescriptions[${index}].reason`,
-                {initialValue: prescriptions[index].reason, rules: [{ message: '请输入原因' }]}
+                <!-- {initialValue: prescriptions[index].reason, rules: [{ message: '请输入原因' }]} -->
               ]"
               placeholder="输入原因"
             />
@@ -94,7 +99,7 @@
             <a-input
               v-decorator="[
                 `prescriptions[${index}].remark`,
-                {initialValue: prescriptions[index].remark, rules: [{ message: '请输入备注' }]}
+                <!-- {initialValue: prescriptions[index].remark, rules: [{ message: '请输入备注' }]} -->
               ]"
               placeholder="输入备注"
             />
@@ -117,11 +122,11 @@
       </a-row>
       <a-row :gutter="8">
         <a-button type="dashed" block @click="add('prescriptions')">
-          <a-icon type="plus" />添加处方建议
+          <a-icon type="plus" />添加药品方案
         </a-button>
       </a-row>
 
-      <h3>运动建议</h3>
+      <h3>运动方案</h3>
       <a-row :gutter="8" v-for="(item, index) in indexes['exercise']" :key="'exercise' + item">
         <a-col :span="6">
           <a-form-item
@@ -132,7 +137,7 @@
             <a-input
               v-decorator="[
                 `exercise[${index}].sport`,
-                {initialValue: exercise[index].sport, rules: [{ message: '请输入运动' }]}
+                <!-- {initialValue: exercise[index].sport, rules: [{ message: '请输入运动' }]} -->
               ]"
               placeholder="输入运动"
             />
@@ -147,7 +152,7 @@
             <a-input
               v-decorator="[
                 `exercise[${index}].frequency`,
-                {initialValue: exercise[index].frequency, rules: [{ message: '请输入运动频次' }]}
+                <!-- {initialValue: exercise[index].frequency, rules: [{ message: '请输入运动频次' }]} -->
               ]"
               placeholder="输入运动频次"
             />
@@ -162,7 +167,7 @@
             <a-input
               v-decorator="[
                 `exercise[${index}].strength`,
-                {initialValue: exercise[index].strength, rules: [{ message: '请输入运动强度' }]}
+                <!-- {initialValue: exercise[index].strength, rules: [{ message: '请输入运动强度' }]} -->
               ]"
               placeholder="输入运动强度"
             />
@@ -177,7 +182,7 @@
             <a-input
               v-decorator="[
                 `exercise[${index}].reason`,
-                {initialValue: exercise[index].reason, rules: [{ message: '请输入原因' }]}
+                <!-- {initialValue: exercise[index].reason, rules: [{ message: '请输入原因' }]} -->
               ]"
               placeholder="输入原因"
             />
@@ -192,7 +197,7 @@
             <a-input
               v-decorator="[
                 `exercise[${index}].remark`,
-                {initialValue: exercise[index].remark, rules: [{ message: '请输入备注' }]}
+                <!-- {initialValue: exercise[index].remark, rules: [{ message: '请输入备注' }]} -->
               ]"
               placeholder="输入备注"
             />
@@ -215,11 +220,11 @@
       </a-row>
       <a-row :gutter="8">
         <a-button type="dashed" block @click="add('exercise')">
-          <a-icon type="plus" />添加运动建议
+          <a-icon type="plus" />添加运动方案
         </a-button>
       </a-row>
 
-      <h3>饮食建议</h3>
+      <h3>饮食方案</h3>
       <a-row :gutter="8" v-for="(item, index) in indexes['food']" :key="'food' + item">
         <a-col :span="14">
           <a-form-item
@@ -230,7 +235,7 @@
             <a-input
               v-decorator="[
                 `food[${index}].food`,
-                {initialValue: food[index].food, rules: [{ message: '请输入饮食建议' }]}
+                <!-- {initialValue: food[index].food, rules: [{ message: '请输入饮食建议' }]} -->
               ]"
               placeholder="输入饮食建议"
             />
@@ -245,7 +250,7 @@
             <a-input
               v-decorator="[
                 `food[${index}].reason`,
-                {initialValue: food[index].reason, rules: [{ message: '请输入原因' }]}
+                <!-- {initialValue: food[index].reason, rules: [{ message: '请输入原因' }]} -->
               ]"
               placeholder="输入原因"
             />
@@ -260,7 +265,7 @@
             <a-input
               v-decorator="[
                 `food[${index}].remark`,
-                {initialValue: food[index].remark, rules: [{ message: '请输入备注' }]}
+                <!-- {initialValue: food[index].remark, rules: [{ message: '请输入备注' }]} -->
               ]"
               placeholder="输入备注"
             />
@@ -287,7 +292,7 @@
         </a-button>
       </a-row>
 
-      <h3>其他建议</h3>
+      <h3>其他方案</h3>
       <a-row :gutter="8" v-for="(item, index) in indexes['others']" :key="'others' + item">
         <a-col :span="14">
           <a-form-item
@@ -298,7 +303,7 @@
             <a-input
               v-decorator="[
                 `others[${index}].other`,
-                {initialValue: others[index].other, rules: [{ message: '请输入其他建议' }]}
+                <!-- {initialValue: others[index].other, rules: [{ message: '请输入其他建议' }]} -->
               ]"
               placeholder="输入其他建议"
             />
@@ -313,7 +318,7 @@
             <a-input
               v-decorator="[
                 `others[${index}].reason`,
-                {initialValue: others[index].reason, rules: [{ message: '请输入原因' }]}
+                <!-- {initialValue: others[index].reason, rules: [{ message: '请输入原因' }]} -->
               ]"
               placeholder="输入原因"
             />
@@ -328,7 +333,7 @@
             <a-input
               v-decorator="[
                 `others[${index}].remark`,
-                {initialValue: others[index].remark, rules: [{ message: '请输入备注' }]}
+                <!-- {initialValue: others[index].remark, rules: [{ message: '请输入备注' }]} -->
               ]"
               placeholder="输入备注"
             />
@@ -355,7 +360,7 @@
         </a-button>
       </a-row>
 
-      <h3>就诊提醒</h3>
+      <h3>就诊方案</h3>
       <a-row :gutter="8">
         <a-col :span="8">
           <a-form-item
@@ -393,7 +398,7 @@
               style="width: 120px"
             >
               <a-select-option value="转诊">转诊</a-select-option>
-              <a-select-option value="观察">观察</a-select-option>
+              <a-select-option value="观察">复诊</a-select-option>
             </a-select>
           </a-form-item>
         </a-col>
@@ -406,7 +411,7 @@
             <a-input
               v-decorator="[
                 'clinicRemind.targetHospital',
-                {initialValue: clinicRemind.targetHospital, rules: [{ message: '请输入就诊医院' }]}
+                <!-- {initialValue: clinicRemind.targetHospital, rules: [{ message: '请输入就诊医院' }]} -->
               ]"
               placeholder="输入就诊医院"
             />
@@ -416,16 +421,16 @@
       <a-row :gutter="8">
         <a-col :span="8">
           <a-form-item
-            label="相关病"
+            label="相关疾病"
             :label-col="formItemLayout.labelCol"
             :wrapper-col="formItemLayout.wrapperCol"
           >
             <a-input
               v-decorator="[
                 'clinicRemind.relatedDisease',
-                {initialValue: clinicRemind.relatedDisease, rules: [{ message: '请输入相关病' }]}
+                <!-- {initialValue: clinicRemind.relatedDisease, rules: [{ message: '请输入相关疾病' }]} -->
               ]"
-              placeholder="输入相关病"
+              placeholder="请输入相关疾病"
             />
           </a-form-item>
         </a-col>
@@ -438,7 +443,7 @@
             <a-input
               v-decorator="[
                 'clinicRemind.reason',
-                {initialValue: clinicRemind.reason, rules: [{ message: '请输入原因' }]}
+                <!-- {initialValue: clinicRemind.reason, rules: [{ message: '请输入原因' }]} -->
               ]"
               placeholder="输入原因"
             />
@@ -598,9 +603,9 @@ export default class extends Vue {
         console.log(`planAdd data : ${JSON.stringify(data, null, 2)}`)
         const res = await planAdd(data)
         if (res.code === 200) {
-          this.$message.success('新建健康档案成功')
+          this.$message.success('新建健康方案成功')
         } else {
-          this.$message.error('新建健康档案失败')
+          this.$message.error('新建健康方案失败')
         }
       }
     })
