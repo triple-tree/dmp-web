@@ -2,27 +2,23 @@
   <div class="root-container">
     <a-form layout="inline" :form="form" @submit="handleSubmit">
       <h3>该患者主要健康状况评估结果如下：</h3>
-      <a-row :gutter="8" class="ass-item">
-        <a-col :span="6">
-          慢病综合风险 —
-          <em>高危</em>
+      
+      <a-row :gutter="8" class="ass-item" v-if="assessmentFive.name != ''">
+        <a-col :span="20">
+          {{assessmentFive.name}} — <em v-html="assessmentFive.suggestion"></em>
         </a-col>
-        <a-col :span="6">
-          高血压风险 —
-          <em>高危</em>
-        </a-col>
-        <a-col :span="6">
-          焦虑评估 —
-          <em>高危</em>
+        <a-col :span="4">
+          {{assessmentFive.date}}
         </a-col>
       </a-row>
-      <h3>主要危险因子：</h3>
-      <a-row :gutter="8" class="ass-item">
-        <a-col :span="6">
-          <em>吸烟</em>
+      <a-row :gutter="8" class="ass-item" v-for="item in assessmentList" :key="item.index">
+        <a-col :span="20">
+          {{item.name}} — <em v-html="item.suggestion"></em>
+        </a-col>
+        <a-col :span="4">
+          {{item.date}}
         </a-col>
       </a-row>
-
       <h3>处方建议</h3>
       <a-row
         :gutter="8"
@@ -483,6 +479,7 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 import PlanHistoryModal from './PlanHistoryModal'
 import Report from './Report'
+import { otherLatest } from '../../api/assessment'
 moment.locale('zh-cn')
 
 @Component({
@@ -512,6 +509,8 @@ export default class extends Vue {
         reason: '脑卒中极高危',
         targetHospital: '卫生所',
       },
+      assessmentList: [],
+      assessmentFive: {},
       formItemLayout: {
         labelCol: {
           xs: { span: 8 },
@@ -545,6 +544,49 @@ export default class extends Vue {
 
   beforeCreate() {
     console.info(`beforeCreate`)
+  }
+
+  getLatestFive(risk,date){
+    console.log('plan---',risk)
+    this.assessmentFive = {}
+    if(!risk) return
+    this.assessmentFive = {
+      name: '五病综合筛查',
+      suggestion: risk,
+      date: date
+    }
+  }
+
+  getLatestAll(){
+    console.log("plan getlatestall")
+    const type = ['Ascvd','生活质量SF-12量表','糖尿病自我效能评估','Determine营养风险检测',
+      '快速抑郁评估PHQ-9','匹兹堡睡眠评估量表']
+    const self = this
+    this.assessmentList = []
+    type.forEach(function(key){
+      self.getLatest(key)
+    })
+    console.log("assessmentList---",this.assessmentList)
+  }
+
+  //获取ssy,Ascvd最新评估结果
+  async getLatest(type){
+    const params = {
+      patientId: this.id,
+      type: type
+    }  
+    const assessmentResult = (await otherLatest(null,params)).data
+    if(!assessmentResult) return
+    assessmentResult.result = assessmentResult.result && JSON.parse(assessmentResult.result)
+    
+    if(assessmentResult.type === 'Ascvd'){
+      assessmentResult.result.suggestion = assessmentResult.result || ''
+    }
+    this.assessmentList.push({
+      name: assessmentResult.type,
+      suggestion: (assessmentResult.result.level || '') + ','+assessmentResult.result.suggestion || ''  ,
+      date: assessmentResult.createDate || ''
+    })
   }
 
   async handleSubmit(e) {
