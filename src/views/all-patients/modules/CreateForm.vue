@@ -153,8 +153,6 @@ import City from '@/api/city'
 import checker from '@/utils/validator'
 import { callbackify } from 'util';
 
-console.log(City)
-
 const symptomOptions = [
   { label: '头晕、头疼症状', value: 0, name: 'symptomsHeadache' },
   { label: '体力劳动、精神紧张或激动时出现胸痛症状，休息后逐渐缓解', value: 1, name: 'symptomsStethalgia' },
@@ -240,10 +238,11 @@ export default {
       item.value = item.value === 1 ? 0 : 1
     },
     isIdNo(rule, value, callback) {
-      if(!checker(value)){
+      if(value && !checker.idNo(value)){
         callback('身份证格式不正确')
+      }else{
+        callback()
       }
-      callback()
     },
     handleSubmit(e) {
       e.preventDefault()
