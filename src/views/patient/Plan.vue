@@ -19,12 +19,7 @@
           {{item.date}}
         </a-col>
       </a-row>
-<<<<<<< HEAD
-      <h3>处方建议</h3>
-=======
-
       <h3>药品方案</h3>
->>>>>>> origin/master
       <a-row
         :gutter="8"
         v-for="(item, index) in indexes['prescriptions']"
