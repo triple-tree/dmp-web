@@ -8,6 +8,7 @@
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭"
+    :maskClosable=false
   >
     <s-table id="root-container" :columns="columns" :data="data" ref="dataTable">
       <a slot="name" slot-scope="text" @click="viewDetail(text)" href="javascript:;">{{ text }}</a>

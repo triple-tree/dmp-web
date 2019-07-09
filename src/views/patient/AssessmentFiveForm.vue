@@ -6,6 +6,7 @@
     :confirmLoading="confirmLoading"
     @ok="handleOk"
     @cancel="handleCancel"
+    :maskClosable=false
     okText="提交"
     cancelText="关闭"
   >

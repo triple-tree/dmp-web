@@ -6,6 +6,7 @@
     :confirmLoading="confirmLoading"
     @ok="handleOk"
     @cancel="handleCancel"
+    :maskClosable=false
     cancelText="关闭"
   >
     <a-spin :spinning="confirmLoading">

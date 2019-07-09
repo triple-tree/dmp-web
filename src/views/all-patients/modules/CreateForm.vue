@@ -5,6 +5,7 @@
     :visible="visible"
     :confirmLoading="confirmLoading"
     :footer="null"
+    :maskClosable=false
     @cancel="handleCancel"
   >
     <a-spin :spinning="confirmLoading">

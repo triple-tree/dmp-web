@@ -9,6 +9,7 @@
     @cancel="handleCancel"
     okText="打印"
     cancelText="推送"
+    :maskClosable=false
   >
     <a-spin :spinning="confirmLoading">
       <div id="print">
