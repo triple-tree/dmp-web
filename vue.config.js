@@ -86,6 +86,7 @@ module.exports = {
 
   devServer: {
     // development server port 8000
+    disableHostCheck: true,
     port: 8000,
     proxy: {
       '^/api': {
