@@ -41,15 +41,9 @@
           <a-col :md="8" :sm="24">
             <a-form-item label="身份证">
               <a-input
-                &#x3C;&#x3C;&#x3C;&#x3C;&#x3C;&#x3C;&#x3C;
-                HEAD
-                v-decorator="['patient.identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]"
+                v-decorator="['patient.identityNumber', {rules: [{required:true, message: '请输入身份证号'},{ validator: isIdNo}]}]"
                 placeholder="请输入正确的身份证号"
               />
-              =======
-              v-decorator="['patient.identityNumber', {rules: [{required:true, message: '请输入身份证号'},{ validator: isIdNo}]}]"
-              placeholder="请输入正确的身份证号"/>
-              >>>>>>> 153890981d693c658c5626b6ba89bfc8e3ddae87
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
