@@ -9,6 +9,7 @@
     @cancel="handleCancel"
     okText="打印"
     cancelText="推送"
+    :maskClosable=false
   >
     <a-spin :spinning="confirmLoading">
       <div id="print">
@@ -108,17 +109,17 @@
         </a-col>
       </a-row>
       <!-- 健康管理方案 -->
-      <a-row type="flex" :gutter="10" class="row" style="margin-top:10px" v-if="model.planDetail.healthAdvices">
+      <a-row type="flex" :gutter="10" class="row" style="margin-top:10px" v-if="model.planDetail.planDetail">
         <a-col :span="1" style="border:1px solid #000">
           <div class="col-title" style="padding: 3px;font-size: 12px;height: 100%;line-height: 16px;text-align: center;">健康管理方案</div>
         </a-col>
         <a-col :span="23">
           <div class="col-cont" style="padding: 10px 18px;border: 1px solid #000;font-size: 15px;line-height: 25px;">
-            <div v-if="model.planDetail.healthAdvices && model.planDetail.healthAdvices.prescriptions">
+            <div v-if="model.planDetail.planDetail && model.planDetail.planDetail.prescriptions">
               <a-row>
                 <a-col :span="24" class="row-header">处方</a-col>
               </a-row>
-              <a-row v-for="item in model.planDetail.healthAdvices.prescriptions" :key="item.index">
+              <a-row v-for="item in model.planDetail.planDetail.prescriptions" :key="item.index">
                 <a-col :span="24">{{item.remark}},{{item.reason}}</a-col>
                 <!-- <a-col :span="6">药名：阿司匹林</a-col>
                 <a-col :span="6">频次：3次／日</a-col>
@@ -126,11 +127,11 @@
                 <a-col :span="6">备注：一定要按时吃药哦</a-col> -->
               </a-row>
             </div>
-            <div v-if="model.planDetail.healthAdvices && model.planDetail.healthAdvices.exercise">
+            <div v-if="model.planDetail.planDetail && model.planDetail.planDetail.exercise">
               <a-row>
                 <a-col :span="24" class="row-header">运动建议</a-col>
               </a-row>
-              <a-row v-for="item in model.planDetail.healthAdvices.exercise" :key="item.index">
+              <a-row v-for="item in model.planDetail.planDetail.exercise" :key="item.index">
                 <a-col :span="24">{{item.remark}},{{item.reason}}</a-col>
                 <!-- <a-col :span="5">跑步</a-col>
                 <a-col :span="5">3次/天</a-col>
@@ -138,36 +139,36 @@
                 <a-col :span="8">备注：因为您有高血压，所以不适合快跑，请注意自己的运动速度</a-col> -->
               </a-row>
             </div>
-            <div v-if="model.planDetail.healthAdvices && model.planDetail.healthAdvices.food">
+            <div v-if="model.planDetail.planDetail && model.planDetail.planDetail.food">
               <a-row>
                 <a-col :span="24" class="row-header">饮食建议</a-col>
               </a-row>
-              <a-row v-for="item in model.planDetail.healthAdvices.food" :key="item.index">
+              <a-row v-for="item in model.planDetail.planDetail.food" :key="item.index">
                 <a-col :span="24">{{item.remark}},{{item.reason}}</a-col>
                 <!-- <a-col :span="24">多吃蔬菜，需少盐、少糖。不宜吃辛辣刺激性食物。</a-col> -->
               </a-row>
             </div>
-            <div v-if="model.planDetail.healthAdvices && model.planDetail.healthAdvices.others">
+            <div v-if="model.planDetail.planDetail && model.planDetail.planDetail.others">
               <a-row>
                 <a-col :span="24" class="row-header">其他建议</a-col>
               </a-row>
-              <a-row v-for="item in model.planDetail.healthAdvices.others" :key="item.index">
+              <a-row v-for="item in model.planDetail.planDetail.others" :key="item.index">
                 <a-col :span="24">{{item.remark}},{{item.reason}}</a-col>
                 <!-- <a-col :span="24">无</a-col> -->
               </a-row>
             </div>
-            <div v-if="model.planDetail.healthAdvices && model.planDetail.healthAdvices.clinicRemind">
+            <div v-if="model.planDetail.planDetail && model.planDetail.planDetail.clinicRemind">
               <a-row>
                 <a-col :span="24" class="row-header">随诊提醒</a-col>
               </a-row>
               <a-row>
-                <a-col :span="8">随诊时间：{{model.planDetail.healthAdvices.clinicRemind.suggestDate}}</a-col>
-                <a-col :span="8">随诊类型：{{model.planDetail.healthAdvices.clinicRemind.type}}</a-col>
-                <a-col :span="8">随诊医院：{{model.planDetail.healthAdvices.clinicRemind.targetHospital}}</a-col>
+                <a-col :span="8">随诊时间：{{model.planDetail.planDetail.clinicRemind.suggestDate}}</a-col>
+                <a-col :span="8">随诊类型：{{model.planDetail.planDetail.clinicRemind.type}}</a-col>
+                <a-col :span="8">随诊医院：{{model.planDetail.planDetail.clinicRemind.targetHospital}}</a-col>
               </a-row>
               <a-row>
-                <a-col :span="8">相关病：{{model.planDetail.healthAdvices.clinicRemind.relatedDisease}}</a-col>
-                <a-col :span="16">原因：{{model.planDetail.healthAdvices.clinicRemind.reason}}</a-col>
+                <a-col :span="8">相关病：{{model.planDetail.planDetail.clinicRemind.relatedDisease}}</a-col>
+                <a-col :span="16">原因：{{model.planDetail.planDetail.clinicRemind.reason}}</a-col>
               </a-row>
             </div>
           </div>
@@ -349,5 +350,9 @@ export default class AssessmentDetailModal extends Vue {
   border: 1px solid #000;
   font-size: 15px;
   line-height: 25px;
+}
+.row-header{
+  font-size: 16px;
+  font-weight: bold;
 }
 </style>

@@ -5,10 +5,11 @@
     :visible="visible"
     :confirmLoading="confirmLoading"
     :footer="null"
+    :maskClosable="false"
     @cancel="handleCancel"
   >
     <a-spin :spinning="confirmLoading">
-      <a-form :form="form" layout="vertical">
+      <a-form :form="form" @submit="handleSubmit" layout="vertical">
         <a-row :gutter="12" type="flex" align="top">
           <a-col :md="8" :sm="24">
             <a-form-item label="姓名">
@@ -40,9 +41,15 @@
           <a-col :md="8" :sm="24">
             <a-form-item label="身份证">
               <a-input
+                &#x3C;&#x3C;&#x3C;&#x3C;&#x3C;&#x3C;&#x3C;
+                HEAD
                 v-decorator="['patient.identityNumber', {rules: [{required: true, len: 18, message: '请输入身份证号码！'}]}]"
                 placeholder="请输入正确的身份证号"
               />
+              =======
+              v-decorator="['patient.identityNumber', {rules: [{required:true, message: '请输入身份证号'},{ validator: isIdNo}]}]"
+              placeholder="请输入正确的身份证号"/>
+              >>>>>>> 153890981d693c658c5626b6ba89bfc8e3ddae87
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
@@ -128,7 +135,7 @@
             </a-form-item>
           </a-col>
           <a-col :md="24" :sm="24" style="text-align:center">
-            <a-button type="primary" size="large" @click="handleSubmit">确定</a-button>
+            <a-button type="primary" htmlType="submit" size="large">确定</a-button>
           </a-col>
         </a-row>
       </a-form>
@@ -142,8 +149,8 @@ import Component from 'vue-class-component'
 import { USER_INFO } from '@/store/mutation-types'
 import ImageCheckbox from '@/components/ImageCheckbox'
 import City from '@/api/city'
-
-console.log(City)
+import checker from '@/utils/validator'
+import { callbackify } from 'util'
 
 const symptomOptions = [
   { label: '头晕、头疼症状', value: 0, name: 'symptomsHeadache' },
@@ -235,13 +242,19 @@ export default {
     selectDisease(item) {
       item.value = item.value === 1 ? 0 : 1
     },
-    handleSubmit() {
-      const {
-        form: { validateFields },
-      } = this
+    isIdNo(rule, value, callback) {
+      if (value && !checker.idNo(value)) {
+        callback('身份证格式不正确')
+      } else {
+        callback()
+      }
+    },
+    handleSubmit(e) {
+      e.preventDefault()
+      //const { form: { validateFields } } = this
       this.confirmLoading = true
       const self = this
-      validateFields((errors, values) => {
+      this.form.validateFields((errors, values) => {
         if (!errors) {
           Object.assign(values.patient, {
             doctorId: Vue.ls.get(USER_INFO).data.id,

@@ -135,9 +135,14 @@ export default class extends Vue {
     }
   }
   handleFeedback(name){
-    if(name === 'five'){
-      this.$emit('back','five')
-    }else{
+    // if(name === 'five'){
+    //   this.$emit('back','five')
+    // }else{
+    //   this.getLatest(name)
+    // }
+
+    this.$emit('back')
+    if(name !== 'five'){
       this.getLatest(name)
     }
   }

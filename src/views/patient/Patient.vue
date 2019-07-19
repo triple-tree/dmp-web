@@ -84,11 +84,11 @@
               </span>
               <assessment ref="assessment" :id="id" @back="handleFeedback"></assessment>
             </a-tab-pane>
-            <a-tab-pane key="3">
+            <a-tab-pane key="3" forceRender>
               <span slot="tab">
                 <a-icon type="android"/>健康方案
               </span>
-              <plan :id="id"></plan>
+              <plan ref="plan" :id="id"></plan>
             </a-tab-pane>
           </a-tabs>
         </a-layout-content>
@@ -139,20 +139,24 @@ export default class extends Vue {
     const latestAssessment = await assessmentLatest(null, { patientId })
     this.model = { ...this.model, ...patient.data, ...latestAssessment.data }
     this.$refs.assessment.getLatestFive(this.model.chronicDiseaseRisk,this.model.assessmentDate)
+    this.$refs.plan.getLatestFive(this.model.chronicDiseaseRisk,this.model.assessmentDate)
+    this.$refs.plan.getLatestAll()  
     console.info(`model: ${JSON.stringify(this.model)}`)
     console.info(this.model)
   }
   async beforeRouteEnter(to, from, next) {
     console.info(`beforeRouteEnter`)
+    
     next(async vm => {
       vm.setData()
-      vm.$refs.assessment.getLatestAll()
+      vm.$refs.assessment.getLatestAll()     
+      //vm.$refs.plan.getLatestAll()   
     })
   }
   handleFeedback(name){
-    if(name === 'five'){
+    //if(name === 'five'){
       this.setData()
-    }
+    //}
   }
   data() {
     return {

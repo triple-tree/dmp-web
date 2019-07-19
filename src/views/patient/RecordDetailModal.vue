@@ -7,6 +7,7 @@
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭"
+    :maskClosable=false
   >
     <a-spin :spinning="confirmLoading">
       <a-form :form="form" layout="horizontal" id="root-container">

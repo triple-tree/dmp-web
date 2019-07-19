@@ -7,6 +7,7 @@
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭"
+    :maskClosable=false
   >
     <a-spin :spinning="confirmLoading">
       <span v-html="suggestion"></span>
