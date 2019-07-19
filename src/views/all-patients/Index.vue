@@ -5,12 +5,12 @@
         <a-row :gutter="48">
           <a-col :md="12" :sm="24">
             <a-form-item label>
-              <a-checkbox-group :options="typeOptions" v-model="queryParam.type"/>
+              <a-checkbox-group :options="typeOptions" v-model="queryParam.type" />
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
             <a-form-item label>
-              <a-input placeholder="请输入待搜索的姓名" v-model="queryParam.name"/>
+              <a-input placeholder="请输入待搜索的姓名" v-model="queryParam.name" />
             </a-form-item>
           </a-col>
           <a-col :md="6" :sm="24">
@@ -33,7 +33,7 @@
               @change="handleUploadChange"
             >
               <a-button>
-                <a-icon type="upload"/>患者批量导入
+                <a-icon type="upload" />患者批量导入
               </a-button>
             </a-upload>
           </a-col>
@@ -53,10 +53,10 @@
     >
       <span slot="serial" slot-scope="text, record, index">{{ index + 1 }}</span>
       <span slot="status" slot-scope="text">
-        <a-badge :status="text | statusTypeFilter" :text="text | statusFilter"/>
+        <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
       </span>
     </s-table>
-    <create-form ref="createModal" @ok="handleOk"/>
+    <create-form ref="createModal" @ok="handleOk" />
   </a-card>
 </template>
 
@@ -245,6 +245,8 @@ export default class extends Vue {
     const res = await patientAdd(parameter)
     if (res.code === 200) {
       this.$message.success('患者创建成功')
+    } else {
+      this.$message.error('患者创建失败')
     }
     this.$refs.table.refresh()
     console.info(`handleOk res: ${JSON.stringify(res)}`)
