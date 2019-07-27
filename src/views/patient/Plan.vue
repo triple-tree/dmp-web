@@ -478,8 +478,8 @@ import 'moment/locale/zh-cn'
 import PlanHistoryModal from './PlanHistoryModal'
 import Report from './Report'
 import { otherLatest } from '../../api/assessment'
-moment.locale('zh-cn')
 import debug from 'debug'
+moment.locale('zh-cn')
 const log = debug('app:plan')
 
 @Component({
@@ -569,7 +569,7 @@ export default class extends Vue {
     ]
     const self = this
     this.assessmentList = []
-    type.forEach(function(key) {
+    type.forEach(function (key) {
       self.getLatest(key)
     })
     log('assessmentList---', this.assessmentList)

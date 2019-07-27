@@ -181,7 +181,7 @@ export default class AssessmentDetailModal extends Vue {
     this.ssyName = this.listData.name
     this.listData.questionList = assessment.questionList || assessment.question
     this.formName = this.type === 'getAscvd' ? this.listData.description : this.listData.name
-    this.listData.questionList.forEach(function(e, i) {
+    this.listData.questionList.forEach(function (e, i) {
       if (self.type === 'getAscvd') {
         if (e.text.indexOf('*') === 0) {
           e.text = e.text.substring(1)
