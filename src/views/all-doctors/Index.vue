@@ -44,7 +44,7 @@
         </a-row>
       </span>
     </s-table>
-    <create-form ref="createModal" @ok="handleOk"/>
+    <create-form ref="createModal" @ok="handleOk" />
   </a-card>
 </template>
 
@@ -62,6 +62,8 @@ import CreateForm from './modules/CreateForm'
 import { doctorAdd, doctorAll, doctorAudit } from '@/api/doctor'
 import IconFont from '@/components/Icon/index.js'
 import { USER_INFO } from '@/store/mutation-types'
+import debug from 'debug'
+const log = debug('app:all-doctors')
 
 @Component({
   components: {
@@ -112,14 +114,14 @@ export default class extends Vue {
           size: parameter.pageSize,
           adminId: Vue.ls.get(USER_INFO).data.id,
         }
-        console.info(`doctorAll: paginationParam: ${JSON.stringify(paginationParam)}`)
+        log(`doctorAll: paginationParam: ${JSON.stringify(paginationParam)}`)
         const res = await doctorAll(null, paginationParam)
         let doctors = res.data.doctors
         doctors = doctors.map(doctor => ({
           ...doctor,
           address: `${doctor.province}${doctor.city}${doctor.county}`,
         }))
-        console.info(`doctors: ${JSON.stringify(doctors, null, 2)}`)
+        log(`doctors: ${JSON.stringify(doctors, null, 2)}`)
         return {
           pageSize: parseInt(parameter.pageSize),
           pageNo: parseInt(res.data.page),
@@ -138,7 +140,6 @@ export default class extends Vue {
   async created() {}
 
   async accept(id) {
-    console.info(`accept ${id}`)
     const res = await doctorAudit({ doctorId: id, accept: 1 })
     if (res.code === 200) {
       this.$message.success('通过审核成功')
@@ -147,7 +148,6 @@ export default class extends Vue {
   }
 
   async reject(id) {
-    console.info(`reject ${id}`)
     const res = await doctorAudit({ doctorId: id, accept: 0 })
     if (res.code === 200) {
       this.$message.success('拒接审核成功')
@@ -161,7 +161,7 @@ export default class extends Vue {
       this.$message.success('患者创建成功')
     }
     this.$refs.table.refresh()
-    console.info(`handleOk res: ${JSON.stringify(res)}`)
+    log(`handleOk res: ${JSON.stringify(res)}`)
   }
 }
 </script>

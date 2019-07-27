@@ -17,6 +17,14 @@ import './utils/filter' // global filter
 
 import './class-component-hooks' // https://github.com/vuejs/vue-class-component/issues/335
 
+import debug from 'debug'
+const log = debug('app')
+
+if (process.env.NODE_ENV !== 'production' || process.env.VUE_APP_PREVIEW === 'true') {
+  // debug.enable('*')
+  log('Initialized App')
+}
+
 Vue.config.productionTip = false
 
 // mount axios Vue.$http and this.$http

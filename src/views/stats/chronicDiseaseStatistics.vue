@@ -94,14 +94,12 @@ export default class extends Vue {
       sourceData[1][item] = data[item].danger
     }
     const dv = new DataSet.View().source(sourceData)
-    // console.info(`dv: ${JSON.stringify(dv, null, 2)}`)
     dv.transform({
       type: 'fold',
       fields: ['diabetesAndHypertension', 'ascvd', 'diabetes', 'hypertension', 'stroke', 'copd'],
       key: '类别',
       value: '人数',
     })
-    // console.info(`dv transform: ${JSON.stringify(dv, null, 2)}`)
     this.statusPatients = dv.rows
   }
 

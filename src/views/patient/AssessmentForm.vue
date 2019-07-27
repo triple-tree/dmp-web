@@ -128,6 +128,8 @@ import { statsAll, statsPatients, statsPlans } from '@/api/stats'
 import pick from 'lodash.pick'
 import { assessmentForm, ascvdAssessment, ssyAssessment } from '../../api/assessment'
 import AssessmentResult from './AssessmentResult'
+import debug from 'debug'
+const log = debug('app:assessment-form')
 
 @Component({
   components: {
@@ -179,7 +181,7 @@ export default class AssessmentDetailModal extends Vue {
     this.ssyName = this.listData.name
     this.listData.questionList = assessment.questionList || assessment.question
     this.formName = this.type === 'getAscvd' ? this.listData.description : this.listData.name
-    this.listData.questionList.forEach(function (e, i) {
+    this.listData.questionList.forEach(function(e, i) {
       if (self.type === 'getAscvd') {
         if (e.text.indexOf('*') === 0) {
           e.text = e.text.substring(1)
@@ -216,25 +218,25 @@ export default class AssessmentDetailModal extends Vue {
       }
     })
 
-    console.info(`this.listData: ${JSON.stringify(this.listData)}`)
+    log(`this.listData: ${JSON.stringify(this.listData)}`)
   }
 
   async postAscvdData(values) {
     const res = (await ascvdAssessment(values)).data
     this.$refs.assessmentResult.show(this.formName, res)
     this.$emit('back', 'Ascvd')
-    console.info(`res: ${JSON.stringify(res)}`)
+    log(`res: ${JSON.stringify(res)}`)
   }
 
   async postSSYData(values) {
     const res = (await ssyAssessment(values)).data
     this.$refs.assessmentResult.show(values.jsonStr.name, res)
     this.$emit('back', values.jsonStr.name)
-    console.info(`res: ${JSON.stringify(res)}`)
+    log(`res: ${JSON.stringify(res)}`)
   }
 
   async show(patientId, type, id) {
-    console.info(`show assessment: ${type} ${id}`)
+    log(`show assessment: ${type} ${id}`)
     this.form.resetFields()
     this.choiceList = []
     this.visible = true
@@ -260,7 +262,6 @@ export default class AssessmentDetailModal extends Vue {
           // //values.kvList.ASCVD = initASCVD.join('')
           // values.kvList.ASCVD = '0000000'
           // values.kvList.dmtreate = 0
-          console.log('values', values)
           setTimeout(() => {
             this.visible = false
             this.confirmLoading = false
@@ -323,7 +324,6 @@ export default class AssessmentDetailModal extends Vue {
             values.jsonStr.score = "'" + score1 + ',' + score2 + "'"
           }
           values.jsonStr.choiceList = this.choiceList
-          console.log('values', values)
           setTimeout(() => {
             this.visible = false
             this.confirmLoading = false

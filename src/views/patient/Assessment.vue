@@ -169,7 +169,6 @@ export default class extends Vue {
     this.assessmentList[0].date = date || ''
   }
   getLatestAll() {
-    console.log('getlatestall')
     const type = [
       'Ascvd',
       '生活质量SF-12量表',
@@ -179,12 +178,12 @@ export default class extends Vue {
       '匹兹堡睡眠评估量表',
     ]
     const self = this
-    this.assessmentList.forEach(function (el) {
+    this.assessmentList.forEach(function(el) {
       el.level = ''
       el.result = ''
       el.date = ''
     })
-    type.forEach(function (key) {
+    type.forEach(function(key) {
       self.getLatest(key)
     })
   }

@@ -45,7 +45,6 @@ const columns = [
 ]
 
 const setData = patientId => async parameter => {
-  console.info(`setData(${patientId}) calling`)
   const paginationParam = {
     page: parameter.pageNo,
     size: parameter.pageSize,

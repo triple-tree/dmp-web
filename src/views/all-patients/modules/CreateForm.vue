@@ -271,16 +271,15 @@ export default {
           })
           values.temp.symptom &&
             values.temp.symptom.length &&
-            values.temp.symptom.forEach(function (el) {
+            values.temp.symptom.forEach(function(el) {
               values.factors[self.symptomOptions[el].name] = 1
             })
           values.temp.family &&
             values.temp.family.length &&
-            values.temp.family.forEach(function (el) {
+            values.temp.family.forEach(function(el) {
               values.factors[self.familyOptions[el].name] = 1
             })
           // delete values.temp
-          console.log('values', values)
           setTimeout(() => {
             this.visible = false
             this.confirmLoading = false

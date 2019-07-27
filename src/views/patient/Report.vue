@@ -14,23 +14,23 @@
     <a-spin :spinning="confirmLoading">
       <div id="print">
         <a-row :gutter="12" v-if="model.doctor || model.patientRecord">
-          <a-col :span="4">
-            {{ model.doctor.doctorName || '' }}
-          </a-col>
-          <a-col :span="4">
-            {{ model.patientRecord.createDate || '' }}
-          </a-col>
-          <a-col :span="16">
-            {{ model.doctor.hospitalName || '' }}
-          </a-col>
+          <a-col :span="4">{{ model.doctor.doctorName || '' }}</a-col>
+          <a-col :span="4">{{ model.patientRecord.createDate || '' }}</a-col>
+          <a-col :span="16">{{ model.doctor.hospitalName || '' }}</a-col>
         </a-row>
         <!-- 基本信息 -->
         <a-row type="flex" :gutter="10" class="row" style="margin-top:10px">
           <a-col :span="1" style="border:1px solid #000">
-            <div class="col-title" style="padding: 3px;font-size: 12px;height: 100%;line-height: 16px;text-align: center;">基本信息</div>
+            <div
+              class="col-title"
+              style="padding: 3px;font-size: 12px;height: 100%;line-height: 16px;text-align: center;"
+            >基本信息</div>
           </a-col>
           <a-col :span="23">
-            <div class="col-cont" style="padding: 10px 18px;border: 1px solid #000;font-size: 15px;line-height: 25px;">
+            <div
+              class="col-cont"
+              style="padding: 10px 18px;border: 1px solid #000;font-size: 15px;line-height: 25px;"
+            >
               <a-row>
                 <a-col :span="6">姓名：{{ model.patientBaseInfo.name }}</a-col>
                 <a-col :span="10">身份证号：{{ model.patientBaseInfo.identityNumber }}</a-col>
@@ -53,10 +53,16 @@
         <!-- 个人健康档案 -->
         <a-row type="flex" :gutter="10" class="row" style="margin-top:10px">
           <a-col :span="1" style="border:1px solid #000">
-            <div class="col-title" style="padding: 3px;font-size: 12px;height: 100%;line-height: 16px;text-align: center;">个人健康档案</div>
+            <div
+              class="col-title"
+              style="padding: 3px;font-size: 12px;height: 100%;line-height: 16px;text-align: center;"
+            >个人健康档案</div>
           </a-col>
           <a-col :span="23">
-            <div class="col-cont" style="padding: 10px 18px;border: 1px solid #000;font-size: 15px;line-height: 25px;">
+            <div
+              class="col-cont"
+              style="padding: 10px 18px;border: 1px solid #000;font-size: 15px;line-height: 25px;"
+            >
               <a-row>
                 <a-col :span="7">舒张压：{{ model.patientRecord.patientRecordFactors.dbp }}mmHg</a-col>
                 <a-col :span="8">收缩压：{{ model.patientRecord.patientRecordFactors.sbp }}mmHg</a-col>
@@ -64,10 +70,14 @@
               <a-row>
                 <a-col :span="7">空腹血糖：{{ model.patientRecord.patientRecordFactors.fbg }}mmol/L</a-col>
                 <a-col :span="8">血清总胆固醇：{{ model.patientRecord.patientRecordFactors.serumTc }}mmol/L</a-col>
-                <a-col :span="9">高密度蛋白质胆固醇：{{ model.patientRecord.patientRecordFactors.hdl_c }}mmol/L/L</a-col>
+                <a-col
+                  :span="9"
+                >高密度蛋白质胆固醇：{{ model.patientRecord.patientRecordFactors.hdl_c }}mmol/L/L</a-col>
               </a-row>
               <a-row>
-                <a-col :span="24">低密度蛋白质胆固醇：{{ model.patientRecord.patientRecordFactors.ldl_c }}mmol/L</a-col>
+                <a-col
+                  :span="24"
+                >低密度蛋白质胆固醇：{{ model.patientRecord.patientRecordFactors.ldl_c }}mmol/L</a-col>
               </a-row>
               <a-row>
                 <a-col :span="24">疾病史：{{ model.previousHistory }}</a-col>
@@ -84,12 +94,20 @@
         <!-- 慢病评估报告 -->
         <a-row type="flex" :gutter="10" class="row" style="margin-top:10px">
           <a-col :span="1" style="border:1px solid #000">
-            <div class="col-title" style="padding: 3px;font-size: 12px;height: 100%;line-height: 16px;text-align: center;">慢病评估报告</div>
+            <div
+              class="col-title"
+              style="padding: 3px;font-size: 12px;height: 100%;line-height: 16px;text-align: center;"
+            >慢病评估报告</div>
           </a-col>
           <a-col :span="23">
-            <div class="col-cont" style="padding: 10px 18px;border: 1px solid #000;font-size: 15px;line-height: 25px;">
+            <div
+              class="col-cont"
+              style="padding: 10px 18px;border: 1px solid #000;font-size: 15px;line-height: 25px;"
+            >
               <a-row>
-                <a-col :span="24">五病综合风险：{{ model.chronicDiseaseAssessment.chronicDiseaseRisk || '不详' }}</a-col>
+                <a-col
+                  :span="24"
+                >五病综合风险：{{ model.chronicDiseaseAssessment.chronicDiseaseRisk || '不详' }}</a-col>
               </a-row>
               <a-row>
                 <a-col :span="4">高血压：{{ model.chronicDiseaseAssessment.hypertensionRisk || '不详' }}</a-col>
@@ -109,22 +127,34 @@
           </a-col>
         </a-row>
         <!-- 健康管理方案 -->
-        <a-row type="flex" :gutter="10" class="row" style="margin-top:10px" v-if="model.planDetail.planDetail">
+        <a-row
+          type="flex"
+          :gutter="10"
+          class="row"
+          style="margin-top:10px"
+          v-if="model.planDetail.planDetail"
+        >
           <a-col :span="1" style="border:1px solid #000">
-            <div class="col-title" style="padding: 3px;font-size: 12px;height: 100%;line-height: 16px;text-align: center;">健康管理方案</div>
+            <div
+              class="col-title"
+              style="padding: 3px;font-size: 12px;height: 100%;line-height: 16px;text-align: center;"
+            >健康管理方案</div>
           </a-col>
           <a-col :span="23">
-            <div class="col-cont" style="padding: 10px 18px;border: 1px solid #000;font-size: 15px;line-height: 25px;">
+            <div
+              class="col-cont"
+              style="padding: 10px 18px;border: 1px solid #000;font-size: 15px;line-height: 25px;"
+            >
               <div v-if="model.planDetail.planDetail && model.planDetail.planDetail.prescriptions">
                 <a-row>
                   <a-col :span="24" class="row-header">处方</a-col>
                 </a-row>
                 <a-row v-for="item in model.planDetail.planDetail.prescriptions" :key="item.index">
                   <a-col :span="24">{{ item.remark }},{{ item.reason }}</a-col>
-                <!-- <a-col :span="6">药名：阿司匹林</a-col>
+                  <!-- <a-col :span="6">药名：阿司匹林</a-col>
                 <a-col :span="6">频次：3次／日</a-col>
                 <a-col :span="6">剂量：3片</a-col>
-                <a-col :span="6">备注：一定要按时吃药哦</a-col> -->
+                  <a-col :span="6">备注：一定要按时吃药哦</a-col>-->
                 </a-row>
               </div>
               <div v-if="model.planDetail.planDetail && model.planDetail.planDetail.exercise">
@@ -133,10 +163,10 @@
                 </a-row>
                 <a-row v-for="item in model.planDetail.planDetail.exercise" :key="item.index">
                   <a-col :span="24">{{ item.remark }},{{ item.reason }}</a-col>
-                <!-- <a-col :span="5">跑步</a-col>
+                  <!-- <a-col :span="5">跑步</a-col>
                 <a-col :span="5">3次/天</a-col>
                 <a-col :span="6">30分钟/次</a-col>
-                <a-col :span="8">备注：因为您有高血压，所以不适合快跑，请注意自己的运动速度</a-col> -->
+                  <a-col :span="8">备注：因为您有高血压，所以不适合快跑，请注意自己的运动速度</a-col>-->
                 </a-row>
               </div>
               <div v-if="model.planDetail.planDetail && model.planDetail.planDetail.food">
@@ -145,7 +175,7 @@
                 </a-row>
                 <a-row v-for="item in model.planDetail.planDetail.food" :key="item.index">
                   <a-col :span="24">{{ item.remark }},{{ item.reason }}</a-col>
-                <!-- <a-col :span="24">多吃蔬菜，需少盐、少糖。不宜吃辛辣刺激性食物。</a-col> -->
+                  <!-- <a-col :span="24">多吃蔬菜，需少盐、少糖。不宜吃辛辣刺激性食物。</a-col> -->
                 </a-row>
               </div>
               <div v-if="model.planDetail.planDetail && model.planDetail.planDetail.others">
@@ -154,7 +184,7 @@
                 </a-row>
                 <a-row v-for="item in model.planDetail.planDetail.others" :key="item.index">
                   <a-col :span="24">{{ item.remark }},{{ item.reason }}</a-col>
-                <!-- <a-col :span="24">无</a-col> -->
+                  <!-- <a-col :span="24">无</a-col> -->
                 </a-row>
               </div>
               <div v-if="model.planDetail.planDetail && model.planDetail.planDetail.clinicRemind">
@@ -164,7 +194,9 @@
                 <a-row>
                   <a-col :span="8">随诊时间：{{ model.planDetail.planDetail.clinicRemind.suggestDate }}</a-col>
                   <a-col :span="8">随诊类型：{{ model.planDetail.planDetail.clinicRemind.type }}</a-col>
-                  <a-col :span="8">随诊医院：{{ model.planDetail.planDetail.clinicRemind.targetHospital }}</a-col>
+                  <a-col
+                    :span="8"
+                  >随诊医院：{{ model.planDetail.planDetail.clinicRemind.targetHospital }}</a-col>
                 </a-row>
                 <a-row>
                   <a-col :span="8">相关病：{{ model.planDetail.planDetail.clinicRemind.relatedDisease }}</a-col>
@@ -192,13 +224,18 @@ import { print } from '../../api/print.js'
     id: String,
   },
 })
-export default class AssessmentDetailModal extends Vue {
+export default class Report extends Vue {
   data() {
     return {
       visible: false,
       confirmLoading: false,
       model: {
+        chronicDiseaseAssessment: {},
         doctor: {},
+        otherAssessment: {},
+        patientBaseInfo: {},
+        patientRecord: { patientRecordFactors: {} },
+        planDetail: { planDetail: { clinicRemind: {} } },
       },
     }
   }
@@ -284,7 +321,6 @@ export default class AssessmentDetailModal extends Vue {
     this.getSymptom()
     // 生活方式
     this.getLife()
-    console.info(`model: ${JSON.stringify(this.model)}`)
   }
 
   async show(title, res) {
@@ -323,7 +359,7 @@ export default class AssessmentDetailModal extends Vue {
   async handleCancel() {
     this.visible = false
     this.confirmLoading = false
-    const res = (await patientSendHealthPlan({ patientId: this.id }))
+    const res = await patientSendHealthPlan({ patientId: this.id })
     if (res.code === 200) {
       alert('推送成功')
     }
@@ -332,10 +368,10 @@ export default class AssessmentDetailModal extends Vue {
 </script>
 
 <style lang="less" scoped>
-.row{
-  margin-top: 10px
+.row {
+  margin-top: 10px;
 }
-.col-title{
+.col-title {
   padding: 3px;
   // border: 1px solid #000;
   font-size: 12px;
@@ -344,13 +380,13 @@ export default class AssessmentDetailModal extends Vue {
   // writing-mode:vertical-lr;
   text-align: center;
 }
-.col-cont{
+.col-cont {
   padding: 10px 18px;
   border: 1px solid #000;
   font-size: 15px;
   line-height: 25px;
 }
-.row-header{
+.row-header {
   font-size: 16px;
   font-weight: bold;
 }

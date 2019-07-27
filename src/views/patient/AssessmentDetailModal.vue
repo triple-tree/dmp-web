@@ -37,6 +37,8 @@ import { assessmentAssess } from '../../api/assessment'
 import ChronicDiseaseStatus from '@/components/ChronicDiseaseStatus'
 import AssessmentResult from './AssessmentResult'
 import { constants } from 'crypto'
+import debug from 'debug'
+const log = debug('app:assessments:detail-modal')
 
 @Component({
   components: {
@@ -80,10 +82,10 @@ export default class AssessmentDetailModal extends Vue {
       date: this.model.assessmentDate,
     }
     this.$emit('back', 'five')
-    console.info(`assessment: ${JSON.stringify(assessment)}, this.model: ${JSON.stringify(this.model)}`)
+    log(`assessment: ${JSON.stringify(assessment)}, this.model: ${JSON.stringify(this.model)}`)
   }
   async show(values) {
-    console.info(`show assessment: ${values}`)
+    log(`show assessment: ${values}`)
     this.visible = true
     this.setData(values)
   }

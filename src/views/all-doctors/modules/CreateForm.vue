@@ -43,12 +43,12 @@
           </a-col>
           <a-col :md="16" :sm="24">
             <a-form-item label="地址">
-              <a-cascader :options="city" v-decorator="['temp.add']" placeholder="请选择省-市-区"/>
+              <a-cascader :options="city" v-decorator="['temp.add']" placeholder="请选择省-市-区" />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
             <a-form-item label="详细地址">
-              <a-input v-decorator="['doctor.detailAddress']" placeholder="请输入街道、门牌号等信息"/>
+              <a-input v-decorator="['doctor.detailAddress']" placeholder="请输入街道、门牌号等信息" />
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
@@ -121,6 +121,8 @@ import Component, { mixins } from 'vue-class-component'
 import ImageCheckbox from '@/components/ImageCheckbox'
 import City from '@/api/city'
 import { mixinDevice } from '@/utils/mixin.js'
+import debug from 'debug'
+const log = debug('app:all-doctors:create-form')
 
 const levelNames = {
   0: '低',
@@ -194,7 +196,7 @@ export default class extends mixins(mixinDevice) {
         setTimeout(() => {
           this.visible = false
           this.confirmLoading = false
-          console.info(`add doctor data is ${JSON.stringify(doctor)}`)
+          log(`add doctor data is ${JSON.stringify(doctor)}`)
           this.$emit('ok', doctor)
         }, 1500)
       } else {
@@ -238,7 +240,6 @@ export default class extends mixins(mixinDevice) {
 
   handlePasswordCheck(rule, value, callback) {
     const password = this.form.getFieldValue('password')
-    console.log('value', value)
     if (value === undefined) {
       callback(new Error('请输入密码'))
     }
@@ -249,10 +250,6 @@ export default class extends mixins(mixinDevice) {
   }
 
   handlePhoneCheck(rule, value, callback) {
-    // console.log('handlePhoneCheck, rule:', rule)
-    // console.log('handlePhoneCheck, value', value)
-    // console.log('handlePhoneCheck, callback', callback)
-
     callback()
   }
 

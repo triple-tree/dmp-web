@@ -424,7 +424,6 @@ export default class RecordDetailModal extends Vue {
       factors[factor.factorName] = factor.factorValue
     })
     this.model = { ...this.model, ...factors }
-    console.info(this.model)
     this.$nextTick(() => {
       this.form.setFieldsValue(
         pick(
@@ -467,7 +466,6 @@ export default class RecordDetailModal extends Vue {
   }
 
   async show(id) {
-    console.info(`show record: ${id}`)
     this.visible = true
     this.setData(id)
   }

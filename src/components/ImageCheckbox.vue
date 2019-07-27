@@ -14,6 +14,8 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import IconFont from '@/components/Icon/index.js'
+import debug from 'debug'
+const log = debug('app:ImageCheckbox')
 
 const iconTypeDic = {
   hypertension: { icons: ['icon_hypertension', 'icon_hypertension_red'], label: '高血压' },
@@ -83,7 +85,7 @@ export default class ImageCheckbox extends Vue {
     if (!innerIconType || !innerLabel) {
       throw new Error(`innerIconType or innerLabel could not calculated, $attrs: ${JSON.stringify(this.$attrs)}`)
     }
-    console.info(`this.label: ${JSON.stringify(this.label)},  innerValue: ${innerValue}`)
+    log(`this.label: ${JSON.stringify(this.label)},  innerValue: ${innerValue}`)
     return {
       innerValue,
       innerIconType,
@@ -91,7 +93,7 @@ export default class ImageCheckbox extends Vue {
     }
   }
   valueChanged(val = 0) {
-    console.info(`valueChanged with ${val} for this.label: ${JSON.stringify(this.label)}`)
+    log(`valueChanged with ${val} for this.label: ${JSON.stringify(this.label)}`)
     this.innerValue = val
   }
 

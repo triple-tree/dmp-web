@@ -443,7 +443,6 @@ export default class PlanDetailModal extends Vue {
   }
 
   async show(id) {
-    console.info(`show plan: ${id}`)
     this.visible = true
     this.confirmLoading = true
     this.setData(id)

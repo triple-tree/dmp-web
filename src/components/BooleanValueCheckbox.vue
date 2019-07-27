@@ -7,6 +7,8 @@
 <script>
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import debug from 'debug'
+const log = debug('app:BooleanValueCheckbox')
 
 @Component({
   props: {
@@ -31,17 +33,17 @@ import Component from 'vue-class-component'
     ],
   },
 })
-export default class ImageCheckbox extends Vue {
+export default class BooleanValueCheckbox extends Vue {
   created() {}
   data() {
     const innerValue = this.value || 0
-    console.info(`text: ${JSON.stringify(this.$slots)},  innerValue: ${innerValue}`)
+    log(`text: ${JSON.stringify(this.$slots)},  innerValue: ${innerValue}`)
     return {
       innerValue,
     }
   }
   valueChanged(val = 0) {
-    console.info(`valueChanged with ${val} for text: ${JSON.stringify(this.$slots)}`)
+    log(`valueChanged with ${val} for text: ${JSON.stringify(this.$slots)}`)
     this.innerValue = val
   }
 

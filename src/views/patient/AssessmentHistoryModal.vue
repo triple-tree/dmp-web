@@ -25,6 +25,8 @@ import { STable } from '@/components'
 import AssessmentDetailModal from './AssessmentDetailModal'
 import { doctorAll } from '@/api/doctor'
 import { USER_INFO } from '@/store/mutation-types'
+import debug from 'debug'
+const log = debug('app:assessments:history-modal')
 
 const columns = [
   {
@@ -70,12 +72,12 @@ const setData = patientId => async parameter => {
   if (!doctors) {
     doctors = (await doctorAll(null, { page: 1, size: 10000000, adminId: Vue.ls.get(USER_INFO).data.id })).data.doctors
   }
-  console.info(`assessments: ${JSON.stringify(assessments)}`)
+  log(`assessments: ${JSON.stringify(assessments)}`)
   assessments = assessments.map(assessment => ({
     ...assessment,
     doctorName: findDoctorName(doctors, assessment.doctorId),
   }))
-  console.info(`assessments: ${JSON.stringify(assessments)}`)
+  log(`assessments: ${JSON.stringify(assessments)}`)
   return {
     pageSize: parseInt(parameter.pageSize),
     pageNo: parseInt(res.data.page),

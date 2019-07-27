@@ -2,6 +2,9 @@ import Mock, { Random } from 'mockjs2'
 import { builder, getQueryParameters, getBody } from '../util'
 import { patients } from './patient'
 
+import debug from 'debug'
+const log = debug('app:mock:doctor')
+
 const doctorIds = patients.map(patient => patient.doctorId)
 const total = doctorIds.length
 const doctors = []
@@ -71,7 +74,7 @@ const doctorAdd = options => {
   const body = getBody(options) || {}
   const doctor = { ...body, id: Random.id() }
   doctors.unshift(doctor)
-  console.info(`doctorAdd: ${JSON.stringify(doctor)}`)
+  log(`doctorAdd: ${JSON.stringify(doctor)}`)
   return builder({ id: doctor.id }, '新建医生成功！', 200)
 }
 

@@ -62,7 +62,7 @@ export default {
         return null
       }
       const props = {}
-      typeof (icon) === 'object' ? props.component = icon : props.type = icon
+      typeof icon === 'object' ? (props.component = icon) : (props.type = icon)
       return h(Icon, { props: { ...props } })
     },
     renderMenuItem: function (h, menu, pIndex, index) {
@@ -79,7 +79,6 @@ export default {
       const subItem = [h('span', { slot: 'title' }, [this.renderIcon(h, menu.meta.icon), h('span', [menu.meta.title])])]
       const itemArr = []
       const pIndex_ = pIndex + '_' + index
-      console.log('menu', menu)
       if (!menu.hideChildrenInMenu) {
         menu.children.forEach(function (item, i) {
           itemArr.push(this2_.renderItem(h, item, pIndex_, i))

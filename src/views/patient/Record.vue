@@ -294,6 +294,8 @@ import ImageCheckbox from '@/components/ImageCheckbox'
 import BooleanValueCheckbox from '@/components/BooleanValueCheckbox'
 import RecordHistoryModal from './RecordHistoryModal'
 import PriceInput from '@/components/PriceInput'
+import debug from 'debug'
+const log = debug('app:assessments:detail-modal')
 
 const previousHistoryDiseasesOptions = {
   previousHistoryHypertension: {
@@ -389,32 +391,32 @@ const familyHistoryDiseasesOptions = {
 })
 export default class extends Vue {
   async created() {
-    console.info(`created`)
+    log(`created`)
   }
   async mounted() {
-    console.info(`mounted`)
+    log(`mounted`)
     await this.setData()
   }
   async idChanged(newVal, oldVal) {
-    console.info(`watch.id changed`)
+    log(`watch.id changed`)
     await this.setData()
   }
   async setData() {
-    console.info(`setData`)
-    console.info(`id: ${this.id}`)
+    log(`setData`)
+    log(`id: ${this.id}`)
     const patientId = this.id
     const latestRecord = (await recordLatest(null, { patientId })).data
     const factors = {}
     if (!latestRecord) {
-      console.info(`not found latestRecord for patientId: ${JSON.stringify(patientId)}`)
+      log(`not found latestRecord for patientId: ${JSON.stringify(patientId)}`)
       return
     }
-    console.info(`found latestRecord: ${JSON.stringify(latestRecord)}`)
+    log(`found latestRecord: ${JSON.stringify(latestRecord)}`)
     latestRecord.patientRecordFactors.forEach(factor => {
       factors[factor.factorName] = factor.factorValue
     })
     this.model = { ...this.model, ...factors }
-    console.info(this.model)
+    log(this.model)
     this.$nextTick(() => {
       this.form.setFieldsValue(
         pick(
@@ -460,7 +462,7 @@ export default class extends Vue {
       if (err) {
         return console.error(err)
       }
-      console.log('Received values of form: ', values)
+      log('Received values of form: ', values)
       // 添加健康档案
       const data = {
         patientId: this.id,
@@ -487,7 +489,7 @@ export default class extends Vue {
   }
 
   async beforeRouteEnter(to, from, next) {
-    console.info(`beforeRouteEnter`)
+    log(`beforeRouteEnter`)
     next(vm => vm.setData())
   }
 

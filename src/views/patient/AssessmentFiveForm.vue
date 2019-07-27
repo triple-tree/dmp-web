@@ -17,36 +17,43 @@
             <a-form-item
               label="身高"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol">
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
               <a-input
                 v-decorator="['factors.height', {rules: [{required: true, message: '请输入身高！'}]}]"
                 type="number"
                 placeholder="请输入身高"
-                addonAfter="CM"/>
+                addonAfter="CM"
+              />
             </a-form-item>
             <a-form-item
               label="体重"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol">
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
               <a-input
                 v-decorator="['factors.weight', {rules: [{required: true, message: '请输入体重'}]}]"
                 placeholder="请输入体重"
                 type="number"
-                addonAfter="KG"/>
+                addonAfter="KG"
+              />
             </a-form-item>
             <a-form-item
               label="腰围"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol">
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
               <a-input
                 v-decorator="['factors.waistline', {rules: [{required: true, message: '请输入腰围'}]}]"
                 placeholder="请输入腰围"
                 type="number"
-                addonAfter="CM"/>
+                addonAfter="CM"
+              />
             </a-form-item>
             <a-form-item label="是否吸烟">
               <a-radio-group
-                v-decorator="['factors.smoke', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.smoke', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
@@ -56,83 +63,97 @@
             <a-form-item
               label="收缩压"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol">
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
               <a-input
                 v-decorator="['factors.sbp', {rules: [{required: true, message: '请输入收缩压！'}]}]"
                 placeholder="请输入收缩压"
                 type="number"
-                addonAfter="mmHg"/>
+                addonAfter="mmHg"
+              />
             </a-form-item>
             <a-form-item
               label="舒张压"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol">
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
               <a-input
                 v-decorator="['factors.dbp', {rules: [{required: true, message: '请输入舒张压'}]}]"
                 placeholder="请输入舒张压"
                 type="number"
-                addonAfter="mmHg"/>
+                addonAfter="mmHg"
+              />
             </a-form-item>
             <a-form-item
               label="空腹血糖"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol">
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
               <a-input
                 v-decorator="['factors.fbg', {rules: [{required: true, message: '请输入空腹血糖'}]}]"
                 placeholder="请输入空腹血糖"
                 type="number"
-                addonAfter="mmol/L"/>
+                addonAfter="mmol/L"
+              />
             </a-form-item>
             <a-form-item
               label="血清总胆固醇"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol">
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
               <a-input
                 v-decorator="['factors.serumTc', {rules: [{required: true, message: '请输入血清总胆固醇'}]}]"
                 placeholder="请输入血清总胆固醇"
                 type="number"
-                addonAfter="mmol/L"/>
+                addonAfter="mmol/L"
+              />
             </a-form-item>
           </a-collapse-panel>
           <a-collapse-panel header="既往史" key="3" :style="customStyle">
             <a-form-item label="是否患糖尿病">
               <a-radio-group
-                v-decorator="['factors.previousHistoryDiabetes', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.previousHistoryDiabetes', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="是否患高血压">
               <a-radio-group
-                v-decorator="['factors.previousHistoryHypertension', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.previousHistoryHypertension', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="是否患脑卒中">
               <a-radio-group
-                v-decorator="['factors.previousHistoryStroke', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.previousHistoryStroke', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="是否患冠心病">
               <a-radio-group
-                v-decorator="['factors.previousHistoryAscvd', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.previousHistoryAscvd', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="是否患慢阻肺">
               <a-radio-group
-                v-decorator="['factors.previousHistoryCopd', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.previousHistoryCopd', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="是否血脂异常">
               <a-radio-group
-                v-decorator="['factors.previousHistoryDyslipidemia', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.previousHistoryDyslipidemia', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
@@ -141,35 +162,40 @@
           <a-collapse-panel header="家族史" key="4" :style="customStyle">
             <a-form-item label="糖尿病">
               <a-radio-group
-                v-decorator="['factors.familyHistoryDiabetes', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.familyHistoryDiabetes', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="高血压">
               <a-radio-group
-                v-decorator="['factors.familyHistoryHypertension', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.familyHistoryHypertension', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="脑卒中">
               <a-radio-group
-                v-decorator="['factors.familyHistoryStroke', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.familyHistoryStroke', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="冠心病">
               <a-radio-group
-                v-decorator="['factors.familyHistoryAscvd', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.familyHistoryAscvd', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="慢阻肺">
               <a-radio-group
-                v-decorator="['factors.familyHistoryCopd', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.familyHistoryCopd', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
@@ -178,35 +204,40 @@
           <a-collapse-panel header="症状" key="5" :style="customStyle">
             <a-form-item label="是否有“头晕、头疼症状”">
               <a-radio-group
-                v-decorator="['factors.symptomsHeadache', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.symptomsHeadache', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="是否有“体力劳动、精神紧张或激动时出现胸痛症状，休息后逐渐缓解”">
               <a-radio-group
-                v-decorator="['factors.symptomsStethalgia', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.symptomsStethalgia', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="是否有“呼吸困难或慢性咳嗽”">
               <a-radio-group
-                v-decorator="['factors.symptomsDyspnea', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.symptomsDyspnea', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="是否有“多饮、多尿、多食、不明原因体重下降”">
               <a-radio-group
-                v-decorator="['factors.symptomsDiuresis', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.symptomsDiuresis', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
             </a-form-item>
             <a-form-item label="是否有“一过性黑曚、眩晕”">
               <a-radio-group
-                v-decorator="['factors.symptomsDizziness', {rules: [{required: true, message: '请选择！'}]}]">
+                v-decorator="['factors.symptomsDizziness', {rules: [{required: true, message: '请选择！'}]}]"
+              >
                 <a-radio :value="1">是</a-radio>
                 <a-radio :value="0">否</a-radio>
               </a-radio-group>
@@ -258,14 +289,15 @@ export default class AssessmentFiveForm extends Vue {
   }
 
   async show(id) {
-    console.info(`show assessment:`)
     this.form.resetFields()
     this.visible = true
     this.patientId = id
     this.doctorId = Vue.ls.get(USER_INFO).data.id
   }
   handleOk() {
-    const { form: { validateFields } } = this
+    const {
+      form: { validateFields },
+    } = this
     this.confirmLoading = true
     const self = this
     validateFields((errors, values) => {
@@ -280,7 +312,6 @@ export default class AssessmentFiveForm extends Vue {
         values.sbp = +values.sbp
         values.dbp = +values.dbp
         values.serumTc = +values.serumTc
-        console.log('values', values)
         setTimeout(() => {
           this.visible = false
           this.confirmLoading = false
@@ -303,5 +334,4 @@ export default class AssessmentFiveForm extends Vue {
 </script>
 
 <style lang="less" scoped>
-
 </style>

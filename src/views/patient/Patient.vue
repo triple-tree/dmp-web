@@ -16,7 +16,10 @@
           />
         </a-layout-header>
         <div class="patient-basic-info">
-          <h1><icon-font type="icon_patient" :style="{fontSize: '28px', marginRight: '10px'}" />{{ model.name }}</h1>
+          <h1>
+            <icon-font type="icon_patient" :style="{fontSize: '28px', marginRight: '10px'}" />
+            {{ model.name }}
+          </h1>
           <div :style="{ marginBottom:'30px'}">
             <span class="gender">{{ model.gender ? '女': '男' }}</span>
             <span class="age">{{ model.age }}</span>
@@ -74,19 +77,19 @@
           <a-tabs defaultActiveKey="1">
             <a-tab-pane key="1">
               <span slot="tab">
-                <a-icon type="android"/>健康档案
+                <a-icon type="android" />健康档案
               </span>
               <record :id="id"></record>
             </a-tab-pane>
             <a-tab-pane key="2" forceRender>
               <span slot="tab">
-                <a-icon type="apple"/>评估筛查
+                <a-icon type="apple" />评估筛查
               </span>
               <assessment ref="assessment" :id="id" @back="handleFeedback"></assessment>
             </a-tab-pane>
             <a-tab-pane key="3" forceRender>
               <span slot="tab">
-                <a-icon type="android"/>健康方案
+                <a-icon type="android" />健康方案
               </span>
               <plan ref="plan" :id="id"></plan>
             </a-tab-pane>
@@ -111,6 +114,8 @@ import ChronicDiseaseStatus from '@/components/ChronicDiseaseStatus'
 import { patientGetById } from '@/api/patient'
 import { assessmentLatest } from '@/api/assessment'
 import IconFont from '@/components/Icon/index'
+import debug from 'debug'
+const log = debug('app:patient')
 
 @Component({
   components: {
@@ -126,26 +131,26 @@ import IconFont from '@/components/Icon/index'
 })
 export default class extends Vue {
   async created() {
-    console.info(`created`)
+    log(`created`)
   }
   async mounted() {
-    console.info(`mounted`)
+    log(`mounted`)
   }
   async setData() {
-    console.info(`setData`)
+    log(`setData`)
     const patientId = this.id
     const patient = await patientGetById(null, { id: patientId })
-    console.info(`patient: ${JSON.stringify(patient)}`)
+    log(`patient: ${JSON.stringify(patient)}`)
     const latestAssessment = await assessmentLatest(null, { patientId })
     this.model = { ...this.model, ...patient.data, ...latestAssessment.data }
     this.$refs.assessment.getLatestFive(this.model.chronicDiseaseRisk, this.model.assessmentDate)
     this.$refs.plan.getLatestFive(this.model.chronicDiseaseRisk, this.model.assessmentDate)
     this.$refs.plan.getLatestAll()
-    console.info(`model: ${JSON.stringify(this.model)}`)
-    console.info(this.model)
+    log(`model: ${JSON.stringify(this.model)}`)
+    log(this.model)
   }
   async beforeRouteEnter(to, from, next) {
-    console.info(`beforeRouteEnter`)
+    log(`beforeRouteEnter`)
 
     next(async vm => {
       vm.setData()

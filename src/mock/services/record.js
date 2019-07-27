@@ -143,7 +143,6 @@ for (let i = 0; i < total; i++) {
 
 // 最新健康档案
 const recordLatest = options => {
-  console.info(`recordLatest`)
   const queryParameters = getQueryParameters(options) || {}
   const { patientId } = queryParameters
   const filtedRecords = records.filter(record => record.patientId === patientId)
@@ -155,7 +154,6 @@ const recordLatest = options => {
 
 // 历史健康档案
 const recordAll = options => {
-  console.info(`recordAll`)
   const queryParameters = getQueryParameters(options) || {}
   const { patientId } = queryParameters
   const filtedRecords = records.filter(record => record.patientId === patientId)

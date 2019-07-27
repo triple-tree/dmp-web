@@ -69,6 +69,8 @@ import { patientAdd, patientQuery, patientUpload } from '@/api/patient'
 import { doctorAll } from '@/api/doctor'
 import IconFont from '@/components/Icon/index.js'
 import { USER_INFO } from '@/store/mutation-types'
+import debug from 'debug'
+const log = debug('app:all-patients')
 
 const typeOptions = [
   { label: '高血压', value: 'hasHypertension' },
@@ -155,8 +157,8 @@ export default class extends Vue {
         },
       ],
       loadData: async parameter => {
-        console.log('loadData.parameter', parameter)
-        console.log('this.queryParam', this.queryParam)
+        log('loadData.parameter', parameter)
+        log('this.queryParam', this.queryParam)
         const params = {}
         params.and = []
         !!this.queryParam.name &&
@@ -167,7 +169,7 @@ export default class extends Vue {
           })
         this.queryParam.type &&
           this.queryParam.type.length &&
-          this.queryParam.type.forEach(function (e) {
+          this.queryParam.type.forEach(function(e) {
             params.and.push({
               columnName: e,
               method: 'eq',
@@ -197,7 +199,7 @@ export default class extends Vue {
         return {
           on: {
             click: () => {
-              console.info(`clicked id: ${record.id}`)
+              log(`clicked id: ${record.id}`)
               this.$router.push({ path: `/patient/${record.id}` })
             },
           },
@@ -217,7 +219,7 @@ export default class extends Vue {
 
   handleUploadChange(info) {
     if (info.file.status !== 'uploading') {
-      console.log(info.file, info.fileList)
+      log(info.file, info.fileList)
     }
     if (info.file.status === 'done') {
       this.$refs.table.refresh()
@@ -228,7 +230,7 @@ export default class extends Vue {
   }
 
   async uploadFile({ filename, file, data, onProgress, onSuccess, onError }) {
-    console.info(`uploadFile ${file}`)
+    log(`uploadFile ${file}`)
     const formData = new FormData()
     formData.append('file', file)
     formData.append('doctorId', Vue.ls.get(USER_INFO).data.id)
@@ -241,7 +243,7 @@ export default class extends Vue {
   }
 
   async handleOk(parameter) {
-    console.log('handleOk.parameter', parameter)
+    log('handleOk.parameter', parameter)
     const res = await patientAdd(parameter)
     if (res.code === 200) {
       this.$message.success('患者创建成功')
@@ -249,7 +251,7 @@ export default class extends Vue {
       this.$message.error('患者创建失败')
     }
     this.$refs.table.refresh()
-    console.info(`handleOk res: ${JSON.stringify(res)}`)
+    log(`handleOk res: ${JSON.stringify(res)}`)
   }
 }
 </script>

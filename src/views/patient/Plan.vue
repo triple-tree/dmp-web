@@ -5,19 +5,17 @@
 
       <a-row :gutter="8" class="ass-item" v-if="assessmentFive.name != ''">
         <a-col :span="20">
-          {{ assessmentFive.name }} — <em v-html="assessmentFive.suggestion"></em>
+          {{ assessmentFive.name }} —
+          <em v-html="assessmentFive.suggestion"></em>
         </a-col>
-        <a-col :span="4">
-          {{ assessmentFive.date }}
-        </a-col>
+        <a-col :span="4">{{ assessmentFive.date }}</a-col>
       </a-row>
       <a-row :gutter="8" class="ass-item" v-for="item in assessmentList" :key="item.index">
         <a-col :span="20">
-          {{ item.name }} — <em v-html="item.suggestion"></em>
+          {{ item.name }} —
+          <em v-html="item.suggestion"></em>
         </a-col>
-        <a-col :span="4">
-          {{ item.date }}
-        </a-col>
+        <a-col :span="4">{{ item.date }}</a-col>
       </a-row>
       <h3>药品方案</h3>
       <a-row
@@ -481,6 +479,8 @@ import PlanHistoryModal from './PlanHistoryModal'
 import Report from './Report'
 import { otherLatest } from '../../api/assessment'
 moment.locale('zh-cn')
+import debug from 'debug'
+const log = debug('app:plan')
 
 @Component({
   components: {
@@ -533,21 +533,21 @@ export default class extends Vue {
   }
 
   async created() {
-    console.info(`created`)
+    log(`created`)
     // const { form, clinicRemind } = this
     // form.setFieldsValue({
     //   'clinicRemind.suggestDate': [moment(clinicRemind.suggestDate[0]), moment(clinicRemind.suggestDate[1])],
     // })
     // const value = form.getFieldValue('clinicRemind.suggestDate')
-    // console.info(`value: ${JSON.stringify(value)}`)
+    // log(`value: ${JSON.stringify(value)}`)
   }
 
   beforeCreate() {
-    console.info(`beforeCreate`)
+    log(`beforeCreate`)
   }
 
   getLatestFive(risk, date) {
-    console.log('plan---', risk)
+    log('plan---', risk)
     this.assessmentFive = {}
     if (!risk) return
     this.assessmentFive = {
@@ -558,15 +558,21 @@ export default class extends Vue {
   }
 
   getLatestAll() {
-    console.log('plan getlatestall')
-    const type = ['Ascvd', '生活质量SF-12量表', '糖尿病自我效能评估', 'Determine营养风险检测',
-      '快速抑郁评估PHQ-9', '匹兹堡睡眠评估量表']
+    log('plan getlatestall')
+    const type = [
+      'Ascvd',
+      '生活质量SF-12量表',
+      '糖尿病自我效能评估',
+      'Determine营养风险检测',
+      '快速抑郁评估PHQ-9',
+      '匹兹堡睡眠评估量表',
+    ]
     const self = this
     this.assessmentList = []
-    type.forEach(function (key) {
+    type.forEach(function(key) {
       self.getLatest(key)
     })
-    console.log('assessmentList---', this.assessmentList)
+    log('assessmentList---', this.assessmentList)
   }
 
   // 获取ssy,Ascvd最新评估结果
@@ -593,9 +599,9 @@ export default class extends Vue {
     e.preventDefault()
     this.form.validateFields(async (err, values) => {
       if (!err) {
-        // console.log(`Received values of form: ${JSON.stringify(values, null, 2)}`)
+        // log(`Received values of form: ${JSON.stringify(values, null, 2)}`)
         const data = { doctorId: Vue.ls.get(USER_INFO).data.id, patientId: this.id, planDetail: { ...values } }
-        console.log(`planAdd data : ${JSON.stringify(data, null, 2)}`)
+        log(`planAdd data : ${JSON.stringify(data, null, 2)}`)
         const res = await planAdd(data)
         if (res.code === 200) {
           this.$message.success('新建健康方案成功')
@@ -613,7 +619,7 @@ export default class extends Vue {
     this.indexes[type].splice(index, 1)
     // const value = this[type]
     const value = form.getFieldValue(type)
-    console.info(`value: ${JSON.stringify(value)}`)
+    log(`value: ${JSON.stringify(value)}`)
     const newValue = [...value]
     newValue.splice(index, 1)
     this[type] = newValue
