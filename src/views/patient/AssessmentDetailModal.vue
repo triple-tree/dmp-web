@@ -6,7 +6,7 @@
     :confirmLoading="confirmLoading"
     @ok="handleOk"
     @cancel="handleCancel"
-    :maskClosable=false
+    :maskClosable="false"
     cancelText="关闭"
   >
     <a-spin :spinning="confirmLoading">
@@ -36,12 +36,12 @@ import pick from 'lodash.pick'
 import { assessmentAssess } from '../../api/assessment'
 import ChronicDiseaseStatus from '@/components/ChronicDiseaseStatus'
 import AssessmentResult from './AssessmentResult'
-import { constants } from 'crypto';
+import { constants } from 'crypto'
 
 @Component({
   components: {
     ChronicDiseaseStatus,
-    AssessmentResult
+    AssessmentResult,
   },
   props: {},
 })
@@ -77,9 +77,9 @@ export default class AssessmentDetailModal extends Vue {
     this.model = { ...this.model, ...assessment }
     const data = {
       risk: this.model.chronicDiseaseRisk,
-      date: this.model.assessmentDate
+      date: this.model.assessmentDate,
     }
-    this.$emit('back','five')
+    this.$emit('back', 'five')
     console.info(`assessment: ${JSON.stringify(assessment)}, this.model: ${JSON.stringify(this.model)}`)
   }
   async show(values) {

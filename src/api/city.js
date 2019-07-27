@@ -443,11 +443,11 @@ const city = [
         value: '太原',
         label: '太原',
         children: [
-          { value: '杏花岭区', label: '杏花岭区', label: '杏花岭区' },
+          { value: '杏花岭区', label: '杏花岭区' },
           { value: '小店区', label: '小店区' },
           { value: '迎泽区', label: '迎泽区' },
-          { value: '尖草坪区', label: '尖草坪区', label: '尖草坪区' },
-          { value: '万柏林区', label: '万柏林区', label: '万柏林区' },
+          { value: '尖草坪区', label: '尖草坪区' },
+          { value: '万柏林区', label: '万柏林区' },
           { value: '晋源区', label: '晋源区' },
           { value: '古交市', label: '古交市' },
           { value: '阳曲县', label: '阳曲县' },
@@ -645,7 +645,6 @@ const city = [
       {
         value: '呼和浩特',
         label: '呼和浩特',
-        label: '呼和浩特',
         children: [
           { value: '回民区', label: '回民区' },
           { value: '玉泉区', label: '玉泉区' },
@@ -690,7 +689,7 @@ const city = [
         label: '赤峰',
         children: [
           { value: '红山区', label: '红山区' },
-          { value: '元宝山区', label: '元宝山区', label: '元宝山区' },
+          { value: '元宝山区', label: '元宝山区' },
           { value: '松山区', label: '松山区' },
           { value: '宁城县', label: '宁城县' },
           { value: '林西县', label: '林西县' },
@@ -708,7 +707,7 @@ const city = [
         value: '通辽',
         label: '通辽',
         children: [
-          { value: '科尔沁区', label: '科尔沁区', label: '科尔沁区' },
+          { value: '科尔沁区', label: '科尔沁区' },
           { value: '霍林郭勒市', label: '霍林郭勒市' },
           { value: '开鲁县', label: '开鲁县' },
           { value: '科尔沁左翼中旗', label: '科尔沁左翼中旗' },
@@ -721,7 +720,6 @@ const city = [
       },
       {
         value: '鄂尔多斯',
-        label: '鄂尔多斯',
         label: '鄂尔多斯',
         children: [
           { value: '东胜区', label: '东胜区' },
@@ -737,7 +735,6 @@ const city = [
       },
       {
         value: '呼伦贝尔',
-        label: '呼伦贝尔',
         label: '呼伦贝尔',
         children: [
           { value: '海拉尔区', label: '海拉尔区' },
@@ -759,7 +756,6 @@ const city = [
       {
         value: '巴彦淖尔',
         label: '巴彦淖尔',
-        label: '巴彦淖尔',
         children: [
           { value: '临河区', label: '临河区' },
           { value: '五原县', label: '五原县' },
@@ -773,7 +769,6 @@ const city = [
       },
       {
         value: '乌兰察布',
-        label: '乌兰察布',
         label: '乌兰察布',
         children: [
           { value: '集宁区', label: '集宁区' },
@@ -824,7 +819,6 @@ const city = [
       },
       {
         value: '阿拉善盟',
-        label: '阿拉善盟',
         label: '阿拉善盟',
         children: [
           { value: '阿拉善左旗', label: '阿拉善左旗' },

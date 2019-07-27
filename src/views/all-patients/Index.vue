@@ -167,7 +167,7 @@ export default class extends Vue {
           })
         this.queryParam.type &&
           this.queryParam.type.length &&
-          this.queryParam.type.forEach(function(e) {
+          this.queryParam.type.forEach(function (e) {
             params.and.push({
               columnName: e,
               method: 'eq',

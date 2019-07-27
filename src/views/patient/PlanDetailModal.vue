@@ -7,7 +7,7 @@
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭"
-    :maskClosable=false
+    :maskClosable="false"
   >
     <a-spin :spinning="confirmLoading">
       <a-form :form="form" layout="horizontal" id="root-container">
@@ -22,9 +22,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `prescriptions[${index}].prescription`,
-                {initialValue: prescriptions[index].prescription, rules: [{ message: '请输入药名' }]}
-              ]"
+                  `prescriptions[${index}].prescription`,
+                  {initialValue: prescriptions[index].prescription, rules: [{ message: '请输入药名' }]}
+                ]"
                 placeholder="输入药名"
               />
             </a-form-item>
@@ -38,9 +38,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `prescriptions[${index}].frequency`,
-                {initialValue: prescriptions[index].frequency, rules: [{ message: '请输入频次' }]}
-              ]"
+                  `prescriptions[${index}].frequency`,
+                  {initialValue: prescriptions[index].frequency, rules: [{ message: '请输入频次' }]}
+                ]"
                 placeholder="输入频次"
               />
             </a-form-item>
@@ -54,9 +54,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `prescriptions[${index}].dosage`,
-                {initialValue: prescriptions[index].dosage, rules: [{ message: '请输入剂量' }]}
-              ]"
+                  `prescriptions[${index}].dosage`,
+                  {initialValue: prescriptions[index].dosage, rules: [{ message: '请输入剂量' }]}
+                ]"
                 placeholder="输入剂量"
               />
             </a-form-item>
@@ -70,9 +70,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `prescriptions[${index}].reason`,
-                {initialValue: prescriptions[index].reason, rules: [{ message: '请输入原因' }]}
-              ]"
+                  `prescriptions[${index}].reason`,
+                  {initialValue: prescriptions[index].reason, rules: [{ message: '请输入原因' }]}
+                ]"
                 placeholder="输入原因"
               />
             </a-form-item>
@@ -86,9 +86,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `prescriptions[${index}].remark`,
-                {initialValue: prescriptions[index].remark, rules: [{ message: '请输入备注' }]}
-              ]"
+                  `prescriptions[${index}].remark`,
+                  {initialValue: prescriptions[index].remark, rules: [{ message: '请输入备注' }]}
+                ]"
                 placeholder="输入备注"
               />
             </a-form-item>
@@ -106,9 +106,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `exercise[${index}].sport`,
-                {initialValue: exercise[index].sport, rules: [{ message: '请输入运动' }]}
-              ]"
+                  `exercise[${index}].sport`,
+                  {initialValue: exercise[index].sport, rules: [{ message: '请输入运动' }]}
+                ]"
                 placeholder="输入运动"
               />
             </a-form-item>
@@ -122,9 +122,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `exercise[${index}].frequency`,
-                {initialValue: exercise[index].frequency, rules: [{ message: '请输入运动频次' }]}
-              ]"
+                  `exercise[${index}].frequency`,
+                  {initialValue: exercise[index].frequency, rules: [{ message: '请输入运动频次' }]}
+                ]"
                 placeholder="输入运动频次"
               />
             </a-form-item>
@@ -138,9 +138,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `exercise[${index}].strength`,
-                {initialValue: exercise[index].strength, rules: [{ message: '请输入运动强度' }]}
-              ]"
+                  `exercise[${index}].strength`,
+                  {initialValue: exercise[index].strength, rules: [{ message: '请输入运动强度' }]}
+                ]"
                 placeholder="输入运动强度"
               />
             </a-form-item>
@@ -154,9 +154,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `exercise[${index}].reason`,
-                {initialValue: exercise[index].reason, rules: [{ message: '请输入原因' }]}
-              ]"
+                  `exercise[${index}].reason`,
+                  {initialValue: exercise[index].reason, rules: [{ message: '请输入原因' }]}
+                ]"
                 placeholder="输入原因"
               />
             </a-form-item>
@@ -170,9 +170,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `exercise[${index}].remark`,
-                {initialValue: exercise[index].remark, rules: [{ message: '请输入备注' }]}
-              ]"
+                  `exercise[${index}].remark`,
+                  {initialValue: exercise[index].remark, rules: [{ message: '请输入备注' }]}
+                ]"
                 placeholder="输入备注"
               />
             </a-form-item>
@@ -190,9 +190,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `food[${index}].food`,
-                {initialValue: food[index].food, rules: [{ message: '请输入饮食建议' }]}
-              ]"
+                  `food[${index}].food`,
+                  {initialValue: food[index].food, rules: [{ message: '请输入饮食建议' }]}
+                ]"
                 placeholder="输入饮食建议"
               />
             </a-form-item>
@@ -206,9 +206,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `food[${index}].reason`,
-                {initialValue: food[index].reason, rules: [{ message: '请输入原因' }]}
-              ]"
+                  `food[${index}].reason`,
+                  {initialValue: food[index].reason, rules: [{ message: '请输入原因' }]}
+                ]"
                 placeholder="输入原因"
               />
             </a-form-item>
@@ -222,9 +222,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `food[${index}].remark`,
-                {initialValue: food[index].remark, rules: [{ message: '请输入备注' }]}
-              ]"
+                  `food[${index}].remark`,
+                  {initialValue: food[index].remark, rules: [{ message: '请输入备注' }]}
+                ]"
                 placeholder="输入备注"
               />
             </a-form-item>
@@ -242,9 +242,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `others[${index}].other`,
-                {initialValue: others[index].other, rules: [{ message: '请输入其他建议' }]}
-              ]"
+                  `others[${index}].other`,
+                  {initialValue: others[index].other, rules: [{ message: '请输入其他建议' }]}
+                ]"
                 placeholder="输入其他建议"
               />
             </a-form-item>
@@ -258,9 +258,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `others[${index}].reason`,
-                {initialValue: others[index].reason, rules: [{ message: '请输入原因' }]}
-              ]"
+                  `others[${index}].reason`,
+                  {initialValue: others[index].reason, rules: [{ message: '请输入原因' }]}
+                ]"
                 placeholder="输入原因"
               />
             </a-form-item>
@@ -274,9 +274,9 @@
               <a-input
                 disabled
                 v-decorator="[
-                `others[${index}].remark`,
-                {initialValue: others[index].remark, rules: [{ message: '请输入备注' }]}
-              ]"
+                  `others[${index}].remark`,
+                  {initialValue: others[index].remark, rules: [{ message: '请输入备注' }]}
+                ]"
                 placeholder="输入备注"
               />
             </a-form-item>
@@ -296,9 +296,9 @@
                   <a-input
                     disabled
                     v-decorator="[
-                'clinicRemind.suggestDate',
-                {initialValue: clinicRemind.suggestDate, rules: [{ message: '请输入就诊医院' }]}
-              ]"
+                      'clinicRemind.suggestDate',
+                      {initialValue: clinicRemind.suggestDate, rules: [{ message: '请输入就诊医院' }]}
+                    ]"
                     placeholder="输入就诊医院"
                   />
                 </a-form-item>
@@ -312,9 +312,9 @@
                   <a-input
                     disabled
                     v-decorator="[
-                'clinicRemind.type',
-                {initialValue: clinicRemind.type, rules: [{ message: '请输入就诊医院' }]}
-              ]"
+                      'clinicRemind.type',
+                      {initialValue: clinicRemind.type, rules: [{ message: '请输入就诊医院' }]}
+                    ]"
                     placeholder="输入就诊医院"
                   />
                 </a-form-item>
@@ -328,9 +328,9 @@
                   <a-input
                     disabled
                     v-decorator="[
-                'clinicRemind.targetHospital',
-                {initialValue: clinicRemind.targetHospital, rules: [{ message: '请输入就诊医院' }]}
-              ]"
+                      'clinicRemind.targetHospital',
+                      {initialValue: clinicRemind.targetHospital, rules: [{ message: '请输入就诊医院' }]}
+                    ]"
                     placeholder="输入就诊医院"
                   />
                 </a-form-item>
@@ -348,9 +348,9 @@
                   <a-input
                     disabled
                     v-decorator="[
-                'clinicRemind.relatedDisease',
-                {initialValue: clinicRemind.relatedDisease, rules: [{ message: '请输入相关病' }]}
-              ]"
+                      'clinicRemind.relatedDisease',
+                      {initialValue: clinicRemind.relatedDisease, rules: [{ message: '请输入相关病' }]}
+                    ]"
                     placeholder="输入相关病"
                   />
                 </a-form-item>
@@ -364,9 +364,9 @@
                   <a-input
                     disabled
                     v-decorator="[
-                'clinicRemind.reason',
-                {initialValue: clinicRemind.reason, rules: [{ message: '请输入原因' }]}
-              ]"
+                      'clinicRemind.reason',
+                      {initialValue: clinicRemind.reason, rules: [{ message: '请输入原因' }]}
+                    ]"
                     placeholder="输入原因"
                   />
                 </a-form-item>

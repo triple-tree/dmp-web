@@ -7,7 +7,7 @@
     @ok="handleOk"
     @cancel="handleCancel"
     cancelText="关闭"
-    :maskClosable=false
+    :maskClosable="false"
   >
     <a-spin :spinning="confirmLoading">
       <span v-html="suggestion"></span>
@@ -29,22 +29,21 @@ export default class AssessmentDetailModal extends Vue {
       visible: false,
       confirmLoading: false,
       assessmentTitle: '',
-      suggestion: ''
+      suggestion: '',
     }
   }
 
-
-  async show(title,res) {
+  async show(title, res) {
     this.assessmentTitle = title
-    if(res.suggestion){
+    if (res.suggestion) {
       this.suggestion = res.suggestion
-    }else{
-      this.suggestion = res.join("<br>")
+    } else {
+      this.suggestion = res.join('<br>')
     }
-    
+
     this.visible = true
   }
-  
+
   handleOk() {
     this.visible = false
     this.confirmLoading = false

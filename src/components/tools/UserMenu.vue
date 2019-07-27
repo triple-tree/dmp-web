@@ -56,7 +56,7 @@ export default {
   name: 'UserMenu',
   components: {
     NoticeIcon,
-    IconFont
+    IconFont,
   },
   methods: {
     ...mapActions(['Logout']),

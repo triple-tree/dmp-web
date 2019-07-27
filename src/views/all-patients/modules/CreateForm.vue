@@ -238,6 +238,7 @@ export default {
     },
     isIdNo(rule, value, callback) {
       if (value && !checker.idNo(value)) {
+        // eslint-disable-next-line
         callback('身份证格式不正确')
       } else {
         callback()
@@ -245,7 +246,7 @@ export default {
     },
     handleSubmit(e) {
       e.preventDefault()
-      //const { form: { validateFields } } = this
+      // const { form: { validateFields } } = this
       this.confirmLoading = true
       const self = this
       this.form.validateFields((errors, values) => {
@@ -270,12 +271,12 @@ export default {
           })
           values.temp.symptom &&
             values.temp.symptom.length &&
-            values.temp.symptom.forEach(function(el) {
+            values.temp.symptom.forEach(function (el) {
               values.factors[self.symptomOptions[el].name] = 1
             })
           values.temp.family &&
             values.temp.family.length &&
-            values.temp.family.forEach(function(el) {
+            values.temp.family.forEach(function (el) {
               values.factors[self.familyOptions[el].name] = 1
             })
           // delete values.temp

@@ -118,7 +118,7 @@ import IconFont from '@/components/Icon/index'
     Assessment,
     Plan,
     ChronicDiseaseStatus,
-    IconFont
+    IconFont,
   },
   props: {
     id: String,
@@ -138,25 +138,25 @@ export default class extends Vue {
     console.info(`patient: ${JSON.stringify(patient)}`)
     const latestAssessment = await assessmentLatest(null, { patientId })
     this.model = { ...this.model, ...patient.data, ...latestAssessment.data }
-    this.$refs.assessment.getLatestFive(this.model.chronicDiseaseRisk,this.model.assessmentDate)
-    this.$refs.plan.getLatestFive(this.model.chronicDiseaseRisk,this.model.assessmentDate)
-    this.$refs.plan.getLatestAll()  
+    this.$refs.assessment.getLatestFive(this.model.chronicDiseaseRisk, this.model.assessmentDate)
+    this.$refs.plan.getLatestFive(this.model.chronicDiseaseRisk, this.model.assessmentDate)
+    this.$refs.plan.getLatestAll()
     console.info(`model: ${JSON.stringify(this.model)}`)
     console.info(this.model)
   }
   async beforeRouteEnter(to, from, next) {
     console.info(`beforeRouteEnter`)
-    
+
     next(async vm => {
       vm.setData()
-      vm.$refs.assessment.getLatestAll()     
-      //vm.$refs.plan.getLatestAll()   
+      vm.$refs.assessment.getLatestAll()
+      // vm.$refs.plan.getLatestAll()
     })
   }
-  handleFeedback(name){
-    //if(name === 'five'){
-      this.setData()
-    //}
+  handleFeedback(name) {
+    // if(name === 'five'){
+    this.setData()
+    // }
   }
   data() {
     return {
